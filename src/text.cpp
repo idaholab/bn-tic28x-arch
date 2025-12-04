@@ -4,7 +4,6 @@
 #include "text.h"
 
 #include <binaryninjaapi.h>
-#include <netinet/in.h>
 
 #include <format>
 
