@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 set(CMAKE_POLICY_DEFAULT_CMP0135 NEW)
 
-project(tic28x CXX)
+project(bn-tic28x-arch CXX)
 
 add_library(${PROJECT_NAME} SHARED
         src/architecture.cpp
