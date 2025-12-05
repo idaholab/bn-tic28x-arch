@@ -452,6 +452,7 @@ constexpr uint32_t MAXF32_RAH_RBH_MOV32_RCH_RDH = 0xE69C0000;
 constexpr uint32_t MINF32_RAH_RBH = 0xE6970000;
 constexpr uint32_t MINF32_RAH_16FHI = 0xE8300000;
 constexpr uint32_t MINF32_RAH_RBH_MOV32_RCH_RDH = 0xE69D0000;
+constexpr uint32_t MOV16_MEM16_RAH = 0xE2130000;
 
 /* VCU Instructions  */
 // TODO

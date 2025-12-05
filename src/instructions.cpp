@@ -491,6 +491,7 @@ GenerateInstructionVector() {
       std::make_shared<Minf32RahRbh>(),
       std::make_shared<Minf32Rah16fhi>(),
       std::make_shared<Minf32RahRbhMov32RchRdh>(),
+      std::make_shared<Mov16Mem16Rah>(),
 
   };
   return vec;
@@ -4128,6 +4129,21 @@ uint8_t Minf32RahRbhMov32RchRdh::GetRegD(const uint32_t data) {
 
 uint32_t Minf32RahRbhMov32RchRdh::SetRegD(const uint8_t d) {
   return FpuSetRegD_IV(opcode, d);
+}
+
+// Mov16Mem16Rah
+uint8_t Mov16Mem16Rah::GetMem16(const uint32_t data) { return FpuGetMem(data); }
+
+uint32_t Mov16Mem16Rah::SetMem16(const uint8_t mem16) {
+  return FpuSetMem(opcode, mem16);
+}
+
+uint8_t Mov16Mem16Rah::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Mov16Mem16Rah::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
 }
 
 }  // namespace TIC28X

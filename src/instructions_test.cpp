@@ -1113,6 +1113,9 @@ GenerateTestOpcodes() {
                TIC28X::Minf32RahRbhMov32RchRdh::SetRegD(TEST_DATA),
            TIC28X::Minf32RahRbhMov32RchRdh::full_name,
            TIC28X::Minf32RahRbhMov32RchRdh::objmode},
+          {TIC28X::Mov16Mem16Rah::SetRegA(TEST_DATA) |
+               TIC28X::Mov16Mem16Rah::SetMem16(TEST_DATA),
+           TIC28X::Mov16Mem16Rah::full_name, TIC28X::Mov16Mem16Rah::objmode},
 
       };
 
