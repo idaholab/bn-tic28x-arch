@@ -490,6 +490,7 @@ GenerateInstructionVector() {
       std::make_shared<Maxf32RahRbhMov32RchRdh>(),
       std::make_shared<Minf32RahRbh>(),
       std::make_shared<Minf32Rah16fhi>(),
+      std::make_shared<Minf32RahRbhMov32RchRdh>(),
 
   };
   return vec;
@@ -4094,6 +4095,39 @@ uint16_t Minf32Rah16fhi::Get16fhi(const uint32_t data) {
 
 uint32_t Minf32Rah16fhi::Set16fhi(const uint16_t i) {
   return FpuSet16FHi_III(opcode, i);
+}
+
+// Minf32RahRbhMov32RchRdh
+uint8_t Minf32RahRbhMov32RchRdh::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Minf32RahRbhMov32RchRdh::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Minf32RahRbhMov32RchRdh::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Minf32RahRbhMov32RchRdh::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t Minf32RahRbhMov32RchRdh::GetRegC(const uint32_t data) {
+  return FpuGetRegC_I(data);
+}
+
+uint32_t Minf32RahRbhMov32RchRdh::SetRegC(const uint8_t c) {
+  return FpuSetRegC_I(opcode, c);
+}
+
+uint8_t Minf32RahRbhMov32RchRdh::GetRegD(const uint32_t data) {
+  return FpuGetRegD_IV(data);
+}
+
+uint32_t Minf32RahRbhMov32RchRdh::SetRegD(const uint8_t d) {
+  return FpuSetRegD_IV(opcode, d);
 }
 
 }  // namespace TIC28X

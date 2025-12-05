@@ -1107,6 +1107,12 @@ GenerateTestOpcodes() {
           {TIC28X::Minf32Rah16fhi::SetRegA(TEST_DATA) |
                TIC28X::Minf32Rah16fhi::Set16fhi(TEST_DATA),
            TIC28X::Minf32Rah16fhi::full_name, TIC28X::Minf32Rah16fhi::objmode},
+          {TIC28X::Minf32RahRbhMov32RchRdh::SetRegA(TEST_DATA) |
+               TIC28X::Minf32RahRbhMov32RchRdh::SetRegB(TEST_DATA) |
+               TIC28X::Minf32RahRbhMov32RchRdh::SetRegC(TEST_DATA) |
+               TIC28X::Minf32RahRbhMov32RchRdh::SetRegD(TEST_DATA),
+           TIC28X::Minf32RahRbhMov32RchRdh::full_name,
+           TIC28X::Minf32RahRbhMov32RchRdh::objmode},
 
       };
 

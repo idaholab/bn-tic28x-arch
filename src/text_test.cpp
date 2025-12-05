@@ -120,4 +120,3 @@ static void test_architecture_text(
 //       {InstructionToken, "abstc"}, {TextToken, " "}, {RegisterToken, "acc"}};
 //   test_architecture_text(instr.opcode, instr.objmode, 0x0, want);
 // };
-

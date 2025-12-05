@@ -14402,6 +14402,46 @@ class Minf32Rah16fhi final : public Instruction4Byte {
   //
 };
 
+class Minf32RahRbhMov32RchRdh final : public Instruction4Byte {
+ public:
+  Minf32RahRbhMov32RchRdh() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MINF32_RAH_RBH_MOV32_RCH_RDH;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "Minf32RahRbhMov32RchRdh";
+  static constexpr auto op_name = "minf32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+  static uint8_t GetRegC(uint32_t data);
+  static uint32_t SetRegC(uint8_t c);
+  static uint8_t GetRegD(uint32_t data);
+  static uint32_t SetRegD(uint8_t d);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

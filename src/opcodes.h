@@ -4,6 +4,8 @@
 #ifndef TIC28X_OPCODES_H
 #define TIC28X_OPCODES_H
 
+#include <cstdint>
+
 namespace TIC28X::Opcodes {
 /* Instruction Opcodes */
 constexpr uint32_t ABORTI = 0x1;
@@ -449,6 +451,7 @@ constexpr uint32_t MAXF32_RAH_16FHI = 0xE8200000;
 constexpr uint32_t MAXF32_RAH_RBH_MOV32_RCH_RDH = 0xE69C0000;
 constexpr uint32_t MINF32_RAH_RBH = 0xE6970000;
 constexpr uint32_t MINF32_RAH_16FHI = 0xE8300000;
+constexpr uint32_t MINF32_RAH_RBH_MOV32_RCH_RDH = 0xE69D0000;
 
 /* VCU Instructions  */
 // TODO
