@@ -1,7 +1,7 @@
 # TI C28x Architecture Plugin for Binary Ninja
 A Binary Ninja architecture plugin providing support for the Texas Instruments C28x family of instructions.
 
-> Note: this architecture is under active development. At present, it only disassembles the standard instruction set.
+> This architecture is under active development. At present, it only disassembles the standard instruction set.
 > Future work is planned to expand disassembly to the extended instruction set and to implement LLIL lifting.
 
 ## Overview
