@@ -7,6 +7,7 @@ on:
 
 env:
   REPO_NAME: bn-tic28x-arch
+  TEST_NAME: tic28x_architecture_test
 
 jobs:
   get-binja-version:
@@ -101,11 +102,11 @@ jobs:
       - name: Run tests
         shell: bash
         run: |
-          cd binaryninja-api/build
+          cd binaryninja-api/build/plugins/${{ env.REPO_NAME }}
           if [ "${{ runner.os }}" = "Windows" ]; then
             ./${{ matrix.build_type }}/tic28x_architecture_test.exe
           else
-            ./tic28x_architecture_test
+            ./${{ env.TEST_NAME }}
           fi
 
       - name: Upload test results on failure
