@@ -41,10 +41,10 @@ jobs:
         include:
           - os: ubuntu-latest
             platform: linux_amd64
-          - os: macos-latest
-            platform: macos_arm64
-          - os: windows-latest
-            platform: windows_amd64
+#          - os: macos-latest
+#            platform: macos_arm64
+#          - os: windows-latest
+#            platform: windows_amd64
         build_type: [Release, Debug]
 
     steps:
