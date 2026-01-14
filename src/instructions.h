@@ -14620,6 +14620,258 @@ class Mov32Mem32Stf final : public Instruction4Byte {
   //
 };
 
+class Mov32RahMem32Cndf final : public Instruction4Byte {
+ public:
+  Mov32RahMem32Cndf() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MOV32_RAH_MEM32_CNDF;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0F800;
+  static constexpr auto full_name = "Mov32RahMem32Cndf";
+  static constexpr auto op_name = "mov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem32);
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetCond(uint32_t data);
+  static uint32_t SetCond(uint8_t cond);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Mov32RahRbhCndf final : public Instruction4Byte {
+ public:
+  Mov32RahRbhCndf() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MOV32_RAH_RBH_CNDF;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0FFC0;
+  static constexpr auto full_name = "Mov32RahRbhCndf";
+  static constexpr auto op_name = "mov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+  static uint8_t GetCond(uint32_t data);
+  static uint32_t SetCond(uint8_t cond);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Mov32StfMem32 final : public Instruction4Byte {
+ public:
+  Mov32StfMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MOV32_STF_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
+  static constexpr auto full_name = "Mov32StfMem32";
+  static constexpr auto op_name = "mov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem32);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Movd32RahMem32 final : public Instruction4Byte {
+ public:
+  Movd32RahMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MOVD32_RAH_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
+  static constexpr auto full_name = "Movd32RahMem32";
+  static constexpr auto op_name = "movd32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem32);
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class MovizRah16FHiHex final : public Instruction4Byte {
+ public:
+  MovizRah16FHiHex() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MOVIZ_RAH_16FHIHEX;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
+  static constexpr auto full_name = "MovizRah16FHiHex";
+  static constexpr auto op_name = "moviz";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint16_t GetImm16Hex(uint32_t data);
+  static uint32_t SetImm16Hex(uint16_t imm16_hex);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Movst0Flag final : public Instruction2Byte {
+ public:
+  Movst0Flag() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MOVST0_FLAG;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
+  static constexpr auto full_name = "Movst0Flag";
+  static constexpr auto op_name = "movst0";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetFlag(uint32_t data);
+  static uint32_t SetFlag(uint8_t flag);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class MovizRah16FLoHex final : public Instruction4Byte {
+ public:
+  MovizRah16FLoHex() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MOVIZ_RAH_16FLOHEX;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
+  static constexpr auto full_name = "MovizRah16FLoHex";
+  static constexpr auto op_name = "movxi";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint16_t GetImm16Hex(uint32_t data);
+  static uint32_t SetImm16Hex(uint16_t imm16_hex);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

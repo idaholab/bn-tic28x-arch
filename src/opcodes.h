@@ -490,6 +490,13 @@ constexpr uint32_t MOV32_LOC32_IMM16_B = 0xBF000000;
 
 constexpr uint32_t MOV32_MEM32_RAH = 0xE2030000;
 constexpr uint32_t MOV32_MEM32_STF = 0xE2000000;
+constexpr uint32_t MOV32_RAH_MEM32_CNDF = 0xE2A00000;
+constexpr uint32_t MOV32_RAH_RBH_CNDF = 0xE6C00000;
+constexpr uint32_t MOV32_STF_MEM32 = 0xE2800000;
+constexpr uint32_t MOVD32_RAH_MEM32 = 0xE2230000;
+constexpr uint32_t MOVIZ_RAH_16FHIHEX = 0xE8000000;
+constexpr uint32_t MOVST0_FLAG = 0xAD00;
+constexpr uint32_t MOVIZ_RAH_16FLOHEX = 0xE8080000;
 
 /* VCU Instructions  */
 // TODO
@@ -528,14 +535,16 @@ constexpr uint32_t MASK_FE000000 = 0xFE000000;
 constexpr uint32_t MASK_FF000000 = 0xFF000000;
 constexpr uint32_t MASK_FFC00000 = 0xFFC00000;
 constexpr uint32_t MASK_FFF00000 = 0xFFF00000;
+constexpr uint32_t MASK_FFF0F800 = 0xFFF0F800;
+constexpr uint32_t MASK_FFF0FFC0 = 0xFFF0FFC0;
 constexpr uint32_t MASK_FFF80000 = 0xFFF80000;
 constexpr uint32_t MASK_FFFC0000 = 0xFFFC0000;
-constexpr uint32_t MASK_FFFF0000 = 0xFFFF0000;
 constexpr uint32_t MASK_FFFEF000 = 0xFFFEF000;
+constexpr uint32_t MASK_FFFEFF00 = 0xFFFEFF00;
+constexpr uint32_t MASK_FFFF0000 = 0xFFFF0000;
 constexpr uint32_t MASK_FFFFF000 = 0xFFFFF000;
 constexpr uint32_t MASK_FFFFF800 = 0xFFFFF800;
 constexpr uint32_t MASK_FFFFFE00 = 0xFFFFFE00;
-constexpr uint32_t MASK_FFFEFF00 = 0xFFFEFF00;
 constexpr uint32_t MASK_FFFFFF00 = 0xFFFFFF00;
 constexpr uint32_t MASK_FFFFFFC0 = 0xFFFFFFC0;
 }  // namespace TIC28X::OpcodeMasks
