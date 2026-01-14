@@ -1,0 +1,120 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+env:
+  REPO_NAME: bn-tic28x-arch
+
+jobs:
+  get-binja-version:
+    runs-on: ubuntu-latest
+    outputs:
+      latest_tag: ${{ steps.get-version.outputs.latest_tag }}
+    steps:
+      - name: Get latest stable Binary Ninja API release
+        id: get-version
+        run: |
+          # Fetch latest stable release from binaryninja-api
+          RELEASE_INFO=$(curl -s https://api.github.com/repos/Vector35/binaryninja-api/releases \
+            | jq -r '[.[] | select(.name | startswith("stable/"))][0] // empty')
+          
+          if [ -z "$RELEASE_INFO" ] || [ "$RELEASE_INFO" = "null" ]; then
+            echo "No stable release found, falling back to dev"
+            echo "latest_tag=dev" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          RELEASE_TAG=$(echo "$RELEASE_INFO" | jq -r '.tag_name')
+          echo "Latest stable tag: $RELEASE_TAG"
+          echo "latest_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
+
+  test:
+    needs: get-binja-version
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux_amd64
+          - os: macos-latest
+            platform: macos_arm64
+          - os: windows-latest
+            platform: windows_amd64
+        build_type: [Release, Debug]
+
+    steps:
+      - name: Checkout plugin source
+        uses: actions/checkout@v4
+        with:
+          path: ${{ env.REPO_NAME }}
+
+      - name: Checkout Binary Ninja API
+        uses: actions/checkout@v4
+        with:
+          repository: Vector35/binaryninja-api
+          ref: ${{ needs.get-binja-version.outputs.latest_tag }}
+          path: binaryninja-api
+          submodules: recursive
+
+      - name: Set up build environment (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential
+
+      - name: Set up build environment (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install cmake
+
+      - name: Set up build environment (Windows)
+        if: runner.os == 'Windows'
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Configure CMake structure
+        shell: bash
+        run: |
+          cd binaryninja-api
+          
+          # Add plugins subdirectory to main CMakeLists.txt
+          echo -e "\nadd_subdirectory(plugins)" >> CMakeLists.txt
+          
+          # Create plugins directory and CMakeLists.txt
+          mkdir -p plugins
+          echo -e "add_subdirectory(${{ env.REPO_NAME }})" > plugins/CMakeLists.txt
+          
+          # Move plugin source into place
+          mv ../${{ env.REPO_NAME }} plugins/${{ env.REPO_NAME }}
+
+      - name: Build plugin and tests
+        shell: bash
+        run: |
+          cd binaryninja-api
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DHEADLESS=yes -DBN_ALLOW_STUBS=yes -B build .
+          cmake --build build --config ${{ matrix.build_type }} --target tic28x_architecture_test -j4
+
+      - name: Run tests
+        shell: bash
+        run: |
+          cd binaryninja-api/build
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            ./${{ matrix.build_type }}/tic28x_architecture_test.exe
+          else
+            ./tic28x_architecture_test
+          fi
+
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.platform }}-${{ matrix.build_type }}
+          path: |
+            binaryninja-api/build/Testing/
+            binaryninja-api/build/**/*.log
+          retention-days: 30
