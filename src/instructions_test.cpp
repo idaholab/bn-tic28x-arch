@@ -1116,6 +1116,19 @@ GenerateTestOpcodes() {
           {TIC28X::Mov16Mem16Rah::SetRegA(TEST_DATA) |
                TIC28X::Mov16Mem16Rah::SetMem16(TEST_DATA),
            TIC28X::Mov16Mem16Rah::full_name, TIC28X::Mov16Mem16Rah::objmode},
+          {TIC28X::Mov32Loc32Imm16A::SetLoc32(TEST_DATA) |
+               TIC28X::Mov32Loc32Imm16A::SetImm16(TEST_DATA),
+           TIC28X::Mov32Loc32Imm16A::full_name,
+           TIC28X::Mov32Loc32Imm16A::objmode},
+          {TIC28X::Mov32Loc32Imm16B::SetLoc32(TEST_DATA) |
+               TIC28X::Mov32Loc32Imm16B::SetImm16(TEST_DATA),
+           TIC28X::Mov32Loc32Imm16B::full_name,
+           TIC28X::Mov32Loc32Imm16B::objmode},
+          {TIC28X::Mov32Mem32Rah::SetRegA(TEST_DATA) |
+               TIC28X::Mov32Mem32Rah::SetMem32(TEST_DATA),
+           TIC28X::Mov32Mem32Rah::full_name, TIC28X::Mov32Mem32Rah::objmode},
+          {TIC28X::Mov32Mem32Stf::SetMem32(TEST_DATA),
+           TIC28X::Mov32Mem32Stf::full_name, TIC28X::Mov32Mem32Stf::objmode},
 
       };
 

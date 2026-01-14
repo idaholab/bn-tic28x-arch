@@ -454,6 +454,43 @@ constexpr uint32_t MINF32_RAH_16FHI = 0xE8300000;
 constexpr uint32_t MINF32_RAH_RBH_MOV32_RCH_RDH = 0xE69D0000;
 constexpr uint32_t MOV16_MEM16_RAH = 0xE2130000;
 
+/* TODO: This opcode covers multiple instructions from the extended set
+ * I believe the extended instruction set PDF has some errors for the
+ * following instructions. They have the same opcode, use a loc32, and
+ * may or may not reference a 16-bit immediate value. Some reference a
+ * register RaH, but it is unclear how that register is derived. Until
+ * we understand this better, this opcode will catch all possible values
+ * and at least decode the loc32 addressing mode.
+ *
+ * Ambiguous instructions:
+ * MOV32 *(0:16bitAddr), loc32
+ * MOV32 RaH, ACC
+ * MOV32 RaH, P
+ * MOV32 RaH, XARn
+ * MOV32 RaH, XT
+ */
+constexpr uint32_t MOV32_LOC32_IMM16_A = 0xBD000000;
+
+/* TODO: This opcode covers multiple instructions from the extended set
+ * I believe the extended instruction set PDF has some errors for the
+ * following instructions. They have the same opcode, use a loc32, and
+ * may or may not reference a 16-bit immediate value. Some reference a
+ * register RaH, but it is unclear how that register is derived. Until
+ * we understand this better, this opcode will catch all possible values
+ * and at least decode the loc32 addressing mode.
+ *
+ * Ambiguous instructions:
+ * MOV32 ACC, RaH
+ * MOV32 loc32, *(0:16bitAddr)
+ * MOV32 P, RaH
+ * MOV32 XARn, RaH
+ * MOV32 XT, RaH
+ */
+constexpr uint32_t MOV32_LOC32_IMM16_B = 0xBF000000;
+
+constexpr uint32_t MOV32_MEM32_RAH = 0xE2030000;
+constexpr uint32_t MOV32_MEM32_STF = 0xE2000000;
+
 /* VCU Instructions  */
 // TODO
 
