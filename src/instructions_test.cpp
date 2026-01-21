@@ -1186,6 +1186,20 @@ GenerateTestOpcodes() {
                TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::SetRegF(TEST_DATA),
            TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::full_name,
            TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::objmode},
+          {TIC28X::Negf32RahRbhCndf::SetRegA(TEST_DATA) |
+               TIC28X::Negf32RahRbhCndf::SetRegB(TEST_DATA) |
+               TIC28X::Negf32RahRbhCndf::SetCond(TEST_DATA),
+           TIC28X::Negf32RahRbhCndf::full_name,
+           TIC28X::Negf32RahRbhCndf::objmode},
+          {TIC28X::PopRb::opcode, TIC28X::PopRb::full_name,
+           TIC28X::PopRb::objmode},
+          {TIC28X::PushRb::opcode, TIC28X::PushRb::full_name,
+           TIC28X::PushRb::objmode},
+          {TIC28X::Restore::opcode, TIC28X::Restore::full_name,
+           TIC28X::Restore::objmode},
+          {TIC28X::RptbLabelLoc16::SetLabel(TEST_DATA) |
+               TIC28X::RptbLabelLoc16::SetLoc16(TEST_DATA),
+           TIC28X::RptbLabelLoc16::full_name, TIC28X::RptbLabelLoc16::objmode},
 
       };
 

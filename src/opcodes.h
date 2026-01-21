@@ -502,6 +502,11 @@ constexpr uint32_t MPYF32_RAH_16FHI_RBH = 0xE8400000;
 constexpr uint32_t MPYF32_RDH_REH_RFH_MOV32_RAH_MEM32 = 0xE3000000;
 constexpr uint32_t MPYF32_RDH_REH_RFH_MOV32_MEM32_RAH = 0xE0000000;
 constexpr uint32_t MPYF32_RAH_RBH_RCH_SUBF32_RDH_REH_RFH = 0xE7500000;
+constexpr uint32_t NEGF32_RAH_RBH_CNDF = 0xE6A00000;
+constexpr uint32_t POP_RB = 0xFFF1;
+constexpr uint32_t PUSH_RB = 0xFFF0;
+constexpr uint32_t RESTORE = 0xE562;
+constexpr uint32_t RPTB_LABEL_LOC16 = 0xB5000000;
 
 /* VCU Instructions  */
 // TODO
@@ -538,6 +543,7 @@ constexpr uint32_t MASK_FFFF = 0xFFFF;
 // 4-byte instruction masks
 constexpr uint32_t MASK_FE000000 = 0xFE000000;
 constexpr uint32_t MASK_FF000000 = 0xFF000000;
+constexpr uint32_t MASK_FF80FF00 = 0xFF80FF00;
 constexpr uint32_t MASK_FFC00000 = 0xFFC00000;
 constexpr uint32_t MASK_FFF00000 = 0xFFF00000;
 constexpr uint32_t MASK_FFF0F800 = 0xFFF0F800;

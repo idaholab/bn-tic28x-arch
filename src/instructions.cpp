@@ -508,6 +508,11 @@ GenerateInstructionVector() {
       std::make_shared<Mpyf32RdhRehRfhMov32RahMem32>(),
       std::make_shared<Mpyf32RdhRehRfhMov32Mem32Rah>(),
       std::make_shared<Mpyf32RahRbhRchSubf32RdhRehRfh>(),
+      std::make_shared<Negf32RahRbhCndf>(),
+      std::make_shared<PopRb>(),
+      std::make_shared<PushRb>(),
+      std::make_shared<Restore>(),
+      std::make_shared<RptbLabelLoc16>(),
 
   };
   return vec;
@@ -4510,6 +4515,46 @@ uint8_t Mpyf32RahRbhRchSubf32RdhRehRfh::GetRegF(const uint32_t data) {
 
 uint32_t Mpyf32RahRbhRchSubf32RdhRehRfh::SetRegF(const uint8_t f) {
   return FpuSetRegF_IV(opcode, f);
+}
+
+// Negf32RahRbhCndf
+uint8_t Negf32RahRbhCndf::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Negf32RahRbhCndf::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Negf32RahRbhCndf::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Negf32RahRbhCndf::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t Negf32RahRbhCndf::GetCond(const uint32_t data) {
+  return (data & 0xF0000u) >> 16;
+}
+
+uint32_t Negf32RahRbhCndf::SetCond(const uint8_t cond) {
+  return opcode | (cond & 0xFu) << 16;
+}
+
+// RptbLabelLoc16
+uint8_t RptbLabelLoc16::GetLabel(const uint32_t data) {
+  return (data & 0x7F0000u) >> 16;
+}
+
+uint32_t RptbLabelLoc16::SetLabel(const uint8_t label) {
+  return opcode | (label & 0x7Fu) << 16;
+}
+
+uint8_t RptbLabelLoc16::GetLoc16(const uint32_t data) { return data & 0xFFu; }
+
+uint32_t RptbLabelLoc16::SetLoc16(const uint8_t loc16) {
+  return opcode | loc16;
 }
 
 }  // namespace TIC28X
