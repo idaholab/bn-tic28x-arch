@@ -497,6 +497,11 @@ constexpr uint32_t MOVD32_RAH_MEM32 = 0xE2230000;
 constexpr uint32_t MOVIZ_RAH_16FHIHEX = 0xE8000000;
 constexpr uint32_t MOVST0_FLAG = 0xAD00;
 constexpr uint32_t MOVIZ_RAH_16FLOHEX = 0xE8080000;
+constexpr uint32_t MPYF32_RAH_RBH_RCH = 0xE7000000;
+constexpr uint32_t MPYF32_RAH_16FHI_RBH = 0xE8400000;
+constexpr uint32_t MPYF32_RDH_REH_RFH_MOV32_RAH_MEM32 = 0xE3000000;
+constexpr uint32_t MPYF32_RDH_REH_RFH_MOV32_MEM32_RAH = 0xE0000000;
+constexpr uint32_t MPYF32_RAH_RBH_RCH_SUBF32_RDH_REH_RFH = 0xE7500000;
 
 /* VCU Instructions  */
 // TODO

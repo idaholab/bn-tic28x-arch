@@ -1154,6 +1154,38 @@ GenerateTestOpcodes() {
                TIC28X::MovizRah16FLoHex::SetImm16Hex(TEST_DATA),
            TIC28X::MovizRah16FLoHex::full_name,
            TIC28X::MovizRah16FLoHex::objmode},
+          {TIC28X::Mpyf32RahRbhRch::SetRegA(TEST_DATA) |
+               TIC28X::Mpyf32RahRbhRch::SetRegB(TEST_DATA) |
+               TIC28X::Mpyf32RahRbhRch::SetRegC(TEST_DATA),
+           TIC28X::Mpyf32RahRbhRch::full_name,
+           TIC28X::Mpyf32RahRbhRch::objmode},
+          {TIC28X::Mpyf32Rah16FHiRbh::SetRegA(TEST_DATA) |
+               TIC28X::Mpyf32Rah16FHiRbh::SetRegB(TEST_DATA) |
+               TIC28X::Mpyf32Rah16FHiRbh::SetImm16(TEST_DATA),
+           TIC28X::Mpyf32Rah16FHiRbh::full_name,
+           TIC28X::Mpyf32Rah16FHiRbh::objmode},
+          {TIC28X::Mpyf32RdhRehRfhMov32RahMem32::SetRegA(TEST_DATA) |
+               TIC28X::Mpyf32RdhRehRfhMov32RahMem32::SetRegD(TEST_DATA) |
+               TIC28X::Mpyf32RdhRehRfhMov32RahMem32::SetRegE(TEST_DATA) |
+               TIC28X::Mpyf32RdhRehRfhMov32RahMem32::SetRegF(TEST_DATA) |
+               TIC28X::Mpyf32RdhRehRfhMov32RahMem32::SetMem32(TEST_DATA),
+           TIC28X::Mpyf32RdhRehRfhMov32RahMem32::full_name,
+           TIC28X::Mpyf32RdhRehRfhMov32RahMem32::objmode},
+          {TIC28X::Mpyf32RdhRehRfhMov32Mem32Rah::SetRegA(TEST_DATA) |
+               TIC28X::Mpyf32RdhRehRfhMov32Mem32Rah::SetRegD(TEST_DATA) |
+               TIC28X::Mpyf32RdhRehRfhMov32Mem32Rah::SetRegE(TEST_DATA) |
+               TIC28X::Mpyf32RdhRehRfhMov32Mem32Rah::SetRegF(TEST_DATA) |
+               TIC28X::Mpyf32RdhRehRfhMov32Mem32Rah::SetMem32(TEST_DATA),
+           TIC28X::Mpyf32RdhRehRfhMov32Mem32Rah::full_name,
+           TIC28X::Mpyf32RdhRehRfhMov32Mem32Rah::objmode},
+          {TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::SetRegA(TEST_DATA) |
+               TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::SetRegB(TEST_DATA) |
+               TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::SetRegC(TEST_DATA) |
+               TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::SetRegD(TEST_DATA) |
+               TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::SetRegE(TEST_DATA) |
+               TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::SetRegF(TEST_DATA),
+           TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::full_name,
+           TIC28X::Mpyf32RahRbhRchSubf32RdhRehRfh::objmode},
 
       };
 
