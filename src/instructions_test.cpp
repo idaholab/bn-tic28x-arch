@@ -1267,6 +1267,23 @@ GenerateTestOpcodes() {
                TIC28X::Mov32RalMem32Cndf::SetCndf(TEST_DATA),
            TIC28X::Mov32RalMem32Cndf::full_name,
            TIC28X::Mov32RalMem32Cndf::objmode},
+          {TIC28X::Movdd32RalMem32::SetRegA(TEST_DATA) |
+               TIC28X::Movdd32RalMem32::SetMem32(TEST_DATA),
+           TIC28X::Movdd32RalMem32::full_name,
+           TIC28X::Movdd32RalMem32::objmode},
+          {TIC28X::Movdd32RahMem32::SetRegA(TEST_DATA) |
+               TIC28X::Movdd32RahMem32::SetMem32(TEST_DATA),
+           TIC28X::Movdd32RahMem32::full_name,
+           TIC28X::Movdd32RahMem32::objmode},
+          {TIC28X::Mov32Mem32Ral::SetRegA(TEST_DATA) |
+               TIC28X::Mov32Mem32Ral::SetMem32(TEST_DATA),
+           TIC28X::Mov32Mem32Ral::full_name, TIC28X::Mov32Mem32Ral::objmode},
+          {TIC28X::MovixRal16i::SetRegA(TEST_DATA) |
+               TIC28X::MovixRal16i::Set16i(TEST_DATA),
+           TIC28X::MovixRal16i::full_name, TIC28X::MovixRal16i::objmode},
+          {TIC28X::MovxiRal16i::SetRegA(TEST_DATA) |
+               TIC28X::MovxiRal16i::Set16i(TEST_DATA),
+           TIC28X::MovxiRal16i::full_name, TIC28X::MovxiRal16i::objmode},
 
       };
 

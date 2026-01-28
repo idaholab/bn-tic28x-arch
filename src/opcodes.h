@@ -523,6 +523,11 @@ constexpr uint32_t UI32TOF32_RAH_RBH = 0xE68B0000;
 constexpr uint32_t ZERO_RAH = 0xE590;
 constexpr uint32_t ZEROA = 0xE563;
 constexpr uint32_t MOV32_RAL_MEM32_CNDF = 0xE2900000;
+constexpr uint32_t MOVDD32_RAL_MEM32 = 0xE2420000;
+constexpr uint32_t MOVDD32_RAH_MEM32 = 0xE2430000;
+constexpr uint32_t MOV32_MEM32_RAL = 0xE2020000;
+constexpr uint32_t MOVIX_RAL_16I = 0xE9000000;
+constexpr uint32_t MOVXI_RAL_16I = 0xE9080000;
 
 /* VCU Instructions  */
 // TODO

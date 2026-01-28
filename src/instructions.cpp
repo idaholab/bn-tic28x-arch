@@ -529,6 +529,11 @@ GenerateInstructionVector() {
       std::make_shared<ZeroRah>(),
       std::make_shared<Zeroa>(),
       std::make_shared<Mov32RalMem32Cndf>(),
+      std::make_shared<Movdd32RalMem32>(),
+      std::make_shared<Movdd32RahMem32>(),
+      std::make_shared<Mov32Mem32Ral>(),
+      std::make_shared<MovixRal16i>(),
+      std::make_shared<MovxiRal16i>(),
 
   };
   return vec;
@@ -564,7 +569,7 @@ uint32_t FpuSetRegC_I(const uint32_t opcode, const uint8_t c) {
 uint16_t FpuGet16FHi_I(const uint32_t data) { return (data & 0x3FFFC0u) >> 6; }
 
 uint32_t FpuSet16FHi_I(const uint32_t opcode, const uint16_t i) {
-  return opcode | i << 6;
+  return opcode | static_cast<uint32_t>(i) << 6;
 }
 
 // Floating Point reg A, D-F helpers, format II:
@@ -608,7 +613,7 @@ uint32_t FpuSetRegA_III(const uint32_t opcode, const uint8_t a) {
 uint16_t FpuGet16FHi_III(const uint32_t data) { return (data & 0x7FFF8u) >> 3; }
 
 uint32_t FpuSet16FHi_III(const uint32_t opcode, const uint16_t i) {
-  return opcode | i << 3;
+  return opcode | static_cast<uint32_t>(i) << 3;
 }
 
 // Floating point reg D-F, format IV
@@ -4882,6 +4887,88 @@ uint8_t Mov32RalMem32Cndf::GetCndf(const uint32_t data) {
 
 uint32_t Mov32RalMem32Cndf::SetCndf(const uint8_t cndf) {
   return opcode | ((cndf & 0xFu) << 16);
+}
+
+// Movdd32RalMem32
+uint8_t Movdd32RalMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Movdd32RalMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Movdd32RalMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Movdd32RalMem32::SetMem32(const uint8_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Movdd32RahMem32
+uint8_t Movdd32RahMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Movdd32RahMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Movdd32RahMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Movdd32RahMem32::SetMem32(const uint8_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Mov32Mem32Ral
+uint8_t Mov32Mem32Ral::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Mov32Mem32Ral::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Mov32Mem32Ral::GetMem32(const uint32_t data) { return FpuGetMem(data); }
+
+uint32_t Mov32Mem32Ral::SetMem32(const uint8_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// MovixRal16i
+// Format: LSW: 1110 1001 0000 0III, MSW: IIII IIII IIII Iaaa
+// Register in bits 2-0, imm16 in bits 18-3
+uint8_t MovixRal16i::GetRegA(const uint32_t data) { return FpuGetRegA_I(data); }
+
+uint32_t MovixRal16i::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint16_t MovixRal16i::Get16i(const uint32_t data) {
+  return (data >> 3) & 0xFFFFu;
+}
+
+uint32_t MovixRal16i::Set16i(const uint16_t i) {
+  return opcode | (static_cast<uint32_t>(i) << 3);
+}
+
+// MovxiRal16i
+// Same format as MovixRal16i
+uint8_t MovxiRal16i::GetRegA(const uint32_t data) { return FpuGetRegA_I(data); }
+
+uint32_t MovxiRal16i::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint16_t MovxiRal16i::Get16i(const uint32_t data) {
+  return (data >> 3) & 0xFFFFu;
+}
+
+uint32_t MovxiRal16i::Set16i(const uint16_t i) {
+  return opcode | (static_cast<uint32_t>(i) << 3);
 }
 
 }  // namespace TIC28X
