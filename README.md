@@ -105,6 +105,7 @@ See [LICENSE](LICENSE) file for details.
 
 ## Credits
 Please see the [NOTICE](NOTICE.txt) file for details.
+Created with help from [Claude](https://claude.ai)
 
 ## Support
 If you encounter issues with this repository, please create an [issue](https://github.com/idaholab/bn-st10-arch/issues).
