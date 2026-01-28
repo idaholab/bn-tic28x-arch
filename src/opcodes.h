@@ -514,6 +514,15 @@ constexpr uint32_t SUBF32_RAH_RBH_RCH = 0xE7200000;
 constexpr uint32_t SUBF32_RAH_16FHI_RBH = 0xE8C00000;
 constexpr uint32_t SUBF32_RDH_REH_RFH_MOV32_RAH_MEM32 = 0xE3200000;
 constexpr uint32_t SUBF32_RDH_REH_RFH_MOV32_MEM32_RAH = 0xE0200000;
+constexpr uint32_t SWAPF_RAH_RBH_CNDF = 0xE6E00000;
+constexpr uint32_t TESTTF_CNDF = 0xE580;
+constexpr uint32_t UI16TOF32_RAH_MEM16 = 0xE2C40000;
+constexpr uint32_t UI16TOF32_RAH_RBH = 0xE68F0000;
+constexpr uint32_t UI32TOF32_RAH_MEM32 = 0xE2840000;
+constexpr uint32_t UI32TOF32_RAH_RBH = 0xE68B0000;
+constexpr uint32_t ZERO_RAH = 0xE590;
+constexpr uint32_t ZEROA = 0xE563;
+constexpr uint32_t MOV32_RAL_MEM32_CNDF = 0xE2900000;
 
 /* VCU Instructions  */
 // TODO

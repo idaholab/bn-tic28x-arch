@@ -520,6 +520,15 @@ GenerateInstructionVector() {
       std::make_shared<Subf32Rah16fhiRbh>(),
       std::make_shared<Subf32RdhRehRfhMov32RahMem32>(),
       std::make_shared<Subf32RdhRehRfhMov32Mem32Rah>(),
+      std::make_shared<SwapfRahRbhCndf>(),
+      std::make_shared<TesttfCndf>(),
+      std::make_shared<Ui16tof32RahMem16>(),
+      std::make_shared<Ui16tof32RahRbh>(),
+      std::make_shared<Ui32tof32RahMem32>(),
+      std::make_shared<Ui32tof32RahRbh>(),
+      std::make_shared<ZeroRah>(),
+      std::make_shared<Zeroa>(),
+      std::make_shared<Mov32RalMem32Cndf>(),
 
   };
   return vec;
@@ -4743,6 +4752,136 @@ uint8_t Subf32RdhRehRfhMov32Mem32Rah::GetMem32(const uint32_t data) {
 
 uint32_t Subf32RdhRehRfhMov32Mem32Rah::SetMem32(const uint8_t mem32) {
   return FpuSetMem(opcode, mem32);
+}
+
+// SwapfRahRbhCndf
+uint8_t SwapfRahRbhCndf::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t SwapfRahRbhCndf::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t SwapfRahRbhCndf::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t SwapfRahRbhCndf::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t SwapfRahRbhCndf::GetCndf(const uint32_t data) {
+  return data >> 16 & 0xFu;
+}
+
+uint32_t SwapfRahRbhCndf::SetCndf(const uint8_t cndf) {
+  return opcode | (cndf & 0xFu) << 16;
+}
+
+// TesttfCndf
+uint8_t TesttfCndf::GetCndf(const uint32_t data) { return data & 0xFu; }
+
+uint32_t TesttfCndf::SetCndf(const uint8_t cndf) {
+  return opcode | (cndf & 0xFu);
+}
+
+// Ui16tof32RahMem16
+uint8_t Ui16tof32RahMem16::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Ui16tof32RahMem16::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Ui16tof32RahMem16::GetMem16(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Ui16tof32RahMem16::SetMem16(const uint8_t mem16) {
+  return FpuSetMem(opcode, mem16);
+}
+
+// Ui16tof32RahRbh
+uint8_t Ui16tof32RahRbh::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Ui16tof32RahRbh::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Ui16tof32RahRbh::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Ui16tof32RahRbh::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// Ui32tof32RahMem32
+uint8_t Ui32tof32RahMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Ui32tof32RahMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Ui32tof32RahMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Ui32tof32RahMem32::SetMem32(const uint8_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Ui32tof32RahRbh
+uint8_t Ui32tof32RahRbh::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Ui32tof32RahRbh::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Ui32tof32RahRbh::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Ui32tof32RahRbh::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// ZeroRah
+uint8_t ZeroRah::GetRegA(const uint32_t data) { return data & 0x7u; }
+
+uint32_t ZeroRah::SetRegA(const uint8_t a) { return opcode | (a & 0x7u); }
+
+// Mov32RalMem32Cndf
+uint8_t Mov32RalMem32Cndf::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Mov32RalMem32Cndf::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Mov32RalMem32Cndf::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Mov32RalMem32Cndf::SetMem32(const uint8_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+uint8_t Mov32RalMem32Cndf::GetCndf(const uint32_t data) {
+  return (data >> 16) & 0xFu;
+}
+
+uint32_t Mov32RalMem32Cndf::SetCndf(const uint8_t cndf) {
+  return opcode | ((cndf & 0xFu) << 16);
 }
 
 }  // namespace TIC28X

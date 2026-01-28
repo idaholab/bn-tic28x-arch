@@ -1235,6 +1235,38 @@ GenerateTestOpcodes() {
                TIC28X::Subf32RdhRehRfhMov32Mem32Rah::SetMem32(TEST_DATA),
            TIC28X::Subf32RdhRehRfhMov32Mem32Rah::full_name,
            TIC28X::Subf32RdhRehRfhMov32Mem32Rah::objmode},
+          {TIC28X::SwapfRahRbhCndf::SetRegA(TEST_DATA) |
+               TIC28X::SwapfRahRbhCndf::SetRegB(TEST_DATA) |
+               TIC28X::SwapfRahRbhCndf::SetCndf(TEST_DATA),
+           TIC28X::SwapfRahRbhCndf::full_name,
+           TIC28X::SwapfRahRbhCndf::objmode},
+          {TIC28X::TesttfCndf::SetCndf(TEST_DATA),
+           TIC28X::TesttfCndf::full_name, TIC28X::TesttfCndf::objmode},
+          {TIC28X::Ui16tof32RahMem16::SetRegA(TEST_DATA) |
+               TIC28X::Ui16tof32RahMem16::SetMem16(TEST_DATA),
+           TIC28X::Ui16tof32RahMem16::full_name,
+           TIC28X::Ui16tof32RahMem16::objmode},
+          {TIC28X::Ui16tof32RahRbh::SetRegA(TEST_DATA) |
+               TIC28X::Ui16tof32RahRbh::SetRegB(TEST_DATA),
+           TIC28X::Ui16tof32RahRbh::full_name,
+           TIC28X::Ui16tof32RahRbh::objmode},
+          {TIC28X::Ui32tof32RahMem32::SetRegA(TEST_DATA) |
+               TIC28X::Ui32tof32RahMem32::SetMem32(TEST_DATA),
+           TIC28X::Ui32tof32RahMem32::full_name,
+           TIC28X::Ui32tof32RahMem32::objmode},
+          {TIC28X::Ui32tof32RahRbh::SetRegA(TEST_DATA) |
+               TIC28X::Ui32tof32RahRbh::SetRegB(TEST_DATA),
+           TIC28X::Ui32tof32RahRbh::full_name,
+           TIC28X::Ui32tof32RahRbh::objmode},
+          {TIC28X::ZeroRah::SetRegA(TEST_DATA), TIC28X::ZeroRah::full_name,
+           TIC28X::ZeroRah::objmode},
+          {TIC28X::Zeroa::opcode, TIC28X::Zeroa::full_name,
+           TIC28X::Zeroa::objmode},
+          {TIC28X::Mov32RalMem32Cndf::SetRegA(TEST_DATA) |
+               TIC28X::Mov32RalMem32Cndf::SetMem32(TEST_DATA) |
+               TIC28X::Mov32RalMem32Cndf::SetCndf(TEST_DATA),
+           TIC28X::Mov32RalMem32Cndf::full_name,
+           TIC28X::Mov32RalMem32Cndf::objmode},
 
       };
 
