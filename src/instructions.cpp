@@ -534,6 +534,26 @@ GenerateInstructionVector() {
       std::make_shared<Mov32Mem32Ral>(),
       std::make_shared<MovixRal16i>(),
       std::make_shared<MovxiRal16i>(),
+      std::make_shared<Mpyf64RdReRfMov32RalMem32>(),
+      std::make_shared<Mpyf64RdReRfMov32Mem32Ral>(),
+      std::make_shared<Addf64RdReRfMov32RalMem32>(),
+      std::make_shared<Addf64RdReRfMov32Mem32Ral>(),
+      std::make_shared<Subf64RdReRfMov32RalMem32>(),
+      std::make_shared<Subf64RdReRfMov32Mem32Ral>(),
+      std::make_shared<Macf64R3R2RdReRfMov32RalMem32>(),
+      std::make_shared<Macf64R7R6RdReRfMov32RalMem32>(),
+      std::make_shared<Mpyf64RdReRfMov32RahMem32>(),
+      std::make_shared<Mpyf64RdReRfMov32Mem32Rah>(),
+      std::make_shared<Addf64RdReRfMov32RahMem32>(),
+      std::make_shared<Addf64RdReRfMov32Mem32Rah>(),
+      std::make_shared<Subf64RdReRfMov32RahMem32>(),
+      std::make_shared<Subf64RdReRfMov32Mem32Rah>(),
+      std::make_shared<Macf64R3R2RdReRfMov32RahMem32>(),
+      std::make_shared<Macf64R7R6RdReRfMov32RahMem32>(),
+      std::make_shared<Mpyf64RaRbRcAddf64RdReRf>(),
+      std::make_shared<Mpyf64RaRbRcSubf64RdReRf>(),
+      std::make_shared<Mpyf64RaRbRc>(),
+      std::make_shared<Addf64RaRbRc>(),
 
   };
   return vec;
@@ -4969,6 +4989,813 @@ uint16_t MovxiRal16i::Get16i(const uint32_t data) {
 
 uint32_t MovxiRal16i::Set16i(const uint16_t i) {
   return opcode | (static_cast<uint32_t>(i) << 3);
+}
+
+// Mpyf64RdReRfMov32RalMem32
+// Format II: RegA=bits 10-8, RegD=bits 13-11, RegE=bits 16-14, RegF=bits 19-17,
+// Mem=bits 7-0
+uint8_t Mpyf64RdReRfMov32RalMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RalMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Mpyf64RdReRfMov32RalMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RalMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Mpyf64RdReRfMov32RalMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RalMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Mpyf64RdReRfMov32RalMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RalMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Mpyf64RdReRfMov32RalMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RalMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Mpyf64RdReRfMov32Mem32Ral
+uint8_t Mpyf64RdReRfMov32Mem32Ral::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Ral::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Mpyf64RdReRfMov32Mem32Ral::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Ral::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Mpyf64RdReRfMov32Mem32Ral::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Ral::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Mpyf64RdReRfMov32Mem32Ral::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Ral::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Mpyf64RdReRfMov32Mem32Ral::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Ral::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Addf64RdReRfMov32RalMem32
+uint8_t Addf64RdReRfMov32RalMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Addf64RdReRfMov32RalMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Addf64RdReRfMov32RalMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Addf64RdReRfMov32RalMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Addf64RdReRfMov32RalMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Addf64RdReRfMov32RalMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Addf64RdReRfMov32RalMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Addf64RdReRfMov32RalMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Addf64RdReRfMov32RalMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Addf64RdReRfMov32RalMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Addf64RdReRfMov32Mem32Ral
+uint8_t Addf64RdReRfMov32Mem32Ral::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Ral::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Addf64RdReRfMov32Mem32Ral::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Ral::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Addf64RdReRfMov32Mem32Ral::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Ral::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Addf64RdReRfMov32Mem32Ral::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Ral::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Addf64RdReRfMov32Mem32Ral::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Ral::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Subf64RdReRfMov32RalMem32
+uint8_t Subf64RdReRfMov32RalMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Subf64RdReRfMov32RalMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Subf64RdReRfMov32RalMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Subf64RdReRfMov32RalMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Subf64RdReRfMov32RalMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Subf64RdReRfMov32RalMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Subf64RdReRfMov32RalMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Subf64RdReRfMov32RalMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Subf64RdReRfMov32RalMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Subf64RdReRfMov32RalMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Subf64RdReRfMov32Mem32Ral
+uint8_t Subf64RdReRfMov32Mem32Ral::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Ral::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Subf64RdReRfMov32Mem32Ral::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Ral::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Subf64RdReRfMov32Mem32Ral::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Ral::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Subf64RdReRfMov32Mem32Ral::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Ral::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Subf64RdReRfMov32Mem32Ral::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Ral::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Macf64R3R2RdReRfMov32RalMem32
+uint8_t Macf64R3R2RdReRfMov32RalMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RalMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Macf64R3R2RdReRfMov32RalMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RalMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Macf64R3R2RdReRfMov32RalMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RalMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Macf64R3R2RdReRfMov32RalMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RalMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Macf64R3R2RdReRfMov32RalMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RalMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Macf64R7R6RdReRfMov32RalMem32
+uint8_t Macf64R7R6RdReRfMov32RalMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RalMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Macf64R7R6RdReRfMov32RalMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RalMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Macf64R7R6RdReRfMov32RalMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RalMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Macf64R7R6RdReRfMov32RalMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RalMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Macf64R7R6RdReRfMov32RalMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RalMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Mpyf64RdReRfMov32RahMem32
+uint8_t Mpyf64RdReRfMov32RahMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RahMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Mpyf64RdReRfMov32RahMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RahMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Mpyf64RdReRfMov32RahMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RahMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Mpyf64RdReRfMov32RahMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RahMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Mpyf64RdReRfMov32RahMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Mpyf64RdReRfMov32RahMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Mpyf64RdReRfMov32Mem32Rah
+uint8_t Mpyf64RdReRfMov32Mem32Rah::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Rah::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Mpyf64RdReRfMov32Mem32Rah::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Rah::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Mpyf64RdReRfMov32Mem32Rah::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Rah::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Mpyf64RdReRfMov32Mem32Rah::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Rah::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Mpyf64RdReRfMov32Mem32Rah::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Mpyf64RdReRfMov32Mem32Rah::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Addf64RdReRfMov32RahMem32
+uint8_t Addf64RdReRfMov32RahMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Addf64RdReRfMov32RahMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Addf64RdReRfMov32RahMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Addf64RdReRfMov32RahMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Addf64RdReRfMov32RahMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Addf64RdReRfMov32RahMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Addf64RdReRfMov32RahMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Addf64RdReRfMov32RahMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Addf64RdReRfMov32RahMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Addf64RdReRfMov32RahMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Addf64RdReRfMov32Mem32Rah
+uint8_t Addf64RdReRfMov32Mem32Rah::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Rah::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Addf64RdReRfMov32Mem32Rah::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Rah::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Addf64RdReRfMov32Mem32Rah::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Rah::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Addf64RdReRfMov32Mem32Rah::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Rah::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Addf64RdReRfMov32Mem32Rah::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Addf64RdReRfMov32Mem32Rah::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Subf64RdReRfMov32RahMem32
+uint8_t Subf64RdReRfMov32RahMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Subf64RdReRfMov32RahMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Subf64RdReRfMov32RahMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Subf64RdReRfMov32RahMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Subf64RdReRfMov32RahMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Subf64RdReRfMov32RahMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Subf64RdReRfMov32RahMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Subf64RdReRfMov32RahMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Subf64RdReRfMov32RahMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Subf64RdReRfMov32RahMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Subf64RdReRfMov32Mem32Rah
+uint8_t Subf64RdReRfMov32Mem32Rah::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Rah::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Subf64RdReRfMov32Mem32Rah::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Rah::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Subf64RdReRfMov32Mem32Rah::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Rah::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Subf64RdReRfMov32Mem32Rah::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Rah::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Subf64RdReRfMov32Mem32Rah::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Subf64RdReRfMov32Mem32Rah::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Macf64R3R2RdReRfMov32RahMem32
+uint8_t Macf64R3R2RdReRfMov32RahMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RahMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Macf64R3R2RdReRfMov32RahMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RahMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Macf64R3R2RdReRfMov32RahMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RahMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Macf64R3R2RdReRfMov32RahMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RahMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Macf64R3R2RdReRfMov32RahMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Macf64R3R2RdReRfMov32RahMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Macf64R7R6RdReRfMov32RahMem32
+uint8_t Macf64R7R6RdReRfMov32RahMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RahMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t Macf64R7R6RdReRfMov32RahMem32::GetRegD(const uint32_t data) {
+  return FpuGetRegD_II(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RahMem32::SetRegD(const uint8_t d) {
+  return FpuSetRegD_II(opcode, d);
+}
+
+uint8_t Macf64R7R6RdReRfMov32RahMem32::GetRegE(const uint32_t data) {
+  return FpuGetRegE_II(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RahMem32::SetRegE(const uint8_t e) {
+  return FpuSetRegE_II(opcode, e);
+}
+
+uint8_t Macf64R7R6RdReRfMov32RahMem32::GetRegF(const uint32_t data) {
+  return FpuGetRegF_II(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RahMem32::SetRegF(const uint8_t f) {
+  return FpuSetRegF_II(opcode, f);
+}
+
+uint16_t Macf64R7R6RdReRfMov32RahMem32::GetMem32(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t Macf64R7R6RdReRfMov32RahMem32::SetMem32(const uint16_t mem32) {
+  return FpuSetMem(opcode, mem32);
+}
+
+// Mpyf64RaRbRcAddf64RdReRf
+// Uses Format I for Ra, Rb, Rc and Format IV for Rd, Re, Rf
+uint8_t Mpyf64RaRbRcAddf64RdReRf::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Mpyf64RaRbRcAddf64RdReRf::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Mpyf64RaRbRcAddf64RdReRf::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Mpyf64RaRbRcAddf64RdReRf::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t Mpyf64RaRbRcAddf64RdReRf::GetRegC(const uint32_t data) {
+  return FpuGetRegC_I(data);
+}
+
+uint32_t Mpyf64RaRbRcAddf64RdReRf::SetRegC(const uint8_t c) {
+  return FpuSetRegC_I(opcode, c);
+}
+
+uint8_t Mpyf64RaRbRcAddf64RdReRf::GetRegD(const uint32_t data) {
+  return FpuGetRegD_IV(data);
+}
+
+uint32_t Mpyf64RaRbRcAddf64RdReRf::SetRegD(const uint8_t d) {
+  return FpuSetRegD_IV(opcode, d);
+}
+
+uint8_t Mpyf64RaRbRcAddf64RdReRf::GetRegE(const uint32_t data) {
+  return FpuGetRegE_IV(data);
+}
+
+uint32_t Mpyf64RaRbRcAddf64RdReRf::SetRegE(const uint8_t e) {
+  return FpuSetRegE_IV(opcode, e);
+}
+
+uint8_t Mpyf64RaRbRcAddf64RdReRf::GetRegF(const uint32_t data) {
+  return FpuGetRegF_IV(data);
+}
+
+uint32_t Mpyf64RaRbRcAddf64RdReRf::SetRegF(const uint8_t f) {
+  return FpuSetRegF_IV(opcode, f);
+}
+
+// Mpyf64RaRbRcSubf64RdReRf - same encoding as Mpyf64RaRbRcAddf64RdReRf
+uint8_t Mpyf64RaRbRcSubf64RdReRf::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Mpyf64RaRbRcSubf64RdReRf::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Mpyf64RaRbRcSubf64RdReRf::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Mpyf64RaRbRcSubf64RdReRf::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t Mpyf64RaRbRcSubf64RdReRf::GetRegC(const uint32_t data) {
+  return FpuGetRegC_I(data);
+}
+
+uint32_t Mpyf64RaRbRcSubf64RdReRf::SetRegC(const uint8_t c) {
+  return FpuSetRegC_I(opcode, c);
+}
+
+uint8_t Mpyf64RaRbRcSubf64RdReRf::GetRegD(const uint32_t data) {
+  return FpuGetRegD_IV(data);
+}
+
+uint32_t Mpyf64RaRbRcSubf64RdReRf::SetRegD(const uint8_t d) {
+  return FpuSetRegD_IV(opcode, d);
+}
+
+uint8_t Mpyf64RaRbRcSubf64RdReRf::GetRegE(const uint32_t data) {
+  return FpuGetRegE_IV(data);
+}
+
+uint32_t Mpyf64RaRbRcSubf64RdReRf::SetRegE(const uint8_t e) {
+  return FpuSetRegE_IV(opcode, e);
+}
+
+uint8_t Mpyf64RaRbRcSubf64RdReRf::GetRegF(const uint32_t data) {
+  return FpuGetRegF_IV(data);
+}
+
+uint32_t Mpyf64RaRbRcSubf64RdReRf::SetRegF(const uint8_t f) {
+  return FpuSetRegF_IV(opcode, f);
+}
+
+// Mpyf64RaRbRc - Format I for Ra, Rb, Rc
+uint8_t Mpyf64RaRbRc::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Mpyf64RaRbRc::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Mpyf64RaRbRc::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Mpyf64RaRbRc::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t Mpyf64RaRbRc::GetRegC(const uint32_t data) {
+  return FpuGetRegC_I(data);
+}
+
+uint32_t Mpyf64RaRbRc::SetRegC(const uint8_t c) {
+  return FpuSetRegC_I(opcode, c);
+}
+
+// Addf64RaRbRc - Format I for Ra, Rb, Rc
+uint8_t Addf64RaRbRc::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Addf64RaRbRc::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Addf64RaRbRc::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Addf64RaRbRc::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t Addf64RaRbRc::GetRegC(const uint32_t data) {
+  return FpuGetRegC_I(data);
+}
+
+uint32_t Addf64RaRbRc::SetRegC(const uint8_t c) {
+  return FpuSetRegC_I(opcode, c);
 }
 
 }  // namespace TIC28X
