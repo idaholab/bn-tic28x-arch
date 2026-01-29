@@ -548,6 +548,29 @@ constexpr uint32_t MPYF64_RA_RB_RC_ADDF64_RD_RE_RF = 0xE7C00000;
 constexpr uint32_t MPYF64_RA_RB_RC_SUBF64_RD_RE_RF = 0xE7D00000;
 constexpr uint32_t MPYF64_RA_RB_RC = 0xE7800000;
 constexpr uint32_t ADDF64_RA_RB_RC = 0xE7900000;
+constexpr uint32_t SUBF64_RA_RB_RC = 0xE7A00000;
+constexpr uint32_t MPYF64_RA_RB_16F = 0xE9400000;
+constexpr uint32_t ADDF64_RA_RB_16F = 0xE9800000;
+constexpr uint32_t SUBF64_RA_16F_RB = 0xE9C00000;
+constexpr uint32_t CMPF64_RA_RB = 0xE6980000;
+constexpr uint32_t CMPF64_RA_16F = 0xE9100000;
+constexpr uint32_t CMPF64_RA_0 = 0xE5B0;
+constexpr uint32_t MAXF64_RA_RB = 0xE69A0000;
+constexpr uint32_t MAXF64_RA_RB_MOV64_RC_RD = 0xE69E0000;
+constexpr uint32_t MAXF64_RA_16F = 0xE9200000;
+constexpr uint32_t MINF64_RA_RB = 0xE69B0000;
+constexpr uint32_t MINF64_RA_RB_MOV64_RC_RD = 0xE69F0000;
+constexpr uint32_t MINF64_RA_16F = 0xE9300000;
+constexpr uint32_t F64TOI32_RAH_RB = 0xE6840000;
+constexpr uint32_t F64TOUI32_RAH_RB = 0xE6860000;
+constexpr uint32_t I32TOF64_RA_MEM32 = 0xE2890000;
+constexpr uint32_t I32TOF64_RA_RBH = 0xE6850000;
+constexpr uint32_t UI32TOF64_RA_MEM32 = 0xE2850000;
+// TODO: F64TOI64 Ra,Rb - Documentation shows same encoding as F64TOI32
+// (0xE6840000). This appears to be a documentation typo. F64TOUI64 has bit 15
+// set to differentiate from F64TOUI32, so F64TOI64 likely should have bit 15
+// set as well (0xE6848000).
+constexpr uint32_t F64TOUI64_RA_RB = 0xE6868000;
 
 /* VCU Instructions  */
 // TODO
