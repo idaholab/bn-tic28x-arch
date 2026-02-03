@@ -17549,6 +17549,442 @@ class F64toui64RaRb final : public Instruction4Byte {
   //
 };
 
+class I64tof64RaRb final : public Instruction4Byte {
+ public:
+  I64tof64RaRb() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::I64TOF64_RA_RB;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
+  static constexpr auto full_name = "I64tof64RaRb";
+  static constexpr auto op_name = "i64tof64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Ui64tof64RaRb final : public Instruction4Byte {
+ public:
+  Ui64tof64RaRb() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::UI64TOF64_RA_RB;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
+  static constexpr auto full_name = "Ui64tof64RaRb";
+  static constexpr auto op_name = "ui64tof64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Fracf64RaRb final : public Instruction4Byte {
+ public:
+  Fracf64RaRb() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::FRACF64_RA_RB;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
+  static constexpr auto full_name = "Fracf64RaRb";
+  static constexpr auto op_name = "fracf64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class F64tof32RahRb final : public Instruction4Byte {
+ public:
+  F64tof32RahRb() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::F64TOF32_RAH_RB;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
+  static constexpr auto full_name = "F64tof32RahRb";
+  static constexpr auto op_name = "f64tof32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class F32tof64RaRbh final : public Instruction4Byte {
+ public:
+  F32tof64RaRbh() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::F32TOF64_RA_RBH;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
+  static constexpr auto full_name = "F32tof64RaRbh";
+  static constexpr auto op_name = "f32tof64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class F32tof64RaMem32 final : public Instruction4Byte {
+ public:
+  F32tof64RaMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::F32TOF64_RA_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
+  static constexpr auto full_name = "F32tof64RaMem32";
+  static constexpr auto op_name = "f32tof64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetMem(uint32_t data);
+  static uint32_t SetMem(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class F32dtof64RaMem32 final : public Instruction4Byte {
+ public:
+  F32dtof64RaMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::F32DTOF64_RA_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
+  static constexpr auto full_name = "F32dtof64RaMem32";
+  static constexpr auto op_name = "f32dtof64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetMem(uint32_t data);
+  static uint32_t SetMem(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Absf64RaRb final : public Instruction4Byte {
+ public:
+  Absf64RaRb() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::ABSF64_RA_RB;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
+  static constexpr auto full_name = "Absf64RaRb";
+  static constexpr auto op_name = "absf64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Negf64RaRbCndf final : public Instruction4Byte {
+ public:
+  Negf64RaRbCndf() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::NEGF64_RA_RB_CNDF;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0FFC0;
+  static constexpr auto full_name = "Negf64RaRbCndf";
+  static constexpr auto op_name = "negf64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+  static uint8_t GetCndf(uint32_t data);
+  static uint32_t SetCndf(uint8_t cndf);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Mov64RaRbCndf final : public Instruction4Byte {
+ public:
+  Mov64RaRbCndf() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::MOV64_RA_RB_CNDF;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0FFC0;
+  static constexpr auto full_name = "Mov64RaRbCndf";
+  static constexpr auto op_name = "mov64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+  static uint8_t GetCndf(uint32_t data);
+  static uint32_t SetCndf(uint8_t cndf);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Eisqrtf64RaRb final : public Instruction4Byte {
+ public:
+  Eisqrtf64RaRb() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::EISQRTF64_RA_RB;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
+  static constexpr auto full_name = "Eisqrtf64RaRb";
+  static constexpr auto op_name = "eisqrtf64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
+class Einvf64RaRb final : public Instruction4Byte {
+ public:
+  Einvf64RaRb() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::EINVF64_RA_RB;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
+  static constexpr auto full_name = "Einvf64RaRb";
+  static constexpr auto op_name = "einvf64";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+
+  // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+  //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+  //
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

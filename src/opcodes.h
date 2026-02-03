@@ -571,6 +571,18 @@ constexpr uint32_t UI32TOF64_RA_MEM32 = 0xE2850000;
 // set to differentiate from F64TOUI32, so F64TOI64 likely should have bit 15
 // set as well (0xE6848000).
 constexpr uint32_t F64TOUI64_RA_RB = 0xE6868000;
+constexpr uint32_t I64TOF64_RA_RB = 0xE6858000;
+constexpr uint32_t UI64TOF64_RA_RB = 0xE6878000;
+constexpr uint32_t FRACF64_RA_RB = 0xE6F18000;
+constexpr uint32_t F64TOF32_RAH_RB = 0xE6900000;
+constexpr uint32_t F32TOF64_RA_RBH = 0xE6910000;
+constexpr uint32_t F32TOF64_RA_MEM32 = 0xE28C0000;
+constexpr uint32_t F32DTOF64_RA_MEM32 = 0xE2210000;
+constexpr uint32_t ABSF64_RA_RB = 0xE6990000;
+constexpr uint32_t NEGF64_RA_RB_CNDF = 0xE6B00000;
+constexpr uint32_t MOV64_RA_RB_CNDF = 0xE6D00000;
+constexpr uint32_t EISQRTF64_RA_RB = 0xE6928000;
+constexpr uint32_t EINVF64_RA_RB = 0xE6938000;
 
 /* VCU Instructions  */
 // TODO

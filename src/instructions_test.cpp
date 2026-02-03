@@ -1528,6 +1528,59 @@ GenerateTestOpcodes() {
                TIC28X::F64toui64RaRb::SetRegB(TEST_DATA),
            TIC28X::F64toui64RaRb::full_name, TIC28X::F64toui64RaRb::objmode},
 
+          {TIC28X::I64tof64RaRb::SetRegA(TEST_DATA) |
+               TIC28X::I64tof64RaRb::SetRegB(TEST_DATA),
+           TIC28X::I64tof64RaRb::full_name, TIC28X::I64tof64RaRb::objmode},
+
+          {TIC28X::Ui64tof64RaRb::SetRegA(TEST_DATA) |
+               TIC28X::Ui64tof64RaRb::SetRegB(TEST_DATA),
+           TIC28X::Ui64tof64RaRb::full_name, TIC28X::Ui64tof64RaRb::objmode},
+
+          {TIC28X::Fracf64RaRb::SetRegA(TEST_DATA) |
+               TIC28X::Fracf64RaRb::SetRegB(TEST_DATA),
+           TIC28X::Fracf64RaRb::full_name, TIC28X::Fracf64RaRb::objmode},
+
+          {TIC28X::F64tof32RahRb::SetRegA(TEST_DATA) |
+               TIC28X::F64tof32RahRb::SetRegB(TEST_DATA),
+           TIC28X::F64tof32RahRb::full_name, TIC28X::F64tof32RahRb::objmode},
+
+          {TIC28X::F32tof64RaRbh::SetRegA(TEST_DATA) |
+               TIC28X::F32tof64RaRbh::SetRegB(TEST_DATA),
+           TIC28X::F32tof64RaRbh::full_name, TIC28X::F32tof64RaRbh::objmode},
+
+          {TIC28X::F32tof64RaMem32::SetRegA(TEST_DATA) |
+               TIC28X::F32tof64RaMem32::SetMem(TEST_DATA),
+           TIC28X::F32tof64RaMem32::full_name,
+           TIC28X::F32tof64RaMem32::objmode},
+
+          {TIC28X::F32dtof64RaMem32::SetRegA(TEST_DATA) |
+               TIC28X::F32dtof64RaMem32::SetMem(TEST_DATA),
+           TIC28X::F32dtof64RaMem32::full_name,
+           TIC28X::F32dtof64RaMem32::objmode},
+
+          {TIC28X::Absf64RaRb::SetRegA(TEST_DATA) |
+               TIC28X::Absf64RaRb::SetRegB(TEST_DATA),
+           TIC28X::Absf64RaRb::full_name, TIC28X::Absf64RaRb::objmode},
+
+          {TIC28X::Negf64RaRbCndf::SetRegA(TEST_DATA) |
+               TIC28X::Negf64RaRbCndf::SetRegB(TEST_DATA) |
+               TIC28X::Negf64RaRbCndf::SetCndf(TEST_DATA),
+           TIC28X::Negf64RaRbCndf::full_name,
+           TIC28X::Negf64RaRbCndf::objmode},
+
+          {TIC28X::Mov64RaRbCndf::SetRegA(TEST_DATA) |
+               TIC28X::Mov64RaRbCndf::SetRegB(TEST_DATA) |
+               TIC28X::Mov64RaRbCndf::SetCndf(TEST_DATA),
+           TIC28X::Mov64RaRbCndf::full_name, TIC28X::Mov64RaRbCndf::objmode},
+
+          {TIC28X::Eisqrtf64RaRb::SetRegA(TEST_DATA) |
+               TIC28X::Eisqrtf64RaRb::SetRegB(TEST_DATA),
+           TIC28X::Eisqrtf64RaRb::full_name, TIC28X::Eisqrtf64RaRb::objmode},
+
+          {TIC28X::Einvf64RaRb::SetRegA(TEST_DATA) |
+               TIC28X::Einvf64RaRb::SetRegB(TEST_DATA),
+           TIC28X::Einvf64RaRb::full_name, TIC28X::Einvf64RaRb::objmode},
+
       };
 
   return opcodes;

@@ -573,6 +573,18 @@ GenerateInstructionVector() {
       std::make_shared<I32tof64RaRbh>(),
       std::make_shared<Ui32tof64RaMem32>(),
       std::make_shared<F64toui64RaRb>(),
+      std::make_shared<I64tof64RaRb>(),
+      std::make_shared<Ui64tof64RaRb>(),
+      std::make_shared<Fracf64RaRb>(),
+      std::make_shared<F64tof32RahRb>(),
+      std::make_shared<F32tof64RaRbh>(),
+      std::make_shared<F32tof64RaMem32>(),
+      std::make_shared<F32dtof64RaMem32>(),
+      std::make_shared<Absf64RaRb>(),
+      std::make_shared<Negf64RaRbCndf>(),
+      std::make_shared<Mov64RaRbCndf>(),
+      std::make_shared<Eisqrtf64RaRb>(),
+      std::make_shared<Einvf64RaRb>(),
 
   };
   return vec;
@@ -6175,6 +6187,226 @@ uint8_t F64toui64RaRb::GetRegB(const uint32_t data) {
 }
 
 uint32_t F64toui64RaRb::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// I64tof64RaRb - Format I for Ra, Rb
+uint8_t I64tof64RaRb::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t I64tof64RaRb::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t I64tof64RaRb::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t I64tof64RaRb::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// Ui64tof64RaRb - Format I for Ra, Rb
+uint8_t Ui64tof64RaRb::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Ui64tof64RaRb::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Ui64tof64RaRb::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Ui64tof64RaRb::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// Fracf64RaRb - Format I for Ra, Rb
+uint8_t Fracf64RaRb::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Fracf64RaRb::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Fracf64RaRb::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Fracf64RaRb::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// F64tof32RahRb - Format I for RaH, Rb
+uint8_t F64tof32RahRb::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t F64tof32RahRb::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t F64tof32RahRb::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t F64tof32RahRb::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// F32tof64RaRbh - Format I for Ra, RbH
+uint8_t F32tof64RaRbh::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t F32tof64RaRbh::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t F32tof64RaRbh::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t F32tof64RaRbh::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// F32tof64RaMem32 - Format II for Ra (bits 10-8), mem32 (bits 7-0)
+uint8_t F32tof64RaMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t F32tof64RaMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t F32tof64RaMem32::GetMem(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t F32tof64RaMem32::SetMem(const uint8_t mem) {
+  return FpuSetMem(opcode, mem);
+}
+
+// F32dtof64RaMem32 - Format II for Ra (bits 10-8), mem32 (bits 7-0)
+uint8_t F32dtof64RaMem32::GetRegA(const uint32_t data) {
+  return FpuGetRegA_II(data);
+}
+
+uint32_t F32dtof64RaMem32::SetRegA(const uint8_t a) {
+  return FpuSetRegA_II(opcode, a);
+}
+
+uint8_t F32dtof64RaMem32::GetMem(const uint32_t data) {
+  return FpuGetMem(data);
+}
+
+uint32_t F32dtof64RaMem32::SetMem(const uint8_t mem) {
+  return FpuSetMem(opcode, mem);
+}
+
+// Absf64RaRb - Format I for Ra, Rb
+uint8_t Absf64RaRb::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Absf64RaRb::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Absf64RaRb::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Absf64RaRb::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// Negf64RaRbCndf - Format I for Ra, Rb with CNDF condition
+uint8_t Negf64RaRbCndf::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Negf64RaRbCndf::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Negf64RaRbCndf::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Negf64RaRbCndf::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t Negf64RaRbCndf::GetCndf(const uint32_t data) {
+  return (data >> 16) & 0xFu;
+}
+
+uint32_t Negf64RaRbCndf::SetCndf(const uint8_t cndf) {
+  return opcode | ((cndf & 0xFu) << 16);
+}
+
+// Mov64RaRbCndf - Format I for Ra, Rb with CNDF condition
+uint8_t Mov64RaRbCndf::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Mov64RaRbCndf::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Mov64RaRbCndf::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Mov64RaRbCndf::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+uint8_t Mov64RaRbCndf::GetCndf(const uint32_t data) {
+  return (data >> 16) & 0xFu;
+}
+
+uint32_t Mov64RaRbCndf::SetCndf(const uint8_t cndf) {
+  return opcode | ((cndf & 0xFu) << 16);
+}
+
+// Eisqrtf64RaRb - Format I for Ra, Rb
+uint8_t Eisqrtf64RaRb::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Eisqrtf64RaRb::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Eisqrtf64RaRb::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Eisqrtf64RaRb::SetRegB(const uint8_t b) {
+  return FpuSetRegB_I(opcode, b);
+}
+
+// Einvf64RaRb - Format I for Ra, Rb
+uint8_t Einvf64RaRb::GetRegA(const uint32_t data) {
+  return FpuGetRegA_I(data);
+}
+
+uint32_t Einvf64RaRb::SetRegA(const uint8_t a) {
+  return FpuSetRegA_I(opcode, a);
+}
+
+uint8_t Einvf64RaRb::GetRegB(const uint32_t data) {
+  return FpuGetRegB_I(data);
+}
+
+uint32_t Einvf64RaRb::SetRegB(const uint8_t b) {
   return FpuSetRegB_I(opcode, b);
 }
 
