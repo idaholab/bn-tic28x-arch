@@ -48,6 +48,25 @@ uint32_t FpuSetRegF_IV(uint32_t opcode, uint8_t f);
 uint8_t FpuGetMem(uint32_t data);
 uint32_t FpuSetMem(uint32_t opcode, uint8_t mem);
 
+/* VCU Instruction Operand Extractors */
+uint8_t VcuGetRegA_I(uint32_t data);
+uint32_t VcuSetRegA_I(uint32_t opcode, uint8_t a);
+
+uint8_t VcuGetRegA_II(uint32_t data);
+uint32_t VcuSetRegA_II(uint32_t opcode, uint8_t a);
+
+uint8_t VcuGetRegT(uint32_t data);
+uint32_t VcuSetRegT(uint32_t opcode, uint8_t t);
+
+uint16_t VcuGetImm16(uint32_t data);
+uint32_t VcuSetImm16(uint32_t opcode, uint16_t imm);
+
+uint8_t VcuGetImm5(uint16_t data);
+uint16_t VcuSetImm5(uint16_t opcode, uint8_t imm);
+
+uint8_t VcuGetMem(uint32_t data);
+uint32_t VcuSetMem(uint32_t opcode, uint8_t mem);
+
 /**
  * 16-bit Instruction class
  */
@@ -17983,6 +18002,658 @@ class Einvf64RaRb final : public Instruction4Byte {
   // bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
   //           BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
   //
+};
+
+class VclearVra final : public Instruction4Byte {
+ public:
+  VclearVra() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VCLEAR_VRA;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFF0;
+  static constexpr auto full_name = "VclearVra";
+  static constexpr auto op_name = "vclear";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vclearall final : public Instruction4Byte {
+ public:
+  Vclearall() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VCLEARALL;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFFF;
+  static constexpr auto full_name = "Vclearall";
+  static constexpr auto op_name = "vclearall";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vclrovfi final : public Instruction2Byte {
+ public:
+  Vclrovfi() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VCLROVFI;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "Vclrovfi";
+  static constexpr auto op_name = "vclrovfi";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vclrovfr final : public Instruction2Byte {
+ public:
+  Vclrovfr() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VCLROVFR;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "Vclrovfr";
+  static constexpr auto op_name = "vclrovfr";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmov16Mem16Vral final : public Instruction4Byte {
+ public:
+  Vmov16Mem16Vral() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOV16_MEM16_VRAL;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "Vmov16Mem16Vral";
+  static constexpr auto op_name = "vmov16";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetMem16(uint32_t data);
+  static uint32_t SetMem16(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmov16VralMem16 final : public Instruction4Byte {
+ public:
+  Vmov16VralMem16() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOV16_VRAL_MEM16;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "Vmov16VralMem16";
+  static constexpr auto op_name = "vmov16";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetMem16(uint32_t data);
+  static uint32_t SetMem16(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmov32Mem32Vra final : public Instruction4Byte {
+ public:
+  Vmov32Mem32Vra() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOV32_MEM32_VRA;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "Vmov32Mem32Vra";
+  static constexpr auto op_name = "vmov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmov32Mem32Vstatus final : public Instruction4Byte {
+ public:
+  Vmov32Mem32Vstatus() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOV32_MEM32_VSTATUS;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
+  static constexpr auto full_name = "Vmov32Mem32Vstatus";
+  static constexpr auto op_name = "vmov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmov32Mem32Vta final : public Instruction4Byte {
+ public:
+  Vmov32Mem32Vta() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOV32_MEM32_VTA;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFC00;
+  static constexpr auto full_name = "Vmov32Mem32Vta";
+  static constexpr auto op_name = "vmov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegT(uint32_t data);
+  static uint32_t SetRegT(uint8_t t);
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmov32VraMem32 final : public Instruction4Byte {
+ public:
+  Vmov32VraMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOV32_VRA_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "Vmov32VraMem32";
+  static constexpr auto op_name = "vmov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmov32VstatusMem32 final : public Instruction4Byte {
+ public:
+  Vmov32VstatusMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOV32_VSTATUS_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
+  static constexpr auto full_name = "Vmov32VstatusMem32";
+  static constexpr auto op_name = "vmov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmov32VtaMem32 final : public Instruction4Byte {
+ public:
+  Vmov32VtaMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOV32_VTA_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFC00;
+  static constexpr auto full_name = "Vmov32VtaMem32";
+  static constexpr auto op_name = "vmov32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegT(uint32_t data);
+  static uint32_t SetRegT(uint8_t t);
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vmovd32VraMem32 final : public Instruction4Byte {
+ public:
+  Vmovd32VraMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOVD32_VRA_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "Vmovd32VraMem32";
+  static constexpr auto op_name = "vmovd32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class VmovixVraImm16 final : public Instruction4Byte {
+ public:
+  VmovixVraImm16() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOVIX_VRA_IMM16;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
+  static constexpr auto full_name = "VmovixVraImm16";
+  static constexpr auto op_name = "vmovix";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint16_t GetImm16(uint32_t data);
+  static uint32_t SetImm16(uint16_t imm);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class VmovziVraImm16 final : public Instruction4Byte {
+ public:
+  VmovziVraImm16() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOVZI_VRA_IMM16;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
+  static constexpr auto full_name = "VmovziVraImm16";
+  static constexpr auto op_name = "vmovzi";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint16_t GetImm16(uint32_t data);
+  static uint32_t SetImm16(uint16_t imm);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class VmovxiVraImm16 final : public Instruction4Byte {
+ public:
+  VmovxiVraImm16() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VMOVXI_VRA_IMM16;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
+  static constexpr auto full_name = "VmovxiVraImm16";
+  static constexpr auto op_name = "vmovxi";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint16_t GetImm16(uint32_t data);
+  static uint32_t SetImm16(uint16_t imm);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vrndoff final : public Instruction2Byte {
+ public:
+  Vrndoff() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VRNDOFF;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "Vrndoff";
+  static constexpr auto op_name = "vrndoff";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vrndon final : public Instruction2Byte {
+ public:
+  Vrndon() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VRNDON;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "Vrndon";
+  static constexpr auto op_name = "vrndon";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vsatoff final : public Instruction2Byte {
+ public:
+  Vsatoff() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VSATOFF;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "Vsatoff";
+  static constexpr auto op_name = "vsatoff";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vsaton final : public Instruction2Byte {
+ public:
+  Vsaton() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VSATON;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "Vsaton";
+  static constexpr auto op_name = "vsaton";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vsetshl5bit final : public Instruction2Byte {
+ public:
+  Vsetshl5bit() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VSETSHL_5BIT;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFE0;
+  static constexpr auto full_name = "Vsetshl5bit";
+  static constexpr auto op_name = "vsetshl";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetImm5(uint16_t data);
+  static uint16_t SetImm5(uint8_t imm);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
+};
+
+class Vsetshr5bit final : public Instruction2Byte {
+ public:
+  Vsetshr5bit() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VSETSHR_5BIT;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFE0;
+  static constexpr auto full_name = "Vsetshr5bit";
+  static constexpr auto op_name = "vsetshr";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetImm5(uint16_t data);
+  static uint16_t SetImm5(uint8_t imm);
+
+  /* Binary Ninja Function Implementations */
+  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+  //           std::vector<BN::InstructionTextToken>& result,
+  //           AddressMode amode) override;
 };
 
 }  // namespace TIC28X

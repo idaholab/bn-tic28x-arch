@@ -585,6 +585,28 @@ GenerateInstructionVector() {
       std::make_shared<Mov64RaRbCndf>(),
       std::make_shared<Eisqrtf64RaRb>(),
       std::make_shared<Einvf64RaRb>(),
+      std::make_shared<VclearVra>(),
+      std::make_shared<Vclearall>(),
+      std::make_shared<Vclrovfi>(),
+      std::make_shared<Vclrovfr>(),
+      std::make_shared<Vmov16Mem16Vral>(),
+      std::make_shared<Vmov16VralMem16>(),
+      std::make_shared<Vmov32Mem32Vra>(),
+      std::make_shared<Vmov32Mem32Vstatus>(),
+      std::make_shared<Vmov32Mem32Vta>(),
+      std::make_shared<Vmov32VraMem32>(),
+      std::make_shared<Vmov32VstatusMem32>(),
+      std::make_shared<Vmov32VtaMem32>(),
+      std::make_shared<Vmovd32VraMem32>(),
+      std::make_shared<VmovixVraImm16>(),
+      std::make_shared<VmovziVraImm16>(),
+      std::make_shared<VmovxiVraImm16>(),
+      std::make_shared<Vrndoff>(),
+      std::make_shared<Vrndon>(),
+      std::make_shared<Vsatoff>(),
+      std::make_shared<Vsaton>(),
+      std::make_shared<Vsetshl5bit>(),
+      std::make_shared<Vsetshr5bit>(),
 
   };
   return vec;
@@ -696,6 +718,60 @@ uint8_t FpuGetMem(const uint32_t data) { return data & 0xFFu; }
 
 uint32_t FpuSetMem(const uint32_t opcode, const uint8_t mem) {
   return opcode | mem;
+}
+
+/* VCU Instruction Operand Extractors */
+
+// VCU reg A helper, format I:
+// LSW: xxxx xxxx xxxx xxxx
+// MSW: xxxx xxxx xxxx aaaa
+
+uint8_t VcuGetRegA_I(const uint32_t data) { return data & 0xFu; }
+
+uint32_t VcuSetRegA_I(const uint32_t opcode, const uint8_t a) {
+  return opcode | (a & 0xFu);
+}
+
+// VCU reg A helper, format II:
+// LSW: xxxx xxxx xxxx xxxx
+// MSW: xxxx aaaa mmmm mmmm
+// RegA at bits 11-8 (4 bits), mem at bits 7-0
+
+uint8_t VcuGetRegA_II(const uint32_t data) { return (data >> 8) & 0xFu; }
+
+uint32_t VcuSetRegA_II(const uint32_t opcode, const uint8_t a) {
+  return opcode | ((a & 0xFu) << 8);
+}
+
+// VCU transition register helper (2-bit field at bits 9-8)
+uint8_t VcuGetRegT(const uint32_t data) { return (data >> 8) & 0x3u; }
+
+uint32_t VcuSetRegT(const uint32_t opcode, const uint8_t t) {
+  return opcode | ((t & 0x3u) << 8);
+}
+
+// VCU 16-bit immediate helper (bits 19-4)
+// Format: LSW has upper 4 bits of immediate at bits 19-16
+//         MSW has lower 12 bits of immediate at bits 15-4, register at bits 3-0
+uint16_t VcuGetImm16(const uint32_t data) { return (data >> 4) & 0xFFFFu; }
+
+uint32_t VcuSetImm16(const uint32_t opcode, const uint16_t imm) {
+  return opcode | ((imm & 0xFFFFu) << 4);
+}
+
+// VCU 5-bit immediate helper (bits 4-0)
+// Format: 2-byte instruction with 5-bit immediate at bits 4-0
+uint8_t VcuGetImm5(const uint16_t data) { return data & 0x1Fu; }
+
+uint16_t VcuSetImm5(const uint16_t opcode, const uint8_t imm) {
+  return opcode | (imm & 0x1Fu);
+}
+
+// VCU mem helper (8-bit memory location at bits 7-0)
+uint8_t VcuGetMem(const uint32_t data) { return data & 0xFFu; }
+
+uint32_t VcuSetMem(const uint32_t opcode, const uint8_t mem) {
+  return opcode | (mem & 0xFFu);
 }
 
 /* Instruction Helper Implementations */
@@ -6225,17 +6301,13 @@ uint32_t Ui64tof64RaRb::SetRegB(const uint8_t b) {
 }
 
 // Fracf64RaRb - Format I for Ra, Rb
-uint8_t Fracf64RaRb::GetRegA(const uint32_t data) {
-  return FpuGetRegA_I(data);
-}
+uint8_t Fracf64RaRb::GetRegA(const uint32_t data) { return FpuGetRegA_I(data); }
 
 uint32_t Fracf64RaRb::SetRegA(const uint8_t a) {
   return FpuSetRegA_I(opcode, a);
 }
 
-uint8_t Fracf64RaRb::GetRegB(const uint32_t data) {
-  return FpuGetRegB_I(data);
-}
+uint8_t Fracf64RaRb::GetRegB(const uint32_t data) { return FpuGetRegB_I(data); }
 
 uint32_t Fracf64RaRb::SetRegB(const uint8_t b) {
   return FpuSetRegB_I(opcode, b);
@@ -6284,9 +6356,7 @@ uint32_t F32tof64RaMem32::SetRegA(const uint8_t a) {
   return FpuSetRegA_II(opcode, a);
 }
 
-uint8_t F32tof64RaMem32::GetMem(const uint32_t data) {
-  return FpuGetMem(data);
-}
+uint8_t F32tof64RaMem32::GetMem(const uint32_t data) { return FpuGetMem(data); }
 
 uint32_t F32tof64RaMem32::SetMem(const uint8_t mem) {
   return FpuSetMem(opcode, mem);
@@ -6310,17 +6380,13 @@ uint32_t F32dtof64RaMem32::SetMem(const uint8_t mem) {
 }
 
 // Absf64RaRb - Format I for Ra, Rb
-uint8_t Absf64RaRb::GetRegA(const uint32_t data) {
-  return FpuGetRegA_I(data);
-}
+uint8_t Absf64RaRb::GetRegA(const uint32_t data) { return FpuGetRegA_I(data); }
 
 uint32_t Absf64RaRb::SetRegA(const uint8_t a) {
   return FpuSetRegA_I(opcode, a);
 }
 
-uint8_t Absf64RaRb::GetRegB(const uint32_t data) {
-  return FpuGetRegB_I(data);
-}
+uint8_t Absf64RaRb::GetRegB(const uint32_t data) { return FpuGetRegB_I(data); }
 
 uint32_t Absf64RaRb::SetRegB(const uint8_t b) {
   return FpuSetRegB_I(opcode, b);
@@ -6394,20 +6460,223 @@ uint32_t Eisqrtf64RaRb::SetRegB(const uint8_t b) {
 }
 
 // Einvf64RaRb - Format I for Ra, Rb
-uint8_t Einvf64RaRb::GetRegA(const uint32_t data) {
-  return FpuGetRegA_I(data);
-}
+uint8_t Einvf64RaRb::GetRegA(const uint32_t data) { return FpuGetRegA_I(data); }
 
 uint32_t Einvf64RaRb::SetRegA(const uint8_t a) {
   return FpuSetRegA_I(opcode, a);
 }
 
-uint8_t Einvf64RaRb::GetRegB(const uint32_t data) {
-  return FpuGetRegB_I(data);
-}
+uint8_t Einvf64RaRb::GetRegB(const uint32_t data) { return FpuGetRegB_I(data); }
 
 uint32_t Einvf64RaRb::SetRegB(const uint8_t b) {
   return FpuSetRegB_I(opcode, b);
+}
+
+// VclearVra
+uint8_t VclearVra::GetRegA(const uint32_t data) { return VcuGetRegA_I(data); }
+
+uint32_t VclearVra::SetRegA(const uint8_t a) { return VcuSetRegA_I(opcode, a); }
+
+// Vmov16Mem16Vral - Format II for RegA and mem
+uint8_t Vmov16Mem16Vral::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t Vmov16Mem16Vral::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t Vmov16Mem16Vral::GetMem16(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov16Mem16Vral::SetMem16(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov16VralMem16 - Format II for RegA and mem
+uint8_t Vmov16VralMem16::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t Vmov16VralMem16::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t Vmov16VralMem16::GetMem16(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov16VralMem16::SetMem16(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov32Mem32Vra - Format II for RegA and mem
+uint8_t Vmov32Mem32Vra::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t Vmov32Mem32Vra::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t Vmov32Mem32Vra::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov32Mem32Vra::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov32Mem32Vstatus - Only mem operand
+uint8_t Vmov32Mem32Vstatus::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov32Mem32Vstatus::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov32Mem32Vta - RegT and mem operands
+uint8_t Vmov32Mem32Vta::GetRegT(const uint32_t data) {
+  return VcuGetRegT(data);
+}
+
+uint32_t Vmov32Mem32Vta::SetRegT(const uint8_t t) {
+  return VcuSetRegT(opcode, t);
+}
+
+uint8_t Vmov32Mem32Vta::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov32Mem32Vta::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov32VraMem32 - RegA and mem operands
+uint8_t Vmov32VraMem32::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t Vmov32VraMem32::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t Vmov32VraMem32::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov32VraMem32::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov32VstatusMem32 - Only mem operand
+uint8_t Vmov32VstatusMem32::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov32VstatusMem32::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov32VtaMem32 - RegT and mem operands
+uint8_t Vmov32VtaMem32::GetRegT(const uint32_t data) {
+  return VcuGetRegT(data);
+}
+
+uint32_t Vmov32VtaMem32::SetRegT(const uint8_t t) {
+  return VcuSetRegT(opcode, t);
+}
+
+uint8_t Vmov32VtaMem32::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov32VtaMem32::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmovd32VraMem32 - RegA and mem operands
+uint8_t Vmovd32VraMem32::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t Vmovd32VraMem32::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t Vmovd32VraMem32::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmovd32VraMem32::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// VmovixVraImm16 - RegA at bits 3-0, Imm16 at bits 19-4
+uint8_t VmovixVraImm16::GetRegA(const uint32_t data) {
+  return VcuGetRegA_I(data);
+}
+
+uint32_t VmovixVraImm16::SetRegA(const uint8_t a) {
+  return VcuSetRegA_I(opcode, a);
+}
+
+uint16_t VmovixVraImm16::GetImm16(const uint32_t data) {
+  return VcuGetImm16(data);
+}
+
+uint32_t VmovixVraImm16::SetImm16(const uint16_t imm) {
+  return VcuSetImm16(opcode, imm);
+}
+
+// VmovziVraImm16 - RegA at bits 3-0, Imm16 at bits 19-4
+uint8_t VmovziVraImm16::GetRegA(const uint32_t data) {
+  return VcuGetRegA_I(data);
+}
+
+uint32_t VmovziVraImm16::SetRegA(const uint8_t a) {
+  return VcuSetRegA_I(opcode, a);
+}
+
+uint16_t VmovziVraImm16::GetImm16(const uint32_t data) {
+  return VcuGetImm16(data);
+}
+
+uint32_t VmovziVraImm16::SetImm16(const uint16_t imm) {
+  return VcuSetImm16(opcode, imm);
+}
+
+// VmovxiVraImm16 - RegA at bits 3-0, Imm16 at bits 19-4
+uint8_t VmovxiVraImm16::GetRegA(const uint32_t data) {
+  return VcuGetRegA_I(data);
+}
+
+uint32_t VmovxiVraImm16::SetRegA(const uint8_t a) {
+  return VcuSetRegA_I(opcode, a);
+}
+
+uint16_t VmovxiVraImm16::GetImm16(const uint32_t data) {
+  return VcuGetImm16(data);
+}
+
+uint32_t VmovxiVraImm16::SetImm16(const uint16_t imm) {
+  return VcuSetImm16(opcode, imm);
+}
+
+// Vsetshl5bit - 5-bit immediate at bits 4-0
+uint8_t Vsetshl5bit::GetImm5(const uint16_t data) { return VcuGetImm5(data); }
+
+uint16_t Vsetshl5bit::SetImm5(const uint8_t imm) {
+  return VcuSetImm5(opcode, imm);
+}
+
+// Vsetshr5bit - 5-bit immediate at bits 4-0
+uint8_t Vsetshr5bit::GetImm5(const uint16_t data) { return VcuGetImm5(data); }
+
+uint16_t Vsetshr5bit::SetImm5(const uint8_t imm) {
+  return VcuSetImm5(opcode, imm);
 }
 
 }  // namespace TIC28X

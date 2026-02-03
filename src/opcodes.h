@@ -584,13 +584,46 @@ constexpr uint32_t MOV64_RA_RB_CNDF = 0xE6D00000;
 constexpr uint32_t EISQRTF64_RA_RB = 0xE6928000;
 constexpr uint32_t EINVF64_RA_RB = 0xE6938000;
 
-/* VCU Instructions  */
-// TODO
+/* VCU/VCU-II Instructions  */
+// General VCU Instructions
+constexpr uint32_t VCLEAR_VRA = 0xE6F80000;
+constexpr uint32_t VCLEARALL = 0xE6F90000;
+constexpr uint32_t VCLROVFI = 0xE50B;
+constexpr uint32_t VCLROVFR = 0xE50A;
+constexpr uint32_t VMOV16_MEM16_VRAL = 0xE2180000;
+constexpr uint32_t VMOV16_VRAL_MEM16 = 0xE2C90000;
+constexpr uint32_t VMOV32_MEM32_VRA = 0xE2040000;
+constexpr uint32_t VMOV32_MEM32_VSTATUS = 0xE20D0000;
+constexpr uint32_t VMOV32_MEM32_VTA = 0xE2050000;
+constexpr uint32_t VMOV32_VRA_MEM32 = 0xE3F00000;
+constexpr uint32_t VMOV32_VSTATUS_MEM32 = 0xE2B00000;
+constexpr uint32_t VMOV32_VTA_MEM32 = 0xE3F10000;
+constexpr uint32_t VMOVD32_VRA_MEM32 = 0xE2240000;
+constexpr uint32_t VMOVIX_VRA_IMM16 = 0xE7E00000;
+constexpr uint32_t VMOVZI_VRA_IMM16 = 0xE7F00000;
+constexpr uint32_t VMOVXI_VRA_IMM16 = 0xE7700000;
+constexpr uint32_t VRNDOFF = 0xE509;
+constexpr uint32_t VRNDON = 0xE508;
+constexpr uint32_t VSATOFF = 0xE507;
+constexpr uint32_t VSATON = 0xE506;
+constexpr uint32_t VSETSHL_5BIT = 0xE5C0;
+constexpr uint32_t VSETSHR_5BIT = 0xE540;
+
+// Arithmetic Math Instructions (TODO)
+
+// Complex Math Instructions (TODO)
+
+// CRC Instructions (TODO)
+
+// Deinterleaver Instructions (TODO)
+
+// FFT Instructions (TODO)
+
+// Galois Instructions (TODO)
+
+// Viterbi Instructions
 
 /* VCRC Instructions  */
-// TODO
-
-/* VCU-II Instructions  */
 // TODO
 
 /* FINTDIV Instructions  */
@@ -632,9 +665,12 @@ constexpr uint32_t MASK_FFFEFF00 = 0xFFFEFF00;
 constexpr uint32_t MASK_FFFF0000 = 0xFFFF0000;
 constexpr uint32_t MASK_FFFFF000 = 0xFFFFF000;
 constexpr uint32_t MASK_FFFFF800 = 0xFFFFF800;
+constexpr uint32_t MASK_FFFFFC00 = 0xFFFFFC00;
 constexpr uint32_t MASK_FFFFFE00 = 0xFFFFFE00;
 constexpr uint32_t MASK_FFFFFF00 = 0xFFFFFF00;
 constexpr uint32_t MASK_FFFFFFC0 = 0xFFFFFFC0;
+constexpr uint32_t MASK_FFFFFFF0 = 0xFFFFFFF0;
+constexpr uint32_t MASK_FFFFFFFF = 0xFFFFFFFF;
 }  // namespace TIC28X::OpcodeMasks
 
 #endif  // TIC28X_OPCODES_H

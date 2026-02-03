@@ -1565,8 +1565,7 @@ GenerateTestOpcodes() {
           {TIC28X::Negf64RaRbCndf::SetRegA(TEST_DATA) |
                TIC28X::Negf64RaRbCndf::SetRegB(TEST_DATA) |
                TIC28X::Negf64RaRbCndf::SetCndf(TEST_DATA),
-           TIC28X::Negf64RaRbCndf::full_name,
-           TIC28X::Negf64RaRbCndf::objmode},
+           TIC28X::Negf64RaRbCndf::full_name, TIC28X::Negf64RaRbCndf::objmode},
 
           {TIC28X::Mov64RaRbCndf::SetRegA(TEST_DATA) |
                TIC28X::Mov64RaRbCndf::SetRegB(TEST_DATA) |
@@ -1580,6 +1579,65 @@ GenerateTestOpcodes() {
           {TIC28X::Einvf64RaRb::SetRegA(TEST_DATA) |
                TIC28X::Einvf64RaRb::SetRegB(TEST_DATA),
            TIC28X::Einvf64RaRb::full_name, TIC28X::Einvf64RaRb::objmode},
+          {TIC28X::VclearVra::SetRegA(TEST_DATA), TIC28X::VclearVra::full_name,
+           TIC28X::VclearVra::objmode},
+          {TIC28X::Vclearall::opcode, TIC28X::Vclearall::full_name,
+           TIC28X::Vclearall::objmode},
+          {TIC28X::Vclrovfi::opcode, TIC28X::Vclrovfi::full_name,
+           TIC28X::Vclrovfi::objmode},
+          {TIC28X::Vclrovfr::opcode, TIC28X::Vclrovfr::full_name,
+           TIC28X::Vclrovfr::objmode},
+          {TIC28X::Vmov16Mem16Vral::SetRegA(TEST_DATA) |
+               TIC28X::Vmov16Mem16Vral::SetMem16(TEST_DATA),
+           TIC28X::Vmov16Mem16Vral::full_name,
+           TIC28X::Vmov16Mem16Vral::objmode},
+          {TIC28X::Vmov16VralMem16::SetRegA(TEST_DATA) |
+               TIC28X::Vmov16VralMem16::SetMem16(TEST_DATA),
+           TIC28X::Vmov16VralMem16::full_name,
+           TIC28X::Vmov16VralMem16::objmode},
+          {TIC28X::Vmov32Mem32Vra::SetRegA(TEST_DATA) |
+               TIC28X::Vmov32Mem32Vra::SetMem32(TEST_DATA),
+           TIC28X::Vmov32Mem32Vra::full_name, TIC28X::Vmov32Mem32Vra::objmode},
+          {TIC28X::Vmov32Mem32Vstatus::SetMem32(TEST_DATA),
+           TIC28X::Vmov32Mem32Vstatus::full_name,
+           TIC28X::Vmov32Mem32Vstatus::objmode},
+          {TIC28X::Vmov32Mem32Vta::SetRegT(TEST_DATA) |
+               TIC28X::Vmov32Mem32Vta::SetMem32(TEST_DATA),
+           TIC28X::Vmov32Mem32Vta::full_name, TIC28X::Vmov32Mem32Vta::objmode},
+          {TIC28X::Vmov32VraMem32::SetRegA(TEST_DATA) |
+               TIC28X::Vmov32VraMem32::SetMem32(TEST_DATA),
+           TIC28X::Vmov32VraMem32::full_name, TIC28X::Vmov32VraMem32::objmode},
+          {TIC28X::Vmov32VstatusMem32::SetMem32(TEST_DATA),
+           TIC28X::Vmov32VstatusMem32::full_name,
+           TIC28X::Vmov32VstatusMem32::objmode},
+          {TIC28X::Vmov32VtaMem32::SetRegT(TEST_DATA) |
+               TIC28X::Vmov32VtaMem32::SetMem32(TEST_DATA),
+           TIC28X::Vmov32VtaMem32::full_name, TIC28X::Vmov32VtaMem32::objmode},
+          {TIC28X::Vmovd32VraMem32::SetRegA(TEST_DATA) |
+               TIC28X::Vmovd32VraMem32::SetMem32(TEST_DATA),
+           TIC28X::Vmovd32VraMem32::full_name,
+           TIC28X::Vmovd32VraMem32::objmode},
+          {TIC28X::VmovixVraImm16::SetRegA(TEST_DATA) |
+               TIC28X::VmovixVraImm16::SetImm16(TEST_DATA),
+           TIC28X::VmovixVraImm16::full_name, TIC28X::VmovixVraImm16::objmode},
+          {TIC28X::VmovziVraImm16::SetRegA(TEST_DATA) |
+               TIC28X::VmovziVraImm16::SetImm16(TEST_DATA),
+           TIC28X::VmovziVraImm16::full_name, TIC28X::VmovziVraImm16::objmode},
+          {TIC28X::VmovxiVraImm16::SetRegA(TEST_DATA) |
+               TIC28X::VmovxiVraImm16::SetImm16(TEST_DATA),
+           TIC28X::VmovxiVraImm16::full_name, TIC28X::VmovxiVraImm16::objmode},
+          {TIC28X::Vrndoff::opcode, TIC28X::Vrndoff::full_name,
+           TIC28X::Vrndoff::objmode},
+          {TIC28X::Vrndon::opcode, TIC28X::Vrndon::full_name,
+           TIC28X::Vrndon::objmode},
+          {TIC28X::Vsatoff::opcode, TIC28X::Vsatoff::full_name,
+           TIC28X::Vsatoff::objmode},
+          {TIC28X::Vsaton::opcode, TIC28X::Vsaton::full_name,
+           TIC28X::Vsaton::objmode},
+          {TIC28X::Vsetshl5bit::SetImm5(TEST_DATA),
+           TIC28X::Vsetshl5bit::full_name, TIC28X::Vsetshl5bit::objmode},
+          {TIC28X::Vsetshr5bit::SetImm5(TEST_DATA),
+           TIC28X::Vsetshr5bit::full_name, TIC28X::Vsetshr5bit::objmode},
 
       };
 
