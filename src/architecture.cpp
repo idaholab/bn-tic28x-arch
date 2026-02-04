@@ -142,6 +142,7 @@ BNRegisterInfo TIC28XArchitecture::RegisterInfo(const uint32_t fullWidthReg,
                                Flags::XF,
                                Flags::ARP,
                                Flags::VSTATUS_OVFR,
+                               Flags::VSTATUS_OVRI,
                                Flags::VSTATUS_SAT,
                                Flags::VSTATUS_RND};
 }
@@ -194,7 +195,9 @@ BNRegisterInfo TIC28XArchitecture::RegisterInfo(const uint32_t fullWidthReg,
 
     // VSTATUS flags (VCU)
     case Flags::VSTATUS_OVFR:
-      return OverflowFlagRole;  // VCU overflow flag
+      return OverflowFlagRole;  // VCU overflow flag (real part)
+    case Flags::VSTATUS_OVRI:
+      return OverflowFlagRole;  // VCU overflow flag (imaginary part)
     case Flags::VSTATUS_SAT:
       return SpecialFlagRole;  // VCU saturation mode enable
     case Flags::VSTATUS_RND:
@@ -214,7 +217,9 @@ TIC28XArchitecture::GetFlagsWrittenByFlagWriteType(uint32_t writeType) {
   // 3 = NZ (compare, test)
   // 4 = C only (shift operations)
   // 5 = V only (overflow check)
-  // 6 = VSTATUS_OVFR (VCU overflow)
+  // 6 = VSTATUS_OVFR (VCU overflow - real)
+  // 7 = VSTATUS_OVRI (VCU overflow - imaginary)
+  // 8 = VSTATUS_OVFR + VSTATUS_OVRI (VCU complex overflow)
   switch (writeType) {
     case 1:  // NZVC - arithmetic operations
       return {Flags::N, Flags::Z, Flags::V, Flags::C};
@@ -226,8 +231,12 @@ TIC28XArchitecture::GetFlagsWrittenByFlagWriteType(uint32_t writeType) {
       return {Flags::C};
     case 5:  // V - overflow check
       return {Flags::V};
-    case 6:  // VSTATUS_OVFR - VCU overflow
+    case 6:  // VSTATUS_OVFR - VCU overflow (real)
       return {Flags::VSTATUS_OVFR};
+    case 7:  // VSTATUS_OVRI - VCU overflow (imaginary)
+      return {Flags::VSTATUS_OVRI};
+    case 8:  // VCU complex overflow (both real and imaginary)
+      return {Flags::VSTATUS_OVFR, Flags::VSTATUS_OVRI};
     default:
       return {};
   }
@@ -248,6 +257,10 @@ TIC28XArchitecture::GetFlagsWrittenByFlagWriteType(uint32_t writeType) {
       return "v";
     case 6:
       return "vstatus_ovfr";
+    case 7:
+      return "vstatus_ovri";
+    case 8:
+      return "vstatus_ovfr_ovri";
     default:
       return "";
   }

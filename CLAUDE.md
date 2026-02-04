@@ -4,7 +4,7 @@
 
 This is a Binary Ninja architecture plugin for the Texas Instruments C28x family of DSP microcontrollers. The plugin provides disassembly support for the standard TI C28x instruction set with compatibility mode support for C27x and C2xLP architectures.
 
-**Status**: Active development. Currently supports disassembly only; LLIL lifting is planned but not yet implemented.
+**Status**: Active development. Supports disassembly and partial LLIL lifting for VCU instructions.
 
 **Authors**: Garrett Larsen, Matthew Crepeau (Idaho National Laboratory / Battelle Energy Alliance, LLC)
 
@@ -149,6 +149,20 @@ std::unordered_set<uint64_t> REPEAT_ADDRS;  // Tracks RPT instructions
 - `ARP` - Auxiliary register pointer
 - Others for memory mapping and control
 
+**VSTATUS Flags** (VCU Status Register - Reference: TI SPRUHS1C Section 5.3.2):
+- `VSTATUS_OVFR` - VCU overflow flag: Real (bit 12)
+- `VSTATUS_OVRI` - VCU overflow flag: Imaginary (bit 13)
+- `VSTATUS_SAT` - VCU saturation mode enable (bit 10)
+- `VSTATUS_RND` - VCU rounding mode (bit 11)
+
+Additional VSTATUS fields (defined in `VStatusBits` namespace):
+- `SHIFTR` - Right shift amount (bits 4-0)
+- `SHIFTL` - Left shift amount (bits 9-5)
+- `CPACK` - Complex packing order (bit 14)
+- `OPACK` - Viterbi traceback packing order (bit 15)
+
+The `VStatusBits` namespace in `flags.h` provides bit positions and masks for these flags.
+
 ### 5. Text Generation (`text.h/cpp`)
 
 The text generation system converts raw instruction bytes into human-readable disassembly. It handles:
@@ -253,37 +267,113 @@ void TIC28XArchitecture::AddRepeatAddr(uint64_t addr) {
 
 ## Current Limitations
 
-1. **No LLIL Lifting**: The plugin does not generate Low Level IL, so:
-   - No decompilation to High Level IL
-   - Limited data flow analysis
-   - No type inference
-   - No cross-reference generation based on semantics
+1. **Partial LLIL Lifting**: Only VCU instructions have LLIL lifting implemented
+   - Most CPU instructions still need lifting
+   - Decompilation works for lifted instructions only
 
-2. **Standard Instruction Set Only**: Extended instruction set not supported
+2. **Standard Instruction Set Only**: Extended instruction set not fully supported
 
 3. **FPU Instructions**: Floating-point instructions may not be fully tested
 
-4. **Incomplete Flag Semantics**: Flag role and write type methods are stubbed
+4. **VSTATUS Saturation**: VCU saturation mode is implemented but VSATON/VSATOFF lifting is pending
 
 ## Future Work
 
 ### High Priority
-1. **LLIL Implementation**: Implement `Lift()` methods for all instructions
-   - Start with common instructions (MOV, ADD, etc.)
-   - Implement control flow (branches, calls, returns)
-   - Add arithmetic and logic operations
-   - Handle addressing modes properly
+1. **LLIL Implementation**: Expand `Lift()` methods to all instructions
+   - VCU instructions: Partially complete (VASHL32 done with saturation)
+   - CPU instructions: MOV, ADD, SUB, etc. need lifting
+   - Control flow: Branches, calls, returns need lifting
+   - Addressing modes: Implement loc16/loc32 memory access patterns
 
-2. **Extended Instruction Set**: Add support for extended C28x instructions
+2. **Extended Instruction Set**: Complete VCU/FPU64 instruction support
 
 ### Medium Priority
-3. **Flag Semantics**: Complete flag role and write type implementations
+3. **VSATON/VSATOFF Lifting**: Implement saturation mode control lifting
 4. **FPU Support**: Verify and test floating-point instruction handling
 5. **Test Coverage**: Expand unit tests to cover more instructions
 
 ### Low Priority
 6. **Platform Detection**: Add binary view plugin to detect C28x binaries
 7. **Symbol Import**: Support for common C28x binary formats (COFF, etc.)
+
+## Using C28x Agents for Instruction Implementation
+
+When implementing new TI C28x instructions, Claude Code provides specialized agents that automate much of the boilerplate work. These agents should be used in a specific order.
+
+### Available Agents
+
+| Agent | Purpose | When to Use |
+|-------|---------|-------------|
+| `c28x-instruction-definer` | Creates instruction class, opcodes, helpers, tests | **Always first** - sets up foundational data structures |
+| `c28x-text-generator` | Implements Text() method for disassembly | After instruction-definer completes |
+| `c28x-llil-lifter` | Implements Lift() method for LLIL | After instruction-definer completes |
+| `c28x-info-generator` | Implements Info() method for control flow | Only for branch/call/return instructions |
+
+### Workflow
+
+#### Step 1: Provide Instruction Documentation
+
+Take a screenshot of the instruction from the TI documentation (e.g., from SPRU430F or SPRUHS1C) and provide it to Claude. The screenshot should include:
+- Instruction mnemonic and operands
+- Opcode encoding (LSW/MSW binary format)
+- Description and pseudocode
+- Flags affected
+
+#### Step 2: Run the Instruction Definer Agent (Required First)
+
+The instruction definer agent **must** run before any other agents. It will:
+- Calculate the opcode from LSW/MSW encoding
+- Add the opcode constant to `opcodes.h`
+- Create the instruction class in `instructions.h`
+- Implement helper functions (Get/Set for each operand) in `instructions.cpp`
+- Add the instruction to `GenerateInstructionVector()`
+- Add a decoder test in `instructions_test.cpp`
+
+#### Step 3: Run Text and Lift Agents (Parallel)
+
+After the instruction definer completes, you can run the text generator and LLIL lifter agents **in parallel** since they work on different files:
+
+**Text Generator** (`c28x-text-generator`):
+- Uncomments and implements the `Text()` method in `text.cpp`
+- Adds disassembly tests in `text_test.cpp`
+
+**LLIL Lifter** (`c28x-llil-lifter`):
+- Uncomments and implements the `Lift()` method in `lift.cpp`
+- Adds lifting tests in `lift_test.cpp`
+- May add helper functions in `lift.h`
+
+#### Step 4: Run Info Generator (Control Flow Only)
+
+For instructions that alter control flow (branches, calls, returns), run the info generator agent to implement the `Info()` method. This provides Binary Ninja with branch targets and flow information.
+
+### Example: Implementing VASHL32
+
+```
+User: [Provides screenshot of VASHL32 VRa << #5-bit instruction]
+
+Claude: I'll implement this using the C28x agents.
+
+1. First, launch c28x-instruction-definer to set up the instruction
+2. Then, launch c28x-text-generator and c28x-llil-lifter in parallel
+3. (No info-generator needed - this is not a control flow instruction)
+```
+
+### Agent Outputs
+
+Each agent will:
+1. Read existing code patterns from the codebase
+2. Generate code following project conventions
+3. Add comprehensive unit tests
+4. Report what files were modified
+
+### Manual Refinements
+
+After agents complete, you may need to:
+- Fix disassembly format (e.g., adding `<<` operator for shift instructions)
+- Add saturation/overflow handling for arithmetic instructions
+- Implement flag updates (VSTATUS, ST0, ST1)
+- Add special cases not covered by the agent's pattern matching
 
 ## Development Tips
 

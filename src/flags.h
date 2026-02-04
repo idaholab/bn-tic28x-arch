@@ -33,21 +33,33 @@ constexpr uint8_t ARP = 21;
 
 // VSTATUS Flags (VCU Status Register)
 // These are tracked as separate flags for Binary Ninja analysis
-constexpr uint8_t VSTATUS_OVFR = 22;  // VCU Overflow flag (bit 0 of VSTATUS)
-constexpr uint8_t VSTATUS_SAT =
-    23;  // VCU Saturation mode enable (bit 15 of VSTATUS)
-constexpr uint8_t VSTATUS_RND = 24;  // VCU Rounding mode (bit 9 of VSTATUS)
+constexpr uint8_t VSTATUS_OVFR = 22;  // VCU Overflow flag: Real (bit 12)
+constexpr uint8_t VSTATUS_OVRI = 23;  // VCU Overflow flag: Imaginary (bit 13)
+constexpr uint8_t VSTATUS_SAT = 24;   // VCU Saturation mode enable (bit 10)
+constexpr uint8_t VSTATUS_RND = 25;   // VCU Rounding mode (bit 11)
 
 // VSTATUS bit positions within the 32-bit VSTATUS register
+// Reference: TI SPRUHS1C Section 5.3.2 - VCU Status Register (VSTATUS)
 namespace VStatusBits {
-constexpr uint32_t OVFR_BIT = 0;  // Overflow flag at bit 0
-constexpr uint32_t OVFI_BIT = 1;  // Overflow interrupt flag at bit 1
-constexpr uint32_t RND_BIT = 9;   // Rounding mode at bit 9
-constexpr uint32_t SAT_BIT = 15;  // Saturation mode at bit 15
+// Bit positions
+constexpr uint32_t SHIFTR_BIT = 0;  // Right shift amount (bits 4-0)
+constexpr uint32_t SHIFTL_BIT = 5;  // Left shift amount (bits 9-5)
+constexpr uint32_t SAT_BIT = 10;    // Saturation mode at bit 10
+constexpr uint32_t RND_BIT = 11;    // Rounding mode at bit 11
+constexpr uint32_t OVFR_BIT = 12;   // Overflow flag: Real at bit 12
+constexpr uint32_t OVRI_BIT = 13;   // Overflow flag: Imaginary at bit 13
+constexpr uint32_t CPACK_BIT = 14;  // Complex packing order at bit 14
+constexpr uint32_t OPACK_BIT = 15;  // Viterbi traceback packing order at bit 15
 
-constexpr uint32_t OVFR_MASK = (1u << OVFR_BIT);
-constexpr uint32_t SAT_MASK = (1u << SAT_BIT);
-constexpr uint32_t RND_MASK = (1u << RND_BIT);
+// Masks
+constexpr uint32_t SHIFTR_MASK = 0x1Fu;             // bits 4-0
+constexpr uint32_t SHIFTL_MASK = (0x1Fu << 5);      // bits 9-5
+constexpr uint32_t SAT_MASK = (1u << SAT_BIT);      // bit 10
+constexpr uint32_t RND_MASK = (1u << RND_BIT);      // bit 11
+constexpr uint32_t OVFR_MASK = (1u << OVFR_BIT);    // bit 12
+constexpr uint32_t OVRI_MASK = (1u << OVRI_BIT);    // bit 13
+constexpr uint32_t CPACK_MASK = (1u << CPACK_BIT);  // bit 14
+constexpr uint32_t OPACK_MASK = (1u << OPACK_BIT);  // bit 15
 }  // namespace VStatusBits
 
 inline std::unordered_map<uint32_t, std::string> NAMES = {
@@ -74,6 +86,7 @@ inline std::unordered_map<uint32_t, std::string> NAMES = {
     {XF, "xf"},
     {ARP, "arp"},
     {VSTATUS_OVFR, "vstatus_ovfr"},
+    {VSTATUS_OVRI, "vstatus_ovri"},
     {VSTATUS_SAT, "vstatus_sat"},
     {VSTATUS_RND, "vstatus_rnd"},
 };

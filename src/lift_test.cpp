@@ -133,18 +133,28 @@ TEST(Vashl32Vra5bitLift, ShiftAmountExtraction) {
 // ============================================================================
 
 // Test VSTATUS flag bit positions and masks
+// Reference: TI SPRUHS1C Section 5.3.2 - VCU Status Register (VSTATUS)
 TEST(VStatusFlags, BitPositionsAreCorrect) {
   // Verify the bit positions match TI documentation
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVFR_BIT, 0u);
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVFI_BIT, 1u);
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::RND_BIT, 9u);
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::SAT_BIT, 15u);
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SHIFTR_BIT, 0u);  // bits 4-0
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SHIFTL_BIT, 5u);  // bits 9-5
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SAT_BIT, 10u);    // bit 10
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::RND_BIT, 11u);    // bit 11
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVFR_BIT, 12u);   // bit 12
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVRI_BIT, 13u);   // bit 13
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::CPACK_BIT, 14u);  // bit 14
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OPACK_BIT, 15u);  // bit 15
 }
 
 TEST(VStatusFlags, MasksAreCorrect) {
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVFR_MASK, 0x00000001u);
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::SAT_MASK, 0x00008000u);
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::RND_MASK, 0x00000200u);
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SHIFTR_MASK, 0x0000001Fu);  // bits 4-0
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SHIFTL_MASK, 0x000003E0u);  // bits 9-5
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SAT_MASK, 0x00000400u);     // bit 10
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::RND_MASK, 0x00000800u);     // bit 11
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVFR_MASK, 0x00001000u);    // bit 12
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVRI_MASK, 0x00002000u);    // bit 13
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::CPACK_MASK, 0x00004000u);   // bit 14
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OPACK_MASK, 0x00008000u);   // bit 15
 }
 
 // Test saturation constants
@@ -161,14 +171,17 @@ TEST(SaturationConstants, BoundsAreCorrect) {
 TEST(VStatusFlags, FlagEnumsAreDefined) {
   // These should be contiguous after ARP (21)
   EXPECT_EQ(TIC28X::Flags::VSTATUS_OVFR, 22u);
-  EXPECT_EQ(TIC28X::Flags::VSTATUS_SAT, 23u);
-  EXPECT_EQ(TIC28X::Flags::VSTATUS_RND, 24u);
+  EXPECT_EQ(TIC28X::Flags::VSTATUS_OVRI, 23u);
+  EXPECT_EQ(TIC28X::Flags::VSTATUS_SAT, 24u);
+  EXPECT_EQ(TIC28X::Flags::VSTATUS_RND, 25u);
 }
 
 // Test that VSTATUS flag names are in the NAMES map
 TEST(VStatusFlags, FlagNamesAreDefined) {
   EXPECT_EQ(TIC28X::Flags::NAMES.at(TIC28X::Flags::VSTATUS_OVFR),
             "vstatus_ovfr");
+  EXPECT_EQ(TIC28X::Flags::NAMES.at(TIC28X::Flags::VSTATUS_OVRI),
+            "vstatus_ovri");
   EXPECT_EQ(TIC28X::Flags::NAMES.at(TIC28X::Flags::VSTATUS_SAT), "vstatus_sat");
   EXPECT_EQ(TIC28X::Flags::NAMES.at(TIC28X::Flags::VSTATUS_RND), "vstatus_rnd");
 }
