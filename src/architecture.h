@@ -19,6 +19,11 @@ class TIC28XArchitecture;
 enum ObjectMode { OBJMODE_0 = 0, OBJMODE_1 = 1, OBJMODE_ANY = 2 };
 enum AddressMode { AMODE_0 = 0, AMODE_1 = 1 };
 
+// TIC28X Intrinsics for operations without direct LLIL equivalents
+enum TIC28XIntrinsic {
+  TIC28X_INTRIN_BITREVERSE = 0,  // Reverse all bits in a 32-bit value
+};
+
 /**
  * Abstract instruction class that all instructions must use.
  * This allows the return type of the decoder function (DecodeInstruction) to
@@ -94,6 +99,13 @@ class TIC28XArchitecture final : public BN::Architecture {
   std::string GetFlagWriteTypeName(uint32_t flags) override;
   std::vector<uint32_t> GetFlagsRequiredForFlagCondition(
       BNLowLevelILFlagCondition cond, uint32_t semClass) override;
+
+  // Intrinsics
+  std::string GetIntrinsicName(uint32_t intrinsic) override;
+  std::vector<uint32_t> GetAllIntrinsics() override;
+  std::vector<BN::NameAndType> GetIntrinsicInputs(uint32_t intrinsic) override;
+  std::vector<BN::Confidence<BN::Ref<BN::Type>>> GetIntrinsicOutputs(
+      uint32_t intrinsic) override;
 
   bool GetInstructionInfo(const uint8_t* data, uint64_t addr, size_t maxLen,
                           BN::InstructionInfo& result) override;

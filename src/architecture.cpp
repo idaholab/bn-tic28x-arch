@@ -304,6 +304,46 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
   }
 }
 
+// ============================================================================
+// Intrinsics
+// ============================================================================
+
+[[nodiscard]] std::string TIC28XArchitecture::GetIntrinsicName(
+    uint32_t intrinsic) {
+  switch (intrinsic) {
+    case TIC28X_INTRIN_BITREVERSE:
+      return "__bitreverse";
+    default:
+      return "";
+  }
+}
+
+[[nodiscard]] std::vector<uint32_t> TIC28XArchitecture::GetAllIntrinsics() {
+  return {TIC28X_INTRIN_BITREVERSE};
+}
+
+[[nodiscard]] std::vector<BN::NameAndType>
+TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
+  switch (intrinsic) {
+    case TIC28X_INTRIN_BITREVERSE:
+      // Takes a 32-bit unsigned integer as input
+      return {BN::NameAndType("value", BN::Type::IntegerType(4, false))};
+    default:
+      return {};
+  }
+}
+
+[[nodiscard]] std::vector<BN::Confidence<BN::Ref<BN::Type>>>
+TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
+  switch (intrinsic) {
+    case TIC28X_INTRIN_BITREVERSE:
+      // Returns a 32-bit unsigned integer
+      return {BN::Type::IntegerType(4, false)};
+    default:
+      return {};
+  }
+}
+
 /**
  * GetInstructionInfo - parses opcodes; determines instruction length and
  * branching behavior

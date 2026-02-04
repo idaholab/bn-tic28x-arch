@@ -64,6 +64,10 @@ uint32_t VcuSetImm16(uint32_t opcode, uint16_t imm);
 uint8_t VcuGetImm5(uint16_t data);
 uint16_t VcuSetImm5(uint16_t opcode, uint8_t imm);
 
+// VBITFLIP format: 4-bit VRa at bits 3-0 (2-byte instruction)
+uint8_t VcuGetRegA_IV(uint16_t data);
+uint16_t VcuSetRegA_IV(uint16_t opcode, uint8_t a);
+
 // VASHL32 format: 5-bit immediate at bits 7-3, 3-bit VRa at bits 2-0
 uint8_t VcuGetRegA_III(uint32_t data);
 uint32_t VcuSetRegA_III(uint32_t opcode, uint8_t a);
@@ -19015,6 +19019,39 @@ class Vashr32Vra5bit final : public Instruction4Byte {
   bool Text(const uint8_t* data, uint64_t addr, size_t& len,
             std::vector<BN::InstructionTextToken>& result,
             AddressMode amode) override;
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
+class VbitflipVra final : public Instruction2Byte {
+ public:
+  VbitflipVra() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VBITFLIP_VRA;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
+  static constexpr auto full_name = "VbitflipVra";
+  static constexpr auto op_name = "vbitflip";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint16_t data);
+  static uint16_t SetRegA(uint8_t a);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
   bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };

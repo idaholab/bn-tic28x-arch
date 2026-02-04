@@ -6991,4 +6991,21 @@ bool Vashr32Vra5bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VCU - Bit Manipulation instructions
+
+bool VbitflipVra::Text(const uint8_t* data, uint64_t addr, size_t& len,
+                       std::vector<BN::InstructionTextToken>& result,
+                       const AddressMode amode) {
+  const auto dataOp = DataToOpcode(data, GetLength());
+  const auto regA = GetRegA(dataOp);
+  len = GetLength();
+
+  OpText(op_name, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
+          result);
+
+  return true;
+}
+
 }  // namespace TIC28X

@@ -619,6 +619,7 @@ GenerateInstructionVector() {
       std::make_shared<Vswap32VrbVra>(),
       std::make_shared<Vashl32Vra5bit>(),
       std::make_shared<Vashr32Vra5bit>(),
+      std::make_shared<VbitflipVra>(),
 
   };
   return vec;
@@ -777,6 +778,14 @@ uint8_t VcuGetImm5(const uint16_t data) { return data & 0x1Fu; }
 
 uint16_t VcuSetImm5(const uint16_t opcode, const uint8_t imm) {
   return opcode | (imm & 0x1Fu);
+}
+
+// VCU 4-bit register helper for 2-byte instructions (bits 3-0)
+// Format: VBITFLIP VRa - 1010 0001 0010 aaaa = 0xA120
+uint8_t VcuGetRegA_IV(const uint16_t data) { return data & 0xFu; }
+
+uint16_t VcuSetRegA_IV(const uint16_t opcode, const uint8_t a) {
+  return opcode | (a & 0xFu);
 }
 
 // VCU format III helpers for VASHL32/VLSHR32 instructions
@@ -6819,6 +6828,13 @@ uint8_t Vashr32Vra5bit::GetImm5(const uint32_t data) {
 
 uint32_t Vashr32Vra5bit::SetImm5(const uint8_t imm) {
   return VcuSetImm5_III(opcode, imm);
+}
+
+// VbitflipVra - 4-bit VRa at bits 3-0 (2-byte instruction)
+uint8_t VbitflipVra::GetRegA(const uint16_t data) { return VcuGetRegA_IV(data); }
+
+uint16_t VbitflipVra::SetRegA(const uint8_t a) {
+  return VcuSetRegA_IV(opcode, a);
 }
 
 }  // namespace TIC28X

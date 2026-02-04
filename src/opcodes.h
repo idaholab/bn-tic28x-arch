@@ -626,6 +626,7 @@ constexpr uint32_t VSWAP32_VRB_VRA = 0xE6F20300;
 // VCU - Arithmetic Math Instructions
 constexpr uint32_t VASHL32_VRA_5BIT = 0xE6F20700;
 constexpr uint32_t VASHR32_VRA_5BIT = 0xE6F20800;
+constexpr uint16_t VBITFLIP_VRA = 0xA120;
 
 // Complex Math Instructions (TODO)
 

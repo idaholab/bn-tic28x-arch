@@ -210,3 +210,40 @@ INSTANTIATE_TEST_SUITE_P(
     [](const testing::TestParamInfo<TestVashr32Vra5bitText::ParamType> &info) {
       return std::format("VR{}_shift{}", info.param.regA, info.param.imm5);
     });
+
+// VbitflipVra - VCU Bit Flip
+// Format: vbitflip VRn
+struct VbitflipVraTestCase {
+  uint8_t regA;        // VRa register (0-7)
+  std::string regStr;  // expected register string
+};
+
+class TestVbitflipVraText
+    : public ::testing::TestWithParam<VbitflipVraTestCase> {};
+
+TEST_P(TestVbitflipVraText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode = TIC28X::VbitflipVra::SetRegA(tc.regA);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vbitflip"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+  };
+
+  test_architecture_text(opcode, TIC28X::VbitflipVra::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VbitflipVra, TestVbitflipVraText,
+    ::testing::Values(
+        // Test VR0
+        VbitflipVraTestCase{0, "vr0"},
+        // Test VR1
+        VbitflipVraTestCase{1, "vr1"},
+        // Test VR4
+        VbitflipVraTestCase{4, "vr4"},
+        // Test VR7 (max register)
+        VbitflipVraTestCase{7, "vr7"}),
+    [](const testing::TestParamInfo<TestVbitflipVraText::ParamType> &info) {
+      return std::format("VR{}", info.param.regA);
+    });

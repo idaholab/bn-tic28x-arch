@@ -4,7 +4,9 @@
 #include "lift.h"
 
 #include <binaryninjaapi.h>
+#include <lowlevelilinstruction.h>
 
+#include "architecture.h"
 #include "flags.h"
 #include "instructions.h"
 #include "registers.h"
@@ -339,6 +341,32 @@ bool Vashr32Vra5bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 
   // === Common exit ===
   il.MarkLabel(doneLabel);
+
+  return true;
+}
+
+// VBITFLIP VRa
+// Reverse the bit order of VRa register.
+// VRa[31:0] = VRa[0:31] (bit 0 becomes bit 31, bit 1 becomes bit 30, etc.)
+//
+// This instruction does NOT affect any flags in VSTATUS.
+bool VbitflipVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                       BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint16_t dataOp =
+      static_cast<uint16_t>(DataToOpcode(data, len) & 0xFFFF);
+
+  // Extract the register operand
+  const uint8_t regIdx = GetRegA(dataOp);
+  const uint8_t vrReg = VrIndexToReg(regIdx);
+
+  // Use the TIC28X_INTRIN_BITREVERSE intrinsic to represent the operation.
+  // This shows as: vrN = __bitreverse(vrN) in the decompiler.
+  il.AddInstruction(il.Intrinsic(
+      {BN::RegisterOrFlag::Register(vrReg)},  // output: VRa
+      TIC28X_INTRIN_BITREVERSE,               // intrinsic ID
+      {il.Register(Sizes::_4_BYTES, vrReg)}   // input: VRa
+      ));
 
   return true;
 }

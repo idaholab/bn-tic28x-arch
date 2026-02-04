@@ -7,6 +7,7 @@
 
 #include <format>
 
+#include "architecture.h"
 #include "flags.h"
 #include "instructions.h"
 #include "registers.h"
@@ -202,4 +203,98 @@ TEST(Vashr32Vra5bitLift, ShiftAmountExtraction) {
     EXPECT_EQ(extractedShift, shift)
         << "Shift amount mismatch for shift=" << static_cast<int>(shift);
   }
+}
+
+// ============================================================================
+// VbitflipVra Lift Tests
+// ============================================================================
+
+struct VbitflipVraLiftTestCase {
+  uint8_t regA;
+  std::string name;
+};
+
+class VbitflipVraLiftTest
+    : public ::testing::TestWithParam<VbitflipVraLiftTestCase> {};
+
+TEST_P(VbitflipVraLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint16_t opcode = TIC28X::VbitflipVra::SetRegA(tc.regA);
+
+  EXPECT_EQ(TIC28X::VbitflipVra().GetLength(), 2u);
+  EXPECT_EQ(TIC28X::VbitflipVra::GetRegA(opcode), tc.regA & 0xF);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VbitflipVra, VbitflipVraLiftTest,
+    ::testing::Values(VbitflipVraLiftTestCase{0, "VR0"},
+                      VbitflipVraLiftTestCase{1, "VR1"},
+                      VbitflipVraLiftTestCase{4, "VR4"},
+                      VbitflipVraLiftTestCase{7, "VR7"}),
+    [](const testing::TestParamInfo<VbitflipVraLiftTest::ParamType>& info) {
+      return info.param.name;
+    });
+
+TEST(VbitflipVraLift, ExpectedRegisterMapping) {
+  for (uint8_t i = 0; i < 8; ++i) {
+    const uint16_t opcode = TIC28X::VbitflipVra::SetRegA(i);
+    const uint8_t regIdx = TIC28X::VbitflipVra::GetRegA(opcode);
+    const uint8_t vrReg = TIC28X::VrIndexToReg(regIdx);
+
+    EXPECT_EQ(regIdx, i) << "Register index mismatch for VR"
+                         << static_cast<int>(i);
+    EXPECT_EQ(vrReg, TIC28X::Registers::VR0 + i)
+        << "VR register enum mismatch for VR" << static_cast<int>(i);
+  }
+}
+
+TEST(VbitflipVraLift, InstructionLength) {
+  TIC28X::VbitflipVra instr;
+  EXPECT_EQ(instr.GetLength(), 2u)
+      << "VBITFLIP VRa should be a 2-byte instruction";
+}
+
+TEST(VbitflipVraLift, OpcodeAndMaskAreValid) {
+  // Verify the opcode matches the mask pattern
+  EXPECT_EQ(TIC28X::VbitflipVra::opcode & TIC28X::VbitflipVra::opcode_mask,
+            TIC28X::VbitflipVra::opcode)
+      << "Opcode should match its own mask";
+}
+
+// ============================================================================
+// TIC28X Intrinsic Tests
+// ============================================================================
+
+TEST(TIC28XIntrinsics, BitReverseIntrinsicIsDefined) {
+  // Verify the intrinsic enum value is defined
+  EXPECT_EQ(TIC28X::TIC28X_INTRIN_BITREVERSE, 0u);
+}
+
+TEST(TIC28XIntrinsics, BitReverseIntrinsicName) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-test");
+  EXPECT_EQ(arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_BITREVERSE),
+            "__bitreverse");
+}
+
+TEST(TIC28XIntrinsics, BitReverseIntrinsicInputs) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-test");
+  auto inputs = arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_BITREVERSE);
+  ASSERT_EQ(inputs.size(), 1u) << "BITREVERSE should have 1 input";
+  EXPECT_EQ(inputs[0].name, "value");
+}
+
+TEST(TIC28XIntrinsics, BitReverseIntrinsicOutputs) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-test");
+  auto outputs = arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_BITREVERSE);
+  ASSERT_EQ(outputs.size(), 1u) << "BITREVERSE should have 1 output";
+}
+
+TEST(TIC28XIntrinsics, GetAllIntrinsicsIncludesBitReverse) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-test");
+  auto intrinsics = arch->GetAllIntrinsics();
+  ASSERT_FALSE(intrinsics.empty()) << "Should have at least one intrinsic";
+  EXPECT_NE(std::find(intrinsics.begin(), intrinsics.end(),
+                      TIC28X::TIC28X_INTRIN_BITREVERSE),
+            intrinsics.end())
+      << "BITREVERSE should be in the intrinsics list";
 }
