@@ -51,7 +51,9 @@ FetchContent_MakeAvailable(googletest)
 add_executable(tic28x_architecture_test
         src/instructions_test.cpp
         src/text_test.cpp
-        src/text_test.h)
+        src/text_test.h
+        src/info_test.cpp
+        src/lift_test.cpp)
 target_link_libraries(tic28x_architecture_test GTest::gtest_main ${PROJECT_NAME}) # link to binaryninjaapi
 
 # Discover Tests

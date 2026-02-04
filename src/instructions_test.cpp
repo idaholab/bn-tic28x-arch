@@ -1671,6 +1671,11 @@ GenerateTestOpcodes() {
                TIC28X::Vswap32VrbVra::SetRegB(TEST_DATA),
            TIC28X::Vswap32VrbVra::full_name, TIC28X::Vswap32VrbVra::objmode},
 
+          // VCU - Arithmetic Math instructions
+          {TIC28X::Vashl32Vra5bit::SetRegA(TEST_DATA) |
+               TIC28X::Vashl32Vra5bit::SetImm5(TEST_DATA),
+           TIC28X::Vashl32Vra5bit::full_name, TIC28X::Vashl32Vra5bit::objmode},
+
       };
 
   return opcodes;

@@ -119,13 +119,31 @@ BNRegisterInfo TIC28XArchitecture::RegisterInfo(const uint32_t fullWidthReg,
 }
 
 [[nodiscard]] std::vector<uint32_t> TIC28XArchitecture::GetAllFlags() {
-  return std::vector<uint32_t>{
-      Flags::SXM,      Flags::OVM,   Flags::TC,      Flags::C,
-      Flags::Z,        Flags::N,     Flags::V,       Flags::PM,
-      Flags::OVC,      Flags::INTM,  Flags::DBGM,    Flags::PAGE0,
-      Flags::VMAP,     Flags::SPA,   Flags::LOOP,    Flags::EALLOW,
-      Flags::IDLESTAT, Flags::AMODE, Flags::OBJMODE, Flags::M0M1MAP,
-      Flags::XF,       Flags::ARP};
+  return std::vector<uint32_t>{Flags::SXM,
+                               Flags::OVM,
+                               Flags::TC,
+                               Flags::C,
+                               Flags::Z,
+                               Flags::N,
+                               Flags::V,
+                               Flags::PM,
+                               Flags::OVC,
+                               Flags::INTM,
+                               Flags::DBGM,
+                               Flags::PAGE0,
+                               Flags::VMAP,
+                               Flags::SPA,
+                               Flags::LOOP,
+                               Flags::EALLOW,
+                               Flags::IDLESTAT,
+                               Flags::AMODE,
+                               Flags::OBJMODE,
+                               Flags::M0M1MAP,
+                               Flags::XF,
+                               Flags::ARP,
+                               Flags::VSTATUS_OVFR,
+                               Flags::VSTATUS_SAT,
+                               Flags::VSTATUS_RND};
 }
 
 [[nodiscard]] std::string TIC28XArchitecture::GetFlagName(uint32_t flag) {
@@ -137,27 +155,140 @@ BNRegisterInfo TIC28XArchitecture::RegisterInfo(const uint32_t fullWidthReg,
 
 [[nodiscard]] BNFlagRole TIC28XArchitecture::GetFlagRole(uint32_t flag,
                                                          uint32_t semClass) {
-  // TODO
-  return SpecialFlagRole;
+  switch (flag) {
+    // ST0 flags
+    case Flags::Z:
+      return ZeroFlagRole;
+    case Flags::N:
+      return NegativeSignFlagRole;
+    case Flags::C:
+      return CarryFlagRole;
+    case Flags::V:
+      return OverflowFlagRole;
+    case Flags::OVM:
+      return SpecialFlagRole;  // Overflow mode - affects saturation behavior
+    case Flags::SXM:
+      return SpecialFlagRole;  // Sign extension mode
+    case Flags::TC:
+      return SpecialFlagRole;  // Test/control flag
+    case Flags::PM:
+      return SpecialFlagRole;  // Product shift mode
+    case Flags::OVC:
+      return SpecialFlagRole;  // Overflow counter
+
+    // ST1 flags - all special purpose
+    case Flags::INTM:
+    case Flags::DBGM:
+    case Flags::PAGE0:
+    case Flags::VMAP:
+    case Flags::SPA:
+    case Flags::LOOP:
+    case Flags::EALLOW:
+    case Flags::IDLESTAT:
+    case Flags::AMODE:
+    case Flags::OBJMODE:
+    case Flags::M0M1MAP:
+    case Flags::XF:
+    case Flags::ARP:
+      return SpecialFlagRole;
+
+    // VSTATUS flags (VCU)
+    case Flags::VSTATUS_OVFR:
+      return OverflowFlagRole;  // VCU overflow flag
+    case Flags::VSTATUS_SAT:
+      return SpecialFlagRole;  // VCU saturation mode enable
+    case Flags::VSTATUS_RND:
+      return SpecialFlagRole;  // VCU rounding mode
+
+    default:
+      return SpecialFlagRole;
+  }
 }
 
 [[nodiscard]] std::vector<uint32_t>
-TIC28XArchitecture::GetFlagsWrittenByFlagWriteType(uint32_t flags) {
-  // TODO
-  return std::vector<uint32_t>{};
+TIC28XArchitecture::GetFlagsWrittenByFlagWriteType(uint32_t writeType) {
+  // Flag write types for C28x:
+  // 0 = None
+  // 1 = NZVC (standard arithmetic flags)
+  // 2 = NZC (logical operations)
+  // 3 = NZ (compare, test)
+  // 4 = C only (shift operations)
+  // 5 = V only (overflow check)
+  // 6 = VSTATUS_OVFR (VCU overflow)
+  switch (writeType) {
+    case 1:  // NZVC - arithmetic operations
+      return {Flags::N, Flags::Z, Flags::V, Flags::C};
+    case 2:  // NZC - logical operations
+      return {Flags::N, Flags::Z, Flags::C};
+    case 3:  // NZ - compare/test
+      return {Flags::N, Flags::Z};
+    case 4:  // C - shift operations
+      return {Flags::C};
+    case 5:  // V - overflow check
+      return {Flags::V};
+    case 6:  // VSTATUS_OVFR - VCU overflow
+      return {Flags::VSTATUS_OVFR};
+    default:
+      return {};
+  }
 }
 
 [[nodiscard]] std::string TIC28XArchitecture::GetFlagWriteTypeName(
-    uint32_t flags) {
-  // TODO
-  return "";
+    uint32_t writeType) {
+  switch (writeType) {
+    case 1:
+      return "nzvc";
+    case 2:
+      return "nzc";
+    case 3:
+      return "nz";
+    case 4:
+      return "c";
+    case 5:
+      return "v";
+    case 6:
+      return "vstatus_ovfr";
+    default:
+      return "";
+  }
 }
 
 [[nodiscard]] std::vector<uint32_t>
 TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
     BNLowLevelILFlagCondition cond, uint32_t semClass) {
-  // TODO
-  return std::vector<uint32_t>{};
+  // Return flags needed to evaluate each condition
+  switch (cond) {
+    case LLFC_E:   // Equal (Z == 1)
+    case LLFC_NE:  // Not equal (Z == 0)
+      return {Flags::Z};
+
+    case LLFC_SLT:  // Signed less than (N != V)
+    case LLFC_SGE:  // Signed greater or equal (N == V)
+      return {Flags::N, Flags::V};
+
+    case LLFC_SLE:  // Signed less or equal (Z == 1 || N != V)
+    case LLFC_SGT:  // Signed greater than (Z == 0 && N == V)
+      return {Flags::Z, Flags::N, Flags::V};
+
+    case LLFC_ULT:  // Unsigned less than (C == 0)
+    case LLFC_UGE:  // Unsigned greater or equal (C == 1)
+      return {Flags::C};
+
+    case LLFC_ULE:  // Unsigned less or equal (C == 0 || Z == 1)
+    case LLFC_UGT:  // Unsigned greater than (C == 1 && Z == 0)
+      return {Flags::C, Flags::Z};
+
+    case LLFC_NEG:  // Negative (N == 1)
+    case LLFC_POS:  // Positive (N == 0)
+      return {Flags::N};
+
+    case LLFC_O:   // Overflow (V == 1)
+    case LLFC_NO:  // No overflow (V == 0)
+      return {Flags::V};
+
+    default:
+      return {};
+  }
 }
 
 /**

@@ -5,13 +5,252 @@
 
 #include <binaryninjaapi.h>
 
+#include "flags.h"
 #include "instructions.h"
+#include "registers.h"
+#include "sizes.h"
+#include "util.h"
 
 namespace TIC28X {
-// Default constructor (temporary for testing -- TODO: delete this)
+
+// Convert a 3-bit VR register index (0-7) to the corresponding register enum
+uint8_t VrIndexToReg(uint8_t index) {
+  // VR0-VR7 are contiguous in the Registers enum
+  return Registers::VR0 + (index & 0x7);
+}
+
+// Helper to generate LLIL for extracting the SAT bit from VSTATUS
+// Returns an IL expression that is non-zero if saturation mode is enabled
+BN::ExprId GetVstatusSatBit(BN::LowLevelILFunction& il) {
+  // VSTATUS[SAT] is at bit 15
+  // Extract: (VSTATUS >> 15) & 1, or equivalently (VSTATUS & SAT_MASK)
+  return il.And(Sizes::_4_BYTES,
+                il.Register(Sizes::_4_BYTES, Registers::VSTATUS),
+                il.Const(Sizes::_4_BYTES, Flags::VStatusBits::SAT_MASK));
+}
+
+// Helper to generate LLIL for setting the OVFR flag in VSTATUS
+// Sets VSTATUS.OVFR = 1
+void SetVstatusOvfr(BN::LowLevelILFunction& il) {
+  // VSTATUS |= OVFR_MASK
+  il.AddInstruction(il.SetRegister(
+      Sizes::_4_BYTES, Registers::VSTATUS,
+      il.Or(Sizes::_4_BYTES, il.Register(Sizes::_4_BYTES, Registers::VSTATUS),
+            il.Const(Sizes::_4_BYTES, Flags::VStatusBits::OVFR_MASK))));
+}
+
+// Helper to generate LLIL for clearing the OVFR flag in VSTATUS
+void ClearVstatusOvfr(BN::LowLevelILFunction& il) {
+  // VSTATUS &= ~OVFR_MASK
+  il.AddInstruction(il.SetRegister(
+      Sizes::_4_BYTES, Registers::VSTATUS,
+      il.And(Sizes::_4_BYTES, il.Register(Sizes::_4_BYTES, Registers::VSTATUS),
+             il.Const(Sizes::_4_BYTES, ~Flags::VStatusBits::OVFR_MASK))));
+}
+
+// Helper to generate LLIL for signed 32-bit saturation
+// Returns IL expression: clamp(value, SAT_MIN_32, SAT_MAX_32)
+// This generates: (value > MAX) ? MAX : ((value < MIN) ? MIN : value)
+BN::ExprId Saturate32Signed(BN::LowLevelILFunction& il, BN::ExprId value) {
+  // For signed saturation, we need to check:
+  // 1. If value > 0x7FFFFFFF (signed), clamp to 0x7FFFFFFF
+  // 2. If value < 0x80000000 (signed), clamp to 0x80000000
+  //
+  // Since we're working with 32-bit values and the shift result fits in 32
+  // bits, we need to detect overflow differently. For a left shift, overflow
+  // occurs when bits are shifted out that differ from the sign bit.
+  //
+  // We'll use a simpler approach: compute in 64-bit, then saturate to 32-bit
+  // bounds. However, Binary Ninja LLIL doesn't have a native saturate
+  // instruction, so we'll implement conditional clamping.
+
+  // Create the saturation bounds as constants
+  auto maxVal = il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MAX_32));
+  auto minVal = il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MIN_32));
+
+  // Check if value > MAX (signed comparison)
+  // If so, return MAX; else check if value < MIN, return MIN; else return value
+  // LLIL doesn't have ternary, so we'll just use the raw shift and let analysis
+  // track the saturation state. For a more precise implementation, we'd need
+  // to emit multiple basic blocks with If/Goto.
+
+  // For now, return the value as-is since LLIL doesn't have native saturation.
+  // The saturation bounds would be applied at runtime based on VSTATUS[SAT].
+  // This is a simplification - full implementation would require control flow.
+  return value;
+}
+
+// Helper to detect if a left shift will overflow (for 32-bit signed)
+// Overflow occurs when any bits shifted out differ from the final sign bit
+// For shift by N: check if the top N+1 bits are all 0s or all 1s
+BN::ExprId WillShiftOverflow32(BN::LowLevelILFunction& il, BN::ExprId value,
+                               uint8_t shiftAmt) {
+  if (shiftAmt == 0) {
+    // No shift, no overflow possible
+    return il.Const(Sizes::_4_BYTES, 0);
+  }
+
+  // For a left shift by N, overflow occurs if the value cannot be represented
+  // in (32 - N) bits as a signed number.
+  //
+  // This means: the top (N + 1) bits must all be the same (all 0s or all 1s)
+  // for NO overflow. If they differ, overflow occurs.
+  //
+  // Method: Arithmetic right shift by (32 - shiftAmt - 1), then check if
+  // result is 0 or -1. If neither, overflow will occur.
+  //
+  // Simplified: (value >> (31 - shiftAmt)) should be 0 or -1 for no overflow
+
+  if (shiftAmt >= 31) {
+    // Shifting by 31 or more: overflow if value != 0 and value != -1
+    auto isZero =
+        il.CompareEqual(Sizes::_4_BYTES, value, il.Const(Sizes::_4_BYTES, 0));
+    auto isMinusOne = il.CompareEqual(Sizes::_4_BYTES, value,
+                                      il.Const(Sizes::_4_BYTES, 0xFFFFFFFF));
+    // Overflow if NOT (isZero OR isMinusOne)
+    return il.Not(Sizes::_4_BYTES, il.Or(Sizes::_4_BYTES, isZero, isMinusOne));
+  }
+
+  // Arithmetic shift right to get the sign-extended high bits
+  auto checkBits = il.ArithShiftRight(Sizes::_4_BYTES, value,
+                                      il.Const(Sizes::_1_BYTE, 31 - shiftAmt));
+
+  // No overflow if checkBits == 0 (positive, no high bits set)
+  // or checkBits == -1 (negative, all high bits set)
+  auto isZero =
+      il.CompareEqual(Sizes::_4_BYTES, checkBits, il.Const(Sizes::_4_BYTES, 0));
+  auto isMinusOne = il.CompareEqual(Sizes::_4_BYTES, checkBits,
+                                    il.Const(Sizes::_4_BYTES, 0xFFFFFFFF));
+
+  // Overflow occurs if NEITHER condition is true
+  return il.Not(Sizes::_4_BYTES, il.Or(Sizes::_4_BYTES, isZero, isMinusOne));
+}
+
+// Default implementation (temporary for testing -- TODO: delete this)
 bool Instruction::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                        BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
   return false;
+}
+
+// VASHL32 VRa << #5-bit
+// Arithmetic shift left of VRa by immediate amount.
+// If VSTATUS[SAT] == 1, the result is saturated to signed 32-bit bounds.
+// OVFR flag is set if the 32-bit signed result overflows.
+//
+// Pseudocode from TI documentation:
+//   If(VSTATUS[SAT] == 1){
+//     VRa = sat(VRa << #5-bit Immediate)
+//   }else {
+//     VRa = VRa << #5-bit Immediate
+//   }
+//   OVFR is set if the 32-bit signed result after the shift left operation
+//   overflows
+bool Vashl32Vra5bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                          BN::LowLevelILFunction& il,
+                          TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint32_t dataOp = DataToOpcode(data, len);
+
+  // Extract operands
+  const uint8_t regIdx = GetRegA(dataOp);
+  const uint8_t shiftAmt = GetImm5(dataOp);
+  const uint8_t vrReg = VrIndexToReg(regIdx);
+
+  // Read the original value
+  auto origValue = il.Register(Sizes::_4_BYTES, vrReg);
+
+  // Check if overflow will occur (before performing the shift)
+  auto willOverflow = WillShiftOverflow32(il, origValue, shiftAmt);
+
+  // Compute the shifted result
+  auto shiftedValue = il.ShiftLeft(Sizes::_4_BYTES, origValue,
+                                   il.Const(Sizes::_1_BYTE, shiftAmt));
+
+  // Get the SAT bit from VSTATUS
+  auto satEnabled = GetVstatusSatBit(il);
+
+  // Create labels for the conditional flow
+  BNLowLevelILLabel satLabel, noSatLabel, doneLabel;
+
+  // If SAT is enabled, we need to apply saturation
+  il.AddInstruction(il.If(satEnabled, satLabel, noSatLabel));
+
+  // === SAT enabled path ===
+  il.MarkLabel(satLabel);
+  {
+    // With saturation enabled, we need to clamp the result.
+    // For a left shift that overflows:
+    // - If original value was positive and overflowed, saturate to MAX
+    // (0x7FFFFFFF)
+    // - If original value was negative and overflowed, saturate to MIN
+    // (0x80000000)
+
+    // Create labels for overflow handling within saturation path
+    BNLowLevelILLabel satOverflowLabel, satNoOverflowLabel, satDoneLabel;
+
+    il.AddInstruction(
+        il.If(willOverflow, satOverflowLabel, satNoOverflowLabel));
+
+    // Overflow occurred - need to saturate
+    il.MarkLabel(satOverflowLabel);
+    {
+      // Check sign of original value to determine saturation direction
+      // If original >= 0, saturate to MAX; else saturate to MIN
+      auto origSign = il.CompareSignedGreaterEqual(
+          Sizes::_4_BYTES, origValue, il.Const(Sizes::_4_BYTES, 0));
+
+      BNLowLevelILLabel positiveLabel, negativeLabel;
+      il.AddInstruction(il.If(origSign, positiveLabel, negativeLabel));
+
+      il.MarkLabel(positiveLabel);
+      il.AddInstruction(il.SetRegister(
+          Sizes::_4_BYTES, vrReg,
+          il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MAX_32))));
+      il.AddInstruction(il.Goto(satDoneLabel));
+
+      il.MarkLabel(negativeLabel);
+      il.AddInstruction(il.SetRegister(
+          Sizes::_4_BYTES, vrReg,
+          il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MIN_32))));
+      il.AddInstruction(il.Goto(satDoneLabel));
+    }
+
+    // No overflow - just use the shifted value
+    il.MarkLabel(satNoOverflowLabel);
+    il.AddInstruction(il.SetRegister(Sizes::_4_BYTES, vrReg, shiftedValue));
+    il.AddInstruction(il.Goto(satDoneLabel));
+
+    il.MarkLabel(satDoneLabel);
+  }
+  il.AddInstruction(il.Goto(doneLabel));
+
+  // === SAT disabled path ===
+  il.MarkLabel(noSatLabel);
+  {
+    // No saturation - just perform the shift
+    il.AddInstruction(il.SetRegister(Sizes::_4_BYTES, vrReg, shiftedValue));
+  }
+  il.AddInstruction(il.Goto(doneLabel));
+
+  // === Common exit ===
+  il.MarkLabel(doneLabel);
+
+  // Set OVFR flag if overflow occurred (regardless of saturation mode)
+  // VSTATUS.OVFR |= willOverflow
+  // This is a conditional OR: if willOverflow, set OVFR
+  BNLowLevelILLabel setOvfrLabel, skipOvfrLabel, finalLabel;
+  il.AddInstruction(il.If(willOverflow, setOvfrLabel, skipOvfrLabel));
+
+  il.MarkLabel(setOvfrLabel);
+  SetVstatusOvfr(il);
+  il.AddInstruction(il.Goto(finalLabel));
+
+  il.MarkLabel(skipOvfrLabel);
+  il.AddInstruction(il.Goto(finalLabel));
+
+  il.MarkLabel(finalLabel);
+
+  return true;
 }
 
 }  // namespace TIC28X

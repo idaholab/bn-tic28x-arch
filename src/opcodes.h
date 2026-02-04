@@ -623,7 +623,8 @@ constexpr uint32_t VSWAP32_VRB_VRA = 0xE6F20300;
 // constexpr uint32_t VXORMOV32_VRA_MEM32 = 0xE3F00000; // Duplicate of
 // VMOV32_VRA_MEM32
 
-// Arithmetic Math Instructions (TODO)
+// VCU - Arithmetic Math Instructions
+constexpr uint32_t VASHL32_VRA_5BIT = 0xE6F20700;
 
 // Complex Math Instructions (TODO)
 

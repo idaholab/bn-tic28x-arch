@@ -31,6 +31,25 @@ constexpr uint8_t M0M1MAP = 19;
 constexpr uint8_t XF = 20;
 constexpr uint8_t ARP = 21;
 
+// VSTATUS Flags (VCU Status Register)
+// These are tracked as separate flags for Binary Ninja analysis
+constexpr uint8_t VSTATUS_OVFR = 22;  // VCU Overflow flag (bit 0 of VSTATUS)
+constexpr uint8_t VSTATUS_SAT =
+    23;  // VCU Saturation mode enable (bit 15 of VSTATUS)
+constexpr uint8_t VSTATUS_RND = 24;  // VCU Rounding mode (bit 9 of VSTATUS)
+
+// VSTATUS bit positions within the 32-bit VSTATUS register
+namespace VStatusBits {
+constexpr uint32_t OVFR_BIT = 0;  // Overflow flag at bit 0
+constexpr uint32_t OVFI_BIT = 1;  // Overflow interrupt flag at bit 1
+constexpr uint32_t RND_BIT = 9;   // Rounding mode at bit 9
+constexpr uint32_t SAT_BIT = 15;  // Saturation mode at bit 15
+
+constexpr uint32_t OVFR_MASK = (1u << OVFR_BIT);
+constexpr uint32_t SAT_MASK = (1u << SAT_BIT);
+constexpr uint32_t RND_MASK = (1u << RND_BIT);
+}  // namespace VStatusBits
+
 inline std::unordered_map<uint32_t, std::string> NAMES = {
     {SXM, "sxm"},
     {OVM, "ovm"},
@@ -54,6 +73,9 @@ inline std::unordered_map<uint32_t, std::string> NAMES = {
     {M0M1MAP, "m0m1map"},
     {XF, "xf"},
     {ARP, "arp"},
+    {VSTATUS_OVFR, "vstatus_ovfr"},
+    {VSTATUS_SAT, "vstatus_sat"},
+    {VSTATUS_RND, "vstatus_rnd"},
 };
 
 }  // namespace TIC28X::Flags

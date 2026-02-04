@@ -64,6 +64,12 @@ uint32_t VcuSetImm16(uint32_t opcode, uint16_t imm);
 uint8_t VcuGetImm5(uint16_t data);
 uint16_t VcuSetImm5(uint16_t opcode, uint8_t imm);
 
+// VASHL32 format: 5-bit immediate at bits 7-3, 3-bit VRa at bits 2-0
+uint8_t VcuGetRegA_III(uint32_t data);
+uint32_t VcuSetRegA_III(uint32_t opcode, uint8_t a);
+uint8_t VcuGetImm5_III(uint32_t data);
+uint32_t VcuSetImm5_III(uint32_t opcode, uint8_t imm);
+
 uint8_t VcuGetMem(uint32_t data);
 uint32_t VcuSetMem(uint32_t opcode, uint8_t mem);
 
@@ -18942,6 +18948,41 @@ class Vswap32VrbVra final : public Instruction4Byte {
   // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
   //           std::vector<BN::InstructionTextToken>& result,
   //           AddressMode amode) override;
+};
+
+// VCU - Arithmetic Math instructions
+class Vashl32Vra5bit final : public Instruction4Byte {
+ public:
+  Vashl32Vra5bit() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VASHL32_VRA_5BIT;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
+  static constexpr auto full_name = "Vashl32Vra5bit";
+  static constexpr auto op_name = "vashl32";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  static uint8_t GetImm5(uint32_t data);
+  static uint32_t SetImm5(uint8_t imm);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
 }  // namespace TIC28X
