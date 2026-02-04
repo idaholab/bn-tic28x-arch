@@ -324,8 +324,7 @@ bool Vashr32Vra5bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                                     il.Const(Sizes::_1_BYTE, shiftAmt - 1)),
                il.Const(Sizes::_4_BYTES, 1));
 
-    auto roundedValue =
-        il.Add(Sizes::_4_BYTES, shiftedValue, roundBit);
+    auto roundedValue = il.Add(Sizes::_4_BYTES, shiftedValue, roundBit);
 
     il.AddInstruction(il.SetRegister(Sizes::_4_BYTES, vrReg, roundedValue));
   }

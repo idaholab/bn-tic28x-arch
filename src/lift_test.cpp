@@ -40,14 +40,14 @@ TEST(VrIndexToReg, MasksInvalidBits) {
 // ============================================================================
 
 TEST(VStatusFlags, BitPositionsAreCorrect) {
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::SHIFTR_BIT, 0u);   // bits 4-0
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::SHIFTL_BIT, 5u);   // bits 9-5
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::SAT_BIT, 10u);     // bit 10
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::RND_BIT, 11u);     // bit 11
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVFR_BIT, 12u);    // bit 12
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVRI_BIT, 13u);    // bit 13
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::CPACK_BIT, 14u);   // bit 14
-  EXPECT_EQ(TIC28X::Flags::VStatusBits::OPACK_BIT, 15u);   // bit 15
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SHIFTR_BIT, 0u);  // bits 4-0
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SHIFTL_BIT, 5u);  // bits 9-5
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::SAT_BIT, 10u);    // bit 10
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::RND_BIT, 11u);    // bit 11
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVFR_BIT, 12u);   // bit 12
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OVRI_BIT, 13u);   // bit 13
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::CPACK_BIT, 14u);  // bit 14
+  EXPECT_EQ(TIC28X::Flags::VStatusBits::OPACK_BIT, 15u);  // bit 15
 }
 
 TEST(VStatusFlags, MasksAreCorrect) {

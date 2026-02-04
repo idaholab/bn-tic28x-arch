@@ -6831,7 +6831,9 @@ uint32_t Vashr32Vra5bit::SetImm5(const uint8_t imm) {
 }
 
 // VbitflipVra - 4-bit VRa at bits 3-0 (2-byte instruction)
-uint8_t VbitflipVra::GetRegA(const uint16_t data) { return VcuGetRegA_IV(data); }
+uint8_t VbitflipVra::GetRegA(const uint16_t data) {
+  return VcuGetRegA_IV(data);
+}
 
 uint16_t VbitflipVra::SetRegA(const uint8_t a) {
   return VcuSetRegA_IV(opcode, a);
