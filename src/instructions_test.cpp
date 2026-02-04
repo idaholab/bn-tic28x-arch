@@ -1639,6 +1639,38 @@ GenerateTestOpcodes() {
           {TIC28X::Vsetshr5bit::SetImm5(TEST_DATA),
            TIC28X::Vsetshr5bit::full_name, TIC28X::Vsetshr5bit::objmode},
 
+          // VCU-II VSTATUS bit instructions
+          {TIC28X::Vclrcpack::opcode, TIC28X::Vclrcpack::full_name,
+           TIC28X::Vclrcpack::objmode},
+          {TIC28X::Vclrcrcmsgflip::opcode, TIC28X::Vclrcrcmsgflip::full_name,
+           TIC28X::Vclrcrcmsgflip::objmode},
+          {TIC28X::Vclropack::opcode, TIC28X::Vclropack::full_name,
+           TIC28X::Vclropack::objmode},
+          {TIC28X::Vsetcpack::opcode, TIC28X::Vsetcpack::full_name,
+           TIC28X::Vsetcpack::objmode},
+          {TIC28X::Vsetcrcmsgflip::opcode, TIC28X::Vsetcrcmsgflip::full_name,
+           TIC28X::Vsetcrcmsgflip::objmode},
+          {TIC28X::Vsetopack::opcode, TIC28X::Vsetopack::full_name,
+           TIC28X::Vsetopack::objmode},
+
+          // VCU-II VMOV16 high-half instructions
+          {TIC28X::Vmov16Mem16Vrah::SetRegA(TEST_DATA) |
+               TIC28X::Vmov16Mem16Vrah::SetMem16(TEST_DATA),
+           TIC28X::Vmov16Mem16Vrah::full_name,
+           TIC28X::Vmov16Mem16Vrah::objmode},
+          {TIC28X::Vmov16VrahMem16::SetRegA(TEST_DATA) |
+               TIC28X::Vmov16VrahMem16::SetMem16(TEST_DATA),
+           TIC28X::Vmov16VrahMem16::full_name,
+           TIC28X::Vmov16VrahMem16::objmode},
+
+          // VCU-II register-to-register instructions
+          {TIC28X::Vmov32VrbVra::SetRegA(TEST_DATA) |
+               TIC28X::Vmov32VrbVra::SetRegB(TEST_DATA),
+           TIC28X::Vmov32VrbVra::full_name, TIC28X::Vmov32VrbVra::objmode},
+          {TIC28X::Vswap32VrbVra::SetRegA(TEST_DATA) |
+               TIC28X::Vswap32VrbVra::SetRegB(TEST_DATA),
+           TIC28X::Vswap32VrbVra::full_name, TIC28X::Vswap32VrbVra::objmode},
+
       };
 
   return opcodes;

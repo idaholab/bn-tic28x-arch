@@ -587,26 +587,36 @@ GenerateInstructionVector() {
       std::make_shared<Einvf64RaRb>(),
       std::make_shared<VclearVra>(),
       std::make_shared<Vclearall>(),
+      std::make_shared<Vclrcpack>(),
+      std::make_shared<Vclrcrcmsgflip>(),
+      std::make_shared<Vclropack>(),
       std::make_shared<Vclrovfi>(),
       std::make_shared<Vclrovfr>(),
+      std::make_shared<Vmov16Mem16Vrah>(),
       std::make_shared<Vmov16Mem16Vral>(),
+      std::make_shared<Vmov16VrahMem16>(),
       std::make_shared<Vmov16VralMem16>(),
       std::make_shared<Vmov32Mem32Vra>(),
       std::make_shared<Vmov32Mem32Vstatus>(),
       std::make_shared<Vmov32Mem32Vta>(),
       std::make_shared<Vmov32VraMem32>(),
+      std::make_shared<Vmov32VrbVra>(),
       std::make_shared<Vmov32VstatusMem32>(),
       std::make_shared<Vmov32VtaMem32>(),
       std::make_shared<Vmovd32VraMem32>(),
       std::make_shared<VmovixVraImm16>(),
       std::make_shared<VmovziVraImm16>(),
       std::make_shared<VmovxiVraImm16>(),
+      std::make_shared<Vsetcpack>(),
+      std::make_shared<Vsetcrcmsgflip>(),
+      std::make_shared<Vsetopack>(),
       std::make_shared<Vrndoff>(),
       std::make_shared<Vrndon>(),
       std::make_shared<Vsatoff>(),
       std::make_shared<Vsaton>(),
       std::make_shared<Vsetshl5bit>(),
       std::make_shared<Vsetshr5bit>(),
+      std::make_shared<Vswap32VrbVra>(),
 
   };
   return vec;
@@ -772,6 +782,15 @@ uint8_t VcuGetMem(const uint32_t data) { return data & 0xFFu; }
 
 uint32_t VcuSetMem(const uint32_t opcode, const uint8_t mem) {
   return opcode | (mem & 0xFFu);
+}
+
+// VCU reg B helper, format I (for VMOV32 VRb,VRa and VSWAP32 VRb,VRa):
+// LSW: xxxx xxxx xxxx xxxx
+// MSW: xxxx xxxx bbbb aaaa
+uint8_t VcuGetRegB_I(const uint32_t data) { return (data >> 4) & 0xFu; }
+
+uint32_t VcuSetRegB_I(const uint32_t opcode, const uint8_t b) {
+  return opcode | ((b & 0xFu) << 4);
 }
 
 /* Instruction Helper Implementations */
@@ -6677,6 +6696,76 @@ uint8_t Vsetshr5bit::GetImm5(const uint16_t data) { return VcuGetImm5(data); }
 
 uint16_t Vsetshr5bit::SetImm5(const uint8_t imm) {
   return VcuSetImm5(opcode, imm);
+}
+
+// VCU-II instruction helpers
+
+// Vmov16Mem16Vrah - Format II for RegA and mem (high half)
+uint8_t Vmov16Mem16Vrah::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t Vmov16Mem16Vrah::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t Vmov16Mem16Vrah::GetMem16(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov16Mem16Vrah::SetMem16(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov16VrahMem16 - Format II for RegA and mem (high half)
+uint8_t Vmov16VrahMem16::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t Vmov16VrahMem16::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t Vmov16VrahMem16::GetMem16(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t Vmov16VrahMem16::SetMem16(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// Vmov32VrbVra - RegA at bits 3-0, RegB at bits 7-4
+uint8_t Vmov32VrbVra::GetRegA(const uint32_t data) {
+  return VcuGetRegA_I(data);
+}
+
+uint32_t Vmov32VrbVra::SetRegA(const uint8_t a) {
+  return VcuSetRegA_I(opcode, a);
+}
+
+uint8_t Vmov32VrbVra::GetRegB(const uint32_t data) {
+  return VcuGetRegB_I(data);
+}
+
+uint32_t Vmov32VrbVra::SetRegB(const uint8_t b) {
+  return VcuSetRegB_I(opcode, b);
+}
+
+// Vswap32VrbVra - RegA at bits 3-0, RegB at bits 7-4
+uint8_t Vswap32VrbVra::GetRegA(const uint32_t data) {
+  return VcuGetRegA_I(data);
+}
+
+uint32_t Vswap32VrbVra::SetRegA(const uint8_t a) {
+  return VcuSetRegA_I(opcode, a);
+}
+
+uint8_t Vswap32VrbVra::GetRegB(const uint32_t data) {
+  return VcuGetRegB_I(data);
+}
+
+uint32_t Vswap32VrbVra::SetRegB(const uint8_t b) {
+  return VcuSetRegB_I(opcode, b);
 }
 
 }  // namespace TIC28X

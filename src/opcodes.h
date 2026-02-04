@@ -609,6 +609,20 @@ constexpr uint32_t VSATON = 0xE506;
 constexpr uint32_t VSETSHL_5BIT = 0xE5C0;
 constexpr uint32_t VSETSHR_5BIT = 0xE540;
 
+// VCU-II specific instructions
+constexpr uint32_t VCLRCPACK = 0xE5220000;
+constexpr uint32_t VCLRCRCMSGFLIP = 0xE52D0000;
+constexpr uint32_t VCLROPACK = 0xE5250000;
+constexpr uint16_t VSETCPACK = 0xE521;
+constexpr uint16_t VSETCRCMSGFLIP = 0xE52C;
+constexpr uint16_t VSETOPACK = 0xE523;
+constexpr uint32_t VMOV16_MEM16_VRAH = 0xE2181000;
+constexpr uint32_t VMOV16_VRAH_MEM16 = 0xE2C91000;
+constexpr uint32_t VMOV32_VRB_VRA = 0xE6F20200;
+constexpr uint32_t VSWAP32_VRB_VRA = 0xE6F20300;
+// constexpr uint32_t VXORMOV32_VRA_MEM32 = 0xE3F00000; // Duplicate of
+// VMOV32_VRA_MEM32
+
 // Arithmetic Math Instructions (TODO)
 
 // Complex Math Instructions (TODO)
