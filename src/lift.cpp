@@ -29,6 +29,16 @@ BN::ExprId GetVstatusSatBit(BN::LowLevelILFunction& il) {
                 il.Const(Sizes::_4_BYTES, Flags::VStatusBits::SAT_MASK));
 }
 
+// Helper to generate LLIL for extracting the RND bit from VSTATUS
+// Returns an IL expression that is non-zero if rounding mode is enabled
+BN::ExprId GetVstatusRndBit(BN::LowLevelILFunction& il) {
+  // VSTATUS[RND] is at bit 11
+  // Extract: (VSTATUS & RND_MASK)
+  return il.And(Sizes::_4_BYTES,
+                il.Register(Sizes::_4_BYTES, Registers::VSTATUS),
+                il.Const(Sizes::_4_BYTES, Flags::VStatusBits::RND_MASK));
+}
+
 // Helper to generate LLIL for setting the OVFR flag in VSTATUS
 // Sets VSTATUS.OVFR = 1
 void SetVstatusOvfr(BN::LowLevelILFunction& il) {
@@ -249,6 +259,86 @@ bool Vashl32Vra5bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   il.AddInstruction(il.Goto(finalLabel));
 
   il.MarkLabel(finalLabel);
+
+  return true;
+}
+
+// VASHR32 VRa >> #5-bit
+// Arithmetic shift right of VRa by immediate amount.
+// If VSTATUS[RND] == 1, the result is rounded (add 1 if MSB of shifted-out bits
+// was 1). This instruction does NOT affect any flags in VSTATUS.
+//
+// Pseudocode from TI documentation:
+//   If(VSTATUS[RND] == 1){
+//     VRa = rnd(VRa >> #5-bit Immediate)
+//   }else {
+//     VRa = VRa >> #5-bit Immediate
+//   }
+bool Vashr32Vra5bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                          BN::LowLevelILFunction& il,
+                          TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint32_t dataOp = DataToOpcode(data, len);
+
+  // Extract operands
+  const uint8_t regIdx = GetRegA(dataOp);
+  const uint8_t shiftAmt = GetImm5(dataOp);
+  const uint8_t vrReg = VrIndexToReg(regIdx);
+
+  // Read the original value
+  auto origValue = il.Register(Sizes::_4_BYTES, vrReg);
+
+  // Compute the arithmetic shift right result
+  auto shiftedValue = il.ArithShiftRight(Sizes::_4_BYTES, origValue,
+                                         il.Const(Sizes::_1_BYTE, shiftAmt));
+
+  // Handle shift amount of 0 - no rounding needed, just store the value
+  if (shiftAmt == 0) {
+    il.AddInstruction(il.SetRegister(Sizes::_4_BYTES, vrReg, shiftedValue));
+    return true;
+  }
+
+  // Get the RND bit from VSTATUS
+  auto rndEnabled = GetVstatusRndBit(il);
+
+  // Create labels for the conditional flow
+  BNLowLevelILLabel rndLabel, noRndLabel, doneLabel;
+
+  // If RND is enabled, we need to apply rounding
+  il.AddInstruction(il.If(rndEnabled, rndLabel, noRndLabel));
+
+  // === RND enabled path ===
+  il.MarkLabel(rndLabel);
+  {
+    // Rounding: add 1 to the shifted result if the MSB of the shifted-out bits
+    // was 1. The MSB of shifted-out bits is bit (shiftAmt - 1) of the original
+    // value.
+    //
+    // roundBit = (origValue >> (shiftAmt - 1)) & 1
+    // result = shiftedValue + roundBit
+    auto roundBit =
+        il.And(Sizes::_4_BYTES,
+               il.LogicalShiftRight(Sizes::_4_BYTES, origValue,
+                                    il.Const(Sizes::_1_BYTE, shiftAmt - 1)),
+               il.Const(Sizes::_4_BYTES, 1));
+
+    auto roundedValue =
+        il.Add(Sizes::_4_BYTES, shiftedValue, roundBit);
+
+    il.AddInstruction(il.SetRegister(Sizes::_4_BYTES, vrReg, roundedValue));
+  }
+  il.AddInstruction(il.Goto(doneLabel));
+
+  // === RND disabled path ===
+  il.MarkLabel(noRndLabel);
+  {
+    // No rounding - just perform the shift
+    il.AddInstruction(il.SetRegister(Sizes::_4_BYTES, vrReg, shiftedValue));
+  }
+  il.AddInstruction(il.Goto(doneLabel));
+
+  // === Common exit ===
+  il.MarkLabel(doneLabel);
 
   return true;
 }

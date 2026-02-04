@@ -25,6 +25,10 @@ constexpr int32_t SAT_MIN_32 = 0x80000000;  // -2^31
 // Returns an IL expression that is non-zero if saturation mode is enabled
 BN::ExprId GetVstatusSatBit(BN::LowLevelILFunction& il);
 
+// Helper to generate LLIL for extracting the RND bit from VSTATUS
+// Returns an IL expression that is non-zero if rounding mode is enabled
+BN::ExprId GetVstatusRndBit(BN::LowLevelILFunction& il);
+
 // Helper to generate LLIL for setting the OVFR flag in VSTATUS
 // Sets VSTATUS.OVFR = 1 if overflow occurred
 void SetVstatusOvfr(BN::LowLevelILFunction& il);

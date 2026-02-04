@@ -618,6 +618,7 @@ GenerateInstructionVector() {
       std::make_shared<Vsetshr5bit>(),
       std::make_shared<Vswap32VrbVra>(),
       std::make_shared<Vashl32Vra5bit>(),
+      std::make_shared<Vashr32Vra5bit>(),
 
   };
   return vec;
@@ -6800,6 +6801,23 @@ uint8_t Vashl32Vra5bit::GetImm5(const uint32_t data) {
 }
 
 uint32_t Vashl32Vra5bit::SetImm5(const uint8_t imm) {
+  return VcuSetImm5_III(opcode, imm);
+}
+
+// Vashr32Vra5bit - 5-bit immediate at bits 7-3, 3-bit VRa at bits 2-0
+uint8_t Vashr32Vra5bit::GetRegA(const uint32_t data) {
+  return VcuGetRegA_III(data);
+}
+
+uint32_t Vashr32Vra5bit::SetRegA(const uint8_t a) {
+  return VcuSetRegA_III(opcode, a);
+}
+
+uint8_t Vashr32Vra5bit::GetImm5(const uint32_t data) {
+  return VcuGetImm5_III(data);
+}
+
+uint32_t Vashr32Vra5bit::SetImm5(const uint8_t imm) {
   return VcuSetImm5_III(opcode, imm);
 }
 

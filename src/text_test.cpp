@@ -165,3 +165,48 @@ INSTANTIATE_TEST_SUITE_P(
     [](const testing::TestParamInfo<TestVashl32Vra5bitText::ParamType> &info) {
       return std::format("VR{}_shift{}", info.param.regA, info.param.imm5);
     });
+
+// Vashr32Vra5bit - VCU Arithmetic Shift Right 32-bit
+// Format: vashr32 VRn >> #imm5
+struct Vashr32Vra5bitTestCase {
+  uint8_t regA;        // VRa register (0-7)
+  uint8_t imm5;        // 5-bit immediate (0-31)
+  std::string regStr;  // expected register string
+  std::string immStr;  // expected immediate string
+};
+
+class TestVashr32Vra5bitText
+    : public ::testing::TestWithParam<Vashr32Vra5bitTestCase> {};
+
+TEST_P(TestVashr32Vra5bitText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode = TIC28X::Vashr32Vra5bit::SetRegA(tc.regA) |
+                          TIC28X::Vashr32Vra5bit::SetImm5(tc.imm5);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vashr32"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+      {TextToken, " "},
+      {OperationToken, ">>"},
+      {TextToken, " "},
+      {TextToken, "#"},
+      {IntegerToken, tc.immStr},
+  };
+
+  test_architecture_text(opcode, TIC28X::Vashr32Vra5bit::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    Vashr32Vra5bit, TestVashr32Vra5bitText,
+    ::testing::Values(
+        // Test VR0 with shift 0
+        Vashr32Vra5bitTestCase{0, 0, "vr0", "0x0"},
+        // Test VR1 with shift 16 (example from documentation)
+        Vashr32Vra5bitTestCase{1, 16, "vr1", "0x10"},
+        // Test VR7 with max shift 31
+        Vashr32Vra5bitTestCase{7, 31, "vr7", "0x1f"},
+        // Test VR3 with shift 8
+        Vashr32Vra5bitTestCase{3, 8, "vr3", "0x8"}),
+    [](const testing::TestParamInfo<TestVashr32Vra5bitText::ParamType> &info) {
+      return std::format("VR{}_shift{}", info.param.regA, info.param.imm5);
+    });

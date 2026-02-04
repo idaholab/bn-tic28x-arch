@@ -1675,6 +1675,9 @@ GenerateTestOpcodes() {
           {TIC28X::Vashl32Vra5bit::SetRegA(TEST_DATA) |
                TIC28X::Vashl32Vra5bit::SetImm5(TEST_DATA),
            TIC28X::Vashl32Vra5bit::full_name, TIC28X::Vashl32Vra5bit::objmode},
+          {TIC28X::Vashr32Vra5bit::SetRegA(TEST_DATA) |
+               TIC28X::Vashr32Vra5bit::SetImm5(TEST_DATA),
+           TIC28X::Vashr32Vra5bit::full_name, TIC28X::Vashr32Vra5bit::objmode},
 
       };
 
