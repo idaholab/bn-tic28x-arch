@@ -370,4 +370,32 @@ bool VbitflipVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VLSHL32 VRa << #5-bit
+// Logical shift left of VRa by immediate amount.
+// VRa = VRa << #5-bit Immediate
+//
+// This instruction does NOT affect any flags in VSTATUS.
+// Unlike VASHL32 (arithmetic shift left), VLSHL32 is a pure logical shift:
+// - No saturation mode (SAT bit is ignored)
+// - No overflow flag (OVFR is not modified)
+bool Vlshl32Vra5bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                          BN::LowLevelILFunction& il,
+                          TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint32_t dataOp = DataToOpcode(data, len);
+
+  // Extract operands
+  const uint8_t regIdx = GetRegA(dataOp);
+  const uint8_t shiftAmt = GetImm5(dataOp);
+  const uint8_t vrReg = VrIndexToReg(regIdx);
+
+  // VRa = VRa << #immediate (32-bit logical shift left)
+  il.AddInstruction(il.SetRegister(
+      Sizes::_4_BYTES, vrReg,
+      il.ShiftLeft(Sizes::_4_BYTES, il.Register(Sizes::_4_BYTES, vrReg),
+                   il.Const(Sizes::_1_BYTE, shiftAmt))));
+
+  return true;
+}
+
 }  // namespace TIC28X

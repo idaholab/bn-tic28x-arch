@@ -247,3 +247,48 @@ INSTANTIATE_TEST_SUITE_P(
     [](const testing::TestParamInfo<TestVbitflipVraText::ParamType> &info) {
       return std::format("VR{}", info.param.regA);
     });
+
+// Vlshl32Vra5bit - VCU Logical Shift Left 32-bit
+// Format: vlshl32 VRn << #imm5
+struct Vlshl32Vra5bitTestCase {
+  uint8_t regA;        // VRa register (0-7)
+  uint8_t imm5;        // 5-bit immediate (0-31)
+  std::string regStr;  // expected register string
+  std::string immStr;  // expected immediate string
+};
+
+class TestVlshl32Vra5bitText
+    : public ::testing::TestWithParam<Vlshl32Vra5bitTestCase> {};
+
+TEST_P(TestVlshl32Vra5bitText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode = TIC28X::Vlshl32Vra5bit::SetRegA(tc.regA) |
+                          TIC28X::Vlshl32Vra5bit::SetImm5(tc.imm5);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vlshl32"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+      {TextToken, " "},
+      {OperationToken, "<<"},
+      {TextToken, " "},
+      {TextToken, "#"},
+      {IntegerToken, tc.immStr},
+  };
+
+  test_architecture_text(opcode, TIC28X::Vlshl32Vra5bit::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    Vlshl32Vra5bit, TestVlshl32Vra5bitText,
+    ::testing::Values(
+        // Test VR0 with shift 0 (minimum values)
+        Vlshl32Vra5bitTestCase{0, 0, "vr0", "0x0"},
+        // Test VR0 with shift 16 (example from documentation)
+        Vlshl32Vra5bitTestCase{0, 16, "vr0", "0x10"},
+        // Test VR7 with max shift 31 (maximum values)
+        Vlshl32Vra5bitTestCase{7, 31, "vr7", "0x1f"},
+        // Test VR3 with shift 8 (mid-range values)
+        Vlshl32Vra5bitTestCase{3, 8, "vr3", "0x8"}),
+    [](const testing::TestParamInfo<TestVlshl32Vra5bitText::ParamType> &info) {
+      return std::format("VR{}_shift{}", info.param.regA, info.param.imm5);
+    });
