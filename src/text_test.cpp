@@ -392,10 +392,10 @@ INSTANTIATE_TEST_SUITE_P(
 // VCU - Complex Math Instructions
 // ============================================================================
 
-// Vcadd - VCU Complex Add
+// VcaddVr5Vr4Vr3Vr2 - VCU Complex Add
 // Format: vcadd VR5, VR4, VR3, VR2
 // All operands are fixed implicit registers - opcode 0xE502 is an exact match.
-TEST(VcaddTextTest, FixedRegisters) {
+TEST(VcaddVr5Vr4Vr3Vr2TextTest, FixedRegisters) {
   const std::vector<BN::InstructionTextToken> want = {
       {InstructionToken, "vcadd"},
       {TextToken, " "},
@@ -408,7 +408,7 @@ TEST(VcaddTextTest, FixedRegisters) {
       {RegisterToken, "vr2"},
   };
 
-  test_architecture_text(TIC28X::Vcadd::opcode, TIC28X::Vcadd::objmode, 0x0,
+  test_architecture_text(TIC28X::VcaddVr5Vr4Vr3Vr2::opcode, TIC28X::VcaddVr5Vr4Vr3Vr2::objmode, 0x0,
                          want);
 }
 

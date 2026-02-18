@@ -524,7 +524,7 @@ bool VnegVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 // two independent channels.  We therefore represent this instruction as a
 // single opaque intrinsic named "vcadd" that takes all inputs explicitly and
 // produces the two result registers plus the updated VSTATUS.
-bool Vcadd::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+bool VcaddVr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                  BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
   len = GetLength();
 
@@ -538,7 +538,7 @@ bool Vcadd::Lift(const uint8_t* data, uint64_t addr, size_t& len,
       {BN::RegisterOrFlag::Register(Registers::VR5),
        BN::RegisterOrFlag::Register(Registers::VR4),
        BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-      TIC28X_INTRIN_VCADD,
+      TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
       // Inputs: VR5=Re(X), VR4=Im(X), VR3=Re(Y), VR2=Im(Y), VSTATUS
       {il.Register(Sizes::_4_BYTES, Registers::VR5),
        il.Register(Sizes::_4_BYTES, Registers::VR4),
@@ -606,7 +606,7 @@ bool VcaddVmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
       {BN::RegisterOrFlag::Register(Registers::VR5),
        BN::RegisterOrFlag::Register(Registers::VR4),
        BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-      TIC28X_INTRIN_VCADD,
+      TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
       {il.Register(Sizes::_4_BYTES, Registers::VR5),
        il.Register(Sizes::_4_BYTES, Registers::VR4),
        il.Register(Sizes::_4_BYTES, Registers::VR3),

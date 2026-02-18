@@ -22,7 +22,7 @@ enum AddressMode { AMODE_0 = 0, AMODE_1 = 1 };
 // TIC28X Intrinsics for operations without direct LLIL equivalents
 enum TIC28XIntrinsic {
   TIC28X_INTRIN_BITREVERSE = 0,  // Reverse all bits in a 32-bit value
-  TIC28X_INTRIN_VCADD = 1,       // Complex 32+32=32-bit addition (VCADD)
+  TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2 = 1,       // Complex 32+32=32-bit addition (VCADD)
 };
 
 /**

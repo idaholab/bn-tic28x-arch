@@ -7086,7 +7086,7 @@ bool VnegVra::Text(const uint8_t* data, uint64_t addr, size_t& len,
 
 // VCU - Complex Math Instructions
 
-bool Vcadd::Text(const uint8_t* data, uint64_t addr, size_t& len,
+bool VcaddVr5Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  std::vector<BN::InstructionTextToken>& result,
                  const AddressMode amode) {
   len = GetLength();

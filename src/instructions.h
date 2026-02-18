@@ -19163,9 +19163,9 @@ class VnegVra final : public Instruction2Byte {
 
 // VCU - Complex Math Instructions
 
-class Vcadd final : public Instruction2Byte {
+class VcaddVr5Vr4Vr3Vr2 final : public Instruction2Byte {
  public:
-  Vcadd() : Instruction2Byte() {}
+  VcaddVr5Vr4Vr3Vr2() : Instruction2Byte() {}
 
   /* Instruction Data */
   // Encoding: 1110 0101 0000 0010 (all bits fixed, no variable fields)
@@ -19174,9 +19174,9 @@ class Vcadd final : public Instruction2Byte {
   //                     VR4=Im(Z)=Im(X)+(Im(Y)>>SHIFTR)
   // VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10]
   // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
-  static constexpr uint32_t opcode = Opcodes::VCADD;
+  static constexpr uint32_t opcode = Opcodes::VCADD_VR5_VR4_VR3_VR2;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
-  static constexpr auto full_name = "Vcadd";
+  static constexpr auto full_name = "VcaddVr5Vr4Vr3Vr2";
   static constexpr auto op_name = "vcadd";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
