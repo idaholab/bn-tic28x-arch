@@ -565,3 +565,41 @@ INSTANTIATE_TEST_SUITE_P(Vlshr32Vra5bit, Vlshr32Vra5bitLiftTest,
 
 INSTANTIATE_TEST_SUITE_P(Vlshr32Vra5bit, Vlshr32Vra5bitILTest,
                          vlshr32_test_cases, vlshr32_name_gen);
+
+// ============================================================================
+// VnegVra Lift Tests
+// ============================================================================
+
+struct VnegVraLiftTestCase {
+  uint8_t regA;  // VRa register index (0-7)
+  std::string name;
+};
+
+class VnegVraLiftTest : public ::testing::TestWithParam<VnegVraLiftTestCase> {};
+
+TEST_P(VnegVraLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint16_t opcode = TIC28X::VnegVra::SetRegA(tc.regA);
+
+  // 2-byte instruction
+  EXPECT_EQ(TIC28X::VnegVra().GetLength(), 2u);
+
+  // GetRegA round-trips correctly (bits 3-0, lower 4 bits of the register
+  // index)
+  EXPECT_EQ(TIC28X::VnegVra::GetRegA(opcode), tc.regA & 0xF);
+}
+
+// NOTE: VnegVra uses branching (il.If/il.MarkLabel/il.Goto) for overflow
+// detection and SAT mode handling. The BN core's label system requires a full
+// Function context that is not available in unit tests, so IL tree verification
+// is not possible. The helper function tests above cover operand encoding.
+
+static const auto vneg_test_cases = ::testing::Values(
+    VnegVraLiftTestCase{0, "VR0"}, VnegVraLiftTestCase{1, "VR1"},
+    VnegVraLiftTestCase{3, "VR3"}, VnegVraLiftTestCase{4, "VR4"},
+    VnegVraLiftTestCase{7, "VR7"});
+
+static auto vneg_name_gen = [](const auto& info) { return info.param.name; };
+
+INSTANTIATE_TEST_SUITE_P(VnegVra, VnegVraLiftTest, vneg_test_cases,
+                         vneg_name_gen);

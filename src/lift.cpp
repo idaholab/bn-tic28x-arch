@@ -427,4 +427,85 @@ bool Vlshr32Vra5bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VNEG VRa
+// Two's complement negate of VRa.
+// Overflow occurs when VRa == 0x80000000 (most negative signed 32-bit value).
+// Negating INT32_MIN would produce INT32_MIN again due to wrap-around.
+//
+// Pseudocode from TI documentation:
+//   if (VRa == 0x80000000)
+//   {
+//     if (SAT == 1)
+//       VRa = 0x7FFFFFFF;   // saturate to max positive
+//     else
+//       VRa = 0x80000000;   // stays the same (overflow wraps)
+//   }
+//   else
+//   {
+//     VRa = -VRa;           // two's complement negate
+//   }
+//   OVFR is set if input was 0x80000000
+bool VnegVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                   BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint16_t dataOp =
+      static_cast<uint16_t>(DataToOpcode(data, len) & 0xFFFF);
+
+  // Extract the register operand (bits 3-0, same layout as VBITFLIP)
+  const uint8_t regIdx = GetRegA(dataOp);
+  const uint8_t vrReg = VrIndexToReg(regIdx);
+
+  // Read the original value once
+  auto origValue = il.Register(Sizes::_4_BYTES, vrReg);
+
+  // Check if input == 0x80000000 (the only value that overflows on negate)
+  auto isOverflow = il.CompareEqual(
+      Sizes::_4_BYTES, origValue,
+      il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MIN_32)));
+
+  // Outer branch: overflow vs. normal negate
+  BNLowLevelILLabel overflowLabel, normalLabel, afterResultLabel;
+  il.AddInstruction(il.If(isOverflow, overflowLabel, normalLabel));
+
+  // === Overflow path: VRa == 0x80000000 ===
+  il.MarkLabel(overflowLabel);
+  {
+    // Inner branch: SAT enabled => saturate, SAT disabled => leave unchanged
+    auto satEnabled = GetVstatusSatBit(il);
+    BNLowLevelILLabel satLabel, noSatLabel, afterSatLabel;
+    il.AddInstruction(il.If(satEnabled, satLabel, noSatLabel));
+
+    // SAT == 1: VRa = 0x7FFFFFFF
+    il.MarkLabel(satLabel);
+    il.AddInstruction(il.SetRegister(
+        Sizes::_4_BYTES, vrReg,
+        il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MAX_32))));
+    il.AddInstruction(il.Goto(afterSatLabel));
+
+    // SAT == 0: VRa = 0x80000000 (unchanged — wrap-around negate of INT32_MIN)
+    il.MarkLabel(noSatLabel);
+    il.AddInstruction(il.SetRegister(
+        Sizes::_4_BYTES, vrReg,
+        il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MIN_32))));
+    il.AddInstruction(il.Goto(afterSatLabel));
+
+    il.MarkLabel(afterSatLabel);
+  }
+  // After handling overflow, set OVFR flag and jump past normal path
+  SetVstatusOvfr(il);
+  il.AddInstruction(il.Goto(afterResultLabel));
+
+  // === Normal path: VRa = -VRa (two's complement negate) ===
+  il.MarkLabel(normalLabel);
+  il.AddInstruction(il.SetRegister(
+      Sizes::_4_BYTES, vrReg,
+      il.Neg(Sizes::_4_BYTES, il.Register(Sizes::_4_BYTES, vrReg))));
+  il.AddInstruction(il.Goto(afterResultLabel));
+
+  // === Common exit ===
+  il.MarkLabel(afterResultLabel);
+
+  return true;
+}
+
 }  // namespace TIC28X

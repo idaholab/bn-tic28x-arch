@@ -629,6 +629,7 @@ constexpr uint32_t VASHR32_VRA_5BIT = 0xE6F20800;
 constexpr uint16_t VBITFLIP_VRA = 0xA120;
 constexpr uint32_t VLSHL32_VRA_5BIT = 0xE6F20500;
 constexpr uint32_t VLSHR32_VRA_5BIT = 0xE6F20600;
+constexpr uint16_t VNEG_VRA = 0xE510;
 
 // Complex Math Instructions (TODO)
 

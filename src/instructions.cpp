@@ -622,6 +622,7 @@ GenerateInstructionVector() {
       std::make_shared<VbitflipVra>(),
       std::make_shared<Vlshl32Vra5bit>(),
       std::make_shared<Vlshr32Vra5bit>(),
+      std::make_shared<VnegVra>(),
 
   };
   return vec;
@@ -6873,6 +6874,14 @@ uint8_t Vlshr32Vra5bit::GetImm5(const uint32_t data) {
 
 uint32_t Vlshr32Vra5bit::SetImm5(const uint8_t imm) {
   return VcuSetImm5_III(opcode, imm);
+}
+
+// VnegVra - 4-bit VRa at bits 3-0 (2-byte instruction)
+// Encoding: 1110 0101 0001 aaaa (LSW only)
+uint8_t VnegVra::GetRegA(const uint16_t data) { return VcuGetRegA_IV(data); }
+
+uint16_t VnegVra::SetRegA(const uint8_t a) {
+  return VcuSetRegA_IV(opcode, a);
 }
 
 }  // namespace TIC28X

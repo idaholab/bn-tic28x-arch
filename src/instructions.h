@@ -19124,6 +19124,40 @@ class Vlshr32Vra5bit final : public Instruction4Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+class VnegVra final : public Instruction2Byte {
+ public:
+  VnegVra() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  // Encoding: 1110 0101 0001 aaaa (bits 15-4 fixed, bits 3-0 = VRa)
+  static constexpr uint32_t opcode = Opcodes::VNEG_VRA;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
+  static constexpr auto full_name = "VnegVra";
+  static constexpr auto op_name = "vneg";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint16_t data);
+  static uint16_t SetRegA(uint8_t a);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H
