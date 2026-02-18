@@ -1689,6 +1689,10 @@ GenerateTestOpcodes() {
           {TIC28X::VnegVra::SetRegA(TEST_DATA), TIC28X::VnegVra::full_name,
            TIC28X::VnegVra::objmode},
 
+          // VCU - Complex Math instructions
+          {TIC28X::Vcadd::opcode, TIC28X::Vcadd::full_name,
+           TIC28X::Vcadd::objmode},
+
       };
 
   return opcodes;

@@ -373,3 +373,23 @@ INSTANTIATE_TEST_SUITE_P(
     [](const testing::TestParamInfo<TestVnegVraText::ParamType> &info) {
       return std::format("VR{}", info.param.regA);
     });
+
+// Vcadd - VCU Complex Add
+// Format: vcadd VR5, VR4, VR3, VR2
+// All operands are fixed implicit registers - opcode 0xE502 is an exact match.
+TEST(VcaddTextTest, FixedRegisters) {
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcadd"},
+      {TextToken, " "},
+      {RegisterToken, "vr5"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr3"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},
+  };
+
+  test_architecture_text(TIC28X::Vcadd::opcode, TIC28X::Vcadd::objmode, 0x0,
+                         want);
+}

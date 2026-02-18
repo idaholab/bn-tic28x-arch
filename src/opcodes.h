@@ -631,7 +631,8 @@ constexpr uint32_t VLSHL32_VRA_5BIT = 0xE6F20500;
 constexpr uint32_t VLSHR32_VRA_5BIT = 0xE6F20600;
 constexpr uint16_t VNEG_VRA = 0xE510;
 
-// Complex Math Instructions (TODO)
+// Complex Math Instructions
+constexpr uint16_t VCADD = 0xE502;
 
 // CRC Instructions (TODO)
 

@@ -19158,6 +19158,42 @@ class VnegVra final : public Instruction2Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+// VCU - Complex Math Instructions
+
+class Vcadd final : public Instruction2Byte {
+ public:
+  Vcadd() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  // Encoding: 1110 0101 0000 0010 (all bits fixed, no variable fields)
+  // Inputs (implicit): VR5=Re(X), VR4=Im(X), VR3=Re(Y), VR2=Im(Y)
+  // Outputs (implicit): VR5=Re(Z)=Re(X)+(Re(Y)>>SHIFTR),
+  //                     VR4=Im(Z)=Im(X)+(Im(Y)>>SHIFTR)
+  // VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10]
+  // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
+  static constexpr uint32_t opcode = Opcodes::VCADD;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "Vcadd";
+  static constexpr auto op_name = "vcadd";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

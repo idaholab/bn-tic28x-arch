@@ -623,6 +623,7 @@ GenerateInstructionVector() {
       std::make_shared<Vlshl32Vra5bit>(),
       std::make_shared<Vlshr32Vra5bit>(),
       std::make_shared<VnegVra>(),
+      std::make_shared<Vcadd>(),
 
   };
   return vec;

@@ -313,13 +313,15 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
   switch (intrinsic) {
     case TIC28X_INTRIN_BITREVERSE:
       return "__bitreverse";
+    case TIC28X_INTRIN_VCADD:
+      return "vcadd";
     default:
       return "";
   }
 }
 
 [[nodiscard]] std::vector<uint32_t> TIC28XArchitecture::GetAllIntrinsics() {
-  return {TIC28X_INTRIN_BITREVERSE};
+  return {TIC28X_INTRIN_BITREVERSE, TIC28X_INTRIN_VCADD};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -328,6 +330,16 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
     case TIC28X_INTRIN_BITREVERSE:
       // Takes a 32-bit unsigned integer as input
       return {BN::NameAndType("value", BN::Type::IntegerType(4, false))};
+    case TIC28X_INTRIN_VCADD:
+      // Inputs: VR5=Re(X), VR4=Im(X), VR3=Re(Y), VR2=Im(Y), VSTATUS
+      // VSTATUS carries SHIFTR[4:0], RND[11], SAT[10]
+      return {
+          BN::NameAndType("vr5", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr4", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr3", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr2", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     default:
       return {};
   }
@@ -339,6 +351,10 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
     case TIC28X_INTRIN_BITREVERSE:
       // Returns a 32-bit unsigned integer
       return {BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCADD:
+      // Outputs: VR5=Re(Z), VR4=Im(Z), VSTATUS (OVFR/OVFI flags updated)
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, false)};
     default:
       return {};
   }

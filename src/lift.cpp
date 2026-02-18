@@ -508,4 +508,45 @@ bool VnegVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VCU - Complex Math Instructions
+
+// VCADD VR5, VR4, VR3, VR2
+// Complex 32+32=32-bit addition.
+// Inputs:  VR5=Re(X), VR4=Im(X), VR3=Re(Y), VR2=Im(Y)
+// Outputs: VR5=Re(Z)=Re(X)+(Re(Y)>>SHIFTR), VR4=Im(Z)=Im(X)+(Im(Y)>>SHIFTR)
+// VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10]
+// Flags modified: OVFR (bit 12) if VR5 result overflows,
+//                 OVFI (bit 13) if VR4 result overflows
+//
+// The control flow (conditional rounding, conditional saturation, and flag
+// updates) depends on run-time VSTATUS values (SHIFTR, RND, SAT), making
+// it impractical to expand inline without extremely verbose branching across
+// two independent channels.  We therefore represent this instruction as a
+// single opaque intrinsic named "vcadd" that takes all inputs explicitly and
+// produces the two result registers plus the updated VSTATUS.
+bool Vcadd::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                 BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // Opcode is fixed (0xE502) — no variable fields to extract.
+  // The instruction implicitly operates on VR5, VR4, VR3, VR2, and VSTATUS.
+
+  // Build the intrinsic call:
+  //   (VR5, VR4, VSTATUS) = vcadd(VR5, VR4, VR3, VR2, VSTATUS)
+  il.AddInstruction(il.Intrinsic(
+      // Outputs: VR5 (Re(Z)), VR4 (Im(Z)), VSTATUS (OVFR/OVFI flags updated)
+      {BN::RegisterOrFlag::Register(Registers::VR5),
+       BN::RegisterOrFlag::Register(Registers::VR4),
+       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+      TIC28X_INTRIN_VCADD,
+      // Inputs: VR5=Re(X), VR4=Im(X), VR3=Re(Y), VR2=Im(Y), VSTATUS
+      {il.Register(Sizes::_4_BYTES, Registers::VR5),
+       il.Register(Sizes::_4_BYTES, Registers::VR4),
+       il.Register(Sizes::_4_BYTES, Registers::VR3),
+       il.Register(Sizes::_4_BYTES, Registers::VR2),
+       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  return true;
+}
+
 }  // namespace TIC28X

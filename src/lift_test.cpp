@@ -607,3 +607,82 @@ static auto vneg_name_gen = [](const auto& info) { return info.param.name; };
 
 INSTANTIATE_TEST_SUITE_P(VnegVra, VnegVraLiftTest, vneg_test_cases,
                          vneg_name_gen);
+
+// ============================================================================
+// Vcadd Lift Tests
+// ============================================================================
+//
+// VCADD VR5, VR4, VR3, VR2 (opcode 0xE502, exact 2-byte match, no variable
+// fields). The instruction is lifted as a single LLIL_INTRINSIC named "vcadd"
+// with:
+//   inputs:  VR5, VR4, VR3, VR2, VSTATUS
+//   outputs: VR5, VR4, VSTATUS
+
+// Test that the intrinsic ID and name are correctly registered.
+TEST(VcaddIntrinsic, IntrinsicIsDefined) {
+  EXPECT_EQ(TIC28X::TIC28X_INTRIN_VCADD, 1u);
+}
+
+TEST(VcaddIntrinsic, IntrinsicName) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd-test");
+  EXPECT_EQ(arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCADD), "vcadd");
+}
+
+TEST(VcaddIntrinsic, IntrinsicInputCount) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd-test");
+  auto inputs = arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCADD);
+  // VR5, VR4, VR3, VR2, VSTATUS
+  ASSERT_EQ(inputs.size(), 5u) << "vcadd should have 5 inputs";
+  EXPECT_EQ(inputs[0].name, "vr5");
+  EXPECT_EQ(inputs[1].name, "vr4");
+  EXPECT_EQ(inputs[2].name, "vr3");
+  EXPECT_EQ(inputs[3].name, "vr2");
+  EXPECT_EQ(inputs[4].name, "vstatus");
+}
+
+TEST(VcaddIntrinsic, IntrinsicOutputCount) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd-test");
+  auto outputs = arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCADD);
+  // VR5 (Re result), VR4 (Im result), VSTATUS (flag updates)
+  ASSERT_EQ(outputs.size(), 3u) << "vcadd should have 3 outputs";
+}
+
+TEST(VcaddIntrinsic, GetAllIntrinsicsIncludesVcadd) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd-test");
+  auto intrinsics = arch->GetAllIntrinsics();
+  EXPECT_NE(std::find(intrinsics.begin(), intrinsics.end(),
+                      TIC28X::TIC28X_INTRIN_VCADD),
+            intrinsics.end())
+      << "vcadd should be in the intrinsics list";
+}
+
+// IL verification test: VCADD produces a single LLIL_INTRINSIC with the
+// correct intrinsic ID.  Lift is straight-line (no branching), so IL tests
+// are safe in unit-test contexts.
+class VcaddILTest : public ILTestFixture {};
+
+TEST_F(VcaddILTest, GeneratesCorrectIL) {
+  // Encode opcode 0xE502 as a 2-byte little-endian byte array.
+  uint8_t data[2];
+  OpcodeToData2(static_cast<uint16_t>(TIC28X::Opcodes::VCADD), data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject())
+    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::Vcadd instr;
+  size_t len = 2;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 2u);
+
+  // Should produce exactly 1 IL instruction
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  // Top-level: LLIL_INTRINSIC
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+
+  // operands[2] is the intrinsic ID
+  EXPECT_EQ(intrinsicExpr.operands[2], TIC28X::TIC28X_INTRIN_VCADD)
+      << "Should use the vcadd intrinsic";
+}

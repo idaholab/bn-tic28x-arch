@@ -7061,4 +7061,24 @@ bool VnegVra::Text(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VCU - Complex Math Instructions
+
+bool Vcadd::Text(const uint8_t* data, uint64_t addr, size_t& len,
+                 std::vector<BN::InstructionTextToken>& result,
+                 const AddressMode amode) {
+  len = GetLength();
+
+  OpText(op_name, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+
+  return true;
+}
+
 }  // namespace TIC28X
