@@ -470,3 +470,98 @@ INSTANTIATE_TEST_SUITE_P(Vlshl32Vra5bit, Vlshl32Vra5bitLiftTest,
 
 INSTANTIATE_TEST_SUITE_P(Vlshl32Vra5bit, Vlshl32Vra5bitILTest,
                          vlshl32_test_cases, vlshl32_name_gen);
+
+// ============================================================================
+// Vlshr32Vra5bit Lift Tests
+// ============================================================================
+
+struct Vlshr32LiftTestCase {
+  uint8_t regA;
+  uint8_t imm5;
+  std::string name;
+};
+
+class Vlshr32Vra5bitLiftTest
+    : public ::testing::TestWithParam<Vlshr32LiftTestCase> {};
+
+TEST_P(Vlshr32Vra5bitLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::Vlshr32Vra5bit::SetRegA(tc.regA) |
+                          TIC28X::Vlshr32Vra5bit::SetImm5(tc.imm5);
+
+  EXPECT_EQ(TIC28X::Vlshr32Vra5bit().GetLength(), 4u);
+  EXPECT_EQ(TIC28X::Vlshr32Vra5bit::GetRegA(opcode), tc.regA & 0x7);
+  EXPECT_EQ(TIC28X::Vlshr32Vra5bit::GetImm5(opcode), tc.imm5 & 0x1F);
+}
+
+class Vlshr32Vra5bitILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<Vlshr32LiftTestCase> {};
+
+// Verify Lift() produces the correct IL tree:
+//   LLIL_SET_REG.d(VRn,
+//     LLIL_LSR.d(
+//       LLIL_REG.d(VRn),
+//       LLIL_CONST.b(imm)))
+TEST_P(Vlshr32Vra5bitILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::Vlshr32Vra5bit::SetRegA(tc.regA) |
+                          TIC28X::Vlshr32Vra5bit::SetImm5(tc.imm5);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  const uint8_t expectedVrReg = TIC28X::Registers::VR0 + (tc.regA & 0x7);
+  const uint8_t expectedShift = tc.imm5 & 0x1F;
+
+  auto il = CreateIL();
+  ASSERT_NE(il, nullptr) << "Failed to create LowLevelILFunction";
+
+  TIC28X::Vlshr32Vra5bit instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  // Should produce exactly 1 IL instruction
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  // Top-level: LLIL_SET_REG.d(VRn, <shift_expr>)
+  const auto setReg = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(setReg.operation, LLIL_SET_REG);
+  EXPECT_EQ(setReg.size, 4u);
+  EXPECT_EQ(setReg.operands[0], expectedVrReg)
+      << "SET_REG destination should be VR" << static_cast<int>(tc.regA);
+
+  // Value expression: LLIL_LSR.d(<reg_expr>, <const_expr>)
+  const auto lsr = il->GetRawExpr(setReg.operands[1]);
+  EXPECT_EQ(lsr.operation, LLIL_LSR);
+  EXPECT_EQ(lsr.size, 4u);
+
+  // Left operand of LSR: LLIL_REG.d(VRn)
+  const auto reg = il->GetRawExpr(lsr.operands[0]);
+  EXPECT_EQ(reg.operation, LLIL_REG);
+  EXPECT_EQ(reg.size, 4u);
+  EXPECT_EQ(reg.operands[0], expectedVrReg)
+      << "REG source should be VR" << static_cast<int>(tc.regA);
+
+  // Right operand of LSR: LLIL_CONST.b(imm)
+  const auto cnst = il->GetRawExpr(lsr.operands[1]);
+  EXPECT_EQ(cnst.operation, LLIL_CONST);
+  EXPECT_EQ(cnst.size, 1u);
+  EXPECT_EQ(cnst.operands[0], expectedShift)
+      << "CONST should be shift amount " << static_cast<int>(expectedShift);
+}
+
+static const auto vlshr32_test_cases =
+    ::testing::Values(Vlshr32LiftTestCase{0, 0, "VR0_shift0"},
+                      Vlshr32LiftTestCase{4, 16, "VR4_shift16"},
+                      Vlshr32LiftTestCase{7, 31, "VR7_shift31"},
+                      Vlshr32LiftTestCase{2, 1, "VR2_shift1"},
+                      Vlshr32LiftTestCase{5, 15, "VR5_shift15"});
+
+static auto vlshr32_name_gen = [](const auto& info) { return info.param.name; };
+
+INSTANTIATE_TEST_SUITE_P(Vlshr32Vra5bit, Vlshr32Vra5bitLiftTest,
+                         vlshr32_test_cases, vlshr32_name_gen);
+
+INSTANTIATE_TEST_SUITE_P(Vlshr32Vra5bit, Vlshr32Vra5bitILTest,
+                         vlshr32_test_cases, vlshr32_name_gen);
