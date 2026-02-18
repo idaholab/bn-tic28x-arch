@@ -549,4 +549,74 @@ bool Vcadd::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VMOV32 VRa, mem32
+// Load a 32-bit value from a C28x loc32 address into VRa.
+//
+// Encoding:
+//   LSW (bits [31:16]): 0xE3F0 (fixed)
+//   MSW (bits [15:0]):  0000 aaaa mmmm mmmm
+//     bits [11:8] = aaaa -> VRa destination index
+//     bits [7:0]  = mem32 addressing mode code
+bool Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                           BN::LowLevelILFunction& il,
+                           TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint32_t dataOp = DataToOpcode(data, len);
+
+  const uint8_t regA = GetRegA(dataOp);    // 4-bit VRa index (bits [11:8])
+  const uint8_t mem32 = GetMem32(dataOp);  // 8-bit loc32 field (bits [7:0])
+  const uint8_t vrReg = static_cast<uint8_t>(Registers::VR0 + regA);
+
+  // VRa = [mem32]
+  il.AddInstruction(il.SetRegister(
+      Sizes::_4_BYTES, vrReg,
+      il.Load(Sizes::_4_BYTES, il.Const(Sizes::_4_BYTES, mem32))));
+
+  return true;
+}
+
+// VCADD VR5, VR4, VR3, VR2 || VMOV32 VRa, mem32
+// Parallel complex addition with simultaneous memory load.
+//
+// The VCADD portion is identical to Vcadd::Lift():
+//   (VR5, VR4, VSTATUS) = vcadd(VR5, VR4, VR3, VR2, VSTATUS)
+//
+// The parallel VMOV32 portion loads a 32-bit value from a C28x loc32 address
+// into VRa.  The mem32 field (bits [7:0]) is an 8-bit C28x addressing-mode
+// code whose full decode requires run-time register state (DP, XARn, SP, etc.).
+// Rather than partially decode it, we represent the load as a dedicated
+// intrinsic that preserves the raw mem32 field, matching the pattern used for
+// other VCU memory-operand instructions.
+//
+// Encoding:
+//   LSW: 1110 0011 1111 1000 = 0xE3F8 (bits [31:16])
+//   MSW: 0000 aaaa mmmm mmmm (bits [15:0])
+//     bits [11:8] = aaaa -> VRa destination index
+//     bits [7:0]  = mem32 addressing mode code
+bool VcaddVmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
+                                            size_t& len,
+                                            BN::LowLevelILFunction& il,
+                                            TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // === Instruction 1: VCADD complex addition ===
+  // (VR5, VR4, VSTATUS) = vcadd(VR5, VR4, VR3, VR2, VSTATUS)
+  // Semantics are identical to the standalone VCADD instruction.
+  il.AddInstruction(il.Intrinsic(
+      {BN::RegisterOrFlag::Register(Registers::VR5),
+       BN::RegisterOrFlag::Register(Registers::VR4),
+       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+      TIC28X_INTRIN_VCADD,
+      {il.Register(Sizes::_4_BYTES, Registers::VR5),
+       il.Register(Sizes::_4_BYTES, Registers::VR4),
+       il.Register(Sizes::_4_BYTES, Registers::VR3),
+       il.Register(Sizes::_4_BYTES, Registers::VR2),
+       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  // === Instruction 2: Parallel VMOV32 VRa, mem32 load ===
+  // VRa/mem32 fields are at the same bit positions — delegate to Vmov32VraMem32
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
+}
+
 }  // namespace TIC28X

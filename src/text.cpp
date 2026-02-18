@@ -52,6 +52,10 @@ inline void RshiftText(std::vector<BN::InstructionTextToken>& result) {
   SpaceText(result);
 }
 
+inline void ParallelText(std::vector<BN::InstructionTextToken>& result) {
+  result.emplace_back(TextToken, " || ");
+}
+
 void RegText(const RegTextInfo rti,
              std::vector<BN::InstructionTextToken>& result) {
   if (rti.is_offset) {
@@ -6952,7 +6956,26 @@ bool Zapa::Text(const uint8_t* data, uint64_t addr, size_t& len,
 
 // TODO: insert FPU instructions
 
-// TODO: insert General VCU instructions
+// VCU - General Move Instructions
+
+bool Vmov32VraMem32::Text(const uint8_t* data, uint64_t addr, size_t& len,
+                          std::vector<BN::InstructionTextToken>& result,
+                          const AddressMode amode) {
+  const auto dataOp = DataToOpcode(data, GetLength());
+  const auto regA = GetRegA(dataOp);
+  const auto mem32 = GetMem32(dataOp);
+  len = GetLength();
+
+  OpText(op_name, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
+          result);
+  OpsepText(result);
+  ConstText(ConstTextInfo{.value = mem32, .nbits = 8, .is_address = true},
+            result);
+
+  return true;
+}
 
 // VCU - Arithmetic Math instructions
 bool Vashl32Vra5bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -7079,6 +7102,29 @@ bool Vcadd::Text(const uint8_t* data, uint64_t addr, size_t& len,
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
 
   return true;
+}
+
+bool VcaddVmov32VraMem32::Text(
+    const uint8_t* data, uint64_t addr, size_t& len,
+    std::vector<BN::InstructionTextToken>& result,
+    const AddressMode amode) {
+  len = GetLength();
+
+  // "vcadd VR5, VR4, VR3, VR2"
+  OpText(op_name, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+
+  // " || vmov32 VRa, mem32" — VRa/mem32 fields are at the same bit positions
+  ParallelText(result);
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
 }
 
 }  // namespace TIC28X

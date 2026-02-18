@@ -168,6 +168,10 @@ TEST(TIC28XIntrinsics, GetAllIntrinsicsIncludesBitReverse) {
 }
 
 // ============================================================================
+// VCU - Arithmetic Math Instructions
+// ============================================================================
+
+// ============================================================================
 // Vashl32Vra5bit Lift Tests
 // ============================================================================
 
@@ -310,6 +314,10 @@ INSTANTIATE_TEST_SUITE_P(
     [](const testing::TestParamInfo<Vashr32Vra5bitLiftTest::ParamType>& info) {
       return info.param.name;
     });
+
+// ============================================================================
+// VCU - Bit Manipulation Instructions
+// ============================================================================
 
 // ============================================================================
 // VbitflipVra Lift Tests
@@ -571,6 +579,10 @@ INSTANTIATE_TEST_SUITE_P(Vlshr32Vra5bit, Vlshr32Vra5bitILTest,
                          vlshr32_test_cases, vlshr32_name_gen);
 
 // ============================================================================
+// VCU - Negate Instructions
+// ============================================================================
+
+// ============================================================================
 // VnegVra Lift Tests
 // ============================================================================
 
@@ -607,6 +619,10 @@ static auto vneg_name_gen = [](const auto& info) { return info.param.name; };
 
 INSTANTIATE_TEST_SUITE_P(VnegVra, VnegVraLiftTest, vneg_test_cases,
                          vneg_name_gen);
+
+// ============================================================================
+// VCU - Complex Math Instructions
+// ============================================================================
 
 // ============================================================================
 // Vcadd Lift Tests
@@ -686,3 +702,199 @@ TEST_F(VcaddILTest, GeneratesCorrectIL) {
   EXPECT_EQ(intrinsicExpr.operands[2], TIC28X::TIC28X_INTRIN_VCADD)
       << "Should use the vcadd intrinsic";
 }
+
+// ============================================================================
+// VcaddVmov32VraMem32 Lift Tests
+// ============================================================================
+//
+// VCADD VR5, VR4, VR3, VR2 || VMOV32 VRa, mem32
+// 4-byte instruction.  Encoding:
+//   LSW (bits [31:16]): 0xE3F8 (fixed)
+//   MSW (bits [15:0]):  0000 aaaa mmmm mmmm
+//     bits [11:8] = VRa index (0–7, not 8 or 4 or 5)
+//     bits [7:0]  = mem32 addressing code
+//
+// Lifted as two straight-line LLIL_INTRINSIC instructions (no branching),
+// so IL tree verification is safe in unit-test contexts.
+
+struct VcaddVmov32LiftTestCase {
+  uint8_t regA;
+  uint8_t mem32;
+  std::string name;
+};
+
+class VcaddVmov32LiftTest
+    : public ::testing::TestWithParam<VcaddVmov32LiftTestCase> {};
+
+TEST_P(VcaddVmov32LiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VcaddVmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VcaddVmov32VraMem32::SetMem32(tc.mem32);
+
+  // 4-byte instruction
+  EXPECT_EQ(TIC28X::VcaddVmov32VraMem32().GetLength(), 4u);
+
+  // GetRegA round-trips (4-bit field at bits [11:8])
+  EXPECT_EQ(TIC28X::VcaddVmov32VraMem32::GetRegA(opcode),
+            tc.regA & 0xF);
+
+  // GetMem32 round-trips (8-bit field at bits [7:0])
+  EXPECT_EQ(TIC28X::VcaddVmov32VraMem32::GetMem32(opcode),
+            tc.mem32 & 0xFF);
+}
+
+static const auto vcadd_vmov32_test_cases = ::testing::Values(
+    VcaddVmov32LiftTestCase{0, 0x00, "VR0_mem_0"},
+    VcaddVmov32LiftTestCase{1, 0xAB, "VR1_mem_ab"},
+    VcaddVmov32LiftTestCase{3, 0xFF, "VR3_mem_ff"},
+    VcaddVmov32LiftTestCase{6, 0x42, "VR6_mem_42"},
+    VcaddVmov32LiftTestCase{7, 0x01, "VR7_mem_01"});
+
+static auto vcadd_vmov32_name_gen = [](const auto& info) {
+  return info.param.name;
+};
+
+INSTANTIATE_TEST_SUITE_P(VcaddVmov32, VcaddVmov32LiftTest,
+                         vcadd_vmov32_test_cases, vcadd_vmov32_name_gen);
+
+// IL verification: two IL instructions (non-branching).
+// Instruction 0: vcadd — TIC28X_INTRIN_VCADD (LLIL_INTRINSIC)
+// Instruction 1: parallel VMOV32 — LLIL_SET_REG(VRa, LLIL_LOAD(mem32))
+
+class VcaddVmov32ILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<VcaddVmov32LiftTestCase> {};
+
+TEST_P(VcaddVmov32ILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VcaddVmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VcaddVmov32VraMem32::SetMem32(tc.mem32);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject())
+    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VcaddVmov32VraMem32 instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  // Should produce exactly 2 IL instructions
+  ASSERT_EQ(il->GetInstructionCount(), 2u);
+
+  // === Instruction 0: VCADD intrinsic ===
+  const auto vcaddExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(vcaddExpr.operation, LLIL_INTRINSIC);
+  EXPECT_EQ(vcaddExpr.operands[2], TIC28X::TIC28X_INTRIN_VCADD)
+      << "First instruction should be the vcadd intrinsic";
+
+  // === Instruction 1: Parallel VMOV32 VRa, mem32 — SetRegister(Load(...)) ===
+  const auto setregExpr = il->GetRawExpr(il->GetIndexForInstruction(1));
+  EXPECT_EQ(setregExpr.operation, LLIL_SET_REG)
+      << "Second instruction should be LLIL_SET_REG";
+  const auto loadExpr = il->GetRawExpr(setregExpr.operands[1]);
+  EXPECT_EQ(loadExpr.operation, LLIL_LOAD)
+      << "Value expression should be LLIL_LOAD";
+}
+
+INSTANTIATE_TEST_SUITE_P(VcaddVmov32, VcaddVmov32ILTest,
+                         vcadd_vmov32_test_cases, vcadd_vmov32_name_gen);
+
+// ============================================================================
+// VCU - General Move Instructions
+// ============================================================================
+
+// ============================================================================
+// Vmov32VraMem32 Lift Tests
+// ============================================================================
+//
+// VMOV32 VRa, mem32  (standalone)
+// 4-byte instruction.  Encoding:
+//   LSW (bits [31:16]): 0xE3F0 (fixed)
+//   MSW (bits [15:0]):  0000 aaaa mmmm mmmm
+//     bits [11:8] = VRa index (4-bit)
+//     bits [7:0]  = mem32 addressing code
+//
+// Lifted as a single straight-line LLIL_INTRINSIC (no branching), so IL tree
+// verification is safe in unit-test contexts.
+
+struct Vmov32VraMem32LiftTestCase {
+  uint8_t regA;
+  uint8_t mem32;
+  std::string name;
+};
+
+class Vmov32VraMem32LiftTest
+    : public ::testing::TestWithParam<Vmov32VraMem32LiftTestCase> {};
+
+TEST_P(Vmov32VraMem32LiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::Vmov32VraMem32::SetRegA(tc.regA) |
+                          TIC28X::Vmov32VraMem32::SetMem32(tc.mem32);
+
+  // 4-byte instruction
+  EXPECT_EQ(TIC28X::Vmov32VraMem32().GetLength(), 4u);
+
+  // GetRegA round-trips (4-bit field at bits [11:8])
+  EXPECT_EQ(TIC28X::Vmov32VraMem32::GetRegA(opcode), tc.regA & 0xF);
+
+  // GetMem32 round-trips (8-bit field at bits [7:0])
+  EXPECT_EQ(TIC28X::Vmov32VraMem32::GetMem32(opcode), tc.mem32 & 0xFF);
+}
+
+static const auto vmov32_vra_mem32_test_cases = ::testing::Values(
+    Vmov32VraMem32LiftTestCase{0, 0x00, "VR0_mem_0"},
+    Vmov32VraMem32LiftTestCase{1, 0xAB, "VR1_mem_ab"},
+    Vmov32VraMem32LiftTestCase{3, 0xFF, "VR3_mem_ff"},
+    Vmov32VraMem32LiftTestCase{6, 0x42, "VR6_mem_42"},
+    Vmov32VraMem32LiftTestCase{7, 0x01, "VR7_mem_01"});
+
+static auto vmov32_vra_mem32_name_gen = [](const auto& info) {
+  return info.param.name;
+};
+
+INSTANTIATE_TEST_SUITE_P(Vmov32VraMem32, Vmov32VraMem32LiftTest,
+                         vmov32_vra_mem32_test_cases,
+                         vmov32_vra_mem32_name_gen);
+
+// IL verification: single LLIL_SET_REG(LLIL_LOAD(...)) instruction.
+
+class Vmov32VraMem32ILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<Vmov32VraMem32LiftTestCase> {};
+
+TEST_P(Vmov32VraMem32ILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::Vmov32VraMem32::SetRegA(tc.regA) |
+                          TIC28X::Vmov32VraMem32::SetMem32(tc.mem32);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject())
+    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::Vmov32VraMem32 instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  // Should produce exactly 1 IL instruction
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  // === Instruction 0: VMOV32 VRa = Load(mem32) ===
+  const auto setregExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(setregExpr.operation, LLIL_SET_REG)
+      << "Instruction should be LLIL_SET_REG";
+  const auto loadExpr = il->GetRawExpr(setregExpr.operands[1]);
+  EXPECT_EQ(loadExpr.operation, LLIL_LOAD)
+      << "Value expression should be LLIL_LOAD";
+}
+
+INSTANTIATE_TEST_SUITE_P(Vmov32VraMem32, Vmov32VraMem32ILTest,
+                         vmov32_vra_mem32_test_cases,
+                         vmov32_vra_mem32_name_gen);

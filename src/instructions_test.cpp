@@ -1692,6 +1692,10 @@ GenerateTestOpcodes() {
           // VCU - Complex Math instructions
           {TIC28X::Vcadd::opcode, TIC28X::Vcadd::full_name,
            TIC28X::Vcadd::objmode},
+          {TIC28X::VcaddVmov32VraMem32::SetRegA(TEST_DATA) |
+               TIC28X::VcaddVmov32VraMem32::SetMem32(TEST_DATA),
+           TIC28X::VcaddVmov32VraMem32::full_name,
+           TIC28X::VcaddVmov32VraMem32::objmode},
 
       };
 

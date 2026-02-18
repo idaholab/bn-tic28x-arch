@@ -81,45 +81,9 @@ static void test_architecture_text(
 
 /* Instruction Text Tests */
 
-// // Format: OP
-// class TestTextOpP : public ::testing::TestWithParam<
-//                         std::tuple<unsigned int, TIC28X::ObjectMode>> {};
-//
-// TEST_P(TestTextOpP, TestInstructionText) {
-//   const uint32_t opcode = std::get<0>(GetParam());
-//   const TIC28X::ObjectMode objmode = std::get<1>(GetParam());
-//   const std::vector<BN::InstructionTextToken> want = {
-//       {InstructionToken, TIC28X::Opcodes::NAMES.at(opcode)},
-//   };
-//
-//   test_architecture_text(opcode, objmode, 0x0, want);
-// }
-//
-// // Test all 'OP' format instructions
-// INSTANTIATE_TEST_SUITE_P(
-//     InstructionFormatOp, TestTextOpP,
-//     ::testing::ValuesIn(
-//         std::vector<std::tuple<unsigned int, TIC28X::ObjectMode>>{
-//             {TIC28X::Aborti::opcode, TIC28X::Aborti::objmode},
-//         }),
-//     [](const testing::TestParamInfo<TestTextOpP::ParamType> &info) {
-//       const auto op = std::get<0>(info.param);
-//       return "OP_" + TIC28X::Opcodes::NAMES.at(op);
-//     });
-//
-// TEST(TestInstructionText, AbsAcc) {
-//   const auto instr = TIC28X::AbsAcc();
-//   const std::vector<BN::InstructionTextToken> want = {
-//       {InstructionToken, "abs"}, {TextToken, " "}, {RegisterToken, "acc"}};
-//   test_architecture_text(instr.opcode, instr.objmode, 0x0, want);
-// };
-//
-// TEST(TestInstructionText, AbstcAcc) {
-//   const auto instr = TIC28X::AbstcAcc();
-//   const std::vector<BN::InstructionTextToken> want = {
-//       {InstructionToken, "abstc"}, {TextToken, " "}, {RegisterToken, "acc"}};
-//   test_architecture_text(instr.opcode, instr.objmode, 0x0, want);
-// };
+// ============================================================================
+// VCU - Arithmetic Math Instructions
+// ============================================================================
 
 // Vashl32Vra5bit - VCU Arithmetic Shift Left 32-bit
 // Format: vashl32 VRn << #imm5
@@ -210,6 +174,10 @@ INSTANTIATE_TEST_SUITE_P(
     [](const testing::TestParamInfo<TestVashr32Vra5bitText::ParamType> &info) {
       return std::format("VR{}_shift{}", info.param.regA, info.param.imm5);
     });
+
+// ============================================================================
+// VCU - Bit Manipulation Instructions
+// ============================================================================
 
 // VbitflipVra - VCU Bit Flip
 // Format: vbitflip VRn
@@ -338,6 +306,10 @@ INSTANTIATE_TEST_SUITE_P(
       return std::format("VR{}_shift{}", info.param.regA, info.param.imm5);
     });
 
+// ============================================================================
+// VCU - Negate Instructions
+// ============================================================================
+
 // VnegVra - VCU Negate
 // Format: vneg VRn
 struct VnegVraTestCase {
@@ -374,6 +346,52 @@ INSTANTIATE_TEST_SUITE_P(
       return std::format("VR{}", info.param.regA);
     });
 
+// ============================================================================
+// VCU - General Move Instructions
+// ============================================================================
+
+// Vmov32VraMem32 - VCU Load 32-bit register from memory
+// Format: vmov32 VRa, @mem32
+struct Vmov32VraMem32TestCase {
+  uint8_t regA;
+  uint8_t mem32;
+  std::string regStr;
+};
+
+class TestVmov32VraMem32Text
+    : public ::testing::TestWithParam<Vmov32VraMem32TestCase> {};
+
+TEST_P(TestVmov32VraMem32Text, TestInstructionText) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::Vmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::Vmov32VraMem32::SetMem32(tc.mem32);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vmov32"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+      {OperandSeparatorToken, ", "},
+      {TextToken, "@"},
+      {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
+  };
+  test_architecture_text(opcode, TIC28X::Vmov32VraMem32::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    Vmov32VraMem32, TestVmov32VraMem32Text,
+    ::testing::Values(
+        Vmov32VraMem32TestCase{0, 0x00, "vr0"},
+        Vmov32VraMem32TestCase{1, 0x42, "vr1"},
+        Vmov32VraMem32TestCase{7, 0xff, "vr7"},
+        Vmov32VraMem32TestCase{8, 0x10, "vr8"}),
+    [](const testing::TestParamInfo<TestVmov32VraMem32Text::ParamType>& info) {
+      return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
+    });
+
+// ============================================================================
+// VCU - Complex Math Instructions
+// ============================================================================
+
 // Vcadd - VCU Complex Add
 // Format: vcadd VR5, VR4, VR3, VR2
 // All operands are fixed implicit registers - opcode 0xE502 is an exact match.
@@ -393,3 +411,59 @@ TEST(VcaddTextTest, FixedRegisters) {
   test_architecture_text(TIC28X::Vcadd::opcode, TIC28X::Vcadd::objmode, 0x0,
                          want);
 }
+
+// VcaddVmov32VraMem32 - VCU Complex Add with parallel VMOV32
+// Format: vcadd VR5, VR4, VR3, VR2 || vmov32 VRa, mem32
+struct VcaddVmov32VraMem32TestCase {
+  uint8_t regA;        // VRa register index (0-7)
+  std::string regStr;  // expected register string (e.g. "vr0")
+};
+
+class TestVcaddVmov32VraMem32Text
+    : public ::testing::TestWithParam<
+          VcaddVmov32VraMem32TestCase> {};
+
+TEST_P(TestVcaddVmov32VraMem32Text, TestInstructionText) {
+  const auto &tc = GetParam();
+  // mem32=0 selects direct addressing mode @0x0 (bits [7:0] = 0x00)
+  const uint32_t opcode =
+      TIC28X::VcaddVmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VcaddVmov32VraMem32::SetMem32(0);
+  // With AMODE_0 and mem32=0, Loc32Text emits: TextToken("@") +
+  // PossibleAddressToken("0x0")
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcadd"},
+      {TextToken, " "},
+      {RegisterToken, "vr5"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr3"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},
+      {TextToken, " || "},
+      {InstructionToken, "vmov32"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+      {OperandSeparatorToken, ", "},
+      {TextToken, "@"},
+      {PossibleAddressToken, "0x0"},
+  };
+
+  test_architecture_text(
+      opcode, TIC28X::VcaddVmov32VraMem32::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VcaddVmov32VraMem32, TestVcaddVmov32VraMem32Text,
+    ::testing::Values(
+        // Test VR0 (minimum register)
+        VcaddVmov32VraMem32TestCase{0, "vr0"},
+        // Test VR1
+        VcaddVmov32VraMem32TestCase{1, "vr1"},
+        // Test VR7 (maximum register)
+        VcaddVmov32VraMem32TestCase{7, "vr7"}),
+    [](const testing::TestParamInfo<
+           TestVcaddVmov32VraMem32Text::ParamType> &info) {
+      return std::format("VR{}", info.param.regA);
+    });

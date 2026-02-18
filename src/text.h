@@ -43,6 +43,7 @@ inline void OpsepText(std::vector<BN::InstructionTextToken>& result);
 inline void RegCombineText(std::vector<BN::InstructionTextToken>& result);
 inline void LshiftText(std::vector<BN::InstructionTextToken>& result);
 inline void RshiftText(std::vector<BN::InstructionTextToken>& result);
+inline void ParallelText(std::vector<BN::InstructionTextToken>& result);
 void RegText(RegTextInfo rti, std::vector<BN::InstructionTextToken>& result);
 void ConstText(const ConstTextInfo& cti,
                std::vector<BN::InstructionTextToken>& result);

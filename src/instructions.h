@@ -18453,9 +18453,12 @@ class Vmov32VraMem32 final : public Instruction4Byte {
   static uint32_t SetMem32(uint8_t mem);
 
   /* Binary Ninja Function Implementations */
-  // bool Text(const uint8_t* data, uint64_t addr, size_t& len,
-  //           std::vector<BN::InstructionTextToken>& result,
-  //           AddressMode amode) override;
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il,
+            TIC28XArchitecture* arch) override;
 };
 
 class Vmov32VstatusMem32 final : public Instruction4Byte {
@@ -19190,6 +19193,51 @@ class Vcadd final : public Instruction2Byte {
   bool Text(const uint8_t* data, uint64_t addr, size_t& len,
             std::vector<BN::InstructionTextToken>& result,
             AddressMode amode) override;
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
+class VcaddVmov32VraMem32 final : public Instruction4Byte {
+ public:
+  VcaddVmov32VraMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  // Encoding:
+  //   LSW: 1110 0011 1111 1000 = 0xE3F8 (bits [31:16])
+  //   MSW: 0000 aaaa mmmm mmmm (bits [15:0])
+  //     bits [11:8] = aaaa -> VRa index (destination for parallel load)
+  //     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
+  // VRa cannot be VR5 (5), VR4 (4), or VR8 (8).
+  // Implicit operands: VR5=Re(Z), VR4=Im(Z), VR3=Re(Y), VR2=Im(Y)
+  static constexpr uint32_t opcode =
+      Opcodes::VCADD_VMOV32_VRA_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "VcaddVmov32VraMem32";
+  static constexpr auto op_name = "vcadd";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetOpName() override { return op_name; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  // VRa: 4-bit register index at bits [11:8]
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  // mem32: 8-bit memory addressing mode at bits [7:0]
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
   bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
