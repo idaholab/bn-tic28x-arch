@@ -256,8 +256,7 @@ TEST_P(Vashr32ShiftZeroILTest, GeneratesCorrectIL) {
   const uint8_t expectedVrReg = TIC28X::Registers::VR0 + (tc.regA & 0x7);
 
   auto il = CreateIL();
-  if (!il || !il->GetObject())
-    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
 
   TIC28X::Vashr32Vra5bit instr;
   size_t len = 4;
@@ -352,8 +351,7 @@ TEST_P(VbitflipVraILTest, GeneratesCorrectIL) {
   OpcodeToData2(opcode, data);
 
   auto il = CreateIL();
-  if (!il || !il->GetObject())
-    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
 
   TIC28X::VbitflipVra instr;
   size_t len = 2;
@@ -429,8 +427,7 @@ TEST_P(Vlshl32Vra5bitILTest, GeneratesCorrectIL) {
   const uint8_t expectedShift = tc.imm5 & 0x1F;
 
   auto il = CreateIL();
-  if (!il || !il->GetObject())
-    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
 
   TIC28X::Vlshl32Vra5bit instr;
   size_t len = 4;
@@ -525,8 +522,7 @@ TEST_P(Vlshr32Vra5bitILTest, GeneratesCorrectIL) {
   const uint8_t expectedShift = tc.imm5 & 0x1F;
 
   auto il = CreateIL();
-  if (!il || !il->GetObject())
-    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
 
   TIC28X::Vlshr32Vra5bit instr;
   size_t len = 4;
@@ -641,12 +637,14 @@ TEST(VcaddVr5Vr4Vr3Vr2Intrinsic, IntrinsicIsDefined) {
 
 TEST(VcaddVr5Vr4Vr3Vr2Intrinsic, IntrinsicName) {
   auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd-test");
-  EXPECT_EQ(arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2), "vcadd");
+  EXPECT_EQ(arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2),
+            "vcadd");
 }
 
 TEST(VcaddVr5Vr4Vr3Vr2Intrinsic, IntrinsicInputCount) {
   auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd-test");
-  auto inputs = arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2);
+  auto inputs =
+      arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2);
   // VR5, VR4, VR3, VR2, VSTATUS
   ASSERT_EQ(inputs.size(), 5u) << "vcadd should have 5 inputs";
   EXPECT_EQ(inputs[0].name, "vr5");
@@ -658,7 +656,8 @@ TEST(VcaddVr5Vr4Vr3Vr2Intrinsic, IntrinsicInputCount) {
 
 TEST(VcaddVr5Vr4Vr3Vr2Intrinsic, IntrinsicOutputCount) {
   auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd-test");
-  auto outputs = arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2);
+  auto outputs =
+      arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2);
   // VR5 (Re result), VR4 (Im result), VSTATUS (flag updates)
   ASSERT_EQ(outputs.size(), 3u) << "vcadd should have 3 outputs";
 }
@@ -680,11 +679,11 @@ class VcaddVr5Vr4Vr3Vr2ILTest : public ILTestFixture {};
 TEST_F(VcaddVr5Vr4Vr3Vr2ILTest, GeneratesCorrectIL) {
   // Encode opcode 0xE502 as a 2-byte little-endian byte array.
   uint8_t data[2];
-  OpcodeToData2(static_cast<uint16_t>(TIC28X::Opcodes::VCADD_VR5_VR4_VR3_VR2), data);
+  OpcodeToData2(static_cast<uint16_t>(TIC28X::Opcodes::VCADD_VR5_VR4_VR3_VR2),
+                data);
 
   auto il = CreateIL();
-  if (!il || !il->GetObject())
-    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
 
   TIC28X::VcaddVr5Vr4Vr3Vr2 instr;
   size_t len = 2;
@@ -699,7 +698,8 @@ TEST_F(VcaddVr5Vr4Vr3Vr2ILTest, GeneratesCorrectIL) {
   EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
 
   // operands[2] is the intrinsic ID
-  EXPECT_EQ(intrinsicExpr.operands[2], TIC28X::TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2)
+  EXPECT_EQ(intrinsicExpr.operands[2],
+            TIC28X::TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2)
       << "Should use the vcadd intrinsic";
 }
 
@@ -724,7 +724,8 @@ struct VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase {
 };
 
 class VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest
-    : public ::testing::TestWithParam<VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase> {};
+    : public ::testing::TestWithParam<
+          VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase> {};
 
 TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -744,19 +745,21 @@ TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest, HelperFunctionsWork) {
             tc.mem32 & 0xFF);
 }
 
-static const auto vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases = ::testing::Values(
-    VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{0, 0x00, "VR0_mem_0"},
-    VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{1, 0xAB, "VR1_mem_ab"},
-    VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{3, 0xFF, "VR3_mem_ff"},
-    VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{6, 0x42, "VR6_mem_42"},
-    VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{7, 0x01, "VR7_mem_01"});
+static const auto vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases =
+    ::testing::Values(
+        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{0, 0x00, "VR0_mem_0"},
+        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{1, 0xAB, "VR1_mem_ab"},
+        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{3, 0xFF, "VR3_mem_ff"},
+        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{6, 0x42, "VR6_mem_42"},
+        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{7, 0x01, "VR7_mem_01"});
 
-static auto vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen = [](const auto& info) {
-  return info.param.name;
-};
+static auto vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen =
+    [](const auto& info) { return info.param.name; };
 
-INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32, VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest,
-                         vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases, vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen);
+INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32,
+                         VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest,
+                         vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases,
+                         vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen);
 
 // IL verification: two IL instructions (non-branching).
 // Instruction 0: vcadd — TIC28X_INTRIN_VCADD (LLIL_INTRINSIC)
@@ -764,7 +767,8 @@ INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32, VcaddVr5Vr4Vr3Vr2Vmov3
 
 class VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest
     : public ILTestFixture,
-      public ::testing::WithParamInterface<VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase> {};
+      public ::testing::WithParamInterface<
+          VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase> {};
 
 TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest, GeneratesCorrectIL) {
   const auto& tc = GetParam();
@@ -775,8 +779,7 @@ TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest, GeneratesCorrectIL) {
   OpcodeToData4(opcode, data);
 
   auto il = CreateIL();
-  if (!il || !il->GetObject())
-    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
 
   TIC28X::VcaddVr5Vr4Vr3Vr2Vmov32VraMem32 instr;
   size_t len = 4;
@@ -801,8 +804,10 @@ TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest, GeneratesCorrectIL) {
       << "Value expression should be LLIL_LOAD";
 }
 
-INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32, VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest,
-                         vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases, vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen);
+INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32,
+                         VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest,
+                         vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases,
+                         vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen);
 
 // ============================================================================
 // VCU - General Move Instructions
@@ -846,12 +851,12 @@ TEST_P(Vmov32VraMem32LiftTest, HelperFunctionsWork) {
   EXPECT_EQ(TIC28X::Vmov32VraMem32::GetMem32(opcode), tc.mem32 & 0xFF);
 }
 
-static const auto vmov32_vra_mem32_test_cases = ::testing::Values(
-    Vmov32VraMem32LiftTestCase{0, 0x00, "VR0_mem_0"},
-    Vmov32VraMem32LiftTestCase{1, 0xAB, "VR1_mem_ab"},
-    Vmov32VraMem32LiftTestCase{3, 0xFF, "VR3_mem_ff"},
-    Vmov32VraMem32LiftTestCase{6, 0x42, "VR6_mem_42"},
-    Vmov32VraMem32LiftTestCase{7, 0x01, "VR7_mem_01"});
+static const auto vmov32_vra_mem32_test_cases =
+    ::testing::Values(Vmov32VraMem32LiftTestCase{0, 0x00, "VR0_mem_0"},
+                      Vmov32VraMem32LiftTestCase{1, 0xAB, "VR1_mem_ab"},
+                      Vmov32VraMem32LiftTestCase{3, 0xFF, "VR3_mem_ff"},
+                      Vmov32VraMem32LiftTestCase{6, 0x42, "VR6_mem_42"},
+                      Vmov32VraMem32LiftTestCase{7, 0x01, "VR7_mem_01"});
 
 static auto vmov32_vra_mem32_name_gen = [](const auto& info) {
   return info.param.name;
@@ -875,8 +880,7 @@ TEST_P(Vmov32VraMem32ILTest, GeneratesCorrectIL) {
   OpcodeToData4(opcode, data);
 
   auto il = CreateIL();
-  if (!il || !il->GetObject())
-    GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
 
   TIC28X::Vmov32VraMem32 instr;
   size_t len = 4;

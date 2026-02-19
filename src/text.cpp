@@ -7087,8 +7087,8 @@ bool VnegVra::Text(const uint8_t* data, uint64_t addr, size_t& len,
 // VCU - Complex Math Instructions
 
 bool VcaddVr5Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
-                 std::vector<BN::InstructionTextToken>& result,
-                 const AddressMode amode) {
+                             std::vector<BN::InstructionTextToken>& result,
+                             const AddressMode amode) {
   len = GetLength();
 
   OpText(op_name, result);
@@ -7106,8 +7106,7 @@ bool VcaddVr5Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
 
 bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Text(
     const uint8_t* data, uint64_t addr, size_t& len,
-    std::vector<BN::InstructionTextToken>& result,
-    const AddressMode amode) {
+    std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
   len = GetLength();
 
   // "vcadd VR5, VR4, VR3, VR2"

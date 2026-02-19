@@ -6882,9 +6882,7 @@ uint32_t Vlshr32Vra5bit::SetImm5(const uint8_t imm) {
 // Encoding: 1110 0101 0001 aaaa (LSW only)
 uint8_t VnegVra::GetRegA(const uint16_t data) { return VcuGetRegA_IV(data); }
 
-uint16_t VnegVra::SetRegA(const uint8_t a) {
-  return VcuSetRegA_IV(opcode, a);
-}
+uint16_t VnegVra::SetRegA(const uint8_t a) { return VcuSetRegA_IV(opcode, a); }
 
 // VcaddVr5Vr4Vr3Vr2Vmov32VraMem32 - RegA at bits 11-8, mem32 at bits 7-0
 // Encoding:

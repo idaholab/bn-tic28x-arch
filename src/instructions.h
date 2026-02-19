@@ -18457,8 +18457,7 @@ class Vmov32VraMem32 final : public Instruction4Byte {
             std::vector<BN::InstructionTextToken>& result,
             AddressMode amode) override;
   bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
-            BN::LowLevelILFunction& il,
-            TIC28XArchitecture* arch) override;
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
 class Vmov32VstatusMem32 final : public Instruction4Byte {

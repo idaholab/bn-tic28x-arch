@@ -525,7 +525,8 @@ bool VnegVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 // single opaque intrinsic named "vcadd" that takes all inputs explicitly and
 // produces the two result registers plus the updated VSTATUS.
 bool VcaddVr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
-                 BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+                             BN::LowLevelILFunction& il,
+                             TIC28XArchitecture* arch) {
   len = GetLength();
 
   // Opcode is fixed (0xE502) — no variable fields to extract.
@@ -558,8 +559,8 @@ bool VcaddVr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 //     bits [11:8] = aaaa -> VRa destination index
 //     bits [7:0]  = mem32 addressing mode code
 bool Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr, size_t& len,
-                           BN::LowLevelILFunction& il,
-                           TIC28XArchitecture* arch) {
+                          BN::LowLevelILFunction& il,
+                          TIC28XArchitecture* arch) {
   len = GetLength();
   const uint32_t dataOp = DataToOpcode(data, len);
 
@@ -594,24 +595,24 @@ bool Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 //     bits [11:8] = aaaa -> VRa destination index
 //     bits [7:0]  = mem32 addressing mode code
 bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
-                                            size_t& len,
-                                            BN::LowLevelILFunction& il,
-                                            TIC28XArchitecture* arch) {
+                                           size_t& len,
+                                           BN::LowLevelILFunction& il,
+                                           TIC28XArchitecture* arch) {
   len = GetLength();
 
   // === Instruction 1: VCADD complex addition ===
   // (VR5, VR4, VSTATUS) = vcadd(VR5, VR4, VR3, VR2, VSTATUS)
   // Semantics are identical to the standalone VCADD instruction.
-  il.AddInstruction(il.Intrinsic(
-      {BN::RegisterOrFlag::Register(Registers::VR5),
-       BN::RegisterOrFlag::Register(Registers::VR4),
-       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-      TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
-      {il.Register(Sizes::_4_BYTES, Registers::VR5),
-       il.Register(Sizes::_4_BYTES, Registers::VR4),
-       il.Register(Sizes::_4_BYTES, Registers::VR3),
-       il.Register(Sizes::_4_BYTES, Registers::VR2),
-       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
+                    BN::RegisterOrFlag::Register(Registers::VR4),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
+                   {il.Register(Sizes::_4_BYTES, Registers::VR5),
+                    il.Register(Sizes::_4_BYTES, Registers::VR4),
+                    il.Register(Sizes::_4_BYTES, Registers::VR3),
+                    il.Register(Sizes::_4_BYTES, Registers::VR2),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
 
   // === Instruction 2: Parallel VMOV32 VRa, mem32 load ===
   // VRa/mem32 fields are at the same bit positions — delegate to Vmov32VraMem32
