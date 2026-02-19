@@ -7104,7 +7104,7 @@ bool VcaddVr5Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
-bool VcaddVmov32VraMem32::Text(
+bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Text(
     const uint8_t* data, uint64_t addr, size_t& len,
     std::vector<BN::InstructionTextToken>& result,
     const AddressMode amode) {

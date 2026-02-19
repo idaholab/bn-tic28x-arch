@@ -593,7 +593,7 @@ bool Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 //   MSW: 0000 aaaa mmmm mmmm (bits [15:0])
 //     bits [11:8] = aaaa -> VRa destination index
 //     bits [7:0]  = mem32 addressing mode code
-bool VcaddVmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
+bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
                                             size_t& len,
                                             BN::LowLevelILFunction& il,
                                             TIC28XArchitecture* arch) {

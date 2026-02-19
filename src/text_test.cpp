@@ -412,23 +412,23 @@ TEST(VcaddVr5Vr4Vr3Vr2TextTest, FixedRegisters) {
                          want);
 }
 
-// VcaddVmov32VraMem32 - VCU Complex Add with parallel VMOV32
+// VcaddVr5Vr4Vr3Vr2Vmov32VraMem32 - VCU Complex Add with parallel VMOV32
 // Format: vcadd VR5, VR4, VR3, VR2 || vmov32 VRa, mem32
-struct VcaddVmov32VraMem32TestCase {
+struct VcaddVr5Vr4Vr3Vr2Vmov32VraMem32TestCase {
   uint8_t regA;        // VRa register index (0-7)
   std::string regStr;  // expected register string (e.g. "vr0")
 };
 
-class TestVcaddVmov32VraMem32Text
+class TestVcaddVr5Vr4Vr3Vr2Vmov32VraMem32Text
     : public ::testing::TestWithParam<
-          VcaddVmov32VraMem32TestCase> {};
+          VcaddVr5Vr4Vr3Vr2Vmov32VraMem32TestCase> {};
 
-TEST_P(TestVcaddVmov32VraMem32Text, TestInstructionText) {
+TEST_P(TestVcaddVr5Vr4Vr3Vr2Vmov32VraMem32Text, TestInstructionText) {
   const auto &tc = GetParam();
   // mem32=0 selects direct addressing mode @0x0 (bits [7:0] = 0x00)
   const uint32_t opcode =
-      TIC28X::VcaddVmov32VraMem32::SetRegA(tc.regA) |
-      TIC28X::VcaddVmov32VraMem32::SetMem32(0);
+      TIC28X::VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::SetMem32(0);
   // With AMODE_0 and mem32=0, Loc32Text emits: TextToken("@") +
   // PossibleAddressToken("0x0")
   const std::vector<BN::InstructionTextToken> want = {
@@ -451,19 +451,19 @@ TEST_P(TestVcaddVmov32VraMem32Text, TestInstructionText) {
   };
 
   test_architecture_text(
-      opcode, TIC28X::VcaddVmov32VraMem32::objmode, 0x0, want);
+      opcode, TIC28X::VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::objmode, 0x0, want);
 }
 
 INSTANTIATE_TEST_SUITE_P(
-    VcaddVmov32VraMem32, TestVcaddVmov32VraMem32Text,
+    VcaddVr5Vr4Vr3Vr2Vmov32VraMem32, TestVcaddVr5Vr4Vr3Vr2Vmov32VraMem32Text,
     ::testing::Values(
         // Test VR0 (minimum register)
-        VcaddVmov32VraMem32TestCase{0, "vr0"},
+        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32TestCase{0, "vr0"},
         // Test VR1
-        VcaddVmov32VraMem32TestCase{1, "vr1"},
+        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32TestCase{1, "vr1"},
         // Test VR7 (maximum register)
-        VcaddVmov32VraMem32TestCase{7, "vr7"}),
+        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32TestCase{7, "vr7"}),
     [](const testing::TestParamInfo<
-           TestVcaddVmov32VraMem32Text::ParamType> &info) {
+           TestVcaddVr5Vr4Vr3Vr2Vmov32VraMem32Text::ParamType> &info) {
       return std::format("VR{}", info.param.regA);
     });

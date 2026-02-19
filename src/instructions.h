@@ -19197,9 +19197,9 @@ class VcaddVr5Vr4Vr3Vr2 final : public Instruction2Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
-class VcaddVmov32VraMem32 final : public Instruction4Byte {
+class VcaddVr5Vr4Vr3Vr2Vmov32VraMem32 final : public Instruction4Byte {
  public:
-  VcaddVmov32VraMem32() : Instruction4Byte() {}
+  VcaddVr5Vr4Vr3Vr2Vmov32VraMem32() : Instruction4Byte() {}
 
   /* Instruction Data */
   // Encoding:
@@ -19210,9 +19210,9 @@ class VcaddVmov32VraMem32 final : public Instruction4Byte {
   // VRa cannot be VR5 (5), VR4 (4), or VR8 (8).
   // Implicit operands: VR5=Re(Z), VR4=Im(Z), VR3=Re(Y), VR2=Im(Y)
   static constexpr uint32_t opcode =
-      Opcodes::VCADD_VMOV32_VRA_MEM32;
+      Opcodes::VCADD_VR5_VR4_VR3_VR2_VMOV32_VRA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
-  static constexpr auto full_name = "VcaddVmov32VraMem32";
+  static constexpr auto full_name = "VcaddVr5Vr4Vr3Vr2Vmov32VraMem32";
   static constexpr auto op_name = "vcadd";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;

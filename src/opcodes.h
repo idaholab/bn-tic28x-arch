@@ -633,7 +633,7 @@ constexpr uint16_t VNEG_VRA = 0xE510;
 
 // Complex Math Instructions
 constexpr uint16_t VCADD_VR5_VR4_VR3_VR2 = 0xE502;
-constexpr uint32_t VCADD_VMOV32_VRA_MEM32 = 0xE3F80000;
+constexpr uint32_t VCADD_VR5_VR4_VR3_VR2_VMOV32_VRA_MEM32 = 0xE3F80000;
 
 // CRC Instructions (TODO)
 
