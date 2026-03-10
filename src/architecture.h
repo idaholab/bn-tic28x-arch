@@ -26,6 +26,8 @@ enum TIC28XIntrinsic {
       1,  // Complex 32+32=32-bit addition (VCADD VR5,VR4,VR3,VR2)
   TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4 =
       2,  // Complex 32+32=32-bit addition (VCADD VR7,VR6,VR5,VR4)
+  TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0 =
+      3,  // Complex conjugate multiply and accumulate (VCCMAC VR5,VR4,VR3,VR2,VR1,VR0)
 };
 
 /**

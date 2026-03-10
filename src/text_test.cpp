@@ -477,3 +477,22 @@ INSTANTIATE_TEST_SUITE_P(
         TestVcaddVr5Vr4Vr3Vr2Vmov32VraMem32Text::ParamType> &info) {
       return std::format("VR{}", info.param.regA);
     });
+
+// VccmacVr5Vr4Vr3Vr2Vr1Vr0 - VCU Complex Conjugate Multiply and Accumulate
+// Format: vccmac VR5, VR4, VR3, VR2, VR1, VR0
+// All operands are fixed implicit registers - opcode 0xE50F is an exact match.
+TEST(VccmacVr5Vr4Vr3Vr2Vr1Vr0TextTest, FixedRegisters) {
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vccmac"}, {TextToken, " "},
+      {RegisterToken, "vr5"},       {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},       {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr3"},       {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},       {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr1"},       {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr0"},
+  };
+
+  test_architecture_text(TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0::opcode,
+                         TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0::objmode, 0x0,
+                         want);
+}

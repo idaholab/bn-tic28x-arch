@@ -898,6 +898,97 @@ INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32,
                          vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen);
 
 // ============================================================================
+// VccmacVr5Vr4Vr3Vr2Vr1Vr0 Lift Tests
+// ============================================================================
+//
+// VCCMAC VR5, VR4, VR3, VR2, VR1, VR0 (opcode 0xE50F, exact 2-byte match,
+// no variable fields). The instruction is lifted as a single LLIL_INTRINSIC
+// named "vccmac" with:
+//   inputs:  VR0, VR1, VR2, VR3, VR4, VR5, VSTATUS
+//   outputs: VR5, VR4, VR3, VR2, VSTATUS
+
+// Test that the intrinsic ID and name are correctly registered.
+TEST(VccmacVr5Vr4Vr3Vr2Vr1Vr0Intrinsic, IntrinsicIsDefined) {
+  EXPECT_EQ(TIC28X::TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0, 3u);
+}
+
+TEST(VccmacVr5Vr4Vr3Vr2Vr1Vr0Intrinsic, IntrinsicName) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac-test");
+  EXPECT_EQ(arch->GetIntrinsicName(
+                TIC28X::TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0),
+            "vccmac");
+}
+
+TEST(VccmacVr5Vr4Vr3Vr2Vr1Vr0Intrinsic, IntrinsicInputCount) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac-test");
+  auto inputs = arch->GetIntrinsicInputs(
+      TIC28X::TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0);
+  // VR0, VR1, VR2, VR3, VR4, VR5, VSTATUS
+  ASSERT_EQ(inputs.size(), 7u) << "vccmac should have 7 inputs";
+  EXPECT_EQ(inputs[0].name, "vr0");
+  EXPECT_EQ(inputs[1].name, "vr1");
+  EXPECT_EQ(inputs[2].name, "vr2");
+  EXPECT_EQ(inputs[3].name, "vr3");
+  EXPECT_EQ(inputs[4].name, "vr4");
+  EXPECT_EQ(inputs[5].name, "vr5");
+  EXPECT_EQ(inputs[6].name, "vstatus");
+}
+
+TEST(VccmacVr5Vr4Vr3Vr2Vr1Vr0Intrinsic, IntrinsicOutputCount) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac-test");
+  auto outputs = arch->GetIntrinsicOutputs(
+      TIC28X::TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0);
+  // VR5 (Re accum), VR4 (Im accum), VR3 (Re mult), VR2 (Im mult), VSTATUS
+  ASSERT_EQ(outputs.size(), 5u) << "vccmac should have 5 outputs";
+}
+
+TEST(VccmacVr5Vr4Vr3Vr2Vr1Vr0Intrinsic, GetAllIntrinsicsIncludesVccmac) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac-test");
+  auto intrinsics = arch->GetAllIntrinsics();
+  EXPECT_NE(std::find(intrinsics.begin(), intrinsics.end(),
+                      TIC28X::TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0),
+            intrinsics.end())
+      << "vccmac should be in the intrinsics list";
+}
+
+// IL verification test: VCCMAC produces a single LLIL_INTRINSIC with the
+// correct intrinsic ID.  Lift is straight-line (no branching), so IL tests
+// are safe in unit-test contexts.
+class VccmacVr5Vr4Vr3Vr2Vr1Vr0ILTest : public ILTestFixture {};
+
+TEST_F(VccmacVr5Vr4Vr3Vr2Vr1Vr0ILTest, GeneratesCorrectIL) {
+  // Encode opcode 0xE50F as a 2-byte little-endian byte array.
+  uint8_t data[2];
+  OpcodeToData2(
+      static_cast<uint16_t>(TIC28X::Opcodes::VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0),
+      data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0 instr;
+  size_t len = 2;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 2u);
+
+  // Should produce exactly 1 IL instruction
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  // Top-level: LLIL_INTRINSIC
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+
+  // operands[2] is the intrinsic ID
+  EXPECT_EQ(intrinsicExpr.operands[2],
+            TIC28X::TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0)
+      << "Should use the vccmac intrinsic";
+}
+
+// ============================================================================
 // VCU - General Move Instructions
 // ============================================================================
 

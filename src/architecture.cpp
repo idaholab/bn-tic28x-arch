@@ -317,6 +317,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "vcadd";
     case TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4:
       return "vcadd";
+    case TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0:
+      return "vccmac";
     default:
       return "";
   }
@@ -324,7 +326,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
 
 [[nodiscard]] std::vector<uint32_t> TIC28XArchitecture::GetAllIntrinsics() {
   return {TIC28X_INTRIN_BITREVERSE, TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
-          TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4};
+          TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4,
+          TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -353,6 +356,19 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vr4", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
+    case TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0:
+      // Inputs: VR0=(X+jX), VR1=(Y+jY), VR2=Im(prev), VR3=Re(prev),
+      //         VR4=Im(accum), VR5=Re(accum), VSTATUS
+      // VSTATUS carries SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
+      return {
+          BN::NameAndType("vr0", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr1", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr2", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr3", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr4", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr5", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     default:
       return {};
   }
@@ -371,6 +387,12 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
     case TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4:
       // Outputs: VR7=Re(Z), VR6=Im(Z), VSTATUS (OVFR/OVFI flags updated)
       return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0:
+      // Outputs: VR5=Re(accum), VR4=Im(accum), VR3=Re(mult), VR2=Im(mult),
+      //          VSTATUS (OVFR/OVFI flags updated)
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, false)};
     default:
       return {};

@@ -652,4 +652,56 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
 
+// VCCMAC VR5, VR4, VR3, VR2, VR1, VR0
+// Complex Conjugate Multiply and Accumulate.
+//
+// Two-phase operation:
+// Phase 1 (accumulate): Adds previous multiply results (VR3, VR2) into
+//   accumulators (VR5, VR4) with optional shift-right and rounding from VSTATUS.
+//     VR5 = VR5 + round(VR3 >> SHIFTR)   (real accumulation)
+//     VR4 = VR4 + round(VR2 >> SHIFTR)   (imaginary accumulation)
+//
+// Phase 2 (conjugate multiply): Computes (VR0H + j*VR0L) * conj(VR1H + j*VR1L)
+//   with packing order controlled by VSTATUS[CPACK]:
+//     CPACK==0: VR3 = VR0H*VR1H + VR0L*VR1L, VR2 = VR0H*VR1L - VR0L*VR1H
+//     CPACK==1: VR3 = VR0L*VR1L + VR0H*VR1H, VR2 = VR0L*VR1H - VR0H*VR1L
+//   If SAT==1: saturate VR3 and VR2 to signed 32-bit range.
+//
+// Inputs:  VR0, VR1, VR2, VR3, VR4, VR5, VSTATUS
+// Outputs: VR5=Re(accum), VR4=Im(accum), VR3=Re(mult), VR2=Im(mult), VSTATUS
+// Flags:   OVFR set on VR3 overflow, OVFI set on VR2 overflow
+//
+// Encoding: 0xE50F (all bits fixed, no variable fields)
+//
+// The control flow depends on run-time VSTATUS fields (SHIFTR, RND, SAT, CPACK)
+// across two multiply channels plus two accumulate channels, making inline
+// expansion impractical.  Lifted as a single opaque intrinsic.
+bool VccmacVr5Vr4Vr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr,
+                                      size_t& len, BN::LowLevelILFunction& il,
+                                      TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // Build the intrinsic call:
+  //   (VR5, VR4, VR3, VR2, VSTATUS) =
+  //       vccmac(VR0, VR1, VR2, VR3, VR4, VR5, VSTATUS)
+  il.AddInstruction(il.Intrinsic(
+      // Outputs
+      {BN::RegisterOrFlag::Register(Registers::VR5),
+       BN::RegisterOrFlag::Register(Registers::VR4),
+       BN::RegisterOrFlag::Register(Registers::VR3),
+       BN::RegisterOrFlag::Register(Registers::VR2),
+       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+      TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
+      // Inputs
+      {il.Register(Sizes::_4_BYTES, Registers::VR0),
+       il.Register(Sizes::_4_BYTES, Registers::VR1),
+       il.Register(Sizes::_4_BYTES, Registers::VR2),
+       il.Register(Sizes::_4_BYTES, Registers::VR3),
+       il.Register(Sizes::_4_BYTES, Registers::VR4),
+       il.Register(Sizes::_4_BYTES, Registers::VR5),
+       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  return true;
+}
+
 }  // namespace TIC28X
