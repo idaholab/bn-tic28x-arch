@@ -719,13 +719,15 @@ TEST(VcaddVr7Vr6Vr5Vr4Intrinsic, IntrinsicIsDefined) {
 }
 
 TEST(VcaddVr7Vr6Vr5Vr4Intrinsic, IntrinsicName) {
-  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd76-test");
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd76-test");
   EXPECT_EQ(arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4),
             "vcadd");
 }
 
 TEST(VcaddVr7Vr6Vr5Vr4Intrinsic, IntrinsicInputCount) {
-  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd76-test");
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd76-test");
   auto inputs =
       arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4);
   // VR7, VR6, VR5, VR4, VSTATUS
@@ -738,15 +740,18 @@ TEST(VcaddVr7Vr6Vr5Vr4Intrinsic, IntrinsicInputCount) {
 }
 
 TEST(VcaddVr7Vr6Vr5Vr4Intrinsic, IntrinsicOutputCount) {
-  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd76-test");
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd76-test");
   auto outputs =
       arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4);
   // VR7 (Re result), VR6 (Im result), VSTATUS (flag updates)
-  ASSERT_EQ(outputs.size(), 3u) << "vcadd VR7,VR6,VR5,VR4 should have 3 outputs";
+  ASSERT_EQ(outputs.size(), 3u)
+      << "vcadd VR7,VR6,VR5,VR4 should have 3 outputs";
 }
 
 TEST(VcaddVr7Vr6Vr5Vr4Intrinsic, GetAllIntrinsicsIncludesVcadd76) {
-  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd76-test");
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcadd76-test");
   auto intrinsics = arch->GetAllIntrinsics();
   EXPECT_NE(std::find(intrinsics.begin(), intrinsics.end(),
                       TIC28X::TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4),

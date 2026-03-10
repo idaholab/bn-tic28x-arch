@@ -561,10 +561,10 @@ void ProductShiftModeText(const uint8_t mode, const AddressMode amode,
   }
 }
 
-void TextOpXarnConst8(const char* op_name, const uint8_t n,
+void TextOpXarnConst8(const char* mnemonic, const uint8_t n,
                       const uint8_t const8,
                       std::vector<BN::InstructionTextToken>& result) {
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::XAR0 + n)},
           result);
@@ -572,10 +572,10 @@ void TextOpXarnConst8(const char* op_name, const uint8_t n,
   ConstText(ConstTextInfo{.value = const8, .nbits = 8}, result);
 }
 
-bool TextOpLoc32Xarn(const char* op_name, const uint8_t n, const uint8_t loc32,
+bool TextOpLoc32Xarn(const char* mnemonic, const uint8_t n, const uint8_t loc32,
                      const AddressMode amode,
                      std::vector<BN::InstructionTextToken>& result) {
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc32Text(LocTextInfo{.loc = loc32, .amode = amode}, result)) {
     return false;
@@ -586,10 +586,10 @@ bool TextOpLoc32Xarn(const char* op_name, const uint8_t n, const uint8_t loc32,
   return true;
 }
 
-bool TextOpXarnLoc32(const char* op_name, const uint8_t n, const uint8_t loc32,
+bool TextOpXarnLoc32(const char* mnemonic, const uint8_t n, const uint8_t loc32,
                      const AddressMode amode,
                      std::vector<BN::InstructionTextToken>& result) {
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::XAR0 + n)},
           result);
@@ -600,10 +600,10 @@ bool TextOpXarnLoc32(const char* op_name, const uint8_t n, const uint8_t loc32,
   return true;
 }
 
-void TextOpXarnConst22(const char* op_name, const uint8_t n,
+void TextOpXarnConst22(const char* mnemonic, const uint8_t n,
                        const uint32_t const22,
                        std::vector<BN::InstructionTextToken>& result) {
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::XAR0 + n)},
           result);
@@ -611,10 +611,10 @@ void TextOpXarnConst22(const char* op_name, const uint8_t n,
   ConstText(ConstTextInfo{.value = const22, .nbits = 22}, result);
 }
 
-bool TextOpArnLoc16(const char* op_name, const uint8_t n, const uint8_t loc16,
+bool TextOpArnLoc16(const char* mnemonic, const uint8_t n, const uint8_t loc16,
                     const AddressMode amode,
                     std::vector<BN::InstructionTextToken>& result) {
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::AR0 + n)},
           result);
@@ -632,7 +632,7 @@ bool Aborti::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -642,7 +642,7 @@ bool AbsAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -654,7 +654,7 @@ bool AbstcAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                     const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -669,7 +669,7 @@ bool AddAccConst16Shift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -687,7 +687,7 @@ bool AddAccLoc16ShiftT::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -707,7 +707,7 @@ bool AddAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -726,7 +726,7 @@ bool AddAccLoc16Shift1_15::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -746,7 +746,7 @@ bool AddAccLoc16Shift16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -767,7 +767,7 @@ bool AddAccLoc16Shift0_15::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -788,7 +788,7 @@ bool AddAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -808,7 +808,7 @@ bool AddLoc16Ax::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -828,7 +828,7 @@ bool AddLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -847,7 +847,7 @@ bool AddbAccConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -864,7 +864,7 @@ bool AddbAxConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -881,7 +881,7 @@ bool AddbSpConst7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const7 = GetConst7(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::SP}, result);
   OpsepText(result);
@@ -898,7 +898,7 @@ bool AddbXarnConst7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::XAR0 + n)},
           result);
@@ -915,7 +915,7 @@ bool AddclAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -933,7 +933,7 @@ bool AddcuAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -951,7 +951,7 @@ bool AddlAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -967,7 +967,7 @@ bool AddlAccPShiftPm::Text(const uint8_t* data, uint64_t addr, size_t& len,
                            const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -985,7 +985,7 @@ bool AddlLoc32Acc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc32Text(LocTextInfo{.loc = loc32, .amode = amode}, result)) {
     return false;
@@ -1003,7 +1003,7 @@ bool AdduAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1021,7 +1021,7 @@ bool AddulPLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -1039,7 +1039,7 @@ bool AddulAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1057,7 +1057,7 @@ bool AdrkImm8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto imm8 = GetImm8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = imm8, .nbits = 8}, result);
 
@@ -1073,7 +1073,7 @@ bool AndAccConst16Shift0_15::Text(const uint8_t* data, uint64_t addr,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1091,7 +1091,7 @@ bool AndAccConst16Shift16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1109,7 +1109,7 @@ bool AndAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1129,7 +1129,7 @@ bool AndAxLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -1150,7 +1150,7 @@ bool AndIerConst16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::IER}, result);
   OpsepText(result);
@@ -1166,7 +1166,7 @@ bool AndIfrConst16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::IFR}, result);
   OpsepText(result);
@@ -1183,7 +1183,7 @@ bool AndLoc16Ax::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -1203,7 +1203,7 @@ bool AndAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -1223,7 +1223,7 @@ bool AndLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -1242,7 +1242,7 @@ bool AndbAxConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -1257,7 +1257,7 @@ bool Asp::Text(const uint8_t* data, uint64_t addr, size_t& len,
                const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1270,7 +1270,7 @@ bool AsrAxShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -1287,7 +1287,7 @@ bool AsrAxT::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -1304,7 +1304,7 @@ bool Asr64AccPShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -1320,7 +1320,7 @@ bool Asr64AccPT::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -1336,7 +1336,7 @@ bool AsrlAccT::Text(const uint8_t* data, uint64_t addr, size_t& len,
                     const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1353,7 +1353,7 @@ bool BOff16Cond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off16, .nbits = 16}, result);
   OpsepText(result);
@@ -1370,7 +1370,7 @@ bool BanzOff16Arn::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off16, .nbits = 16}, result);
   OpsepText(result);
@@ -1390,7 +1390,7 @@ bool BarOff16ArnArmEq::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto m = GetRegM(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off16, .nbits = 16}, result);
   OpsepText(result);
@@ -1414,7 +1414,7 @@ bool BarOff16ArnArmNeq::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto m = GetRegM(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off16, .nbits = 16}, result);
   OpsepText(result);
@@ -1437,7 +1437,7 @@ bool BfOff16Cond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off16, .nbits = 16}, result);
   OpsepText(result);
@@ -1451,7 +1451,7 @@ bool ClrcAmode::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1461,7 +1461,7 @@ bool ClrcM0M1Map::Text(const uint8_t* data, uint64_t addr, size_t& len,
                        const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1471,7 +1471,7 @@ bool ClrcObjmode::Text(const uint8_t* data, uint64_t addr, size_t& len,
                        const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1481,7 +1481,7 @@ bool ClrcOvc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1491,7 +1491,7 @@ bool ClrcXf::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1506,7 +1506,7 @@ bool ClrcMode::Text(const uint8_t* data, uint64_t addr, size_t& len,
     return false;  // not valid for mode == 0
   }
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ModeText(mode, result);
 
@@ -1521,7 +1521,7 @@ bool CmpAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -1541,7 +1541,7 @@ bool CmpLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -1558,7 +1558,7 @@ bool Cmp64AccP::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -1575,7 +1575,7 @@ bool CmpbAxConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -1592,7 +1592,7 @@ bool CmplAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1608,7 +1608,7 @@ bool CmplAccPShiftPm::Text(const uint8_t* data, uint64_t addr, size_t& len,
                            const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1624,7 +1624,7 @@ bool Cmpr0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1634,7 +1634,7 @@ bool Cmpr1::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1644,7 +1644,7 @@ bool Cmpr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1654,7 +1654,7 @@ bool Cmpr3::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1664,7 +1664,7 @@ bool CsbAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -1678,7 +1678,7 @@ bool DecLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -1694,7 +1694,7 @@ bool DmacAccPLoc32Xar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -1716,7 +1716,7 @@ bool DmacAccPLoc32Xar7Postinc::Text(
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -1740,7 +1740,7 @@ bool DmovLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -1754,7 +1754,7 @@ bool Eallow::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1764,7 +1764,7 @@ bool Edis::Text(const uint8_t* data, uint64_t addr, size_t& len,
                 const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1774,7 +1774,7 @@ bool Estop0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1784,7 +1784,7 @@ bool Estop1::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1796,7 +1796,7 @@ bool FfcXar7Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::XAR7}, result);
   OpsepText(result);
@@ -1813,7 +1813,7 @@ bool FlipAx::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -1828,7 +1828,7 @@ bool IackConst16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16}, result);
 
@@ -1840,7 +1840,7 @@ bool Idle::Text(const uint8_t* data, uint64_t addr, size_t& len,
                 const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -1852,7 +1852,7 @@ bool ImaclPLoc32Xar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -1873,7 +1873,7 @@ bool ImaclPLoc32Xar7Postinc::Text(const uint8_t* data, uint64_t addr,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -1895,7 +1895,7 @@ bool ImpyalPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -1915,7 +1915,7 @@ bool ImpylAccXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -1935,7 +1935,7 @@ bool ImpylPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -1955,7 +1955,7 @@ bool ImpyslPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -1975,7 +1975,7 @@ bool ImpyxulPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -1996,7 +1996,7 @@ bool InLoc16Pa::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2015,7 +2015,7 @@ bool IncLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2031,7 +2031,7 @@ bool IntrIntx::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetIntrX(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
 
   // x == 0 --> RESET vector
@@ -2049,7 +2049,7 @@ bool IntrNmi::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -2059,7 +2059,7 @@ bool IntrEmuint::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -2069,7 +2069,7 @@ bool Iret::Text(const uint8_t* data, uint64_t addr, size_t& len,
                 const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -2079,7 +2079,7 @@ bool LbXar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::XAR7, .indirect = true}, result);
 
@@ -2093,7 +2093,7 @@ bool LbConst22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const22, .nbits = 22, .is_address = true},
             result);
@@ -2106,7 +2106,7 @@ bool LcXar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::XAR7, .indirect = true}, result);
 
@@ -2120,7 +2120,7 @@ bool LcConst22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const22, .nbits = 22, .is_address = true},
             result);
@@ -2135,7 +2135,7 @@ bool LcrConst22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const22, .nbits = 22, .is_address = true},
             result);
@@ -2150,7 +2150,7 @@ bool LcrXarn::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::XAR0 + n),
                       .indirect = true},
@@ -2167,7 +2167,7 @@ bool LoopnzLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2186,7 +2186,7 @@ bool LoopzLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2202,7 +2202,7 @@ bool Lpaddr::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -2212,7 +2212,7 @@ bool Lret::Text(const uint8_t* data, uint64_t addr, size_t& len,
                 const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -2222,7 +2222,7 @@ bool Lrete::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -2232,7 +2232,7 @@ bool Lretr::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -2244,7 +2244,7 @@ bool LslAccShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2258,7 +2258,7 @@ bool LslAccT::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2275,7 +2275,7 @@ bool LslAxShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -2292,7 +2292,7 @@ bool LslAxT::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -2309,7 +2309,7 @@ bool Lsl64AccPShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -2325,7 +2325,7 @@ bool Lsl64AccPT::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -2341,7 +2341,7 @@ bool LsllAccT::Text(const uint8_t* data, uint64_t addr, size_t& len,
                     const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2358,7 +2358,7 @@ bool LsrAxShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -2375,7 +2375,7 @@ bool LsrAxT::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -2392,7 +2392,7 @@ bool Lsr64AccPShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -2408,7 +2408,7 @@ bool Lsr64AccPT::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -2424,7 +2424,7 @@ bool LsrlAccT::Text(const uint8_t* data, uint64_t addr, size_t& len,
                     const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2441,7 +2441,7 @@ bool MacPLoc16Pma::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -2464,7 +2464,7 @@ bool MacPLoc16Xar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -2484,7 +2484,7 @@ bool MacPLoc16Xar7Postinc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -2507,7 +2507,7 @@ bool MaxAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -2526,7 +2526,7 @@ bool MaxculPLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -2544,7 +2544,7 @@ bool MaxlAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2563,7 +2563,7 @@ bool MinAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -2582,7 +2582,7 @@ bool MinculPLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -2600,7 +2600,7 @@ bool MinlAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2619,7 +2619,7 @@ bool MovMem16Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_memio = true},
             result);
@@ -2639,7 +2639,7 @@ bool MovAccConst16Shift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2657,7 +2657,7 @@ bool MovAccLoc16ShiftT::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2677,7 +2677,7 @@ bool MovAccLoc16Objmode1::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2695,7 +2695,7 @@ bool MovAccLoc16Objmode0::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2714,7 +2714,7 @@ bool MovAccLoc16Shift1_15Objmode1::Text(
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2735,7 +2735,7 @@ bool MovAccLoc16Shift1_15Objmode0::Text(
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2755,7 +2755,7 @@ bool MovAccLoc16Shift16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -2775,7 +2775,7 @@ bool MovAr6Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR6}, result);
   OpsepText(result);
@@ -2793,7 +2793,7 @@ bool MovAr7Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR7}, result);
   OpsepText(result);
@@ -2812,7 +2812,7 @@ bool MovAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -2831,7 +2831,7 @@ bool MovDpConst10::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const10 = GetConst10(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DP}, result);
   OpsepText(result);
@@ -2847,7 +2847,7 @@ bool MovIerLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::IER}, result);
   OpsepText(result);
@@ -2866,7 +2866,7 @@ bool MovLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2885,7 +2885,7 @@ bool MovLoc16Mem16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2904,7 +2904,7 @@ bool MovLoc16_0::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2922,7 +2922,7 @@ bool MovLoc16AccShift1::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2943,7 +2943,7 @@ bool MovLoc16AccShift2_8Objmode1::Text(
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2964,7 +2964,7 @@ bool MovLoc16AccShift2_8Objmode0::Text(
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -2985,7 +2985,7 @@ bool MovLoc16Arn::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3005,7 +3005,7 @@ bool MovLoc16Ax::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3026,7 +3026,7 @@ bool MovLoc16AxCond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3046,7 +3046,7 @@ bool MovLoc16Ier::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3064,7 +3064,7 @@ bool MovLoc16Ovc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3082,7 +3082,7 @@ bool MovLoc16P::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3100,7 +3100,7 @@ bool MovLoc16T::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3118,7 +3118,7 @@ bool MovOvcLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   result.emplace_back(TextToken, Flags::NAMES.at(Flags::OVC));
   OpsepText(result);
@@ -3136,7 +3136,7 @@ bool MovPhLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::PH}, result);
   OpsepText(result);
@@ -3154,7 +3154,7 @@ bool MovPlLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::PL}, result);
   OpsepText(result);
@@ -3172,7 +3172,7 @@ bool MovPmAx::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   result.emplace_back(TextToken, Flags::NAMES.at(Flags::PM));
   OpsepText(result);
@@ -3189,7 +3189,7 @@ bool MovTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::T}, result);
   OpsepText(result);
@@ -3205,7 +3205,7 @@ bool MovTl0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::TL}, result);
   OpsepText(result);
@@ -3221,7 +3221,7 @@ bool MovXarnPc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::XAR0 + n)},
           result);
@@ -3238,7 +3238,7 @@ bool MovaTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::T}, result);
   OpsepText(result);
@@ -3256,7 +3256,7 @@ bool MovadTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::T}, result);
   OpsepText(result);
@@ -3274,7 +3274,7 @@ bool MovbAccConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -3290,7 +3290,7 @@ bool MovbAr6Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR6}, result);
   OpsepText(result);
@@ -3306,7 +3306,7 @@ bool MovbAr7Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR7}, result);
   OpsepText(result);
@@ -3323,7 +3323,7 @@ bool MovbAxConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -3341,7 +3341,7 @@ bool MovbAxlsbLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -3362,7 +3362,7 @@ bool MovbAxmsbLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -3384,7 +3384,7 @@ bool MovbLoc16Const8Cond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3405,7 +3405,7 @@ bool MovbLoc16Axlsb::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3426,7 +3426,7 @@ bool MovbLoc16Axmsb::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3446,7 +3446,7 @@ bool MovbXar0Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  TextOpXarnConst8(op_name, 0, const8, result);
+  TextOpXarnConst8(mnemonic, 0, const8, result);
 
   return true;
 }
@@ -3458,7 +3458,7 @@ bool MovbXar1Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  TextOpXarnConst8(op_name, 1, const8, result);
+  TextOpXarnConst8(mnemonic, 1, const8, result);
 
   return true;
 }
@@ -3470,7 +3470,7 @@ bool MovbXar2Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  TextOpXarnConst8(op_name, 2, const8, result);
+  TextOpXarnConst8(mnemonic, 2, const8, result);
 
   return true;
 }
@@ -3482,7 +3482,7 @@ bool MovbXar3Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  TextOpXarnConst8(op_name, 3, const8, result);
+  TextOpXarnConst8(mnemonic, 3, const8, result);
 
   return true;
 }
@@ -3494,7 +3494,7 @@ bool MovbXar4Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  TextOpXarnConst8(op_name, 4, const8, result);
+  TextOpXarnConst8(mnemonic, 4, const8, result);
 
   return true;
 }
@@ -3506,7 +3506,7 @@ bool MovbXar5Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  TextOpXarnConst8(op_name, 5, const8, result);
+  TextOpXarnConst8(mnemonic, 5, const8, result);
 
   return true;
 }
@@ -3518,7 +3518,7 @@ bool MovbXar6Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  TextOpXarnConst8(op_name, 6, const8, result);
+  TextOpXarnConst8(mnemonic, 6, const8, result);
 
   return true;
 }
@@ -3530,7 +3530,7 @@ bool MovbXar7Const8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  TextOpXarnConst8(op_name, 7, const8, result);
+  TextOpXarnConst8(mnemonic, 7, const8, result);
 
   return true;
 }
@@ -3542,7 +3542,7 @@ bool MovdlXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::XT}, result);
   OpsepText(result);
@@ -3560,7 +3560,7 @@ bool MovhLoc16AccShift1::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3581,7 +3581,7 @@ bool MovhLoc16AccShift2_8Objmode1::Text(
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3602,7 +3602,7 @@ bool MovhLoc16AccShift2_8Objmode0::Text(
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3622,7 +3622,7 @@ bool MovhLoc16P::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -3640,7 +3640,7 @@ bool MovlAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -3656,7 +3656,7 @@ bool MovlAccPShiftPm::Text(const uint8_t* data, uint64_t addr, size_t& len,
                            const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -3674,7 +3674,7 @@ bool MovlLoc32Acc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc32Text(LocTextInfo{.loc = loc32, .amode = amode}, result)) {
     return false;
@@ -3693,7 +3693,7 @@ bool MovlLoc32AccCond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc32Text(LocTextInfo{.loc = loc32, .amode = amode}, result)) {
     return false;
@@ -3713,7 +3713,7 @@ bool MovlLoc32P::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc32Text(LocTextInfo{.loc = loc32, .amode = amode}, result)) {
     return false;
@@ -3731,7 +3731,7 @@ bool MovlLoc32Xar0::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpLoc32Xarn(op_name, 0, loc32, amode, result);
+  return TextOpLoc32Xarn(mnemonic, 0, loc32, amode, result);
 }
 
 bool MovlLoc32Xar1::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3741,7 +3741,7 @@ bool MovlLoc32Xar1::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpLoc32Xarn(op_name, 1, loc32, amode, result);
+  return TextOpLoc32Xarn(mnemonic, 1, loc32, amode, result);
 }
 
 bool MovlLoc32Xar2::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3751,7 +3751,7 @@ bool MovlLoc32Xar2::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpLoc32Xarn(op_name, 2, loc32, amode, result);
+  return TextOpLoc32Xarn(mnemonic, 2, loc32, amode, result);
 }
 
 bool MovlLoc32Xar3::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3761,7 +3761,7 @@ bool MovlLoc32Xar3::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpLoc32Xarn(op_name, 3, loc32, amode, result);
+  return TextOpLoc32Xarn(mnemonic, 3, loc32, amode, result);
 }
 
 bool MovlLoc32Xar4::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3771,7 +3771,7 @@ bool MovlLoc32Xar4::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpLoc32Xarn(op_name, 4, loc32, amode, result);
+  return TextOpLoc32Xarn(mnemonic, 4, loc32, amode, result);
 }
 
 bool MovlLoc32Xar5::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3781,7 +3781,7 @@ bool MovlLoc32Xar5::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpLoc32Xarn(op_name, 5, loc32, amode, result);
+  return TextOpLoc32Xarn(mnemonic, 5, loc32, amode, result);
 }
 
 bool MovlLoc32Xar6::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3791,7 +3791,7 @@ bool MovlLoc32Xar6::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpLoc32Xarn(op_name, 6, loc32, amode, result);
+  return TextOpLoc32Xarn(mnemonic, 6, loc32, amode, result);
 }
 
 bool MovlLoc32Xar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3801,7 +3801,7 @@ bool MovlLoc32Xar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpLoc32Xarn(op_name, 7, loc32, amode, result);
+  return TextOpLoc32Xarn(mnemonic, 7, loc32, amode, result);
 }
 
 bool MovlLoc32Xt::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3811,7 +3811,7 @@ bool MovlLoc32Xt::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc32Text(LocTextInfo{.loc = loc32, .amode = amode}, result)) {
     return false;
@@ -3827,7 +3827,7 @@ bool MovlPAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                     const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -3843,7 +3843,7 @@ bool MovlPLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -3861,7 +3861,7 @@ bool MovlXar0Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpXarnLoc32(op_name, 0, loc32, amode, result);
+  return TextOpXarnLoc32(mnemonic, 0, loc32, amode, result);
 }
 
 bool MovlXar1Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3871,7 +3871,7 @@ bool MovlXar1Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpXarnLoc32(op_name, 1, loc32, amode, result);
+  return TextOpXarnLoc32(mnemonic, 1, loc32, amode, result);
 }
 
 bool MovlXar2Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3881,7 +3881,7 @@ bool MovlXar2Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpXarnLoc32(op_name, 2, loc32, amode, result);
+  return TextOpXarnLoc32(mnemonic, 2, loc32, amode, result);
 }
 
 bool MovlXar3Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3891,7 +3891,7 @@ bool MovlXar3Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpXarnLoc32(op_name, 3, loc32, amode, result);
+  return TextOpXarnLoc32(mnemonic, 3, loc32, amode, result);
 }
 
 bool MovlXar4Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3901,7 +3901,7 @@ bool MovlXar4Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpXarnLoc32(op_name, 4, loc32, amode, result);
+  return TextOpXarnLoc32(mnemonic, 4, loc32, amode, result);
 }
 
 bool MovlXar5Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3911,7 +3911,7 @@ bool MovlXar5Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpXarnLoc32(op_name, 5, loc32, amode, result);
+  return TextOpXarnLoc32(mnemonic, 5, loc32, amode, result);
 }
 
 bool MovlXar6Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3921,7 +3921,7 @@ bool MovlXar6Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpXarnLoc32(op_name, 6, loc32, amode, result);
+  return TextOpXarnLoc32(mnemonic, 6, loc32, amode, result);
 }
 
 bool MovlXar7Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3931,7 +3931,7 @@ bool MovlXar7Loc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  return TextOpXarnLoc32(op_name, 7, loc32, amode, result);
+  return TextOpXarnLoc32(mnemonic, 7, loc32, amode, result);
 }
 
 bool MovlXar0Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -3941,7 +3941,7 @@ bool MovlXar0Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  TextOpXarnConst22(op_name, 0, const22, result);
+  TextOpXarnConst22(mnemonic, 0, const22, result);
 
   return true;
 }
@@ -3953,7 +3953,7 @@ bool MovlXar1Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  TextOpXarnConst22(op_name, 1, const22, result);
+  TextOpXarnConst22(mnemonic, 1, const22, result);
 
   return true;
 }
@@ -3965,7 +3965,7 @@ bool MovlXar2Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  TextOpXarnConst22(op_name, 2, const22, result);
+  TextOpXarnConst22(mnemonic, 2, const22, result);
 
   return true;
 }
@@ -3977,7 +3977,7 @@ bool MovlXar3Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  TextOpXarnConst22(op_name, 3, const22, result);
+  TextOpXarnConst22(mnemonic, 3, const22, result);
 
   return true;
 }
@@ -3989,7 +3989,7 @@ bool MovlXar4Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  TextOpXarnConst22(op_name, 4, const22, result);
+  TextOpXarnConst22(mnemonic, 4, const22, result);
 
   return true;
 }
@@ -4001,7 +4001,7 @@ bool MovlXar5Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  TextOpXarnConst22(op_name, 5, const22, result);
+  TextOpXarnConst22(mnemonic, 5, const22, result);
 
   return true;
 }
@@ -4013,7 +4013,7 @@ bool MovlXar6Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  TextOpXarnConst22(op_name, 6, const22, result);
+  TextOpXarnConst22(mnemonic, 6, const22, result);
 
   return true;
 }
@@ -4025,7 +4025,7 @@ bool MovlXar7Const22::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const22 = GetConst22(dataOp);
   len = GetLength();
 
-  TextOpXarnConst22(op_name, 7, const22, result);
+  TextOpXarnConst22(mnemonic, 7, const22, result);
 
   return true;
 }
@@ -4037,7 +4037,7 @@ bool MovlXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::XT}, result);
   OpsepText(result);
@@ -4055,7 +4055,7 @@ bool MovpTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::T}, result);
   OpsepText(result);
@@ -4073,7 +4073,7 @@ bool MovsTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::T}, result);
   OpsepText(result);
@@ -4091,7 +4091,7 @@ bool MovuAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4109,7 +4109,7 @@ bool MovuLoc16Ovc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -4127,7 +4127,7 @@ bool MovuOvcLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   result.emplace_back(TextToken, Flags::NAMES.at(Flags::OVC));
   OpsepText(result);
@@ -4145,7 +4145,7 @@ bool MovwDpConst16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DP}, result);
   OpsepText(result);
@@ -4161,7 +4161,7 @@ bool MovxTlLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::TL}, result);
   OpsepText(result);
@@ -4179,7 +4179,7 @@ bool MovzAr0Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  return TextOpArnLoc16(op_name, 0, loc16, amode, result);
+  return TextOpArnLoc16(mnemonic, 0, loc16, amode, result);
 }
 
 bool MovzAr1Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -4189,7 +4189,7 @@ bool MovzAr1Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  return TextOpArnLoc16(op_name, 1, loc16, amode, result);
+  return TextOpArnLoc16(mnemonic, 1, loc16, amode, result);
 }
 
 bool MovzAr2Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -4199,7 +4199,7 @@ bool MovzAr2Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  return TextOpArnLoc16(op_name, 2, loc16, amode, result);
+  return TextOpArnLoc16(mnemonic, 2, loc16, amode, result);
 }
 
 bool MovzAr3Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -4209,7 +4209,7 @@ bool MovzAr3Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  return TextOpArnLoc16(op_name, 3, loc16, amode, result);
+  return TextOpArnLoc16(mnemonic, 3, loc16, amode, result);
 }
 
 bool MovzAr4Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -4219,7 +4219,7 @@ bool MovzAr4Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  return TextOpArnLoc16(op_name, 4, loc16, amode, result);
+  return TextOpArnLoc16(mnemonic, 4, loc16, amode, result);
 }
 
 bool MovzAr5Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -4229,7 +4229,7 @@ bool MovzAr5Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  return TextOpArnLoc16(op_name, 5, loc16, amode, result);
+  return TextOpArnLoc16(mnemonic, 5, loc16, amode, result);
 }
 
 bool MovzAr6Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -4239,7 +4239,7 @@ bool MovzAr6Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  return TextOpArnLoc16(op_name, 6, loc16, amode, result);
+  return TextOpArnLoc16(mnemonic, 6, loc16, amode, result);
 }
 
 bool MovzAr7Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -4249,7 +4249,7 @@ bool MovzAr7Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  return TextOpArnLoc16(op_name, 7, loc16, amode, result);
+  return TextOpArnLoc16(mnemonic, 7, loc16, amode, result);
 }
 
 bool MovzDpConst10::Text(const uint8_t* data, uint64_t addr, size_t& len,
@@ -4259,7 +4259,7 @@ bool MovzDpConst10::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const10 = GetConst10(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DP}, result);
   OpsepText(result);
@@ -4276,7 +4276,7 @@ bool MpyAccLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4296,7 +4296,7 @@ bool MpyAccTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4317,7 +4317,7 @@ bool MpyPLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -4337,7 +4337,7 @@ bool MpyPTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -4358,7 +4358,7 @@ bool MpyaPLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -4378,7 +4378,7 @@ bool MpyaPTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -4398,7 +4398,7 @@ bool MpybAccTConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4416,7 +4416,7 @@ bool MpybPTConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -4434,7 +4434,7 @@ bool MpysPTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -4454,7 +4454,7 @@ bool MpyuPTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -4474,7 +4474,7 @@ bool MpyuAccTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4494,7 +4494,7 @@ bool MpyxuAccTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4514,7 +4514,7 @@ bool MpyxuPTLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -4532,7 +4532,7 @@ bool Nasp::Text(const uint8_t* data, uint64_t addr, size_t& len,
                 const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -4542,7 +4542,7 @@ bool NegAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -4556,7 +4556,7 @@ bool NegAx::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -4569,7 +4569,7 @@ bool Neg64AccP::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4583,7 +4583,7 @@ bool NegtcAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                     const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -4597,7 +4597,7 @@ bool NopIndArpn::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetInd(dataOp);  // ind is a subset of loc16/32 mode
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -4611,7 +4611,7 @@ bool NormAccInd::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4625,7 +4625,7 @@ bool NormAccIndPostinc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                              const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4640,7 +4640,7 @@ bool NormAccIndPostdec::Text(const uint8_t* data, uint64_t addr, size_t& len,
                              const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4655,7 +4655,7 @@ bool NormAccInd0Postinc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                               const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4671,7 +4671,7 @@ bool NormAccInd0Postdec::Text(const uint8_t* data, uint64_t addr, size_t& len,
                               const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4688,7 +4688,7 @@ bool NormAccXarnPostinc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4706,7 +4706,7 @@ bool NormAccXarnPostdec::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4722,7 +4722,7 @@ bool NotAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -4736,7 +4736,7 @@ bool NotAx::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -4751,7 +4751,7 @@ bool OrAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4771,7 +4771,7 @@ bool OrAccConst16Shift0_15::Text(const uint8_t* data, uint64_t addr,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4789,7 +4789,7 @@ bool OrAccConst16Shift16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -4808,7 +4808,7 @@ bool OrAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -4826,7 +4826,7 @@ bool OrIerConst16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::IER}, result);
   OpsepText(result);
@@ -4842,7 +4842,7 @@ bool OrIfrConst16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::IFR}, result);
   OpsepText(result);
@@ -4859,7 +4859,7 @@ bool OrLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -4878,7 +4878,7 @@ bool OrLoc16Ax::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -4898,7 +4898,7 @@ bool OrbAxConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -4916,7 +4916,7 @@ bool OutPaLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_memio = true},
             result);
@@ -4933,7 +4933,7 @@ bool PopAr1Ar0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR1}, result);
   RegCombineText(result);
@@ -4947,7 +4947,7 @@ bool PopAr3Ar2::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR3}, result);
   RegCombineText(result);
@@ -4961,7 +4961,7 @@ bool PopAr5Ar4::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR5}, result);
   RegCombineText(result);
@@ -4975,7 +4975,7 @@ bool PopAr1hAr0h::Text(const uint8_t* data, uint64_t addr, size_t& len,
                        const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR1H}, result);
   RegCombineText(result);
@@ -4989,7 +4989,7 @@ bool PopDbgier::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DBGIER}, result);
 
@@ -5001,7 +5001,7 @@ bool PopDp::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DP}, result);
 
@@ -5013,7 +5013,7 @@ bool PopDpSt1::Text(const uint8_t* data, uint64_t addr, size_t& len,
                     const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DP}, result);
   RegCombineText(result);
@@ -5027,7 +5027,7 @@ bool PopIfr::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::IFR}, result);
 
@@ -5041,7 +5041,7 @@ bool PopLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -5055,7 +5055,7 @@ bool PopP::Text(const uint8_t* data, uint64_t addr, size_t& len,
                 const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
 
@@ -5067,7 +5067,7 @@ bool PopRpc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::RPC}, result);
 
@@ -5079,7 +5079,7 @@ bool PopSt0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ST0}, result);
 
@@ -5091,7 +5091,7 @@ bool PopSt1::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ST1}, result);
 
@@ -5103,7 +5103,7 @@ bool PopTSt0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::T}, result);
   RegCombineText(result);
@@ -5117,7 +5117,7 @@ bool PopXt::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::XT}, result);
 
@@ -5131,7 +5131,7 @@ bool PreadLoc16Xar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -5147,7 +5147,7 @@ bool PushAr1Ar0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR1}, result);
   RegCombineText(result);
@@ -5161,7 +5161,7 @@ bool PushAr3Ar2::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR3}, result);
   RegCombineText(result);
@@ -5175,7 +5175,7 @@ bool PushAr5Ar4::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR5}, result);
   RegCombineText(result);
@@ -5189,7 +5189,7 @@ bool PushAr1hAr0h::Text(const uint8_t* data, uint64_t addr, size_t& len,
                         const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AR1H}, result);
   RegCombineText(result);
@@ -5203,7 +5203,7 @@ bool PushDbgier::Text(const uint8_t* data, uint64_t addr, size_t& len,
                       const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DBGIER}, result);
 
@@ -5215,7 +5215,7 @@ bool PushDp::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DP}, result);
 
@@ -5227,7 +5227,7 @@ bool PushDpSt1::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::DP}, result);
   RegCombineText(result);
@@ -5241,7 +5241,7 @@ bool PushIfr::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::IFR}, result);
 
@@ -5255,7 +5255,7 @@ bool PushLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -5269,7 +5269,7 @@ bool PushP::Text(const uint8_t* data, uint64_t addr, size_t& len,
                  const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
 
@@ -5281,7 +5281,7 @@ bool PushRpc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::RPC}, result);
 
@@ -5293,7 +5293,7 @@ bool PushSt0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ST0}, result);
 
@@ -5305,7 +5305,7 @@ bool PushSt1::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ST1}, result);
 
@@ -5317,7 +5317,7 @@ bool PushTSt0::Text(const uint8_t* data, uint64_t addr, size_t& len,
                     const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::T}, result);
   RegCombineText(result);
@@ -5331,7 +5331,7 @@ bool PushXt::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::XT}, result);
 
@@ -5345,7 +5345,7 @@ bool PwriteXar7Loc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::XAR7, .indirect = true}, result);
   OpsepText(result);
@@ -5363,7 +5363,7 @@ bool QmaclPLoc32Xar7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -5384,7 +5384,7 @@ bool QmaclPLoc32Xar7Postinc::Text(const uint8_t* data, uint64_t addr,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -5406,7 +5406,7 @@ bool QmpyalPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -5426,7 +5426,7 @@ bool QmpylPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -5446,7 +5446,7 @@ bool QmpylAccXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5466,7 +5466,7 @@ bool QmpyslPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -5486,7 +5486,7 @@ bool QmpyulPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -5506,7 +5506,7 @@ bool QmpyxulPXtLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -5524,7 +5524,7 @@ bool RolAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -5536,7 +5536,7 @@ bool RorAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -5550,7 +5550,7 @@ bool RptConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const8, .nbits = 8}, result);
 
@@ -5564,7 +5564,7 @@ bool RptLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -5578,7 +5578,7 @@ bool SatAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -5590,7 +5590,7 @@ bool Sat64AccP::Text(const uint8_t* data, uint64_t addr, size_t& len,
                      const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   RegCombineText(result);
@@ -5607,7 +5607,7 @@ bool SbOff8Cond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off8, .nbits = 8, .is_offset = true},
             result);
@@ -5624,7 +5624,7 @@ bool SbbuAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5642,7 +5642,7 @@ bool SbfOff8Eq::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto off8 = GetOff8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off8, .nbits = 8, .is_offset = true},
             result);
@@ -5659,7 +5659,7 @@ bool SbfOff8Neq::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto off8 = GetOff8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off8, .nbits = 8, .is_offset = true},
             result);
@@ -5676,7 +5676,7 @@ bool SbfOff8Tc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto off8 = GetOff8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off8, .nbits = 8, .is_offset = true},
             result);
@@ -5693,7 +5693,7 @@ bool SbfOff8Ntc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto off8 = GetOff8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = off8, .nbits = 8, .is_offset = true},
             result);
@@ -5710,7 +5710,7 @@ bool SbrkConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const8, .nbits = 8}, result);
 
@@ -5724,7 +5724,7 @@ bool SetcMode::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto mode = GetMode(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ModeText(mode, result);
 
@@ -5736,7 +5736,7 @@ bool SetcM0M1Map::Text(const uint8_t* data, uint64_t addr, size_t& len,
                        const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ModeText(Flags::M0M1MAP, result);
 
@@ -5748,7 +5748,7 @@ bool SetcObjmode::Text(const uint8_t* data, uint64_t addr, size_t& len,
                        const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ModeText(Flags::OBJMODE, result);
 
@@ -5760,7 +5760,7 @@ bool SetcXf::Text(const uint8_t* data, uint64_t addr, size_t& len,
                   const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ModeText(Flags::XF, result);
 
@@ -5774,7 +5774,7 @@ bool SfrAccShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5788,7 +5788,7 @@ bool SfrAccT::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5804,7 +5804,7 @@ bool SpmShift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto pm = GetPM(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ProductShiftModeText(pm, amode, result);
 
@@ -5818,7 +5818,7 @@ bool SqraLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -5834,7 +5834,7 @@ bool SqrsLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -5850,7 +5850,7 @@ bool SubAccLoc16Objmode1::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5868,7 +5868,7 @@ bool SubAccLoc16Objmode0::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5887,7 +5887,7 @@ bool SubAccLoc16Shift1_15Objmode1::Text(
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5908,7 +5908,7 @@ bool SubAccLoc16Shift1_15Objmode0::Text(
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5928,7 +5928,7 @@ bool SubAccLoc16Shift16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5948,7 +5948,7 @@ bool SubAccLoc16ShiftT::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5969,7 +5969,7 @@ bool SubAccConst16Shift::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -5988,7 +5988,7 @@ bool SubAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -6008,7 +6008,7 @@ bool SubLoc16Ax::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6027,7 +6027,7 @@ bool SubbAccConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6043,7 +6043,7 @@ bool SubbSpConst7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const7 = GetConst7(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::SP}, result);
   OpsepText(result);
@@ -6060,7 +6060,7 @@ bool SubbXarnConst7::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const7 = GetConst7(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::XAR0 + n)},
           result);
@@ -6077,7 +6077,7 @@ bool SubblAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6095,7 +6095,7 @@ bool SubcuAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6113,7 +6113,7 @@ bool SubculAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6131,7 +6131,7 @@ bool SublAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6149,7 +6149,7 @@ bool SublLoc32Acc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc32Text(LocTextInfo{.loc = loc32, .amode = amode}, result)) {
     return false;
@@ -6168,7 +6168,7 @@ bool SubrLoc16Ax::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6187,7 +6187,7 @@ bool SubrlLoc32Acc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc32Text(LocTextInfo{.loc = loc32, .amode = amode}, result)) {
     return false;
@@ -6205,7 +6205,7 @@ bool SubuAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6223,7 +6223,7 @@ bool SubulAccLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6241,7 +6241,7 @@ bool SubulPLoc32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc32 = GetLoc32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -6260,7 +6260,7 @@ bool TbitLoc16Bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto bit = GetBitIndex(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6278,7 +6278,7 @@ bool TbitLoc16T::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6297,7 +6297,7 @@ bool TclrLoc16Bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto bit = GetBitIndex(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6313,7 +6313,7 @@ bool TestAcc::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
 
@@ -6327,7 +6327,7 @@ bool TrapVec::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto vec = GetVec(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = vec, .nbits = 5}, result);
 
@@ -6342,7 +6342,7 @@ bool TsetLoc16Bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto bit = GetBitIndex(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6361,7 +6361,7 @@ bool UoutPaLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_memio = true},
             result);
@@ -6378,7 +6378,7 @@ bool XbAl::Text(const uint8_t* data, uint64_t addr, size_t& len,
                 const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AL, .indirect = true}, result);
 
@@ -6393,7 +6393,7 @@ bool XbPmaArpn::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6413,7 +6413,7 @@ bool XbPmaCond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6430,7 +6430,7 @@ bool XbanzPmaInd::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6447,7 +6447,7 @@ bool XbanzPmaIndPostinc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6465,7 +6465,7 @@ bool XbanzPmaIndPostdec::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6483,7 +6483,7 @@ bool XbanzPmaInd0Postinc::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6502,7 +6502,7 @@ bool XbanzPmaInd0Postdec::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6522,7 +6522,7 @@ bool XbanzPmaIndArpn::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6543,7 +6543,7 @@ bool XbanzPmaIndPostincArpn::Text(const uint8_t* data, uint64_t addr,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6565,7 +6565,7 @@ bool XbanzPmaIndPostdecArpn::Text(const uint8_t* data, uint64_t addr,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6586,7 +6586,7 @@ bool XbanzPmaInd0PostincArpn::Text(
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6608,7 +6608,7 @@ bool XbanzPmaInd0PostdecArpn::Text(
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6627,7 +6627,7 @@ bool XcallAl::Text(const uint8_t* data, uint64_t addr, size_t& len,
                    const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AL, .indirect = true}, result);
 
@@ -6642,7 +6642,7 @@ bool XcallPmaArpn::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto n = GetRegN(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6662,7 +6662,7 @@ bool XcallPmaCond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   ConstText(ConstTextInfo{.value = const16, .nbits = 16, .is_address = true},
             result);
@@ -6680,7 +6680,7 @@ bool XmacPLoc16Pma::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -6704,7 +6704,7 @@ bool XmacdPLoc16Pma::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::P}, result);
   OpsepText(result);
@@ -6727,7 +6727,7 @@ bool XorAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6747,7 +6747,7 @@ bool XorAccConst16Shift0_15::Text(const uint8_t* data, uint64_t addr,
   const auto shift = GetShift(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6765,7 +6765,7 @@ bool XorAccConst16Shift16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6784,7 +6784,7 @@ bool XorAxLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -6804,7 +6804,7 @@ bool XorLoc16Ax::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto x = GetRegAx(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6824,7 +6824,7 @@ bool XorLoc16Const16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6844,7 +6844,7 @@ bool XorbAxConst8::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const8 = GetConst8(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = x == 1 ? Registers::AH : Registers::AL},
           result);
@@ -6862,7 +6862,7 @@ bool XpreadLoc16Pma::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto const16 = GetConst16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6883,7 +6883,7 @@ bool XpreadLoc16Al::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   if (!Loc16Text(LocTextInfo{.loc = loc16, .amode = amode}, result)) {
     return false;
@@ -6901,7 +6901,7 @@ bool XpwriteAlLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::AL, .indirect = true}, result);
   OpsepText(result);
@@ -6919,7 +6919,7 @@ bool XretcCond::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto cond = GetCond(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   CondText(cond, result);
 
@@ -6933,7 +6933,7 @@ bool ZalrAccLoc16::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto loc16 = GetLoc16(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = Registers::ACC}, result);
   OpsepText(result);
@@ -6949,7 +6949,7 @@ bool Zapa::Text(const uint8_t* data, uint64_t addr, size_t& len,
                 const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
 
   return true;
 }
@@ -6966,7 +6966,7 @@ bool Vmov32VraMem32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto mem32 = GetMem32(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
           result);
@@ -6986,7 +6986,7 @@ bool Vashl32Vra5bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto imm5 = GetImm5(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
           result);
@@ -7004,7 +7004,7 @@ bool Vashr32Vra5bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto imm5 = GetImm5(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
           result);
@@ -7023,7 +7023,7 @@ bool VbitflipVra::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto regA = GetRegA(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
           result);
@@ -7039,7 +7039,7 @@ bool Vlshl32Vra5bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto imm5 = GetImm5(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
           result);
@@ -7057,7 +7057,7 @@ bool Vlshr32Vra5bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto imm5 = GetImm5(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
           result);
@@ -7076,7 +7076,7 @@ bool VnegVra::Text(const uint8_t* data, uint64_t addr, size_t& len,
   const auto regA = GetRegA(dataOp);
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
           result);
@@ -7091,7 +7091,7 @@ bool VcaddVr5Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
                              const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
   OpsepText(result);
@@ -7109,7 +7109,7 @@ bool VcaddVr7Vr6Vr5Vr4::Text(const uint8_t* data, uint64_t addr, size_t& len,
                              const AddressMode amode) {
   len = GetLength();
 
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR7)}, result);
   OpsepText(result);
@@ -7128,7 +7128,7 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Text(
   len = GetLength();
 
   // "vcadd VR5, VR4, VR3, VR2"
-  OpText(op_name, result);
+  OpText(mnemonic, result);
   SpaceText(result);
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
   OpsepText(result);

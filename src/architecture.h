@@ -42,7 +42,7 @@ class Instruction {
   virtual uint32_t GetOpcode() = 0;
   virtual uint32_t GetOpcodeMask() = 0;
   virtual const char* GetFullName() = 0;  // for testing purposes
-  virtual const char* GetOpName() = 0;    // for text generation
+  virtual const char* GetMnemonic() = 0;  // for text generation
   virtual size_t GetLength() = 0;
   virtual bool IsRepeatable() = 0;
   virtual ObjectMode GetObjmode() = 0;

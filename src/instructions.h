@@ -126,7 +126,7 @@ class Aborti final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ABORTI;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Aborti";
-  static constexpr auto op_name = "aborti";
+  static constexpr auto mnemonic = "aborti";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -134,7 +134,7 @@ class Aborti final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -155,7 +155,7 @@ class AbsAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ABS_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "AbsAcc";
-  static constexpr auto op_name = "abs";
+  static constexpr auto mnemonic = "abs";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -163,7 +163,7 @@ class AbsAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -184,7 +184,7 @@ class AbstcAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ABSTC_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "AbstcAcc";
-  static constexpr auto op_name = "abstc";
+  static constexpr auto mnemonic = "abstc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -192,7 +192,7 @@ class AbstcAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -213,7 +213,7 @@ class AddAccConst16Shift final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_ACC_CONST16_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "AddAccConst16Shift";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -221,7 +221,7 @@ class AddAccConst16Shift final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -249,7 +249,7 @@ class AddAccLoc16ShiftT final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_ACC_LOC16_SHIFT_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "AddAccLoc16ShiftT";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -257,7 +257,7 @@ class AddAccLoc16ShiftT final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -283,7 +283,7 @@ class AddAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "AddAccLoc16";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -291,7 +291,7 @@ class AddAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -317,7 +317,7 @@ class AddAccLoc16Shift1_15 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_ACC_LOC16_SHIFT1_15;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "AddAccLoc16Shift1_15";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -325,7 +325,7 @@ class AddAccLoc16Shift1_15 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -353,7 +353,7 @@ class AddAccLoc16Shift16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_ACC_LOC16_SHIFT16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "AddAccLoc16Shift16";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -361,7 +361,7 @@ class AddAccLoc16Shift16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -387,7 +387,7 @@ class AddAccLoc16Shift0_15 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_ACC_LOC16_SHIFT0_15;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F000;
   static constexpr auto full_name = "AddAccLoc16Shift0_15";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_0;
 
@@ -395,7 +395,7 @@ class AddAccLoc16Shift0_15 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -423,7 +423,7 @@ class AddAxLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_AX_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "AddAxLoc16";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -431,7 +431,7 @@ class AddAxLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -459,7 +459,7 @@ class AddLoc16Ax final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_LOC16_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "AddLoc16Ax";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -467,7 +467,7 @@ class AddLoc16Ax final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -495,7 +495,7 @@ class AddLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADD_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "AddLoc16Const16";
-  static constexpr auto op_name = "add";
+  static constexpr auto mnemonic = "add";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -503,7 +503,7 @@ class AddLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -531,7 +531,7 @@ class AddbAccConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADDB_ACC_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "AddbAccConst8";
-  static constexpr auto op_name = "addb";
+  static constexpr auto mnemonic = "addb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -539,7 +539,7 @@ class AddbAccConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -565,7 +565,7 @@ class AddbAxConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADDB_AX_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "AddbAxConst8";
-  static constexpr auto op_name = "addb";
+  static constexpr auto mnemonic = "addb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -573,7 +573,7 @@ class AddbAxConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -601,7 +601,7 @@ class AddbSpConst7 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADDB_SP_CONST7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF80;
   static constexpr auto full_name = "AddbSpConst7";
-  static constexpr auto op_name = "addb";
+  static constexpr auto mnemonic = "addb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -609,7 +609,7 @@ class AddbSpConst7 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -635,7 +635,7 @@ class AddbXarnConst7 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADDB_XARN_CONST7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F880;
   static constexpr auto full_name = "AddbXarnConst7";
-  static constexpr auto op_name = "addb";
+  static constexpr auto mnemonic = "addb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -643,7 +643,7 @@ class AddbXarnConst7 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -671,7 +671,7 @@ class AddclAccLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDCL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "AddclAccLoc32";
-  static constexpr auto op_name = "addc";
+  static constexpr auto mnemonic = "addc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -679,7 +679,7 @@ class AddclAccLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -705,7 +705,7 @@ class AddcuAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADDCU_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "AddcuAccLoc16";
-  static constexpr auto op_name = "addcu";
+  static constexpr auto mnemonic = "addcu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -713,7 +713,7 @@ class AddcuAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -739,7 +739,7 @@ class AddlAccLoc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADDL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "AddlAccLoc32";
-  static constexpr auto op_name = "addl";
+  static constexpr auto mnemonic = "addl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -747,7 +747,7 @@ class AddlAccLoc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -773,7 +773,7 @@ class AddlAccPShiftPm final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADDL_ACC_P_SHIFT_PM;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "AddlAccPShiftPm";
-  static constexpr auto op_name = "addl";
+  static constexpr auto mnemonic = "addl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -781,7 +781,7 @@ class AddlAccPShiftPm final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -803,7 +803,7 @@ class AddlLoc32Acc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDL_LOC32_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "AddlLoc32Acc";
-  static constexpr auto op_name = "addl";
+  static constexpr auto mnemonic = "addl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -811,7 +811,7 @@ class AddlLoc32Acc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -837,7 +837,7 @@ class AdduAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADDU_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "AdduAccLoc16";
-  static constexpr auto op_name = "addu";
+  static constexpr auto mnemonic = "addu";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -845,7 +845,7 @@ class AdduAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -871,7 +871,7 @@ class AddulPLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDUL_P_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "AddulPLoc32";
-  static constexpr auto op_name = "addul";
+  static constexpr auto mnemonic = "addul";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -879,7 +879,7 @@ class AddulPLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -905,7 +905,7 @@ class AddulAccLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDUL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "AddulAccLoc32";
-  static constexpr auto op_name = "addul";
+  static constexpr auto mnemonic = "addul";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -913,7 +913,7 @@ class AddulAccLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -939,7 +939,7 @@ class AdrkImm8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ADRK_IMM8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "AdrkImm8";
-  static constexpr auto op_name = "adrk";
+  static constexpr auto mnemonic = "adrk";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -947,7 +947,7 @@ class AdrkImm8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -973,7 +973,7 @@ class AndAccConst16Shift0_15 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::AND_ACC_CONST16_SHIFT0_15;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "AndAccConst16Shift0_15";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -981,7 +981,7 @@ class AndAccConst16Shift0_15 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1009,7 +1009,7 @@ class AndAccConst16Shift16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::AND_ACC_CONST16_SHIFT16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "AndAccConst16Shift16";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1017,7 +1017,7 @@ class AndAccConst16Shift16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1043,7 +1043,7 @@ class AndAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::AND_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "AndAccLoc16";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1051,7 +1051,7 @@ class AndAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1077,7 +1077,7 @@ class AndAxLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::AND_AX_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE000000;
   static constexpr auto full_name = "AndAxLoc16Const16";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1085,7 +1085,7 @@ class AndAxLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1115,7 +1115,7 @@ class AndIerConst16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::AND_IER_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "AndIerConst16";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1123,7 +1123,7 @@ class AndIerConst16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1149,7 +1149,7 @@ class AndIfrConst16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::AND_IFR_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "AndIfrConst16";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1157,7 +1157,7 @@ class AndIfrConst16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1183,7 +1183,7 @@ class AndLoc16Ax final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::AND_LOC16_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "AndLoc16Ax";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1191,7 +1191,7 @@ class AndLoc16Ax final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1219,7 +1219,7 @@ class AndAxLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::AND_AX_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "AndAxLoc16";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1227,7 +1227,7 @@ class AndAxLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1255,7 +1255,7 @@ class AndLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::AND_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "AndLoc16Const16";
-  static constexpr auto op_name = "and";
+  static constexpr auto mnemonic = "and";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1263,7 +1263,7 @@ class AndLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1291,7 +1291,7 @@ class AndbAxConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ANDB_AX_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "AndbAxConst8";
-  static constexpr auto op_name = "andb";
+  static constexpr auto mnemonic = "andb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1299,7 +1299,7 @@ class AndbAxConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1327,7 +1327,7 @@ class Asp final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ASP;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Asp";
-  static constexpr auto op_name = "asp";
+  static constexpr auto mnemonic = "asp";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1335,7 +1335,7 @@ class Asp final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1357,7 +1357,7 @@ class AsrAxShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ASR_AX_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFE0;
   static constexpr auto full_name = "AsrAxShift";
-  static constexpr auto op_name = "asr";
+  static constexpr auto mnemonic = "asr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1365,7 +1365,7 @@ class AsrAxShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1393,7 +1393,7 @@ class AsrAxT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ASR_AX_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFE;
   static constexpr auto full_name = "AsrAxT";
-  static constexpr auto op_name = "asr";
+  static constexpr auto mnemonic = "asr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1401,7 +1401,7 @@ class AsrAxT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1427,7 +1427,7 @@ class Asr64AccPShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ASR64_ACC_P_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "Asr64AccPShift";
-  static constexpr auto op_name = "asr64";
+  static constexpr auto mnemonic = "asr64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1435,7 +1435,7 @@ class Asr64AccPShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1461,7 +1461,7 @@ class Asr64AccPT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ASR64_ACC_P_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Asr64AccPT";
-  static constexpr auto op_name = "asr64";
+  static constexpr auto mnemonic = "asr64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1469,7 +1469,7 @@ class Asr64AccPT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1491,7 +1491,7 @@ class AsrlAccT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ASRL_ACC_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "AsrlAccT";
-  static constexpr auto op_name = "asrl";
+  static constexpr auto mnemonic = "asrl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1499,7 +1499,7 @@ class AsrlAccT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1521,7 +1521,7 @@ class BOff16Cond final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::B_OFF16_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "BOff16Cond";
-  static constexpr auto op_name = "b";
+  static constexpr auto mnemonic = "b";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1529,7 +1529,7 @@ class BOff16Cond final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1561,7 +1561,7 @@ class BanzOff16Arn final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::BANZ_OFF16_ARN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "BanzOff16Arn";
-  static constexpr auto op_name = "banz";
+  static constexpr auto mnemonic = "banz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1569,7 +1569,7 @@ class BanzOff16Arn final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1601,7 +1601,7 @@ class BarOff16ArnArmEq final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::BAR_OFF16_ARN_ARM_EQ;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "BarOff16ArnArmEq";
-  static constexpr auto op_name = "bar";
+  static constexpr auto mnemonic = "bar";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1609,7 +1609,7 @@ class BarOff16ArnArmEq final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1643,7 +1643,7 @@ class BarOff16ArnArmNeq final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::BAR_OFF16_ARN_ARM_NEQ;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "BarOff16ArnArmNeq";
-  static constexpr auto op_name = "bar";
+  static constexpr auto mnemonic = "bar";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1651,7 +1651,7 @@ class BarOff16ArnArmNeq final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1685,7 +1685,7 @@ class BfOff16Cond final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::BF_OFF16_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "BfOff16Cond";
-  static constexpr auto op_name = "b";
+  static constexpr auto mnemonic = "b";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1693,7 +1693,7 @@ class BfOff16Cond final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1725,7 +1725,7 @@ class ClrcAmode final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CLRC_AMODE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "ClrcAmode";
-  static constexpr auto op_name = "clrc amode";
+  static constexpr auto mnemonic = "clrc amode";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1733,7 +1733,7 @@ class ClrcAmode final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1755,7 +1755,7 @@ class ClrcM0M1Map final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CLRC_M0M1MAP;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "ClrcM0M1Map";
-  static constexpr auto op_name = "clrc m0m1map";
+  static constexpr auto mnemonic = "clrc m0m1map";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1763,7 +1763,7 @@ class ClrcM0M1Map final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1785,7 +1785,7 @@ class ClrcObjmode final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CLRC_OBJMODE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "ClrcObjmode";
-  static constexpr auto op_name = "clrc objmode";
+  static constexpr auto mnemonic = "clrc objmode";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1793,7 +1793,7 @@ class ClrcObjmode final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1815,7 +1815,7 @@ class ClrcOvc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CLRC_OVC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "ClrcOvc";
-  static constexpr auto op_name = "clrc ovc";
+  static constexpr auto mnemonic = "clrc ovc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1823,7 +1823,7 @@ class ClrcOvc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1845,7 +1845,7 @@ class ClrcXf final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CLRC_XF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "ClrcXf";
-  static constexpr auto op_name = "clrc xf";
+  static constexpr auto mnemonic = "clrc xf";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1853,7 +1853,7 @@ class ClrcXf final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1875,7 +1875,7 @@ class ClrcMode final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CLRC_MODE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "ClrcMode";
-  static constexpr auto op_name = "clrc";
+  static constexpr auto mnemonic = "clrc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1883,7 +1883,7 @@ class ClrcMode final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1909,7 +1909,7 @@ class CmpAxLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMP_AX_LOC15;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "CmpAxLoc16";
-  static constexpr auto op_name = "cmp";
+  static constexpr auto mnemonic = "cmp";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1917,7 +1917,7 @@ class CmpAxLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1945,7 +1945,7 @@ class CmpLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::CMP_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "CmpLoc16Const16";
-  static constexpr auto op_name = "cmp";
+  static constexpr auto mnemonic = "cmp";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -1953,7 +1953,7 @@ class CmpLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -1981,7 +1981,7 @@ class Cmp64AccP final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMP64_ACC_P;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Cmp64AccP";
-  static constexpr auto op_name = "cmp64";
+  static constexpr auto mnemonic = "cmp64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -1989,7 +1989,7 @@ class Cmp64AccP final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2011,7 +2011,7 @@ class CmpbAxConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPB_AX_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "CmpbAxConst8";
-  static constexpr auto op_name = "cmpb";
+  static constexpr auto mnemonic = "cmpb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2019,7 +2019,7 @@ class CmpbAxConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2047,7 +2047,7 @@ class CmplAccLoc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "CmplAccLoc32";
-  static constexpr auto op_name = "cmpl";
+  static constexpr auto mnemonic = "cmpl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2055,7 +2055,7 @@ class CmplAccLoc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2081,7 +2081,7 @@ class CmplAccPShiftPm final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPL_ACC_P_SHIFT_PM;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "CmplAccPShiftPm";
-  static constexpr auto op_name = "cmpl";
+  static constexpr auto mnemonic = "cmpl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2089,7 +2089,7 @@ class CmplAccPShiftPm final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2111,7 +2111,7 @@ class Cmpr0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPR_0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Cmpr0";
-  static constexpr auto op_name = "cmpr";
+  static constexpr auto mnemonic = "cmpr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2119,7 +2119,7 @@ class Cmpr0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2141,7 +2141,7 @@ class Cmpr1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPR_1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Cmpr1";
-  static constexpr auto op_name = "cmpr1";
+  static constexpr auto mnemonic = "cmpr1";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2149,7 +2149,7 @@ class Cmpr1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2171,7 +2171,7 @@ class Cmpr2 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPR_2;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Cmpr2";
-  static constexpr auto op_name = "cmpr2";
+  static constexpr auto mnemonic = "cmpr2";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2179,7 +2179,7 @@ class Cmpr2 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2201,7 +2201,7 @@ class Cmpr3 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPR_3;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Cmpr3";
-  static constexpr auto op_name = "cmpr3";
+  static constexpr auto mnemonic = "cmpr3";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2209,7 +2209,7 @@ class Cmpr3 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2231,7 +2231,7 @@ class CsbAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CSB_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "CsbAcc";
-  static constexpr auto op_name = "csb";
+  static constexpr auto mnemonic = "csb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2239,7 +2239,7 @@ class CsbAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2261,7 +2261,7 @@ class DecLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::DEC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "DecLoc16";
-  static constexpr auto op_name = "dec";
+  static constexpr auto mnemonic = "dec";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2269,7 +2269,7 @@ class DecLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2295,7 +2295,7 @@ class DmacAccPLoc32Xar7 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::DMAC_ACCC_P_LOC32_XAR7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "DmacAccPLoc32Xar7";
-  static constexpr auto op_name = "dmac";
+  static constexpr auto mnemonic = "dmac";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2303,7 +2303,7 @@ class DmacAccPLoc32Xar7 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2329,7 +2329,7 @@ class DmacAccPLoc32Xar7Postinc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::DMAC_ACCC_P_LOC32_XAR7_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "DmacAccPLoc32Xar7Postinc";
-  static constexpr auto op_name = "dmac";
+  static constexpr auto mnemonic = "dmac";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2337,7 +2337,7 @@ class DmacAccPLoc32Xar7Postinc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2363,7 +2363,7 @@ class DmovLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::DMOV_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "DmovLoc16";
-  static constexpr auto op_name = "dmov";
+  static constexpr auto mnemonic = "dmov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2371,7 +2371,7 @@ class DmovLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2397,7 +2397,7 @@ class Eallow final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::EALLOW;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Eallow";
-  static constexpr auto op_name = "eallow";
+  static constexpr auto mnemonic = "eallow";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2405,7 +2405,7 @@ class Eallow final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2427,7 +2427,7 @@ class Edis final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::EDIS;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Edis";
-  static constexpr auto op_name = "edis";
+  static constexpr auto mnemonic = "edis";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2435,7 +2435,7 @@ class Edis final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2457,7 +2457,7 @@ class Estop0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ESTOP0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Estop0";
-  static constexpr auto op_name = "estop0";
+  static constexpr auto mnemonic = "estop0";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2465,7 +2465,7 @@ class Estop0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2487,7 +2487,7 @@ class Estop1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ESTOP1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Estop1";
-  static constexpr auto op_name = "estop1";
+  static constexpr auto mnemonic = "estop1";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2495,7 +2495,7 @@ class Estop1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2517,7 +2517,7 @@ class FfcXar7Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::FFC_XAR7_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "FfcXar7Const22";
-  static constexpr auto op_name = "ffc";
+  static constexpr auto mnemonic = "ffc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2525,7 +2525,7 @@ class FfcXar7Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2555,7 +2555,7 @@ class FlipAx final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::FLIP_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFE;
   static constexpr auto full_name = "FlipAx";
-  static constexpr auto op_name = "flip";
+  static constexpr auto mnemonic = "flip";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2563,7 +2563,7 @@ class FlipAx final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2589,7 +2589,7 @@ class IackConst16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IACK_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "IackConst16";
-  static constexpr auto op_name = "iack";
+  static constexpr auto mnemonic = "iack";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2597,7 +2597,7 @@ class IackConst16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2623,7 +2623,7 @@ class Idle final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::IDLE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Idle";
-  static constexpr auto op_name = "idle";
+  static constexpr auto mnemonic = "idle";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2631,7 +2631,7 @@ class Idle final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2653,7 +2653,7 @@ class ImaclPLoc32Xar7 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IMACL_P_LOC32_XAR7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "ImaclPLoc32Xar7";
-  static constexpr auto op_name = "imacl";
+  static constexpr auto mnemonic = "imacl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2661,7 +2661,7 @@ class ImaclPLoc32Xar7 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2687,7 +2687,7 @@ class ImaclPLoc32Xar7Postinc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IMACL_P_LOC32_XAR7_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "ImaclPLoc32Xar7Postinc";
-  static constexpr auto op_name = "imacl";
+  static constexpr auto mnemonic = "imacl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2695,7 +2695,7 @@ class ImaclPLoc32Xar7Postinc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2721,7 +2721,7 @@ class ImpyalPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IMPYAL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "ImpyalPXtLoc32";
-  static constexpr auto op_name = "impyal";
+  static constexpr auto mnemonic = "impyal";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2729,7 +2729,7 @@ class ImpyalPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2755,7 +2755,7 @@ class ImpylAccXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IMPYL_ACC_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "ImpylAccXtLoc32";
-  static constexpr auto op_name = "impyl";
+  static constexpr auto mnemonic = "impyl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2763,7 +2763,7 @@ class ImpylAccXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2789,7 +2789,7 @@ class ImpylPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IMPYL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "ImpylPXtLoc32";
-  static constexpr auto op_name = "impyl";
+  static constexpr auto mnemonic = "impyl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2797,7 +2797,7 @@ class ImpylPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2823,7 +2823,7 @@ class ImpyslPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IMPYSL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "ImpyslPXtLoc32";
-  static constexpr auto op_name = "impysl";
+  static constexpr auto mnemonic = "impysl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2831,7 +2831,7 @@ class ImpyslPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2857,7 +2857,7 @@ class ImpyxulPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IMPYXUL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "ImpyxulPXtLoc32";
-  static constexpr auto op_name = "impyxul";
+  static constexpr auto mnemonic = "impyxul";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2865,7 +2865,7 @@ class ImpyxulPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2891,7 +2891,7 @@ class InLoc16Pa final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::IN_LOC16_PA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "InLoc16Pa";
-  static constexpr auto op_name = "in";
+  static constexpr auto mnemonic = "in";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -2899,7 +2899,7 @@ class InLoc16Pa final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2927,7 +2927,7 @@ class IncLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::INC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "IncLoc16";
-  static constexpr auto op_name = "inc";
+  static constexpr auto mnemonic = "inc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2935,7 +2935,7 @@ class IncLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2961,7 +2961,7 @@ class IntrIntx final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::INTR_INTX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "IntrIntx";
-  static constexpr auto op_name = "intr";
+  static constexpr auto mnemonic = "intr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -2969,7 +2969,7 @@ class IntrIntx final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -2998,7 +2998,7 @@ class IntrNmi final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::INTR_NMI;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "IntrNmi";
-  static constexpr auto op_name = "intr nmi";
+  static constexpr auto mnemonic = "intr nmi";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3006,7 +3006,7 @@ class IntrNmi final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3031,7 +3031,7 @@ class IntrEmuint final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::INTR_EMUINT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "IntrEmuint";
-  static constexpr auto op_name = "intr emuint";
+  static constexpr auto mnemonic = "intr emuint";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3039,7 +3039,7 @@ class IntrEmuint final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3064,7 +3064,7 @@ class Iret final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::IRET;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Iret";
-  static constexpr auto op_name = "iret";
+  static constexpr auto mnemonic = "iret";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3072,7 +3072,7 @@ class Iret final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3097,7 +3097,7 @@ class LbXar7 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LB_XAR7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "LbXar7";
-  static constexpr auto op_name = "lb";
+  static constexpr auto mnemonic = "lb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3105,7 +3105,7 @@ class LbXar7 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3130,7 +3130,7 @@ class LbConst22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::LB_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "LbConst22";
-  static constexpr auto op_name = "lb";
+  static constexpr auto mnemonic = "lb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3138,7 +3138,7 @@ class LbConst22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3168,7 +3168,7 @@ class LcXar7 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LC_XAR7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "LcXar7";
-  static constexpr auto op_name = "lc";
+  static constexpr auto mnemonic = "lc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3176,7 +3176,7 @@ class LcXar7 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3201,7 +3201,7 @@ class LcConst22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::LC_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "LcConst22";
-  static constexpr auto op_name = "lc";
+  static constexpr auto mnemonic = "lc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3209,7 +3209,7 @@ class LcConst22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3239,7 +3239,7 @@ class LcrConst22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::LCR_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "LcrConst22";
-  static constexpr auto op_name = "lcr";
+  static constexpr auto mnemonic = "lcr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3247,7 +3247,7 @@ class LcrConst22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3277,7 +3277,7 @@ class LcrXarn final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LCR_XARN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF8;
   static constexpr auto full_name = "LcrXarn";
-  static constexpr auto op_name = "lcr";
+  static constexpr auto mnemonic = "lcr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3285,7 +3285,7 @@ class LcrXarn final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3314,7 +3314,7 @@ class LoopnzLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::LOOPNZ_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "LoopnzLoc16Const16";
-  static constexpr auto op_name = "loopnz";
+  static constexpr auto mnemonic = "loopnz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3322,7 +3322,7 @@ class LoopnzLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3353,7 +3353,7 @@ class LoopzLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::LOOPZ_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "LoopzLoc16Const16";
-  static constexpr auto op_name = "loopz";
+  static constexpr auto mnemonic = "loopz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3361,7 +3361,7 @@ class LoopzLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3392,7 +3392,7 @@ class Lpaddr final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LPADDR;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Lpaddr";
-  static constexpr auto op_name = "lpaddr";
+  static constexpr auto mnemonic = "lpaddr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3400,7 +3400,7 @@ class Lpaddr final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3422,7 +3422,7 @@ class Lret final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LRET;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Lret";
-  static constexpr auto op_name = "lret";
+  static constexpr auto mnemonic = "lret";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3430,7 +3430,7 @@ class Lret final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3455,7 +3455,7 @@ class Lrete final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LRETE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Lrete";
-  static constexpr auto op_name = "lrete";
+  static constexpr auto mnemonic = "lrete";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3463,7 +3463,7 @@ class Lrete final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3488,7 +3488,7 @@ class Lretr final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LRETR;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Lretr";
-  static constexpr auto op_name = "lretr";
+  static constexpr auto mnemonic = "lretr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3496,7 +3496,7 @@ class Lretr final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3521,7 +3521,7 @@ class LslAccShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSL_ACC_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "LslAccShift";
-  static constexpr auto op_name = "lsl";
+  static constexpr auto mnemonic = "lsl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3529,7 +3529,7 @@ class LslAccShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3555,7 +3555,7 @@ class LslAccT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSL_ACC_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "LslAccT";
-  static constexpr auto op_name = "lsl";
+  static constexpr auto mnemonic = "lsl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3563,7 +3563,7 @@ class LslAccT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3585,7 +3585,7 @@ class LslAxShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSL_AX_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFE0;
   static constexpr auto full_name = "LslAxShift";
-  static constexpr auto op_name = "lsl";
+  static constexpr auto mnemonic = "lsl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3593,7 +3593,7 @@ class LslAxShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3621,7 +3621,7 @@ class LslAxT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSL_AX_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFE;
   static constexpr auto full_name = "LslAxT";
-  static constexpr auto op_name = "lsl";
+  static constexpr auto mnemonic = "lsl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3629,7 +3629,7 @@ class LslAxT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3655,7 +3655,7 @@ class Lsl64AccPShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSL64_ACC_P_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "Lsl64AccPShift";
-  static constexpr auto op_name = "lsl64";
+  static constexpr auto mnemonic = "lsl64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3663,7 +3663,7 @@ class Lsl64AccPShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3689,7 +3689,7 @@ class Lsl64AccPT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSL64_ACC_P_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Lsl64AccPT";
-  static constexpr auto op_name = "lsl64";
+  static constexpr auto mnemonic = "lsl64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3697,7 +3697,7 @@ class Lsl64AccPT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3719,7 +3719,7 @@ class LsllAccT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSLL_ACC_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "LsllAccT";
-  static constexpr auto op_name = "lsll";
+  static constexpr auto mnemonic = "lsll";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3727,7 +3727,7 @@ class LsllAccT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3749,7 +3749,7 @@ class LsrAxShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSR_AX_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFE0;
   static constexpr auto full_name = "LsrAxShift";
-  static constexpr auto op_name = "lsr";
+  static constexpr auto mnemonic = "lsr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3757,7 +3757,7 @@ class LsrAxShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3785,7 +3785,7 @@ class LsrAxT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSR_AX_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFE;
   static constexpr auto full_name = "LsrAxT";
-  static constexpr auto op_name = "lsr";
+  static constexpr auto mnemonic = "lsr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3793,7 +3793,7 @@ class LsrAxT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3819,7 +3819,7 @@ class Lsr64AccPShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSR64_ACC_P_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "Lsr64AccPShift";
-  static constexpr auto op_name = "lsr64";
+  static constexpr auto mnemonic = "lsr64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3827,7 +3827,7 @@ class Lsr64AccPShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3853,7 +3853,7 @@ class Lsr64AccPT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSR64_ACC_P_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Lsr64AccPT";
-  static constexpr auto op_name = "lsr64";
+  static constexpr auto mnemonic = "lsr64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3861,7 +3861,7 @@ class Lsr64AccPT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3883,7 +3883,7 @@ class LsrlAccT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::LSRL_ACC_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "LsrlAccT";
-  static constexpr auto op_name = "lsrl";
+  static constexpr auto mnemonic = "lsrl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3891,7 +3891,7 @@ class LsrlAccT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3913,7 +3913,7 @@ class MacPLoc16Pma final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAC_P_LOC16_PMA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "MacPLoc16Pma";
-  static constexpr auto op_name = "mac";
+  static constexpr auto mnemonic = "mac";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -3921,7 +3921,7 @@ class MacPLoc16Pma final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3949,7 +3949,7 @@ class MacPLoc16Xar7 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAC_P_LOC16_XAR7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MacPLoc16Xar7";
-  static constexpr auto op_name = "mac";
+  static constexpr auto mnemonic = "mac";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3957,7 +3957,7 @@ class MacPLoc16Xar7 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -3983,7 +3983,7 @@ class MacPLoc16Xar7Postinc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAC_P_LOC16_XAR7_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MacPLoc16Xar7Postinc";
-  static constexpr auto op_name = "mac";
+  static constexpr auto mnemonic = "mac";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -3991,7 +3991,7 @@ class MacPLoc16Xar7Postinc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4017,7 +4017,7 @@ class MaxAxLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAX_AX_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFEFF00;
   static constexpr auto full_name = "MaxAxLoc16";
-  static constexpr auto op_name = "max";
+  static constexpr auto mnemonic = "max";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4025,7 +4025,7 @@ class MaxAxLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4053,7 +4053,7 @@ class MaxculPLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAXCUL_P_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MaxculPLoc32";
-  static constexpr auto op_name = "maxcul";
+  static constexpr auto mnemonic = "maxcul";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4061,7 +4061,7 @@ class MaxculPLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4087,7 +4087,7 @@ class MaxlAccLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAXL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MaxlAccLoc32";
-  static constexpr auto op_name = "maxl";
+  static constexpr auto mnemonic = "maxl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4095,7 +4095,7 @@ class MaxlAccLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4121,7 +4121,7 @@ class MinAxLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MIN_AX_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFEFF00;
   static constexpr auto full_name = "MinAxLoc16";
-  static constexpr auto op_name = "min";
+  static constexpr auto mnemonic = "min";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4129,7 +4129,7 @@ class MinAxLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4157,7 +4157,7 @@ class MinculPLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MINCUL_P_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "MinculPLoc32";
-  static constexpr auto op_name = "mincul";
+  static constexpr auto mnemonic = "mincul";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4165,7 +4165,7 @@ class MinculPLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4191,7 +4191,7 @@ class MinlAccLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MINL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MinlAccLoc32";
-  static constexpr auto op_name = "minl";
+  static constexpr auto mnemonic = "minl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4199,7 +4199,7 @@ class MinlAccLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4225,7 +4225,7 @@ class MovMem16Loc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_MEM16_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "MovMem16Loc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4233,7 +4233,7 @@ class MovMem16Loc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4261,7 +4261,7 @@ class MovAccConst16Shift final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_ACC_CONST16_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "MovAccConst16Shift";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4269,7 +4269,7 @@ class MovAccConst16Shift final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4297,7 +4297,7 @@ class MovAccLoc16ShiftT final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_ACC_LOC16_SHIFT_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MovAccLoc16ShiftT";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4305,7 +4305,7 @@ class MovAccLoc16ShiftT final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4331,7 +4331,7 @@ class MovAccLoc16Objmode1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_ACC_LOC16_OBJMDOE1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovAccLoc16Objmode1";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4339,7 +4339,7 @@ class MovAccLoc16Objmode1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4365,7 +4365,7 @@ class MovAccLoc16Objmode0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_ACC_LOC16_OBJMDOE0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovAccLoc16Objmode0";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_0;
 
@@ -4373,7 +4373,7 @@ class MovAccLoc16Objmode0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4399,7 +4399,7 @@ class MovAccLoc16Shift1_15Objmode1 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_ACC_LOC16_SHIFT1_15_OBJMODE1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "MovAccLoc16Shift1_15Objmode1";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4407,7 +4407,7 @@ class MovAccLoc16Shift1_15Objmode1 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4435,7 +4435,7 @@ class MovAccLoc16Shift1_15Objmode0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_ACC_LOC16_SHIFT1_15_OBJMODE0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F000;
   static constexpr auto full_name = "MovAccLoc16Shift1_15Objmode0";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_0;
 
@@ -4443,7 +4443,7 @@ class MovAccLoc16Shift1_15Objmode0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4471,7 +4471,7 @@ class MovAccLoc16Shift16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_ACC_LOC16_SHIFT16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovAccLoc16Shift16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4479,7 +4479,7 @@ class MovAccLoc16Shift16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4505,7 +4505,7 @@ class MovAr6Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_AR6_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovAr6Loc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4513,7 +4513,7 @@ class MovAr6Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4539,7 +4539,7 @@ class MovAr7Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_AR7_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovAr7Loc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4547,7 +4547,7 @@ class MovAr7Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4573,7 +4573,7 @@ class MovAxLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_AX_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "MovAxLoc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4581,7 +4581,7 @@ class MovAxLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4609,7 +4609,7 @@ class MovDpConst10 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_DP_CONST10;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FC00;
   static constexpr auto full_name = "MovDpConst10";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4617,7 +4617,7 @@ class MovDpConst10 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4643,7 +4643,7 @@ class MovIerLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_IER_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovIerLoc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4651,7 +4651,7 @@ class MovIerLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4677,7 +4677,7 @@ class MovLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "MovLoc16Const16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4685,7 +4685,7 @@ class MovLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4713,7 +4713,7 @@ class MovLoc16Mem16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_MEM16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "MovLoc16Mem16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4721,7 +4721,7 @@ class MovLoc16Mem16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4749,7 +4749,7 @@ class MovLoc16_0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovLoc16_0";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4757,7 +4757,7 @@ class MovLoc16_0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4783,7 +4783,7 @@ class MovLoc16AccShift1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_ACC_SHIFT1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovLoc16AccShift1";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4791,7 +4791,7 @@ class MovLoc16AccShift1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4817,7 +4817,7 @@ class MovLoc16AccShift2_8Objmode1 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_ACC_SHIFT2_8_OBJMODE_1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "MovLoc16AccShift2_8Objmode1";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4825,7 +4825,7 @@ class MovLoc16AccShift2_8Objmode1 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4853,7 +4853,7 @@ class MovLoc16AccShift2_8Objmode0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_ACC_SHIFT2_8_OBJMODE_0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F800;
   static constexpr auto full_name = "MovLoc16AccShift2_8Objmode0";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_0;
 
@@ -4861,7 +4861,7 @@ class MovLoc16AccShift2_8Objmode0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4889,7 +4889,7 @@ class MovLoc16Arn final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_ARN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F800;
   static constexpr auto full_name = "MovLoc16Arn";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4897,7 +4897,7 @@ class MovLoc16Arn final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4925,7 +4925,7 @@ class MovLoc16Ax final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "MovLoc16Ax";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -4933,7 +4933,7 @@ class MovLoc16Ax final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4961,7 +4961,7 @@ class MovLoc16AxCond final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_AX_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFEF000;
   static constexpr auto full_name = "MovLoc16AxCond";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -4969,7 +4969,7 @@ class MovLoc16AxCond final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -4999,7 +4999,7 @@ class MovLoc16Ier final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_IER;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovLoc16Ier";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5007,7 +5007,7 @@ class MovLoc16Ier final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5033,7 +5033,7 @@ class MovLoc16Ovc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_OVC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MovLoc16Ovc";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5041,7 +5041,7 @@ class MovLoc16Ovc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5067,7 +5067,7 @@ class MovLoc16P final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_P;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovLoc16P";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5075,7 +5075,7 @@ class MovLoc16P final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5101,7 +5101,7 @@ class MovLoc16T final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_LOC16_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovLoc16T";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5109,7 +5109,7 @@ class MovLoc16T final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5135,7 +5135,7 @@ class MovOvcLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_OVC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MovOvcLoc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5143,7 +5143,7 @@ class MovOvcLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5169,7 +5169,7 @@ class MovPhLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_PH_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovPhLoc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5177,7 +5177,7 @@ class MovPhLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5203,7 +5203,7 @@ class MovPlLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_PL_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovPlLoc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5211,7 +5211,7 @@ class MovPlLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5237,7 +5237,7 @@ class MovPmAx final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_PM_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFE;
   static constexpr auto full_name = "MovPmAx";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5245,7 +5245,7 @@ class MovPmAx final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5271,7 +5271,7 @@ class MovTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovTLoc16";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5279,7 +5279,7 @@ class MovTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5305,7 +5305,7 @@ class MovTl0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_TL_0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "MovTl0";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5313,7 +5313,7 @@ class MovTl0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5335,7 +5335,7 @@ class MovXarnPc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOV_XARN_PC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF8;
   static constexpr auto full_name = "MovXarnPc";
-  static constexpr auto op_name = "mov";
+  static constexpr auto mnemonic = "mov";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5343,7 +5343,7 @@ class MovXarnPc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5369,7 +5369,7 @@ class MovaTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVA_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovaTLoc16";
-  static constexpr auto op_name = "mova";
+  static constexpr auto mnemonic = "mova";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5377,7 +5377,7 @@ class MovaTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5403,7 +5403,7 @@ class MovadTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVAD_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovadTLoc16";
-  static constexpr auto op_name = "movad";
+  static constexpr auto mnemonic = "movad";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5411,7 +5411,7 @@ class MovadTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5437,7 +5437,7 @@ class MovbAccConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_ACC_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbAccConst8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5445,7 +5445,7 @@ class MovbAccConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5471,7 +5471,7 @@ class MovbAr6Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_AR6_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbAr6Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5479,7 +5479,7 @@ class MovbAr6Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5505,7 +5505,7 @@ class MovbAr7Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_AR7_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbAr7Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5513,7 +5513,7 @@ class MovbAr7Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5539,7 +5539,7 @@ class MovbAxConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_AX_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "MovbAxConst8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5547,7 +5547,7 @@ class MovbAxConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5575,7 +5575,7 @@ class MovbAxlsbLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_AXLSB_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "MovbAxlsbLoc16";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5583,7 +5583,7 @@ class MovbAxlsbLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5611,7 +5611,7 @@ class MovbAxmsbLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_AXMSB_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "MovbAxmsbLoc16";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5619,7 +5619,7 @@ class MovbAxmsbLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5647,7 +5647,7 @@ class MovbLoc16Const8Cond final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_LOC16_CONST8_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "MovbLoc16Const8Cond";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5655,7 +5655,7 @@ class MovbLoc16Const8Cond final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5685,7 +5685,7 @@ class MovbLoc16Axlsb final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_LOC16_AXLSB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "MovbLoc16Axlsb";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5693,7 +5693,7 @@ class MovbLoc16Axlsb final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5721,7 +5721,7 @@ class MovbLoc16Axmsb final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_LOC16_AXMSB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "MovbLoc16Axmsb";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5729,7 +5729,7 @@ class MovbLoc16Axmsb final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5757,7 +5757,7 @@ class MovbXar0Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_XAR0_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbXar0Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5765,7 +5765,7 @@ class MovbXar0Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5791,7 +5791,7 @@ class MovbXar1Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_XAR1_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbXar1Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5799,7 +5799,7 @@ class MovbXar1Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5825,7 +5825,7 @@ class MovbXar2Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_XAR2_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbXar2Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5833,7 +5833,7 @@ class MovbXar2Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5859,7 +5859,7 @@ class MovbXar3Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_XAR3_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbXar3Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5867,7 +5867,7 @@ class MovbXar3Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5893,7 +5893,7 @@ class MovbXar4Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_XAR4_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbXar4Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5901,7 +5901,7 @@ class MovbXar4Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5927,7 +5927,7 @@ class MovbXar5Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_XAR5_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbXar5Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -5935,7 +5935,7 @@ class MovbXar5Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5961,7 +5961,7 @@ class MovbXar6Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_XAR6_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbXar6Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -5969,7 +5969,7 @@ class MovbXar6Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -5995,7 +5995,7 @@ class MovbXar7Const8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVB_XAR7_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovbXar7Const8";
-  static constexpr auto op_name = "movb";
+  static constexpr auto mnemonic = "movb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6003,7 +6003,7 @@ class MovbXar7Const8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6029,7 +6029,7 @@ class MovdlXtLoc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVDL_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovdlXtLoc32";
-  static constexpr auto op_name = "movdl";
+  static constexpr auto mnemonic = "movdl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6037,7 +6037,7 @@ class MovdlXtLoc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6063,7 +6063,7 @@ class MovhLoc16AccShift1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVH_LOC16_ACC_SHIFT1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovhLoc16AccShift1";
-  static constexpr auto op_name = "movh";
+  static constexpr auto mnemonic = "movh";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6071,7 +6071,7 @@ class MovhLoc16AccShift1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6097,7 +6097,7 @@ class MovhLoc16AccShift2_8Objmode1 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVH_LOC16_ACC_SHIFT2_8_OBJMODE_1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "MovhLoc16AccShift2_8Objmode1";
-  static constexpr auto op_name = "movh";
+  static constexpr auto mnemonic = "movh";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6105,7 +6105,7 @@ class MovhLoc16AccShift2_8Objmode1 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6133,7 +6133,7 @@ class MovhLoc16AccShift2_8Objmode0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVH_LOC16_ACC_SHIFT2_8_OBJMODE_0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F800;
   static constexpr auto full_name = "MovhLoc16AccShift2_8Objmode0";
-  static constexpr auto op_name = "movh";
+  static constexpr auto mnemonic = "movh";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_0;
 
@@ -6141,7 +6141,7 @@ class MovhLoc16AccShift2_8Objmode0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6169,7 +6169,7 @@ class MovhLoc16P final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVH_LOC16_P;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovhLoc16P";
-  static constexpr auto op_name = "movh";
+  static constexpr auto mnemonic = "movh";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6177,7 +6177,7 @@ class MovhLoc16P final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6203,7 +6203,7 @@ class MovlAccLoc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlAccLoc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6211,7 +6211,7 @@ class MovlAccLoc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6237,7 +6237,7 @@ class MovlAccPShiftPm final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_ACC_P_SHIFT_PM;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "MovlAccPShiftPm";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6245,7 +6245,7 @@ class MovlAccPShiftPm final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6267,7 +6267,7 @@ class MovlLoc32Acc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Acc";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6275,7 +6275,7 @@ class MovlLoc32Acc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6301,7 +6301,7 @@ class MovlLoc32AccCond final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_ACC_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "MovlLoc32AccCond";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6309,7 +6309,7 @@ class MovlLoc32AccCond final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6337,7 +6337,7 @@ class MovlLoc32P final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_P;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32P";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6345,7 +6345,7 @@ class MovlLoc32P final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6371,7 +6371,7 @@ class MovlLoc32Xar0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XAR0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xar0";
-  static constexpr auto op_name = "";
+  static constexpr auto mnemonic = "";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6379,7 +6379,7 @@ class MovlLoc32Xar0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6405,7 +6405,7 @@ class MovlLoc32Xar1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XAR1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xar1";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6413,7 +6413,7 @@ class MovlLoc32Xar1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6439,7 +6439,7 @@ class MovlLoc32Xar2 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XAR2;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xar2";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6447,7 +6447,7 @@ class MovlLoc32Xar2 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6473,7 +6473,7 @@ class MovlLoc32Xar3 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XAR3;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xar3";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6481,7 +6481,7 @@ class MovlLoc32Xar3 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6507,7 +6507,7 @@ class MovlLoc32Xar4 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XAR4;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xar4";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6515,7 +6515,7 @@ class MovlLoc32Xar4 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6541,7 +6541,7 @@ class MovlLoc32Xar5 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XAR5;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xar5";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6549,7 +6549,7 @@ class MovlLoc32Xar5 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6575,7 +6575,7 @@ class MovlLoc32Xar6 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XAR6;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xar6";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6583,7 +6583,7 @@ class MovlLoc32Xar6 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6609,7 +6609,7 @@ class MovlLoc32Xar7 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XAR7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xar7";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6617,7 +6617,7 @@ class MovlLoc32Xar7 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6643,7 +6643,7 @@ class MovlLoc32Xt final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_LOC32_XT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlLoc32Xt";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6651,7 +6651,7 @@ class MovlLoc32Xt final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6677,7 +6677,7 @@ class MovlPAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_P_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "MovlPAcc";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6685,7 +6685,7 @@ class MovlPAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6707,7 +6707,7 @@ class MovlPLoc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_P_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlPLoc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6715,7 +6715,7 @@ class MovlPLoc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6741,7 +6741,7 @@ class MovlXar0Loc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR0_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXar0Loc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6749,7 +6749,7 @@ class MovlXar0Loc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6775,7 +6775,7 @@ class MovlXar1Loc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR1_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXar1Loc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6783,7 +6783,7 @@ class MovlXar1Loc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6809,7 +6809,7 @@ class MovlXar2Loc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR2_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXar2Loc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6817,7 +6817,7 @@ class MovlXar2Loc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6843,7 +6843,7 @@ class MovlXar3Loc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR3_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXar3Loc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6851,7 +6851,7 @@ class MovlXar3Loc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6877,7 +6877,7 @@ class MovlXar4Loc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR4_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXar4Loc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6885,7 +6885,7 @@ class MovlXar4Loc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6911,7 +6911,7 @@ class MovlXar5Loc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR5_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXar5Loc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -6919,7 +6919,7 @@ class MovlXar5Loc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6945,7 +6945,7 @@ class MovlXar6Loc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR6_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXar6Loc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6953,7 +6953,7 @@ class MovlXar6Loc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -6979,7 +6979,7 @@ class MovlXar7Loc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR7_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXar7Loc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -6987,7 +6987,7 @@ class MovlXar7Loc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7013,7 +7013,7 @@ class MovlXar0Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR0_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "MovlXar0Const22";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7021,7 +7021,7 @@ class MovlXar0Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7047,7 +7047,7 @@ class MovlXar1Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR1_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "MovlXar1Const22";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7055,7 +7055,7 @@ class MovlXar1Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7081,7 +7081,7 @@ class MovlXar2Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR2_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "MovlXar2Const22";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7089,7 +7089,7 @@ class MovlXar2Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7115,7 +7115,7 @@ class MovlXar3Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR3_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "MovlXar3Const22";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7123,7 +7123,7 @@ class MovlXar3Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7149,7 +7149,7 @@ class MovlXar4Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR4_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "MovlXar4Const22";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7157,7 +7157,7 @@ class MovlXar4Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7183,7 +7183,7 @@ class MovlXar5Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR5_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "MovlXar5Const22";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7191,7 +7191,7 @@ class MovlXar5Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7217,7 +7217,7 @@ class MovlXar6Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR6_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "MovlXar6Const22";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7225,7 +7225,7 @@ class MovlXar6Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7251,7 +7251,7 @@ class MovlXar7Const22 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XAR7_CONST22;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "MovlXar7Const22";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7259,7 +7259,7 @@ class MovlXar7Const22 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7285,7 +7285,7 @@ class MovlXtLoc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVL_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovlXtLoc32";
-  static constexpr auto op_name = "movl";
+  static constexpr auto mnemonic = "movl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7293,7 +7293,7 @@ class MovlXtLoc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7319,7 +7319,7 @@ class MovpTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVP_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovpTLoc16";
-  static constexpr auto op_name = "movp";
+  static constexpr auto mnemonic = "movp";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7327,7 +7327,7 @@ class MovpTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7353,7 +7353,7 @@ class MovsTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVS_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovsTLoc16";
-  static constexpr auto op_name = "movs";
+  static constexpr auto mnemonic = "movs";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7361,7 +7361,7 @@ class MovsTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7387,7 +7387,7 @@ class MovuAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVU_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovuAccLoc16";
-  static constexpr auto op_name = "movu";
+  static constexpr auto mnemonic = "movu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7395,7 +7395,7 @@ class MovuAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7421,7 +7421,7 @@ class MovuLoc16Ovc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVU_LOC16_OVC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MovuLoc16Ovc";
-  static constexpr auto op_name = "movu";
+  static constexpr auto mnemonic = "movu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7429,7 +7429,7 @@ class MovuLoc16Ovc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7455,7 +7455,7 @@ class MovuOvcLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVU_OVC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "MovuOvcLoc16";
-  static constexpr auto op_name = "movu";
+  static constexpr auto mnemonic = "movu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7463,7 +7463,7 @@ class MovuOvcLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7489,7 +7489,7 @@ class MovwDpConst16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVW_DP_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "MovwDpConst16";
-  static constexpr auto op_name = "movw";
+  static constexpr auto mnemonic = "movw";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7497,7 +7497,7 @@ class MovwDpConst16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7523,7 +7523,7 @@ class MovxTlLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVX_TL_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "MovxTlLoc16";
-  static constexpr auto op_name = "movx";
+  static constexpr auto mnemonic = "movx";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7531,7 +7531,7 @@ class MovxTlLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7557,7 +7557,7 @@ class MovzAr0Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_AR0_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovzAr0Loc16";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7565,7 +7565,7 @@ class MovzAr0Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7591,7 +7591,7 @@ class MovzAr1Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_AR1_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovzAr1Loc16";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7599,7 +7599,7 @@ class MovzAr1Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7625,7 +7625,7 @@ class MovzAr2Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_AR2_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovzAr2Loc16";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7633,7 +7633,7 @@ class MovzAr2Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7659,7 +7659,7 @@ class MovzAr3Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_AR3_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovzAr3Loc16";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7667,7 +7667,7 @@ class MovzAr3Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7693,7 +7693,7 @@ class MovzAr4Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_AR4_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovzAr4Loc16";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7701,7 +7701,7 @@ class MovzAr4Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7727,7 +7727,7 @@ class MovzAr5Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_AR5_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovzAr5Loc16";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7735,7 +7735,7 @@ class MovzAr5Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7761,7 +7761,7 @@ class MovzAr6Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_AR6_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovzAr6Loc16";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7769,7 +7769,7 @@ class MovzAr6Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7795,7 +7795,7 @@ class MovzAr7Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_AR7_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MovzAr7Loc16";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7803,7 +7803,7 @@ class MovzAr7Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7829,7 +7829,7 @@ class MovzDpConst10 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVZ_DP_CONST10;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FC00;
   static constexpr auto full_name = "MovzDpConst10";
-  static constexpr auto op_name = "movz";
+  static constexpr auto mnemonic = "movz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -7837,7 +7837,7 @@ class MovzDpConst10 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7863,7 +7863,7 @@ class MpyAccLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPY_ACC_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "MpyAccLoc16Const16";
-  static constexpr auto op_name = "mpy";
+  static constexpr auto mnemonic = "mpy";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7871,7 +7871,7 @@ class MpyAccLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7899,7 +7899,7 @@ class MpyAccTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPY_ACC_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpyAccTLoc16";
-  static constexpr auto op_name = "mpy";
+  static constexpr auto mnemonic = "mpy";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7907,7 +7907,7 @@ class MpyAccTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7933,7 +7933,7 @@ class MpyPLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPY_P_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "MpyPLoc16Const16";
-  static constexpr auto op_name = "mpy";
+  static constexpr auto mnemonic = "mpy";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7941,7 +7941,7 @@ class MpyPLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -7969,7 +7969,7 @@ class MpyPTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPY_P_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpyPTLoc16";
-  static constexpr auto op_name = "mpy";
+  static constexpr auto mnemonic = "mpy";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -7977,7 +7977,7 @@ class MpyPTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8003,7 +8003,7 @@ class MpyaPLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYA_P_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "MpyaPLoc16Const16";
-  static constexpr auto op_name = "mpya";
+  static constexpr auto mnemonic = "mpya";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8011,7 +8011,7 @@ class MpyaPLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8039,7 +8039,7 @@ class MpyaPTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPYA_P_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpyaPTLoc16";
-  static constexpr auto op_name = "mpya";
+  static constexpr auto mnemonic = "mpya";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8047,7 +8047,7 @@ class MpyaPTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8073,7 +8073,7 @@ class MpybAccTConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPYB_ACC_T_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpybAccTConst8";
-  static constexpr auto op_name = "mpyb";
+  static constexpr auto mnemonic = "mpyb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8081,7 +8081,7 @@ class MpybAccTConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8107,7 +8107,7 @@ class MpybPTConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPYB_P_T_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpybPTConst8";
-  static constexpr auto op_name = "mpyb";
+  static constexpr auto mnemonic = "mpyb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8115,7 +8115,7 @@ class MpybPTConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8141,7 +8141,7 @@ class MpysPTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPYS_P_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpysPTLoc16";
-  static constexpr auto op_name = "mpys";
+  static constexpr auto mnemonic = "mpys";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8149,7 +8149,7 @@ class MpysPTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8175,7 +8175,7 @@ class MpyuPTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPYU_P_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpyuPTLoc16";
-  static constexpr auto op_name = "mpyu";
+  static constexpr auto mnemonic = "mpyu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8183,7 +8183,7 @@ class MpyuPTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8209,7 +8209,7 @@ class MpyuAccTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPYU_ACC_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpyuAccTLoc16";
-  static constexpr auto op_name = "mpyu";
+  static constexpr auto mnemonic = "mpyu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8217,7 +8217,7 @@ class MpyuAccTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8243,7 +8243,7 @@ class MpyxuAccTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPYXU_ACC_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpyxuAccTLoc16";
-  static constexpr auto op_name = "mpyxu";
+  static constexpr auto mnemonic = "mpyxu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8251,7 +8251,7 @@ class MpyxuAccTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8277,7 +8277,7 @@ class MpyxuPTLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MPYXU_P_T_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "MpyxuPTLoc16";
-  static constexpr auto op_name = "mpyxu";
+  static constexpr auto mnemonic = "mpyxu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8285,7 +8285,7 @@ class MpyxuPTLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8311,7 +8311,7 @@ class Nasp final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NASP;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Nasp";
-  static constexpr auto op_name = "nasp";
+  static constexpr auto mnemonic = "nasp";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8319,7 +8319,7 @@ class Nasp final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8341,7 +8341,7 @@ class NegAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NEG_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "NegAcc";
-  static constexpr auto op_name = "neg";
+  static constexpr auto mnemonic = "neg";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8349,7 +8349,7 @@ class NegAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8371,7 +8371,7 @@ class NegAx final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NEG_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFE;
   static constexpr auto full_name = "NegAx";
-  static constexpr auto op_name = "neg";
+  static constexpr auto mnemonic = "neg";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8379,7 +8379,7 @@ class NegAx final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8405,7 +8405,7 @@ class Neg64AccP final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NEG64_ACC_P;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Neg64AccP";
-  static constexpr auto op_name = "neg64";
+  static constexpr auto mnemonic = "neg64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8413,7 +8413,7 @@ class Neg64AccP final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8435,7 +8435,7 @@ class NegtcAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NEGTC_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "NegtcAcc";
-  static constexpr auto op_name = "negtc";
+  static constexpr auto mnemonic = "negtc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8443,7 +8443,7 @@ class NegtcAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8465,7 +8465,7 @@ class NopIndArpn final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NOP_IND_ARPN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "NopIndArpn";
-  static constexpr auto op_name = "mop";
+  static constexpr auto mnemonic = "mop";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8473,7 +8473,7 @@ class NopIndArpn final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8499,7 +8499,7 @@ class NormAccInd final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NORM_ACC_IND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "NormAccInd";
-  static constexpr auto op_name = "norm";
+  static constexpr auto mnemonic = "norm";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8507,7 +8507,7 @@ class NormAccInd final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8529,7 +8529,7 @@ class NormAccIndPostinc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NORM_ACC_IND_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "NormAccIndPostinc";
-  static constexpr auto op_name = "norm";
+  static constexpr auto mnemonic = "norm";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8537,7 +8537,7 @@ class NormAccIndPostinc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8559,7 +8559,7 @@ class NormAccIndPostdec final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NORM_ACC_IND_POSTDEC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "NormAccIndPostdec";
-  static constexpr auto op_name = "norm";
+  static constexpr auto mnemonic = "norm";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8567,7 +8567,7 @@ class NormAccIndPostdec final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8589,7 +8589,7 @@ class NormAccInd0Postinc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NORM_ACC_IND0_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "NormAccInd0Postin";
-  static constexpr auto op_name = "norm";
+  static constexpr auto mnemonic = "norm";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8597,7 +8597,7 @@ class NormAccInd0Postinc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8619,7 +8619,7 @@ class NormAccInd0Postdec final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NORM_ACC_IND0_POSTDEC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "NormAccInd0Postdec";
-  static constexpr auto op_name = "norm";
+  static constexpr auto mnemonic = "norm";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8627,7 +8627,7 @@ class NormAccInd0Postdec final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8649,7 +8649,7 @@ class NormAccXarnPostinc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NORM_ACC_XARN_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF8;
   static constexpr auto full_name = "NormAccXarnPostinc";
-  static constexpr auto op_name = "norm";
+  static constexpr auto mnemonic = "norm";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8657,7 +8657,7 @@ class NormAccXarnPostinc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8683,7 +8683,7 @@ class NormAccXarnPostdec final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NORM_ACC_XARN_POSTDEC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF8;
   static constexpr auto full_name = "NormAccXarnPostdec";
-  static constexpr auto op_name = "norm";
+  static constexpr auto mnemonic = "norm";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8691,7 +8691,7 @@ class NormAccXarnPostdec final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8717,7 +8717,7 @@ class NotAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NOT_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "NotAcc";
-  static constexpr auto op_name = "not";
+  static constexpr auto mnemonic = "not";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8725,7 +8725,7 @@ class NotAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8747,7 +8747,7 @@ class NotAx final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::NOT_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFE;
   static constexpr auto full_name = "NotAx";
-  static constexpr auto op_name = "not";
+  static constexpr auto mnemonic = "not";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8755,7 +8755,7 @@ class NotAx final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8781,7 +8781,7 @@ class OrAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::OR_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "OrAccLoc16";
-  static constexpr auto op_name = "or";
+  static constexpr auto mnemonic = "or";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8789,7 +8789,7 @@ class OrAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8815,7 +8815,7 @@ class OrAccConst16Shift0_15 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::OR_ACC_CONST16_SHIFT0_15;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "OrAccConst16Shift0_15";
-  static constexpr auto op_name = "or";
+  static constexpr auto mnemonic = "or";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8823,7 +8823,7 @@ class OrAccConst16Shift0_15 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8851,7 +8851,7 @@ class OrAccConst16Shift16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::OR_ACC_CONST16_SHIFT16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "OrAccConst16Shift16";
-  static constexpr auto op_name = "or";
+  static constexpr auto mnemonic = "or";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -8859,7 +8859,7 @@ class OrAccConst16Shift16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8885,7 +8885,7 @@ class OrAxLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::OR_AX_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "OrAxLoc16";
-  static constexpr auto op_name = "or";
+  static constexpr auto mnemonic = "or";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8893,7 +8893,7 @@ class OrAxLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8921,7 +8921,7 @@ class OrIerConst16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::OR_IER_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "OrIerConst16";
-  static constexpr auto op_name = "or";
+  static constexpr auto mnemonic = "or";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8929,7 +8929,7 @@ class OrIerConst16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8955,7 +8955,7 @@ class OrIfrConst16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::OR_IFR_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "OrIfrConst16";
-  static constexpr auto op_name = "or";
+  static constexpr auto mnemonic = "or";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8963,7 +8963,7 @@ class OrIfrConst16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -8989,7 +8989,7 @@ class OrLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::OR_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "OrLoc16Const16";
-  static constexpr auto op_name = "or";
+  static constexpr auto mnemonic = "or";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -8997,7 +8997,7 @@ class OrLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9025,7 +9025,7 @@ class OrLoc16Ax final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::OR_LOC16_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "OrLoc16Ax";
-  static constexpr auto op_name = "or";
+  static constexpr auto mnemonic = "or";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9033,7 +9033,7 @@ class OrLoc16Ax final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9061,7 +9061,7 @@ class OrbAxConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ORB_AX_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "OrbAxConst8";
-  static constexpr auto op_name = "orb";
+  static constexpr auto mnemonic = "orb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9069,7 +9069,7 @@ class OrbAxConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9097,7 +9097,7 @@ class OutPaLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::OUT_PA_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "OutPaLoc16";
-  static constexpr auto op_name = "out";
+  static constexpr auto mnemonic = "out";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -9105,7 +9105,7 @@ class OutPaLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9133,7 +9133,7 @@ class PopAr1Ar0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_AR1_AR0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopAr1Ar0";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9141,7 +9141,7 @@ class PopAr1Ar0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9163,7 +9163,7 @@ class PopAr3Ar2 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_AR3_AR2;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopAr3Ar2";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9171,7 +9171,7 @@ class PopAr3Ar2 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9193,7 +9193,7 @@ class PopAr5Ar4 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_AR5_AR4;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopAr5Ar4";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9201,7 +9201,7 @@ class PopAr5Ar4 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9223,7 +9223,7 @@ class PopAr1hAr0h final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_AR1H_AR0H;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopAr1hAr0h";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9231,7 +9231,7 @@ class PopAr1hAr0h final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9253,7 +9253,7 @@ class PopDbgier final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_DBGIER;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopDbgier";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9261,7 +9261,7 @@ class PopDbgier final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9283,7 +9283,7 @@ class PopDp final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_DP;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopDp";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9291,7 +9291,7 @@ class PopDp final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9313,7 +9313,7 @@ class PopDpSt1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_DP_ST1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopDpSt1";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9321,7 +9321,7 @@ class PopDpSt1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9343,7 +9343,7 @@ class PopIfr final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_IFR;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopIfr";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9351,7 +9351,7 @@ class PopIfr final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9373,7 +9373,7 @@ class PopLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "PopLoc16";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9381,7 +9381,7 @@ class PopLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9407,7 +9407,7 @@ class PopP final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_P;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopP";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9415,7 +9415,7 @@ class PopP final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9437,7 +9437,7 @@ class PopRpc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_RPC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopRpc";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9445,7 +9445,7 @@ class PopRpc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9467,7 +9467,7 @@ class PopSt0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_ST0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopSt0";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9475,7 +9475,7 @@ class PopSt0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9497,7 +9497,7 @@ class PopSt1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_ST1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopSt1";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9505,7 +9505,7 @@ class PopSt1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9527,7 +9527,7 @@ class PopTSt0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_T_ST0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopTSt0";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9535,7 +9535,7 @@ class PopTSt0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9557,7 +9557,7 @@ class PopXt final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_XT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopXt";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9565,7 +9565,7 @@ class PopXt final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9587,7 +9587,7 @@ class PreadLoc16Xar7 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PREAD_LOC16_XAR7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "PreadLoc16Xar7";
-  static constexpr auto op_name = "pread";
+  static constexpr auto mnemonic = "pread";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9595,7 +9595,7 @@ class PreadLoc16Xar7 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9621,7 +9621,7 @@ class PushAr1Ar0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_AR1_AR0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushAr1Ar0";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9629,7 +9629,7 @@ class PushAr1Ar0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9651,7 +9651,7 @@ class PushAr3Ar2 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_AR3_AR2;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushAr3Ar2";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9659,7 +9659,7 @@ class PushAr3Ar2 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9681,7 +9681,7 @@ class PushAr5Ar4 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_AR5_AR4;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushAr5Ar4";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9689,7 +9689,7 @@ class PushAr5Ar4 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9711,7 +9711,7 @@ class PushAr1hAr0h final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_AR1H_AR0H;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushAr1hAr0h";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9719,7 +9719,7 @@ class PushAr1hAr0h final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9741,7 +9741,7 @@ class PushDbgier final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_DBGIER;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushDbgier";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9749,7 +9749,7 @@ class PushDbgier final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9771,7 +9771,7 @@ class PushDp final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_DP;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushDp";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9779,7 +9779,7 @@ class PushDp final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9801,7 +9801,7 @@ class PushDpSt1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_DP_ST1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushDpSt1";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9809,7 +9809,7 @@ class PushDpSt1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9831,7 +9831,7 @@ class PushIfr final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_IFR;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushIfr";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9839,7 +9839,7 @@ class PushIfr final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9861,7 +9861,7 @@ class PushLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "PushLoc16";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9869,7 +9869,7 @@ class PushLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9895,7 +9895,7 @@ class PushP final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_P;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushP";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9903,7 +9903,7 @@ class PushP final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9925,7 +9925,7 @@ class PushRpc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_RPC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushRpc";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9933,7 +9933,7 @@ class PushRpc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9955,7 +9955,7 @@ class PushSt0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_ST0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushSt0";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9963,7 +9963,7 @@ class PushSt0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -9985,7 +9985,7 @@ class PushSt1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_ST1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushSt1";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -9993,7 +9993,7 @@ class PushSt1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10015,7 +10015,7 @@ class PushTSt0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_T_ST0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushTSt0";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10023,7 +10023,7 @@ class PushTSt0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10045,7 +10045,7 @@ class PushXt final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_XT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushXt";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10053,7 +10053,7 @@ class PushXt final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10075,7 +10075,7 @@ class PwriteXar7Loc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PWRITE_XAR7_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "PwriteXar7Loc16";
-  static constexpr auto op_name = "pwrite";
+  static constexpr auto mnemonic = "pwrite";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10083,7 +10083,7 @@ class PwriteXar7Loc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10109,7 +10109,7 @@ class QmaclPLoc32Xar7 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::QMACL_P_LOC32_XAR7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "QmaclPLoc32Xar7";
-  static constexpr auto op_name = "qmacl";
+  static constexpr auto mnemonic = "qmacl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10117,7 +10117,7 @@ class QmaclPLoc32Xar7 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10143,7 +10143,7 @@ class QmaclPLoc32Xar7Postinc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::QMACL_P_LOC32_XAR7_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "QmaclPLoc32Xar7Postinc";
-  static constexpr auto op_name = "qmacl";
+  static constexpr auto mnemonic = "qmacl";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10151,7 +10151,7 @@ class QmaclPLoc32Xar7Postinc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10177,7 +10177,7 @@ class QmpyalPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::QMPYAL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "QmpyalPXtLoc32";
-  static constexpr auto op_name = "qmpyal";
+  static constexpr auto mnemonic = "qmpyal";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10185,7 +10185,7 @@ class QmpyalPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10211,7 +10211,7 @@ class QmpylPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::QMPYL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "QmpylPXtLoc32";
-  static constexpr auto op_name = "qmpyl";
+  static constexpr auto mnemonic = "qmpyl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10219,7 +10219,7 @@ class QmpylPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10245,7 +10245,7 @@ class QmpylAccXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::QMPYL_ACC_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "QmpylAccXtLoc32";
-  static constexpr auto op_name = "qmpyl";
+  static constexpr auto mnemonic = "qmpyl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10253,7 +10253,7 @@ class QmpylAccXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10279,7 +10279,7 @@ class QmpyslPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::QMPYSL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "QmpyslPXtLoc32";
-  static constexpr auto op_name = "qmpysl";
+  static constexpr auto mnemonic = "qmpysl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10287,7 +10287,7 @@ class QmpyslPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10313,7 +10313,7 @@ class QmpyulPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::QMPYUL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "QmpyulPXtLoc32";
-  static constexpr auto op_name = "qmpyul";
+  static constexpr auto mnemonic = "qmpyul";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10321,7 +10321,7 @@ class QmpyulPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10347,7 +10347,7 @@ class QmpyxulPXtLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::QMPYXUL_P_XT_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "QmpyxulPXtLoc32";
-  static constexpr auto op_name = "qmpyxul";
+  static constexpr auto mnemonic = "qmpyxul";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10355,7 +10355,7 @@ class QmpyxulPXtLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10381,7 +10381,7 @@ class RolAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ROL_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "RolAcc";
-  static constexpr auto op_name = "rol";
+  static constexpr auto mnemonic = "rol";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10389,7 +10389,7 @@ class RolAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10411,7 +10411,7 @@ class RorAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ROR_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "RorAcc";
-  static constexpr auto op_name = "ror";
+  static constexpr auto mnemonic = "ror";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10419,7 +10419,7 @@ class RorAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10441,7 +10441,7 @@ class RptConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::RPT_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "RptConst8";
-  static constexpr auto op_name = "rpt";
+  static constexpr auto mnemonic = "rpt";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10449,7 +10449,7 @@ class RptConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10478,7 +10478,7 @@ class RptLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::RPT_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "RptLoc16";
-  static constexpr auto op_name = "rpt";
+  static constexpr auto mnemonic = "rpt";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10486,7 +10486,7 @@ class RptLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10515,7 +10515,7 @@ class SatAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SAT_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "SatAcc";
-  static constexpr auto op_name = "sat";
+  static constexpr auto mnemonic = "sat";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10523,7 +10523,7 @@ class SatAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10545,7 +10545,7 @@ class Sat64AccP final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SAT64_ACC_P;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Sat64AccP";
-  static constexpr auto op_name = "sat64";
+  static constexpr auto mnemonic = "sat64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10553,7 +10553,7 @@ class Sat64AccP final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10575,7 +10575,7 @@ class SbOff8Cond final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SB_OFF8_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F000;
   static constexpr auto full_name = "SbOff8Cond";
-  static constexpr auto op_name = "sb";
+  static constexpr auto mnemonic = "sb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10583,7 +10583,7 @@ class SbOff8Cond final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10615,7 +10615,7 @@ class SbbuAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SBBU_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SbbuAccLoc16";
-  static constexpr auto op_name = "sbbu";
+  static constexpr auto mnemonic = "sbbu";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10623,7 +10623,7 @@ class SbbuAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10649,7 +10649,7 @@ class SbfOff8Eq final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SBF_OFF8_EQ;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SbfOff8Eq";
-  static constexpr auto op_name = "sbf";
+  static constexpr auto mnemonic = "sbf";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10657,7 +10657,7 @@ class SbfOff8Eq final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10687,7 +10687,7 @@ class SbfOff8Neq final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SBF_OFF8_NEQ;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SbfOff8Neq";
-  static constexpr auto op_name = "sbf";
+  static constexpr auto mnemonic = "sbf";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10695,7 +10695,7 @@ class SbfOff8Neq final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10725,7 +10725,7 @@ class SbfOff8Tc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SBF_OFF8_TC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SbfOff8Tc";
-  static constexpr auto op_name = "sbf";
+  static constexpr auto mnemonic = "sbf";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10733,7 +10733,7 @@ class SbfOff8Tc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10763,7 +10763,7 @@ class SbfOff8Ntc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SBF_OFF8_NTC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SbfOff8Ntc";
-  static constexpr auto op_name = "sbf";
+  static constexpr auto mnemonic = "sbf";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -10771,7 +10771,7 @@ class SbfOff8Ntc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10801,7 +10801,7 @@ class SbrkConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SBRK_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SbrkConst8";
-  static constexpr auto op_name = "sbrk";
+  static constexpr auto mnemonic = "sbrk";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10809,7 +10809,7 @@ class SbrkConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10835,7 +10835,7 @@ class SetcMode final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SETC_MODE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SetcMode";
-  static constexpr auto op_name = "setc";
+  static constexpr auto mnemonic = "setc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10843,7 +10843,7 @@ class SetcMode final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10869,7 +10869,7 @@ class SetcM0M1Map final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SETC_M0M1MAP;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "SetcM0M1Map";
-  static constexpr auto op_name = "setc m0m1map";
+  static constexpr auto mnemonic = "setc m0m1map";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10877,7 +10877,7 @@ class SetcM0M1Map final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10899,7 +10899,7 @@ class SetcObjmode final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SETC_OBJMODE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "SetcObjmode";
-  static constexpr auto op_name = "setc objmode";
+  static constexpr auto mnemonic = "setc objmode";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10907,7 +10907,7 @@ class SetcObjmode final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10929,7 +10929,7 @@ class SetcXf final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SETC_XF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "SetcXf";
-  static constexpr auto op_name = "setc";
+  static constexpr auto mnemonic = "setc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10937,7 +10937,7 @@ class SetcXf final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10959,7 +10959,7 @@ class SfrAccShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SFR_ACC_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "SfrAccShift";
-  static constexpr auto op_name = "sfr";
+  static constexpr auto mnemonic = "sfr";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -10967,7 +10967,7 @@ class SfrAccShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -10993,7 +10993,7 @@ class SfrAccT final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SFR_ACC_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "SfrAccT";
-  static constexpr auto op_name = "sfr";
+  static constexpr auto mnemonic = "sfr";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11001,7 +11001,7 @@ class SfrAccT final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11023,7 +11023,7 @@ class SpmShift final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SPM_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF8;
   static constexpr auto full_name = "SpmShift";
-  static constexpr auto op_name = "spm";
+  static constexpr auto mnemonic = "spm";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11031,7 +11031,7 @@ class SpmShift final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11057,7 +11057,7 @@ class SqraLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SQRA_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "SqraLoc16";
-  static constexpr auto op_name = "sqra";
+  static constexpr auto mnemonic = "sqra";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11065,7 +11065,7 @@ class SqraLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11091,7 +11091,7 @@ class SqrsLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SQRS_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "SqrsLoc16";
-  static constexpr auto op_name = "sqrs";
+  static constexpr auto mnemonic = "sqrs";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11099,7 +11099,7 @@ class SqrsLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11125,7 +11125,7 @@ class SubAccLoc16Objmode1 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_ACC_LOC16_OBJMODE1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SubAccLoc16Objmode1";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11133,7 +11133,7 @@ class SubAccLoc16Objmode1 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11159,7 +11159,7 @@ class SubAccLoc16Objmode0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_ACC_LOC16_OBJMODE0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SubAccLoc16Objmode0";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_0;
 
@@ -11167,7 +11167,7 @@ class SubAccLoc16Objmode0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11193,7 +11193,7 @@ class SubAccLoc16Shift1_15Objmode1 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_ACC_LOC16_SHIFT1_15_OBJMODE1;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "SubAccLoc16Shift1_15Objmode1";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11201,7 +11201,7 @@ class SubAccLoc16Shift1_15Objmode1 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11229,7 +11229,7 @@ class SubAccLoc16Shift1_15Objmode0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_ACC_LOC16_SHIFT1_15_OBJMODE0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F000;
   static constexpr auto full_name = "SubAccLoc16Shift1_15Objmode0";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_0;
 
@@ -11237,7 +11237,7 @@ class SubAccLoc16Shift1_15Objmode0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11265,7 +11265,7 @@ class SubAccLoc16Shift16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_ACC_LOC16_SHIFT16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SubAccLoc16Shift16";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11273,7 +11273,7 @@ class SubAccLoc16Shift16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11299,7 +11299,7 @@ class SubAccLoc16ShiftT final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_ACC_LOC16_SHIFT_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "SubAccLoc16ShiftT";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11307,7 +11307,7 @@ class SubAccLoc16ShiftT final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11333,7 +11333,7 @@ class SubAccConst16Shift final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_ACC_CONST16_SHIFT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "SubAccConst16Shift";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11341,7 +11341,7 @@ class SubAccConst16Shift final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11369,7 +11369,7 @@ class SubAxLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_AX_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "SubAxLoc16";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11377,7 +11377,7 @@ class SubAxLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11405,7 +11405,7 @@ class SubLoc16Ax final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUB_LOC16_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "SubLoc16Ax";
-  static constexpr auto op_name = "sub";
+  static constexpr auto mnemonic = "sub";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11413,7 +11413,7 @@ class SubLoc16Ax final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11441,7 +11441,7 @@ class SubbAccConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUBB_ACC_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SubbAccConst8";
-  static constexpr auto op_name = "subb";
+  static constexpr auto mnemonic = "subb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11449,7 +11449,7 @@ class SubbAccConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11475,7 +11475,7 @@ class SubbSpConst7 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUBB_SP_CONST7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF80;
   static constexpr auto full_name = "SubbSpConst7";
-  static constexpr auto op_name = "subb";
+  static constexpr auto mnemonic = "subb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11483,7 +11483,7 @@ class SubbSpConst7 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11509,7 +11509,7 @@ class SubbXarnConst7 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUBB_XARN_CONST7;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F880;
   static constexpr auto full_name = "SubbXarnConst7";
-  static constexpr auto op_name = "subb";
+  static constexpr auto mnemonic = "subb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11517,7 +11517,7 @@ class SubbXarnConst7 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11545,7 +11545,7 @@ class SubblAccLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBBL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "SubblAccLoc32";
-  static constexpr auto op_name = "subbl";
+  static constexpr auto mnemonic = "subbl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11553,7 +11553,7 @@ class SubblAccLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11579,7 +11579,7 @@ class SubcuAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUBCU_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SubcuAccLoc16";
-  static constexpr auto op_name = "subcu";
+  static constexpr auto mnemonic = "subcu";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11587,7 +11587,7 @@ class SubcuAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11613,7 +11613,7 @@ class SubculAccLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBCUL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "SubculAccLoc32";
-  static constexpr auto op_name = "subcul";
+  static constexpr auto mnemonic = "subcul";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11621,7 +11621,7 @@ class SubculAccLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11647,7 +11647,7 @@ class SublAccLoc32 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUBL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SublAccLoc32";
-  static constexpr auto op_name = "subl";
+  static constexpr auto mnemonic = "subl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11655,7 +11655,7 @@ class SublAccLoc32 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11681,7 +11681,7 @@ class SublLoc32Acc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBL_LOC32_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "SublLoc32Acc";
-  static constexpr auto op_name = "subl";
+  static constexpr auto mnemonic = "subl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11689,7 +11689,7 @@ class SublLoc32Acc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11715,7 +11715,7 @@ class SubrLoc16Ax final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUBR_LOC16_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "SubrLoc16Ax";
-  static constexpr auto op_name = "subr";
+  static constexpr auto mnemonic = "subr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11723,7 +11723,7 @@ class SubrLoc16Ax final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11751,7 +11751,7 @@ class SubrlLoc32Acc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBRL_LOC32_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "SubrlLoc32Acc";
-  static constexpr auto op_name = "subrl";
+  static constexpr auto mnemonic = "subrl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11759,7 +11759,7 @@ class SubrlLoc32Acc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11785,7 +11785,7 @@ class SubuAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::SUBU_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "SubuAccLoc16";
-  static constexpr auto op_name = "subu";
+  static constexpr auto mnemonic = "subu";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11793,7 +11793,7 @@ class SubuAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11819,7 +11819,7 @@ class SubulAccLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBUL_ACC_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "SubulAccLoc32";
-  static constexpr auto op_name = "subul";
+  static constexpr auto mnemonic = "subul";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11827,7 +11827,7 @@ class SubulAccLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11853,7 +11853,7 @@ class SubulPLoc32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBUL_P_LOC32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "SubulPLoc32";
-  static constexpr auto op_name = "subul";
+  static constexpr auto mnemonic = "subul";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11861,7 +11861,7 @@ class SubulPLoc32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11887,7 +11887,7 @@ class TbitLoc16Bit final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::TBIT_LOC16_BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_F000;
   static constexpr auto full_name = "TbitLoc16Bit";
-  static constexpr auto op_name = "tbit";
+  static constexpr auto mnemonic = "tbit";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -11895,7 +11895,7 @@ class TbitLoc16Bit final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11923,7 +11923,7 @@ class TbitLoc16T final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::TBIT_LOC16_T;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "TbitLoc16T";
-  static constexpr auto op_name = "tbit";
+  static constexpr auto mnemonic = "tbit";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11931,7 +11931,7 @@ class TbitLoc16T final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11957,7 +11957,7 @@ class TclrLoc16Bit final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::TCLR_LOC16_BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "TclrLoc16Bit";
-  static constexpr auto op_name = "tclr";
+  static constexpr auto mnemonic = "tclr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -11965,7 +11965,7 @@ class TclrLoc16Bit final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -11993,7 +11993,7 @@ class TestAcc final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::TEST_ACC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "TestAcc";
-  static constexpr auto op_name = "test";
+  static constexpr auto mnemonic = "test";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -12001,7 +12001,7 @@ class TestAcc final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12023,7 +12023,7 @@ class TrapVec final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::TRAP_VEC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFE0;
   static constexpr auto full_name = "TrapVec";
-  static constexpr auto op_name = "trap";
+  static constexpr auto mnemonic = "trap";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -12031,7 +12031,7 @@ class TrapVec final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12060,7 +12060,7 @@ class TsetLoc16Bit final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::TSET_LOC16_BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "TsetLoc16Bit";
-  static constexpr auto op_name = "tset";
+  static constexpr auto mnemonic = "tset";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12068,7 +12068,7 @@ class TsetLoc16Bit final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12096,7 +12096,7 @@ class UoutPaLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::UOUT_PA_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "UoutPaLoc16";
-  static constexpr auto op_name = "uout";
+  static constexpr auto mnemonic = "uout";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12104,7 +12104,7 @@ class UoutPaLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12132,7 +12132,7 @@ class XbAl final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::XB_AL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "XbAl";
-  static constexpr auto op_name = "xb";
+  static constexpr auto mnemonic = "xb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12140,7 +12140,7 @@ class XbAl final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12165,7 +12165,7 @@ class XbPmaArpn final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XB_PMA_APRN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "XbPmaArpn";
-  static constexpr auto op_name = "xb";
+  static constexpr auto mnemonic = "xb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12173,7 +12173,7 @@ class XbPmaArpn final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12205,7 +12205,7 @@ class XbPmaCond final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XB_PMA_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "XbPmaCond";
-  static constexpr auto op_name = "xb";
+  static constexpr auto mnemonic = "xb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12213,7 +12213,7 @@ class XbPmaCond final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12245,7 +12245,7 @@ class XbanzPmaInd final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "XbanzPmaInd";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12253,7 +12253,7 @@ class XbanzPmaInd final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12283,7 +12283,7 @@ class XbanzPmaIndPostinc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "XbanzPmaIndPostinc";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12291,7 +12291,7 @@ class XbanzPmaIndPostinc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12321,7 +12321,7 @@ class XbanzPmaIndPostdec final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND_POSTDEC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "XbanzPmaIndPostdec";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12329,7 +12329,7 @@ class XbanzPmaIndPostdec final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12359,7 +12359,7 @@ class XbanzPmaInd0Postinc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND0_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "XbanzPmaInd0Postinc";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12367,7 +12367,7 @@ class XbanzPmaInd0Postinc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12397,7 +12397,7 @@ class XbanzPmaInd0Postdec final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND0_POSTDEC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "XbanzPmaInd0Postdec";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12405,7 +12405,7 @@ class XbanzPmaInd0Postdec final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12435,7 +12435,7 @@ class XbanzPmaIndArpn final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND_ARPN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "XbanzPmaIndArpn";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12443,7 +12443,7 @@ class XbanzPmaIndArpn final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12475,7 +12475,7 @@ class XbanzPmaIndPostincArpn final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND_POSTINC_ARPN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "XbanzPmaIndPostincArpn";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12483,7 +12483,7 @@ class XbanzPmaIndPostincArpn final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12515,7 +12515,7 @@ class XbanzPmaIndPostdecArpn final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND_POSTDEC_ARPN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "XbanzPmaIndPostdecArpn";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12523,7 +12523,7 @@ class XbanzPmaIndPostdecArpn final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12555,7 +12555,7 @@ class XbanzPmaInd0PostincArpn final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND0_POSTINC_ARPN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "XbanzPmaInd0PostincArpn";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12563,7 +12563,7 @@ class XbanzPmaInd0PostincArpn final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12595,7 +12595,7 @@ class XbanzPmaInd0PostdecArpn final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XBANZ_PMA_IND0_POSTDEC_ARPN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "XbanzPmaInd0PostdecArpn";
-  static constexpr auto op_name = "xbanz";
+  static constexpr auto mnemonic = "xbanz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12603,7 +12603,7 @@ class XbanzPmaInd0PostdecArpn final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12635,7 +12635,7 @@ class XcallAl final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::XCALL_AL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "XcallAl";
-  static constexpr auto op_name = "xcall";
+  static constexpr auto mnemonic = "xcall";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12643,7 +12643,7 @@ class XcallAl final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12668,7 +12668,7 @@ class XcallPmaArpn final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XCALL_PMA_ARPN;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "XcallPmaArpn";
-  static constexpr auto op_name = "xcall";
+  static constexpr auto mnemonic = "xcall";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12676,7 +12676,7 @@ class XcallPmaArpn final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12708,7 +12708,7 @@ class XcallPmaCond final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XCALL_PMA_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "XcallPmaCond";
-  static constexpr auto op_name = "xcall";
+  static constexpr auto mnemonic = "xcall";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12716,7 +12716,7 @@ class XcallPmaCond final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12748,7 +12748,7 @@ class XmacPLoc16Pma final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XMAC_P_LOC16_PMA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "XmacPLoc16Pma";
-  static constexpr auto op_name = "xmac";
+  static constexpr auto mnemonic = "xmac";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12756,7 +12756,7 @@ class XmacPLoc16Pma final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12784,7 +12784,7 @@ class XmacdPLoc16Pma final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XMACD_P_LOC16_PMA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "XmacdPLoc16Pma";
-  static constexpr auto op_name = "xmacd";
+  static constexpr auto mnemonic = "xmacd";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12792,7 +12792,7 @@ class XmacdPLoc16Pma final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12820,7 +12820,7 @@ class XorAccLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::XOR_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "XorAccLoc16";
-  static constexpr auto op_name = "xor";
+  static constexpr auto mnemonic = "xor";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12828,7 +12828,7 @@ class XorAccLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12854,7 +12854,7 @@ class XorAccConst16Shift0_15 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XOR_ACC_CONST16_SHIFT0_15;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "XorAccConst16Shift0_15";
-  static constexpr auto op_name = "xor";
+  static constexpr auto mnemonic = "xor";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12862,7 +12862,7 @@ class XorAccConst16Shift0_15 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12890,7 +12890,7 @@ class XorAccConst16Shift16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XOR_ACC_CONST16_SHIFT16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF0000;
   static constexpr auto full_name = "XorAccConst16Shift16";
-  static constexpr auto op_name = "xor";
+  static constexpr auto mnemonic = "xor";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -12898,7 +12898,7 @@ class XorAccConst16Shift16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12924,7 +12924,7 @@ class XorAxLoc16 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::XOR_AX_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "XorAxLoc16";
-  static constexpr auto op_name = "xor";
+  static constexpr auto mnemonic = "xor";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -12932,7 +12932,7 @@ class XorAxLoc16 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12960,7 +12960,7 @@ class XorLoc16Ax final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::XOR_LOC16_AX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "XorLoc16Ax";
-  static constexpr auto op_name = "xor";
+  static constexpr auto mnemonic = "xor";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -12968,7 +12968,7 @@ class XorLoc16Ax final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -12996,7 +12996,7 @@ class XorLoc16Const16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XOR_LOC16_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "XorLoc16Const16";
-  static constexpr auto op_name = "xor";
+  static constexpr auto mnemonic = "xor";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -13004,7 +13004,7 @@ class XorLoc16Const16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13032,7 +13032,7 @@ class XorbAxConst8 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::XORB_AX_CONST8;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FE00;
   static constexpr auto full_name = "XorbAxConst8";
-  static constexpr auto op_name = "xorb";
+  static constexpr auto mnemonic = "xorb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_ANY;
 
@@ -13040,7 +13040,7 @@ class XorbAxConst8 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13068,7 +13068,7 @@ class XpreadLoc16Pma final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XPREAD_LOC16_PMA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "XpreadLoc16Pma";
-  static constexpr auto op_name = "xpread";
+  static constexpr auto mnemonic = "xpread";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13076,7 +13076,7 @@ class XpreadLoc16Pma final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13104,7 +13104,7 @@ class XpreadLoc16Al final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XPREAD_LOC16_AL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "XpreadLoc16Al";
-  static constexpr auto op_name = "xpread";
+  static constexpr auto mnemonic = "xpread";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13112,7 +13112,7 @@ class XpreadLoc16Al final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13138,7 +13138,7 @@ class XpwriteAlLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::XPWRITE_AL_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "XpwriteAlLoc16";
-  static constexpr auto op_name = "xpwrite";
+  static constexpr auto mnemonic = "xpwrite";
   static constexpr bool repeatable = true;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13146,7 +13146,7 @@ class XpwriteAlLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13172,7 +13172,7 @@ class XretcCond final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::XRETC_COND;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "XretcCond";
-  static constexpr auto op_name = "xretc";
+  static constexpr auto mnemonic = "xretc";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13180,7 +13180,7 @@ class XretcCond final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13209,7 +13209,7 @@ class ZalrAccLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ZALR_ACC_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "ZalrAccLoc16";
-  static constexpr auto op_name = "zalr";
+  static constexpr auto mnemonic = "zalr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13217,7 +13217,7 @@ class ZalrAccLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13243,7 +13243,7 @@ class Zapa final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ZAPA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Zapa";
-  static constexpr auto op_name = "zapa";
+  static constexpr auto mnemonic = "zapa";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13251,7 +13251,7 @@ class Zapa final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13291,7 +13291,7 @@ class Absf32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ABSF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Absf32RahRbh";
-  static constexpr auto op_name = "absf32";
+  static constexpr auto mnemonic = "absf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13299,7 +13299,7 @@ class Absf32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13327,7 +13327,7 @@ class Addf32Rah16fhiRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDF32_RAH_16FHI_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "Addf32Rah16fhiRbh";
-  static constexpr auto op_name = "addf32";
+  static constexpr auto mnemonic = "addf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13335,7 +13335,7 @@ class Addf32Rah16fhiRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13365,7 +13365,7 @@ class Addf32RahRbhRch final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDF32_RAH_RBH_RCH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFE00;
   static constexpr auto full_name = "Addf32RahRbhRch";
-  static constexpr auto op_name = "addf32";
+  static constexpr auto mnemonic = "addf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13373,7 +13373,7 @@ class Addf32RahRbhRch final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13404,7 +13404,7 @@ class Addf32RdhRehRfhMov32Mem32Rah final : public Instruction4Byte {
       Opcodes::ADDF32_RDH_REH_RFH_MOV32_MEM32_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Addf32RdhRehRfhMov32Mem32Rah";
-  static constexpr auto op_name = "addf32";
+  static constexpr auto mnemonic = "addf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13412,7 +13412,7 @@ class Addf32RdhRehRfhMov32Mem32Rah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13447,7 +13447,7 @@ class Addf32RdhRehRfhMov32RahMem32 final : public Instruction4Byte {
       Opcodes::ADDF32_RDH_REH_RFH_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Addf32RdhRehRfhMov32RahMem32";
-  static constexpr auto op_name = "addf32";
+  static constexpr auto mnemonic = "addf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13455,7 +13455,7 @@ class Addf32RdhRehRfhMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13489,7 +13489,7 @@ class Cmpf32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::CMPF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Cmpf32RahRbh";
-  static constexpr auto op_name = "cmpf32";
+  static constexpr auto mnemonic = "cmpf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13497,7 +13497,7 @@ class Cmpf32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13525,7 +13525,7 @@ class Cmpf32Rah16fhi final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::CMPF32_RAH_16FHI;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "Cmpf32Rah16fhi";
-  static constexpr auto op_name = "cmpf32";
+  static constexpr auto mnemonic = "cmpf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13533,7 +13533,7 @@ class Cmpf32Rah16fhi final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13561,7 +13561,7 @@ class Cmpf32Rah0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPF32_RAH_0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF8;
   static constexpr auto full_name = "Cmpf32Rah0";
-  static constexpr auto op_name = "cmpf32";
+  static constexpr auto mnemonic = "cmpf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13569,7 +13569,7 @@ class Cmpf32Rah0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13595,7 +13595,7 @@ class Einvf32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::EINVF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Einvf32RahRbh";
-  static constexpr auto op_name = "einvf32";
+  static constexpr auto mnemonic = "einvf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13603,7 +13603,7 @@ class Einvf32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13631,7 +13631,7 @@ class Eisqrtf32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::EISQRTF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Eisqrtf32RahRbh";
-  static constexpr auto op_name = "eisqrtf32";
+  static constexpr auto mnemonic = "eisqrtf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13639,7 +13639,7 @@ class Eisqrtf32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13667,7 +13667,7 @@ class F32toi16RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32TOI16_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F32toi16RahRbh";
-  static constexpr auto op_name = "f32toi16";
+  static constexpr auto mnemonic = "f32toi16";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13675,7 +13675,7 @@ class F32toi16RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13703,7 +13703,7 @@ class F32toi16rRahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32TOI16R_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F32toi16rRahRbh";
-  static constexpr auto op_name = "f32toi16r";
+  static constexpr auto mnemonic = "f32toi16r";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13711,7 +13711,7 @@ class F32toi16rRahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13739,7 +13739,7 @@ class F32toi32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32TOI32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F32toi32RahRbh";
-  static constexpr auto op_name = "f32toi32";
+  static constexpr auto mnemonic = "f32toi32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13747,7 +13747,7 @@ class F32toi32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13775,7 +13775,7 @@ class F32toui16RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32TOUI16_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F32toui16RahRbh";
-  static constexpr auto op_name = "f32toui16";
+  static constexpr auto mnemonic = "f32toui16";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13783,7 +13783,7 @@ class F32toui16RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13811,7 +13811,7 @@ class F32toui16rRahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32TOUI16R_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F32toui16rRahRbh";
-  static constexpr auto op_name = "f32toui16r";
+  static constexpr auto mnemonic = "f32toui16r";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13819,7 +13819,7 @@ class F32toui16rRahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13847,7 +13847,7 @@ class F32toui32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32TOUI32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F32toui32RahRbh";
-  static constexpr auto op_name = "f32toui32";
+  static constexpr auto mnemonic = "f32toui32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13855,7 +13855,7 @@ class F32toui32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13883,7 +13883,7 @@ class Fracf32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::FRACF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Fracf32RahRbh";
-  static constexpr auto op_name = "fracf32";
+  static constexpr auto mnemonic = "fracf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13891,7 +13891,7 @@ class Fracf32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13919,7 +13919,7 @@ class I16tof32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::I16TOF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "I16tof32RahRbh";
-  static constexpr auto op_name = "i16tof32";
+  static constexpr auto mnemonic = "i16tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13927,7 +13927,7 @@ class I16tof32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13955,7 +13955,7 @@ class I16tof32RahMem16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::I16TOF32_RAH_MEM16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "I16tof32RahMem16";
-  static constexpr auto op_name = "i16tof32";
+  static constexpr auto mnemonic = "i16tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13963,7 +13963,7 @@ class I16tof32RahMem16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -13991,7 +13991,7 @@ class I32tof32RahMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::I32TOF32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "I32tof32RahMem32";
-  static constexpr auto op_name = "i32tof32";
+  static constexpr auto mnemonic = "i32tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -13999,7 +13999,7 @@ class I32tof32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14027,7 +14027,7 @@ class I32tof32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::I32TOF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "I32tof32RahRbh";
-  static constexpr auto op_name = "i32tof32";
+  static constexpr auto mnemonic = "i32tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14035,7 +14035,7 @@ class I32tof32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14063,7 +14063,7 @@ class Macf32R3hR2hRdhRehRfh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MACF32_R3H_R2H_RDH_REH_RFH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFC0000;
   static constexpr auto full_name = "Macf32R3hR2hRdhRehRfh";
-  static constexpr auto op_name = "macf32";
+  static constexpr auto mnemonic = "macf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14071,7 +14071,7 @@ class Macf32R3hR2hRdhRehRfh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14102,7 +14102,7 @@ class Macf32R3hR2hRdhRehRfhMov32RahMem32 final : public Instruction4Byte {
       Opcodes::MACF32_R3H_R2H_RDH_REH_RFH_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Macf32R3hR2hRdhRehRfhMov32RahMem32";
-  static constexpr auto op_name = "macf32";
+  static constexpr auto mnemonic = "macf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14110,7 +14110,7 @@ class Macf32R3hR2hRdhRehRfhMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14144,7 +14144,7 @@ class Macf32R7hR3hMem32Xar7Postinc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MACF32_R7H_R3H_MEM32_XAR7_POSTINC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Macf32R7hR3hMem32Xar7Postinc";
-  static constexpr auto op_name = "macf32";
+  static constexpr auto mnemonic = "macf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14152,7 +14152,7 @@ class Macf32R7hR3hMem32Xar7Postinc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14178,7 +14178,7 @@ class Macf32R7hR6hRdhRehRfh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MACF32_R7H_R6H_RDH_REH_RFH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFC0000;
   static constexpr auto full_name = "Macf32R7hR6hRdhRehRfh";
-  static constexpr auto op_name = "macf32";
+  static constexpr auto mnemonic = "macf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14186,7 +14186,7 @@ class Macf32R7hR6hRdhRehRfh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14217,7 +14217,7 @@ class Macf32R7hR6hRdhRehRfhMov32RahMem32 final : public Instruction4Byte {
       Opcodes::MACF32_R7H_R6H_RDH_REH_RFH_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Macf32R7hR6hRdhRehRfhMov32RahMem32";
-  static constexpr auto op_name = "macf32";
+  static constexpr auto mnemonic = "macf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14225,7 +14225,7 @@ class Macf32R7hR6hRdhRehRfhMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14259,7 +14259,7 @@ class Maxf32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAXF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Maxf32RahRbh";
-  static constexpr auto op_name = "maxf32";
+  static constexpr auto mnemonic = "maxf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14267,7 +14267,7 @@ class Maxf32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14295,7 +14295,7 @@ class Maxf32Rah16fhi final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAXF32_RAH_16FHI;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "Maxf32Rah16fhi";
-  static constexpr auto op_name = "maxf32";
+  static constexpr auto mnemonic = "maxf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14303,7 +14303,7 @@ class Maxf32Rah16fhi final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14331,7 +14331,7 @@ class Maxf32RahRbhMov32RchRdh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAXF32_RAH_RBH_MOV32_RCH_RDH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Maxf32RahRbhMov32RchRdh";
-  static constexpr auto op_name = "maxf32";
+  static constexpr auto mnemonic = "maxf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14339,7 +14339,7 @@ class Maxf32RahRbhMov32RchRdh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14371,7 +14371,7 @@ class Minf32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MINF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Minf32RahRbh";
-  static constexpr auto op_name = "minf32";
+  static constexpr auto mnemonic = "minf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14379,7 +14379,7 @@ class Minf32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14407,7 +14407,7 @@ class Minf32Rah16fhi final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MINF32_RAH_16FHI;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "Minf32Rah16fhi";
-  static constexpr auto op_name = "minf32";
+  static constexpr auto mnemonic = "minf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14415,7 +14415,7 @@ class Minf32Rah16fhi final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14443,7 +14443,7 @@ class Minf32RahRbhMov32RchRdh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MINF32_RAH_RBH_MOV32_RCH_RDH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Minf32RahRbhMov32RchRdh";
-  static constexpr auto op_name = "minf32";
+  static constexpr auto mnemonic = "minf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14451,7 +14451,7 @@ class Minf32RahRbhMov32RchRdh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14483,7 +14483,7 @@ class Mov16Mem16Rah final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV16_MEM16_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Mov16Mem16Rah";
-  static constexpr auto op_name = "mov16";
+  static constexpr auto mnemonic = "mov16";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14491,7 +14491,7 @@ class Mov16Mem16Rah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14519,7 +14519,7 @@ class Mov32Loc32Imm16A final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_LOC32_IMM16_A;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "Mov32Loc32Imm16A";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14527,7 +14527,7 @@ class Mov32Loc32Imm16A final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14555,7 +14555,7 @@ class Mov32Loc32Imm16B final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_LOC32_IMM16_B;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF000000;
   static constexpr auto full_name = "Mov32Loc32Imm16B";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14563,7 +14563,7 @@ class Mov32Loc32Imm16B final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14591,7 +14591,7 @@ class Mov32Mem32Rah final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_MEM32_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Mov32Mem32Rah";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14599,7 +14599,7 @@ class Mov32Mem32Rah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14627,7 +14627,7 @@ class Mov32Mem32Stf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_MEM32_STF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Mov32Mem32Stf";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14635,7 +14635,7 @@ class Mov32Mem32Stf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14661,7 +14661,7 @@ class Mov32RahMem32Cndf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_RAH_MEM32_CNDF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0F800;
   static constexpr auto full_name = "Mov32RahMem32Cndf";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14669,7 +14669,7 @@ class Mov32RahMem32Cndf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14699,7 +14699,7 @@ class Mov32RahRbhCndf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_RAH_RBH_CNDF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0FFC0;
   static constexpr auto full_name = "Mov32RahRbhCndf";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14707,7 +14707,7 @@ class Mov32RahRbhCndf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14737,7 +14737,7 @@ class Mov32StfMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_STF_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Mov32StfMem32";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14745,7 +14745,7 @@ class Mov32StfMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14771,7 +14771,7 @@ class Movd32RahMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVD32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Movd32RahMem32";
-  static constexpr auto op_name = "movd32";
+  static constexpr auto mnemonic = "movd32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14779,7 +14779,7 @@ class Movd32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14807,7 +14807,7 @@ class MovizRah16FHiHex final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVIZ_RAH_16FHIHEX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "MovizRah16FHiHex";
-  static constexpr auto op_name = "moviz";
+  static constexpr auto mnemonic = "moviz";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14815,7 +14815,7 @@ class MovizRah16FHiHex final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14843,7 +14843,7 @@ class Movst0Flag final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::MOVST0_FLAG;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF00;
   static constexpr auto full_name = "Movst0Flag";
-  static constexpr auto op_name = "movst0";
+  static constexpr auto mnemonic = "movst0";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14851,7 +14851,7 @@ class Movst0Flag final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14877,7 +14877,7 @@ class MovizRah16FLoHex final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVIZ_RAH_16FLOHEX;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "MovizRah16FLoHex";
-  static constexpr auto op_name = "movxi";
+  static constexpr auto mnemonic = "movxi";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14885,7 +14885,7 @@ class MovizRah16FLoHex final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14913,7 +14913,7 @@ class Mpyf32RahRbhRch final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF32_RAH_RBH_RCH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFE00;
   static constexpr auto full_name = "Mpyf32RahRbhRch";
-  static constexpr auto op_name = "mpyf32";
+  static constexpr auto mnemonic = "mpyf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14921,7 +14921,7 @@ class Mpyf32RahRbhRch final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14951,7 +14951,7 @@ class Mpyf32Rah16FHiRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF32_RAH_16FHI_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "Mpyf32Rah16FHiRbh";
-  static constexpr auto op_name = "mpyf32";
+  static constexpr auto mnemonic = "mpyf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14959,7 +14959,7 @@ class Mpyf32Rah16FHiRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -14990,7 +14990,7 @@ class Mpyf32RdhRehRfhMov32RahMem32 final : public Instruction4Byte {
       Opcodes::MPYF32_RDH_REH_RFH_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Mpyf32RdhRehRfhMov32RahMem32";
-  static constexpr auto op_name = "mpyf32";
+  static constexpr auto mnemonic = "mpyf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -14998,7 +14998,7 @@ class Mpyf32RdhRehRfhMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15033,7 +15033,7 @@ class Mpyf32RdhRehRfhMov32Mem32Rah final : public Instruction4Byte {
       Opcodes::MPYF32_RDH_REH_RFH_MOV32_MEM32_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Mpyf32RdhRehRfhMov32Mem32Rah";
-  static constexpr auto op_name = "mpyf32";
+  static constexpr auto mnemonic = "mpyf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15041,7 +15041,7 @@ class Mpyf32RdhRehRfhMov32Mem32Rah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15076,7 +15076,7 @@ class Mpyf32RahRbhRchSubf32RdhRehRfh final : public Instruction4Byte {
       Opcodes::MPYF32_RAH_RBH_RCH_SUBF32_RDH_REH_RFH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFC0000;
   static constexpr auto full_name = "Mpyf32RahRbhRchSubf32RdhRehRfh";
-  static constexpr auto op_name = "mpyf32";
+  static constexpr auto mnemonic = "mpyf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15084,7 +15084,7 @@ class Mpyf32RahRbhRchSubf32RdhRehRfh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15120,7 +15120,7 @@ class Negf32RahRbhCndf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::NEGF32_RAH_RBH_CNDF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0FFC0;
   static constexpr auto full_name = "Negf32RahRbhCndf";
-  static constexpr auto op_name = "negf32";
+  static constexpr auto mnemonic = "negf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15128,7 +15128,7 @@ class Negf32RahRbhCndf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15158,7 +15158,7 @@ class PopRb final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::POP_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PopRb";
-  static constexpr auto op_name = "pop";
+  static constexpr auto mnemonic = "pop";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15166,7 +15166,7 @@ class PopRb final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15188,7 +15188,7 @@ class PushRb final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::PUSH_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "PushRb";
-  static constexpr auto op_name = "push";
+  static constexpr auto mnemonic = "push";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15196,7 +15196,7 @@ class PushRb final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15218,7 +15218,7 @@ class Restore final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::RESTORE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Restore";
-  static constexpr auto op_name = "restore";
+  static constexpr auto mnemonic = "restore";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15226,7 +15226,7 @@ class Restore final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15248,7 +15248,7 @@ class RptbLabelLoc16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::RPTB_LABEL_LOC16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF80FF00;
   static constexpr auto full_name = "RptbLabelLoc16";
-  static constexpr auto op_name = "rptb";
+  static constexpr auto mnemonic = "rptb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15256,7 +15256,7 @@ class RptbLabelLoc16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15284,7 +15284,7 @@ class RptbLabelConst16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::RPTB_LABEL_CONST16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FF800000;
   static constexpr auto full_name = "RptbLabelConst16";
-  static constexpr auto op_name = "rptb";
+  static constexpr auto mnemonic = "rptb";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15292,7 +15292,7 @@ class RptbLabelConst16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15320,7 +15320,7 @@ class SaveFlagValue final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SAVE_FLAG_VALUE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "SaveFlagValue";
-  static constexpr auto op_name = "save";
+  static constexpr auto mnemonic = "save";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15328,7 +15328,7 @@ class SaveFlagValue final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15356,7 +15356,7 @@ class SetflgFlagValue final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SETFLG_FLAG_VALUE;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "SetflgFlagValue";
-  static constexpr auto op_name = "setflg";
+  static constexpr auto mnemonic = "setflg";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15364,7 +15364,7 @@ class SetflgFlagValue final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15392,7 +15392,7 @@ class Subf32RahRbhRch final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBF32_RAH_RBH_RCH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFE00;
   static constexpr auto full_name = "Subf32RahRbhRch";
-  static constexpr auto op_name = "subf32";
+  static constexpr auto mnemonic = "subf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15400,7 +15400,7 @@ class Subf32RahRbhRch final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15430,7 +15430,7 @@ class Subf32Rah16fhiRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBF32_RAH_16FHI_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "Subf32Rah16fhiRbh";
-  static constexpr auto op_name = "subf32";
+  static constexpr auto mnemonic = "subf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15438,7 +15438,7 @@ class Subf32Rah16fhiRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15469,7 +15469,7 @@ class Subf32RdhRehRfhMov32RahMem32 final : public Instruction4Byte {
       Opcodes::SUBF32_RDH_REH_RFH_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Subf32RdhRehRfhMov32RahMem32";
-  static constexpr auto op_name = "subf32";
+  static constexpr auto mnemonic = "subf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15477,7 +15477,7 @@ class Subf32RdhRehRfhMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15512,7 +15512,7 @@ class Subf32RdhRehRfhMov32Mem32Rah final : public Instruction4Byte {
       Opcodes::SUBF32_RDH_REH_RFH_MOV32_MEM32_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Subf32RdhRehRfhMov32Mem32Rah";
-  static constexpr auto op_name = "subf32";
+  static constexpr auto mnemonic = "subf32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15520,7 +15520,7 @@ class Subf32RdhRehRfhMov32Mem32Rah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15554,7 +15554,7 @@ class SwapfRahRbhCndf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SWAPF_RAH_RBH_CNDF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0FFC0;
   static constexpr auto full_name = "SwapfRahRbhCndf";
-  static constexpr auto op_name = "swapf";
+  static constexpr auto mnemonic = "swapf";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15562,7 +15562,7 @@ class SwapfRahRbhCndf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15592,7 +15592,7 @@ class TesttfCndf final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::TESTTF_CNDF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "TesttfCndf";
-  static constexpr auto op_name = "testtf";
+  static constexpr auto mnemonic = "testtf";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15600,7 +15600,7 @@ class TesttfCndf final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15626,7 +15626,7 @@ class Ui16tof32RahMem16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::UI16TOF32_RAH_MEM16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Ui16tof32RahMem16";
-  static constexpr auto op_name = "ui16tof32";
+  static constexpr auto mnemonic = "ui16tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15634,7 +15634,7 @@ class Ui16tof32RahMem16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15662,7 +15662,7 @@ class Ui16tof32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::UI16TOF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Ui16tof32RahRbh";
-  static constexpr auto op_name = "ui16tof32";
+  static constexpr auto mnemonic = "ui16tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15670,7 +15670,7 @@ class Ui16tof32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15698,7 +15698,7 @@ class Ui32tof32RahMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::UI32TOF32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Ui32tof32RahMem32";
-  static constexpr auto op_name = "ui32tof32";
+  static constexpr auto mnemonic = "ui32tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15706,7 +15706,7 @@ class Ui32tof32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15734,7 +15734,7 @@ class Ui32tof32RahRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::UI32TOF32_RAH_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Ui32tof32RahRbh";
-  static constexpr auto op_name = "ui32tof32";
+  static constexpr auto mnemonic = "ui32tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15742,7 +15742,7 @@ class Ui32tof32RahRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15770,7 +15770,7 @@ class ZeroRah final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ZERO_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF8;
   static constexpr auto full_name = "ZeroRah";
-  static constexpr auto op_name = "zero";
+  static constexpr auto mnemonic = "zero";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15778,7 +15778,7 @@ class ZeroRah final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15804,7 +15804,7 @@ class Zeroa final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::ZEROA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Zeroa";
-  static constexpr auto op_name = "zeroa";
+  static constexpr auto mnemonic = "zeroa";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15812,7 +15812,7 @@ class Zeroa final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15834,7 +15834,7 @@ class Mov32RalMem32Cndf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_RAL_MEM32_CNDF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0F800;
   static constexpr auto full_name = "Mov32RalMem32Cndf";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15842,7 +15842,7 @@ class Mov32RalMem32Cndf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15872,7 +15872,7 @@ class Movdd32RalMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVDD32_RAL_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Movdd32RalMem32";
-  static constexpr auto op_name = "movdd32";
+  static constexpr auto mnemonic = "movdd32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15880,7 +15880,7 @@ class Movdd32RalMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15908,7 +15908,7 @@ class Movdd32RahMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVDD32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Movdd32RahMem32";
-  static constexpr auto op_name = "movdd32";
+  static constexpr auto mnemonic = "movdd32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15916,7 +15916,7 @@ class Movdd32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15944,7 +15944,7 @@ class Mov32Mem32Ral final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV32_MEM32_RAL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Mov32Mem32Ral";
-  static constexpr auto op_name = "mov32";
+  static constexpr auto mnemonic = "mov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15952,7 +15952,7 @@ class Mov32Mem32Ral final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -15980,7 +15980,7 @@ class MovixRal16i final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVIX_RAL_16I;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "MovixRal16i";
-  static constexpr auto op_name = "movix";
+  static constexpr auto mnemonic = "movix";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -15988,7 +15988,7 @@ class MovixRal16i final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16016,7 +16016,7 @@ class MovxiRal16i final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOVXI_RAL_16I;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "MovxiRal16i";
-  static constexpr auto op_name = "movxi";
+  static constexpr auto mnemonic = "movxi";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16024,7 +16024,7 @@ class MovxiRal16i final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16052,7 +16052,7 @@ class Mpyf64RdReRfMov32RalMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF64_RD_RE_RF_MOV32_RAL_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Mpyf64RdReRfMov32RalMem32";
-  static constexpr auto op_name = "mpyf64";
+  static constexpr auto mnemonic = "mpyf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16060,7 +16060,7 @@ class Mpyf64RdReRfMov32RalMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16094,7 +16094,7 @@ class Mpyf64RdReRfMov32Mem32Ral final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF64_RD_RE_RF_MOV32_MEM32_RAL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Mpyf64RdReRfMov32Mem32Ral";
-  static constexpr auto op_name = "mpyf64";
+  static constexpr auto mnemonic = "mpyf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16102,7 +16102,7 @@ class Mpyf64RdReRfMov32Mem32Ral final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16136,7 +16136,7 @@ class Addf64RdReRfMov32RalMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDF64_RD_RE_RF_MOV32_RAL_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Addf64RdReRfMov32RalMem32";
-  static constexpr auto op_name = "addf64";
+  static constexpr auto mnemonic = "addf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16144,7 +16144,7 @@ class Addf64RdReRfMov32RalMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16178,7 +16178,7 @@ class Addf64RdReRfMov32Mem32Ral final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDF64_RD_RE_RF_MOV32_MEM32_RAL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Addf64RdReRfMov32Mem32Ral";
-  static constexpr auto op_name = "addf64";
+  static constexpr auto mnemonic = "addf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16186,7 +16186,7 @@ class Addf64RdReRfMov32Mem32Ral final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16220,7 +16220,7 @@ class Subf64RdReRfMov32RalMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBF64_RD_RE_RF_MOV32_RAL_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Subf64RdReRfMov32RalMem32";
-  static constexpr auto op_name = "subf64";
+  static constexpr auto mnemonic = "subf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16228,7 +16228,7 @@ class Subf64RdReRfMov32RalMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16262,7 +16262,7 @@ class Subf64RdReRfMov32Mem32Ral final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBF64_RD_RE_RF_MOV32_MEM32_RAL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Subf64RdReRfMov32Mem32Ral";
-  static constexpr auto op_name = "subf64";
+  static constexpr auto mnemonic = "subf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16270,7 +16270,7 @@ class Subf64RdReRfMov32Mem32Ral final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16305,7 +16305,7 @@ class Macf64R3R2RdReRfMov32RalMem32 final : public Instruction4Byte {
       Opcodes::MACF64_R3_R2_RD_RE_RF_MOV32_RAL_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Macf64R3R2RdReRfMov32RalMem32";
-  static constexpr auto op_name = "macf64";
+  static constexpr auto mnemonic = "macf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16313,7 +16313,7 @@ class Macf64R3R2RdReRfMov32RalMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16348,7 +16348,7 @@ class Macf64R7R6RdReRfMov32RalMem32 final : public Instruction4Byte {
       Opcodes::MACF64_R7_R6_RD_RE_RF_MOV32_RAL_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Macf64R7R6RdReRfMov32RalMem32";
-  static constexpr auto op_name = "macf64";
+  static constexpr auto mnemonic = "macf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16356,7 +16356,7 @@ class Macf64R7R6RdReRfMov32RalMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16390,7 +16390,7 @@ class Mpyf64RdReRfMov32RahMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF64_RD_RE_RF_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Mpyf64RdReRfMov32RahMem32";
-  static constexpr auto op_name = "mpyf64";
+  static constexpr auto mnemonic = "mpyf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16398,7 +16398,7 @@ class Mpyf64RdReRfMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16432,7 +16432,7 @@ class Mpyf64RdReRfMov32Mem32Rah final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF64_RD_RE_RF_MOV32_MEM32_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Mpyf64RdReRfMov32Mem32Rah";
-  static constexpr auto op_name = "mpyf64";
+  static constexpr auto mnemonic = "mpyf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16440,7 +16440,7 @@ class Mpyf64RdReRfMov32Mem32Rah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16474,7 +16474,7 @@ class Addf64RdReRfMov32RahMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDF64_RD_RE_RF_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Addf64RdReRfMov32RahMem32";
-  static constexpr auto op_name = "addf64";
+  static constexpr auto mnemonic = "addf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16482,7 +16482,7 @@ class Addf64RdReRfMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16516,7 +16516,7 @@ class Addf64RdReRfMov32Mem32Rah final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDF64_RD_RE_RF_MOV32_MEM32_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Addf64RdReRfMov32Mem32Rah";
-  static constexpr auto op_name = "addf64";
+  static constexpr auto mnemonic = "addf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16524,7 +16524,7 @@ class Addf64RdReRfMov32Mem32Rah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16558,7 +16558,7 @@ class Subf64RdReRfMov32RahMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBF64_RD_RE_RF_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Subf64RdReRfMov32RahMem32";
-  static constexpr auto op_name = "subf64";
+  static constexpr auto mnemonic = "subf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16566,7 +16566,7 @@ class Subf64RdReRfMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16600,7 +16600,7 @@ class Subf64RdReRfMov32Mem32Rah final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBF64_RD_RE_RF_MOV32_MEM32_RAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Subf64RdReRfMov32Mem32Rah";
-  static constexpr auto op_name = "subf64";
+  static constexpr auto mnemonic = "subf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16608,7 +16608,7 @@ class Subf64RdReRfMov32Mem32Rah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16643,7 +16643,7 @@ class Macf64R3R2RdReRfMov32RahMem32 final : public Instruction4Byte {
       Opcodes::MACF64_R3_R2_RD_RE_RF_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Macf64R3R2RdReRfMov32RahMem32";
-  static constexpr auto op_name = "macf64";
+  static constexpr auto mnemonic = "macf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16651,7 +16651,7 @@ class Macf64R3R2RdReRfMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16686,7 +16686,7 @@ class Macf64R7R6RdReRfMov32RahMem32 final : public Instruction4Byte {
       Opcodes::MACF64_R7_R6_RD_RE_RF_MOV32_RAH_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "Macf64R7R6RdReRfMov32RahMem32";
-  static constexpr auto op_name = "macf64";
+  static constexpr auto mnemonic = "macf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16694,7 +16694,7 @@ class Macf64R7R6RdReRfMov32RahMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16728,7 +16728,7 @@ class Mpyf64RaRbRcAddf64RdReRf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF64_RA_RB_RC_ADDF64_RD_RE_RF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFC0000;
   static constexpr auto full_name = "Mpyf64RaRbRcAddf64RdReRf";
-  static constexpr auto op_name = "mpyf64";
+  static constexpr auto mnemonic = "mpyf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16736,7 +16736,7 @@ class Mpyf64RaRbRcAddf64RdReRf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16772,7 +16772,7 @@ class Mpyf64RaRbRcSubf64RdReRf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF64_RA_RB_RC_SUBF64_RD_RE_RF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFC0000;
   static constexpr auto full_name = "Mpyf64RaRbRcSubf64RdReRf";
-  static constexpr auto op_name = "mpyf64";
+  static constexpr auto mnemonic = "mpyf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16780,7 +16780,7 @@ class Mpyf64RaRbRcSubf64RdReRf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16816,7 +16816,7 @@ class Mpyf64RaRbRc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF64_RA_RB_RC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFE00;
   static constexpr auto full_name = "Mpyf64RaRbRc";
-  static constexpr auto op_name = "mpyf64";
+  static constexpr auto mnemonic = "mpyf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16824,7 +16824,7 @@ class Mpyf64RaRbRc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16854,7 +16854,7 @@ class Addf64RaRbRc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDF64_RA_RB_RC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFE00;
   static constexpr auto full_name = "Addf64RaRbRc";
-  static constexpr auto op_name = "addf64";
+  static constexpr auto mnemonic = "addf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16862,7 +16862,7 @@ class Addf64RaRbRc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16892,7 +16892,7 @@ class Subf64RaRbRc final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBF64_RA_RB_RC;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFE00;
   static constexpr auto full_name = "Subf64RaRbRc";
-  static constexpr auto op_name = "subf64";
+  static constexpr auto mnemonic = "subf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16900,7 +16900,7 @@ class Subf64RaRbRc final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16930,7 +16930,7 @@ class Mpyf64RaRb16F final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MPYF64_RA_RB_16F;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "Mpyf64RaRb16F";
-  static constexpr auto op_name = "mpyf64";
+  static constexpr auto mnemonic = "mpyf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16938,7 +16938,7 @@ class Mpyf64RaRb16F final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -16968,7 +16968,7 @@ class Addf64RaRb16F final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ADDF64_RA_RB_16F;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "Addf64RaRb16F";
-  static constexpr auto op_name = "addf64";
+  static constexpr auto mnemonic = "addf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -16976,7 +16976,7 @@ class Addf64RaRb16F final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17006,7 +17006,7 @@ class Subf64Ra16FRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::SUBF64_RA_16F_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFC00000;
   static constexpr auto full_name = "Subf64Ra16FRb";
-  static constexpr auto op_name = "subf64";
+  static constexpr auto mnemonic = "subf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17014,7 +17014,7 @@ class Subf64Ra16FRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17044,7 +17044,7 @@ class Cmpf64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::CMPF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Cmpf64RaRb";
-  static constexpr auto op_name = "cmpf64";
+  static constexpr auto mnemonic = "cmpf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17052,7 +17052,7 @@ class Cmpf64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17080,7 +17080,7 @@ class Cmpf64Ra16F final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::CMPF64_RA_16F;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "Cmpf64Ra16F";
-  static constexpr auto op_name = "cmpf64";
+  static constexpr auto mnemonic = "cmpf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17088,7 +17088,7 @@ class Cmpf64Ra16F final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17116,7 +17116,7 @@ class Cmpf64Ra0 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::CMPF64_RA_0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF8;
   static constexpr auto full_name = "Cmpf64Ra0";
-  static constexpr auto op_name = "cmpf64";
+  static constexpr auto mnemonic = "cmpf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17124,7 +17124,7 @@ class Cmpf64Ra0 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17150,7 +17150,7 @@ class Maxf64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAXF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Maxf64RaRb";
-  static constexpr auto op_name = "maxf64";
+  static constexpr auto mnemonic = "maxf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17158,7 +17158,7 @@ class Maxf64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17186,7 +17186,7 @@ class Maxf64RaRbMov64RcRd final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAXF64_RA_RB_MOV64_RC_RD;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Maxf64RaRbMov64RcRd";
-  static constexpr auto op_name = "maxf64";
+  static constexpr auto mnemonic = "maxf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17194,7 +17194,7 @@ class Maxf64RaRbMov64RcRd final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17226,7 +17226,7 @@ class Maxf64Ra16F final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MAXF64_RA_16F;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "Maxf64Ra16F";
-  static constexpr auto op_name = "maxf64";
+  static constexpr auto mnemonic = "maxf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17234,7 +17234,7 @@ class Maxf64Ra16F final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17262,7 +17262,7 @@ class Minf64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MINF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Minf64RaRb";
-  static constexpr auto op_name = "minf64";
+  static constexpr auto mnemonic = "minf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17270,7 +17270,7 @@ class Minf64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17298,7 +17298,7 @@ class Minf64RaRbMov64RcRd final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MINF64_RA_RB_MOV64_RC_RD;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Minf64RaRbMov64RcRd";
-  static constexpr auto op_name = "minf64";
+  static constexpr auto mnemonic = "minf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17306,7 +17306,7 @@ class Minf64RaRbMov64RcRd final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17338,7 +17338,7 @@ class Minf64Ra16F final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MINF64_RA_16F;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF80000;
   static constexpr auto full_name = "Minf64Ra16F";
-  static constexpr auto op_name = "minf64";
+  static constexpr auto mnemonic = "minf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17346,7 +17346,7 @@ class Minf64Ra16F final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17374,7 +17374,7 @@ class F64toi32RahRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F64TOI32_RAH_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F64toi32RahRb";
-  static constexpr auto op_name = "f64toi32";
+  static constexpr auto mnemonic = "f64toi32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17382,7 +17382,7 @@ class F64toi32RahRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17410,7 +17410,7 @@ class F64toui32RahRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F64TOUI32_RAH_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F64toui32RahRb";
-  static constexpr auto op_name = "f64toui32";
+  static constexpr auto mnemonic = "f64toui32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17418,7 +17418,7 @@ class F64toui32RahRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17446,7 +17446,7 @@ class I32tof64RaMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::I32TOF64_RA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "I32tof64RaMem32";
-  static constexpr auto op_name = "i32tof64";
+  static constexpr auto mnemonic = "i32tof64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17454,7 +17454,7 @@ class I32tof64RaMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17482,7 +17482,7 @@ class I32tof64RaRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::I32TOF64_RA_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "I32tof64RaRbh";
-  static constexpr auto op_name = "i32tof64";
+  static constexpr auto mnemonic = "i32tof64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17490,7 +17490,7 @@ class I32tof64RaRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17518,7 +17518,7 @@ class Ui32tof64RaMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::UI32TOF64_RA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "Ui32tof64RaMem32";
-  static constexpr auto op_name = "ui32tof64";
+  static constexpr auto mnemonic = "ui32tof64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17526,7 +17526,7 @@ class Ui32tof64RaMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17554,7 +17554,7 @@ class F64toui64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F64TOUI64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F64toui64RaRb";
-  static constexpr auto op_name = "f64toui64";
+  static constexpr auto mnemonic = "f64toui64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17562,7 +17562,7 @@ class F64toui64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17590,7 +17590,7 @@ class I64tof64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::I64TOF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "I64tof64RaRb";
-  static constexpr auto op_name = "i64tof64";
+  static constexpr auto mnemonic = "i64tof64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17598,7 +17598,7 @@ class I64tof64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17626,7 +17626,7 @@ class Ui64tof64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::UI64TOF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Ui64tof64RaRb";
-  static constexpr auto op_name = "ui64tof64";
+  static constexpr auto mnemonic = "ui64tof64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17634,7 +17634,7 @@ class Ui64tof64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17662,7 +17662,7 @@ class Fracf64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::FRACF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Fracf64RaRb";
-  static constexpr auto op_name = "fracf64";
+  static constexpr auto mnemonic = "fracf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17670,7 +17670,7 @@ class Fracf64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17698,7 +17698,7 @@ class F64tof32RahRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F64TOF32_RAH_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F64tof32RahRb";
-  static constexpr auto op_name = "f64tof32";
+  static constexpr auto mnemonic = "f64tof32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17706,7 +17706,7 @@ class F64tof32RahRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17734,7 +17734,7 @@ class F32tof64RaRbh final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32TOF64_RA_RBH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "F32tof64RaRbh";
-  static constexpr auto op_name = "f32tof64";
+  static constexpr auto mnemonic = "f32tof64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17742,7 +17742,7 @@ class F32tof64RaRbh final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17770,7 +17770,7 @@ class F32tof64RaMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32TOF64_RA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "F32tof64RaMem32";
-  static constexpr auto op_name = "f32tof64";
+  static constexpr auto mnemonic = "f32tof64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17778,7 +17778,7 @@ class F32tof64RaMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17806,7 +17806,7 @@ class F32dtof64RaMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::F32DTOF64_RA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF800;
   static constexpr auto full_name = "F32dtof64RaMem32";
-  static constexpr auto op_name = "f32dtof64";
+  static constexpr auto mnemonic = "f32dtof64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17814,7 +17814,7 @@ class F32dtof64RaMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17842,7 +17842,7 @@ class Absf64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::ABSF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Absf64RaRb";
-  static constexpr auto op_name = "absf64";
+  static constexpr auto mnemonic = "absf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17850,7 +17850,7 @@ class Absf64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17878,7 +17878,7 @@ class Negf64RaRbCndf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::NEGF64_RA_RB_CNDF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0FFC0;
   static constexpr auto full_name = "Negf64RaRbCndf";
-  static constexpr auto op_name = "negf64";
+  static constexpr auto mnemonic = "negf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17886,7 +17886,7 @@ class Negf64RaRbCndf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17916,7 +17916,7 @@ class Mov64RaRbCndf final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::MOV64_RA_RB_CNDF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0FFC0;
   static constexpr auto full_name = "Mov64RaRbCndf";
-  static constexpr auto op_name = "mov64";
+  static constexpr auto mnemonic = "mov64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17924,7 +17924,7 @@ class Mov64RaRbCndf final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17954,7 +17954,7 @@ class Eisqrtf64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::EISQRTF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Eisqrtf64RaRb";
-  static constexpr auto op_name = "eisqrtf64";
+  static constexpr auto mnemonic = "eisqrtf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17962,7 +17962,7 @@ class Eisqrtf64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -17990,7 +17990,7 @@ class Einvf64RaRb final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::EINVF64_RA_RB;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFC0;
   static constexpr auto full_name = "Einvf64RaRb";
-  static constexpr auto op_name = "einvf64";
+  static constexpr auto mnemonic = "einvf64";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -17998,7 +17998,7 @@ class Einvf64RaRb final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18026,7 +18026,7 @@ class VclearVra final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VCLEAR_VRA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFF0;
   static constexpr auto full_name = "VclearVra";
-  static constexpr auto op_name = "vclear";
+  static constexpr auto mnemonic = "vclear";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18034,7 +18034,7 @@ class VclearVra final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18056,7 +18056,7 @@ class Vclearall final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VCLEARALL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFFF;
   static constexpr auto full_name = "Vclearall";
-  static constexpr auto op_name = "vclearall";
+  static constexpr auto mnemonic = "vclearall";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18064,7 +18064,7 @@ class Vclearall final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18082,7 +18082,7 @@ class Vclrcpack final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VCLRCPACK;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFFF;
   static constexpr auto full_name = "Vclrcpack";
-  static constexpr auto op_name = "vclrcpack";
+  static constexpr auto mnemonic = "vclrcpack";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18090,7 +18090,7 @@ class Vclrcpack final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18108,7 +18108,7 @@ class Vclrcrcmsgflip final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VCLRCRCMSGFLIP;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFFF;
   static constexpr auto full_name = "Vclrcrcmsgflip";
-  static constexpr auto op_name = "vclrcrcmsgflip";
+  static constexpr auto mnemonic = "vclrcrcmsgflip";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18116,7 +18116,7 @@ class Vclrcrcmsgflip final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18134,7 +18134,7 @@ class Vclropack final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VCLROPACK;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFFFF;
   static constexpr auto full_name = "Vclropack";
-  static constexpr auto op_name = "vclropack";
+  static constexpr auto mnemonic = "vclropack";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18142,7 +18142,7 @@ class Vclropack final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18160,7 +18160,7 @@ class Vclrovfi final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VCLROVFI;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vclrovfi";
-  static constexpr auto op_name = "vclrovfi";
+  static constexpr auto mnemonic = "vclrovfi";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18168,7 +18168,7 @@ class Vclrovfi final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18186,7 +18186,7 @@ class Vclrovfr final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VCLROVFR;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vclrovfr";
-  static constexpr auto op_name = "vclrovfr";
+  static constexpr auto mnemonic = "vclrovfr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18194,7 +18194,7 @@ class Vclrovfr final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18212,7 +18212,7 @@ class Vmov16Mem16Vral final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV16_MEM16_VRAL;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Vmov16Mem16Vral";
-  static constexpr auto op_name = "vmov16";
+  static constexpr auto mnemonic = "vmov16";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18220,7 +18220,7 @@ class Vmov16Mem16Vral final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18244,7 +18244,7 @@ class Vmov16Mem16Vrah final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV16_MEM16_VRAH;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Vmov16Mem16Vrah";
-  static constexpr auto op_name = "vmov16";
+  static constexpr auto mnemonic = "vmov16";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18252,7 +18252,7 @@ class Vmov16Mem16Vrah final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18276,7 +18276,7 @@ class Vmov16VrahMem16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV16_VRAH_MEM16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Vmov16VrahMem16";
-  static constexpr auto op_name = "vmov16";
+  static constexpr auto mnemonic = "vmov16";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18284,7 +18284,7 @@ class Vmov16VrahMem16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18308,7 +18308,7 @@ class Vmov16VralMem16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV16_VRAL_MEM16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Vmov16VralMem16";
-  static constexpr auto op_name = "vmov16";
+  static constexpr auto mnemonic = "vmov16";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18316,7 +18316,7 @@ class Vmov16VralMem16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18340,7 +18340,7 @@ class Vmov32Mem32Vra final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV32_MEM32_VRA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Vmov32Mem32Vra";
-  static constexpr auto op_name = "vmov32";
+  static constexpr auto mnemonic = "vmov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18348,7 +18348,7 @@ class Vmov32Mem32Vra final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18372,7 +18372,7 @@ class Vmov32Mem32Vstatus final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV32_MEM32_VSTATUS;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Vmov32Mem32Vstatus";
-  static constexpr auto op_name = "vmov32";
+  static constexpr auto mnemonic = "vmov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18380,7 +18380,7 @@ class Vmov32Mem32Vstatus final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18402,7 +18402,7 @@ class Vmov32Mem32Vta final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV32_MEM32_VTA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFC00;
   static constexpr auto full_name = "Vmov32Mem32Vta";
-  static constexpr auto op_name = "vmov32";
+  static constexpr auto mnemonic = "vmov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18410,7 +18410,7 @@ class Vmov32Mem32Vta final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18434,7 +18434,7 @@ class Vmov32VraMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV32_VRA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Vmov32VraMem32";
-  static constexpr auto op_name = "vmov32";
+  static constexpr auto mnemonic = "vmov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18442,7 +18442,7 @@ class Vmov32VraMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18468,7 +18468,7 @@ class Vmov32VstatusMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV32_VSTATUS_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Vmov32VstatusMem32";
-  static constexpr auto op_name = "vmov32";
+  static constexpr auto mnemonic = "vmov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18476,7 +18476,7 @@ class Vmov32VstatusMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18498,7 +18498,7 @@ class Vmov32VtaMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV32_VTA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFC00;
   static constexpr auto full_name = "Vmov32VtaMem32";
-  static constexpr auto op_name = "vmov32";
+  static constexpr auto mnemonic = "vmov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18506,7 +18506,7 @@ class Vmov32VtaMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18530,7 +18530,7 @@ class Vmov32VrbVra final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOV32_VRB_VRA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Vmov32VrbVra";
-  static constexpr auto op_name = "vmov32";
+  static constexpr auto mnemonic = "vmov32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18538,7 +18538,7 @@ class Vmov32VrbVra final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18562,7 +18562,7 @@ class Vmovd32VraMem32 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOVD32_VRA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "Vmovd32VraMem32";
-  static constexpr auto op_name = "vmovd32";
+  static constexpr auto mnemonic = "vmovd32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18570,7 +18570,7 @@ class Vmovd32VraMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18594,7 +18594,7 @@ class VmovixVraImm16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOVIX_VRA_IMM16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "VmovixVraImm16";
-  static constexpr auto op_name = "vmovix";
+  static constexpr auto mnemonic = "vmovix";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18602,7 +18602,7 @@ class VmovixVraImm16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18626,7 +18626,7 @@ class VmovziVraImm16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOVZI_VRA_IMM16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "VmovziVraImm16";
-  static constexpr auto op_name = "vmovzi";
+  static constexpr auto mnemonic = "vmovzi";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18634,7 +18634,7 @@ class VmovziVraImm16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18658,7 +18658,7 @@ class VmovxiVraImm16 final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VMOVXI_VRA_IMM16;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF00000;
   static constexpr auto full_name = "VmovxiVraImm16";
-  static constexpr auto op_name = "vmovxi";
+  static constexpr auto mnemonic = "vmovxi";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18666,7 +18666,7 @@ class VmovxiVraImm16 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18690,7 +18690,7 @@ class Vsetcpack final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VSETCPACK;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vsetcpack";
-  static constexpr auto op_name = "vsetcpack";
+  static constexpr auto mnemonic = "vsetcpack";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18698,7 +18698,7 @@ class Vsetcpack final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18716,7 +18716,7 @@ class Vsetcrcmsgflip final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VSETCRCMSGFLIP;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vsetcrcmsgflip";
-  static constexpr auto op_name = "vsetcrcmsgflip";
+  static constexpr auto mnemonic = "vsetcrcmsgflip";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18724,7 +18724,7 @@ class Vsetcrcmsgflip final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18742,7 +18742,7 @@ class Vsetopack final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VSETOPACK;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vsetopack";
-  static constexpr auto op_name = "vsetopack";
+  static constexpr auto mnemonic = "vsetopack";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18750,7 +18750,7 @@ class Vsetopack final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18768,7 +18768,7 @@ class Vrndoff final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VRNDOFF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vrndoff";
-  static constexpr auto op_name = "vrndoff";
+  static constexpr auto mnemonic = "vrndoff";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18776,7 +18776,7 @@ class Vrndoff final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18794,7 +18794,7 @@ class Vrndon final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VRNDON;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vrndon";
-  static constexpr auto op_name = "vrndon";
+  static constexpr auto mnemonic = "vrndon";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18802,7 +18802,7 @@ class Vrndon final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18820,7 +18820,7 @@ class Vsatoff final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VSATOFF;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vsatoff";
-  static constexpr auto op_name = "vsatoff";
+  static constexpr auto mnemonic = "vsatoff";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18828,7 +18828,7 @@ class Vsatoff final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18846,7 +18846,7 @@ class Vsaton final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VSATON;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "Vsaton";
-  static constexpr auto op_name = "vsaton";
+  static constexpr auto mnemonic = "vsaton";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18854,7 +18854,7 @@ class Vsaton final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18872,7 +18872,7 @@ class Vsetshl5bit final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VSETSHL_5BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFE0;
   static constexpr auto full_name = "Vsetshl5bit";
-  static constexpr auto op_name = "vsetshl";
+  static constexpr auto mnemonic = "vsetshl";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18880,7 +18880,7 @@ class Vsetshl5bit final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18902,7 +18902,7 @@ class Vsetshr5bit final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VSETSHR_5BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFE0;
   static constexpr auto full_name = "Vsetshr5bit";
-  static constexpr auto op_name = "vsetshr";
+  static constexpr auto mnemonic = "vsetshr";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18910,7 +18910,7 @@ class Vsetshr5bit final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18932,7 +18932,7 @@ class Vswap32VrbVra final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VSWAP32_VRB_VRA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Vswap32VrbVra";
-  static constexpr auto op_name = "vswap32";
+  static constexpr auto mnemonic = "vswap32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18940,7 +18940,7 @@ class Vswap32VrbVra final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18965,7 +18965,7 @@ class Vashl32Vra5bit final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VASHL32_VRA_5BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Vashl32Vra5bit";
-  static constexpr auto op_name = "vashl32";
+  static constexpr auto mnemonic = "vashl32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -18973,7 +18973,7 @@ class Vashl32Vra5bit final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -18999,7 +18999,7 @@ class Vashr32Vra5bit final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VASHR32_VRA_5BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Vashr32Vra5bit";
-  static constexpr auto op_name = "vashr32";
+  static constexpr auto mnemonic = "vashr32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -19007,7 +19007,7 @@ class Vashr32Vra5bit final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -19033,7 +19033,7 @@ class VbitflipVra final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VBITFLIP_VRA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "VbitflipVra";
-  static constexpr auto op_name = "vbitflip";
+  static constexpr auto mnemonic = "vbitflip";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -19041,7 +19041,7 @@ class VbitflipVra final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -19066,7 +19066,7 @@ class Vlshl32Vra5bit final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VLSHL32_VRA_5BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Vlshl32Vra5bit";
-  static constexpr auto op_name = "vlshl32";
+  static constexpr auto mnemonic = "vlshl32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -19074,7 +19074,7 @@ class Vlshl32Vra5bit final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -19100,7 +19100,7 @@ class Vlshr32Vra5bit final : public Instruction4Byte {
   static constexpr uint32_t opcode = Opcodes::VLSHR32_VRA_5BIT;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
   static constexpr auto full_name = "Vlshr32Vra5bit";
-  static constexpr auto op_name = "vlshr32";
+  static constexpr auto mnemonic = "vlshr32";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -19108,7 +19108,7 @@ class Vlshr32Vra5bit final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -19135,7 +19135,7 @@ class VnegVra final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VNEG_VRA;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
   static constexpr auto full_name = "VnegVra";
-  static constexpr auto op_name = "vneg";
+  static constexpr auto mnemonic = "vneg";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -19143,7 +19143,7 @@ class VnegVra final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -19176,7 +19176,7 @@ class VcaddVr5Vr4Vr3Vr2 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VCADD_VR5_VR4_VR3_VR2;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "VcaddVr5Vr4Vr3Vr2";
-  static constexpr auto op_name = "vcadd";
+  static constexpr auto mnemonic = "vcadd";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -19184,7 +19184,7 @@ class VcaddVr5Vr4Vr3Vr2 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -19210,7 +19210,7 @@ class VcaddVr7Vr6Vr5Vr4 final : public Instruction2Byte {
   static constexpr uint32_t opcode = Opcodes::VCADD_VR7_VR6_VR5_VR4;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "VcaddVr7Vr6Vr5Vr4";
-  static constexpr auto op_name = "vcadd";
+  static constexpr auto mnemonic = "vcadd";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -19218,7 +19218,7 @@ class VcaddVr7Vr6Vr5Vr4 final : public Instruction2Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 
@@ -19246,7 +19246,7 @@ class VcaddVr5Vr4Vr3Vr2Vmov32VraMem32 final : public Instruction4Byte {
       Opcodes::VCADD_VR5_VR4_VR3_VR2_VMOV32_VRA_MEM32;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
   static constexpr auto full_name = "VcaddVr5Vr4Vr3Vr2Vmov32VraMem32";
-  static constexpr auto op_name = "vcadd";
+  static constexpr auto mnemonic = "vcadd";
   static constexpr bool repeatable = false;
   static constexpr ObjectMode objmode = OBJMODE_1;
 
@@ -19254,7 +19254,7 @@ class VcaddVr5Vr4Vr3Vr2Vmov32VraMem32 final : public Instruction4Byte {
   uint32_t GetOpcode() override { return opcode; }
   uint32_t GetOpcodeMask() override { return opcode_mask; }
   const char* GetFullName() override { return full_name; }
-  const char* GetOpName() override { return op_name; }
+  const char* GetMnemonic() override { return mnemonic; }
   bool IsRepeatable() override { return repeatable; }
   ObjectMode GetObjmode() override { return objmode; }
 

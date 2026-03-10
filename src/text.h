@@ -57,15 +57,17 @@ void CondText(uint8_t cond, std::vector<BN::InstructionTextToken>& result);
 void ModeText(uint8_t mode, std::vector<BN::InstructionTextToken>& result);
 void ProductShiftModeText(uint8_t mode, AddressMode amode,
                           std::vector<BN::InstructionTextToken>& result);
-void TextOpXarnConst8(char* op_name, uint8_t n, uint8_t const8,
+void TextOpXarnConst8(char* mnemonic, uint8_t n, uint8_t const8,
                       std::vector<BN::InstructionTextToken>& result);
-bool TextOpLoc32Xarn(char* op_name, uint8_t n, uint8_t loc32, AddressMode amode,
+bool TextOpLoc32Xarn(char* mnemonic, uint8_t n, uint8_t loc32,
+                     AddressMode amode,
                      std::vector<BN::InstructionTextToken>& result);
-bool TextOpXarnLoc32(char* op_name, uint8_t n, uint8_t loc32, AddressMode amode,
+bool TextOpXarnLoc32(char* mnemonic, uint8_t n, uint8_t loc32,
+                     AddressMode amode,
                      std::vector<BN::InstructionTextToken>& result);
-void TextOpXarnConst22(char* op_name, uint8_t n, uint32_t const22,
+void TextOpXarnConst22(char* mnemonic, uint8_t n, uint32_t const22,
                        std::vector<BN::InstructionTextToken>& result);
-bool TextOpArnLoc16(char* op_name, uint8_t n, uint8_t loc16, AddressMode amode,
+bool TextOpArnLoc16(char* mnemonic, uint8_t n, uint8_t loc16, AddressMode amode,
                     std::vector<BN::InstructionTextToken>& result);
 }  // namespace TIC28X
 
