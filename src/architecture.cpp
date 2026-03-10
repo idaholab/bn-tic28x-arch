@@ -315,13 +315,16 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "__bitreverse";
     case TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2:
       return "vcadd";
+    case TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4:
+      return "vcadd";
     default:
       return "";
   }
 }
 
 [[nodiscard]] std::vector<uint32_t> TIC28XArchitecture::GetAllIntrinsics() {
-  return {TIC28X_INTRIN_BITREVERSE, TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2};
+  return {TIC28X_INTRIN_BITREVERSE, TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
+          TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -340,6 +343,16 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vr2", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
+    case TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4:
+      // Inputs: VR7=Re(X), VR6=Im(X), VR5=Re(Y), VR4=Im(Y), VSTATUS
+      // VSTATUS carries SHIFTR[4:0], RND[11], SAT[10]
+      return {
+          BN::NameAndType("vr7", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr6", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr5", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr4", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     default:
       return {};
   }
@@ -353,6 +366,10 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
       return {BN::Type::IntegerType(4, false)};
     case TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2:
       // Outputs: VR5=Re(Z), VR4=Im(Z), VSTATUS (OVFR/OVFI flags updated)
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4:
+      // Outputs: VR7=Re(Z), VR6=Im(Z), VSTATUS (OVFR/OVFI flags updated)
       return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, false)};
     default:

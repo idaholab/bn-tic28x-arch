@@ -23,7 +23,9 @@ enum AddressMode { AMODE_0 = 0, AMODE_1 = 1 };
 enum TIC28XIntrinsic {
   TIC28X_INTRIN_BITREVERSE = 0,  // Reverse all bits in a 32-bit value
   TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2 =
-      1,  // Complex 32+32=32-bit addition (VCADD)
+      1,  // Complex 32+32=32-bit addition (VCADD VR5,VR4,VR3,VR2)
+  TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4 =
+      2,  // Complex 32+32=32-bit addition (VCADD VR7,VR6,VR5,VR4)
 };
 
 /**

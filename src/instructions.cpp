@@ -624,6 +624,7 @@ GenerateInstructionVector() {
       std::make_shared<Vlshr32Vra5bit>(),
       std::make_shared<VnegVra>(),
       std::make_shared<VcaddVr5Vr4Vr3Vr2>(),
+      std::make_shared<VcaddVr7Vr6Vr5Vr4>(),
       std::make_shared<VcaddVr5Vr4Vr3Vr2Vmov32VraMem32>(),
 
   };

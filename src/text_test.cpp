@@ -406,6 +406,22 @@ TEST(VcaddVr5Vr4Vr3Vr2TextTest, FixedRegisters) {
                          TIC28X::VcaddVr5Vr4Vr3Vr2::objmode, 0x0, want);
 }
 
+// VcaddVr7Vr6Vr5Vr4 - VCU Complex Add (VR7, VR6, VR5, VR4)
+// Format: vcadd VR7, VR6, VR5, VR4
+// All operands are fixed implicit registers - opcode 0xE52A is an exact match.
+TEST(VcaddVr7Vr6Vr5Vr4TextTest, FixedRegisters) {
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcadd"}, {TextToken, " "},
+      {RegisterToken, "vr7"},      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr6"},      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr5"},      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},
+  };
+
+  test_architecture_text(TIC28X::VcaddVr7Vr6Vr5Vr4::opcode,
+                         TIC28X::VcaddVr7Vr6Vr5Vr4::objmode, 0x0, want);
+}
+
 // VcaddVr5Vr4Vr3Vr2Vmov32VraMem32 - VCU Complex Add with parallel VMOV32
 // Format: vcadd VR5, VR4, VR3, VR2 || vmov32 VRa, mem32
 struct VcaddVr5Vr4Vr3Vr2Vmov32VraMem32TestCase {

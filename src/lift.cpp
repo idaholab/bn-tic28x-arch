@@ -550,6 +550,38 @@ bool VcaddVr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VCADD VR7, VR6, VR5, VR4
+// Complex 32+32=32-bit addition.
+// VR7 = Re(X), VR6 = Im(X), VR5 = Re(Y), VR4 = Im(Y)
+// Z = X + Y  (with SHIFTR, RND, SAT from VSTATUS)
+//
+// Encoding: 0xE52A (all bits fixed, no variable fields)
+bool VcaddVr7Vr6Vr5Vr4::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                             BN::LowLevelILFunction& il,
+                             TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // Opcode is fixed (0xE52A) — no variable fields to extract.
+  // The instruction implicitly operates on VR7, VR6, VR5, VR4, and VSTATUS.
+
+  // Build the intrinsic call:
+  //   (VR7, VR6, VSTATUS) = vcadd(VR7, VR6, VR5, VR4, VSTATUS)
+  il.AddInstruction(il.Intrinsic(
+      // Outputs: VR7 (Re(Z)), VR6 (Im(Z)), VSTATUS (OVFR/OVFI flags updated)
+      {BN::RegisterOrFlag::Register(Registers::VR7),
+       BN::RegisterOrFlag::Register(Registers::VR6),
+       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+      TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4,
+      // Inputs: VR7=Re(X), VR6=Im(X), VR5=Re(Y), VR4=Im(Y), VSTATUS
+      {il.Register(Sizes::_4_BYTES, Registers::VR7),
+       il.Register(Sizes::_4_BYTES, Registers::VR6),
+       il.Register(Sizes::_4_BYTES, Registers::VR5),
+       il.Register(Sizes::_4_BYTES, Registers::VR4),
+       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  return true;
+}
+
 // VMOV32 VRa, mem32
 // Load a 32-bit value from a C28x loc32 address into VRa.
 //

@@ -7104,6 +7104,24 @@ bool VcaddVr5Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+bool VcaddVr7Vr6Vr5Vr4::Text(const uint8_t* data, uint64_t addr, size_t& len,
+                             std::vector<BN::InstructionTextToken>& result,
+                             const AddressMode amode) {
+  len = GetLength();
+
+  OpText(op_name, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR7)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR6)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
+
+  return true;
+}
+
 bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Text(
     const uint8_t* data, uint64_t addr, size_t& len,
     std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
