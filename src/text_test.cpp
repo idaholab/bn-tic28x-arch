@@ -495,3 +495,66 @@ TEST(VccmacVr5Vr4Vr3Vr2Vr1Vr0TextTest, FixedRegisters) {
   test_architecture_text(TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0::opcode,
                          TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0::objmode, 0x0, want);
 }
+
+// VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32 - VCU Complex Conjugate Multiply and
+// Accumulate with parallel VMOV32
+// Format: vccmac VR5, VR4, VR3, VR2, VR1, VR0 || vmov32 VRa, mem32
+struct VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32TestCase {
+  uint8_t regA;        // VRa register index (0-7)
+  uint8_t mem32;       // mem32 addressing mode byte
+  std::string regStr;  // expected register string (e.g. "vr0")
+};
+
+class TestVccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32Text
+    : public ::testing::TestWithParam<
+          VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32TestCase> {};
+
+TEST_P(TestVccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32Text, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(tc.mem32);
+  // With AMODE_0 and direct addressing, Loc32Text emits: TextToken("@") +
+  // PossibleAddressToken("0x<mem32>")
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vccmac"},
+      {TextToken, " "},
+      {RegisterToken, "vr5"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr3"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr1"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr0"},
+      {TextToken, " || "},
+      {InstructionToken, "vmov32"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+      {OperandSeparatorToken, ", "},
+      {TextToken, "@"},
+      {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
+  };
+
+  test_architecture_text(
+      opcode, TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::objmode, 0x0,
+      want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32,
+    TestVccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32Text,
+    ::testing::Values(
+        // Test VR0 (minimum register, minimum mem32)
+        VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32TestCase{0, 0x00, "vr0"},
+        // Test VR1 (mid-range mem32)
+        VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32TestCase{1, 0x42, "vr1"},
+        // Test VR7 (maximum register, maximum mem32)
+        VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32TestCase{7, 0xff, "vr7"}),
+    [](const testing::TestParamInfo<
+        TestVccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32Text::ParamType> &info) {
+      return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
+    });

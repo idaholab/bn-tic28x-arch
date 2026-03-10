@@ -627,6 +627,7 @@ GenerateInstructionVector() {
       std::make_shared<VcaddVr7Vr6Vr5Vr4>(),
       std::make_shared<VcaddVr5Vr4Vr3Vr2Vmov32VraMem32>(),
       std::make_shared<VccmacVr5Vr4Vr3Vr2Vr1Vr0>(),
+      std::make_shared<VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32>(),
 
   };
   return vec;
@@ -6903,6 +6904,27 @@ uint8_t VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::GetMem32(const uint32_t data) {
 }
 
 uint32_t VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32 - RegA at bits 11-8, mem32 at bits
+// 7-0
+// Encoding:
+//   LSW: 1110 0011 1111 0111 = 0xE3F7 (bits [31:16])
+//   MSW: 0001 aaaa mmmm mmmm (bits [15:0])
+uint8_t VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(const uint8_t mem) {
   return VcuSetMem(opcode, mem);
 }
 
