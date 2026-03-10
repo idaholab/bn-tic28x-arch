@@ -1,8 +1,7 @@
 // Copyright (c) 2025. Battelle Energy Alliance, LLC
 // ALL RIGHTS RESERVED
 
-// Copyright (c) 2025. Battelle Energy Alliance, LLC
-// ALL RIGHTS RESERVED
+#include "text.h"
 
 #include <binaryninjaapi.h>
 #include <gtest/gtest.h>
@@ -10,9 +9,9 @@
 #include <format>
 
 #include "architecture.h"
+#include "conditions.h"
 #include "instructions.h"
-
-constexpr uint32_t TEST_DATA = 0xFFFFFFFF;
+#include "registers.h"
 
 // Convert an array of instruction text tokens to a string
 static std::string tokens_to_string(
@@ -80,6 +79,650 @@ static void test_architecture_text(
 }
 
 /* Instruction Text Tests */
+
+// ============================================================================
+// Helper Function Unit Tests
+// ============================================================================
+
+// --- ConstText Tests ---
+
+TEST(ConstTextTest, UnsignedConstant) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ConstText({.value = 0x1A, .nbits = 8}, result);
+  EXPECT_EQ(tokens_to_string(result), "#0x1a");
+  EXPECT_EQ(result[0].type, TextToken);     // "#"
+  EXPECT_EQ(result[1].type, IntegerToken);  // "0x1a"
+}
+
+TEST(ConstTextTest, SignedPositive) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ConstText({.value = 0x05, .nbits = 8, .is_signed = true}, result);
+  EXPECT_EQ(tokens_to_string(result), "#0x5");
+}
+
+TEST(ConstTextTest, SignedNegative) {
+  std::vector<BN::InstructionTextToken> result;
+  // 0x80 with 8 bits = -128 (sign bit set)
+  TIC28X::ConstText({.value = 0x80, .nbits = 8, .is_signed = true}, result);
+  const auto text = tokens_to_string(result);
+  EXPECT_TRUE(text.find("#0x") != std::string::npos);
+  // Should be sign-extended: high bits all 1s
+  EXPECT_EQ(result[1].value, static_cast<uint64_t>(int64_t(-128)));
+}
+
+TEST(ConstTextTest, AddressMode) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ConstText({.value = 0x3F, .nbits = 6, .is_address = true}, result);
+  EXPECT_EQ(tokens_to_string(result), "@0x3f");
+  EXPECT_EQ(result[0].type, TextToken);             // "@"
+  EXPECT_EQ(result[1].type, PossibleAddressToken);  // "0x3f"
+}
+
+TEST(ConstTextTest, OffsetMode) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ConstText({.value = 3, .nbits = 3, .is_offset = true}, result);
+  EXPECT_EQ(tokens_to_string(result), "[0x3]");
+  EXPECT_EQ(result[0].type, OperationToken);  // "["
+  EXPECT_EQ(result[1].type, IntegerToken);    // "0x3"
+  EXPECT_EQ(result[2].type, OperationToken);  // "]"
+}
+
+TEST(ConstTextTest, MemioMode) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ConstText({.value = 0x20, .nbits = 8, .is_memio = true}, result);
+  EXPECT_EQ(tokens_to_string(result), "*(0x20)");
+}
+
+TEST(ConstTextTest, SignedOffset) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ConstText(
+      {.value = 0xFF, .nbits = 8, .is_signed = true, .is_offset = true},
+      result);
+  EXPECT_EQ(result[0].type, OperationToken);  // "["
+  EXPECT_EQ(result[2].type, OperationToken);  // "]"
+}
+
+// --- RegText Tests ---
+
+TEST(RegTextTest, PlainRegister) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::RegText({.regnum = TIC28X::Registers::ACC}, result);
+  EXPECT_EQ(tokens_to_string(result), "acc");
+  EXPECT_EQ(result[0].type, RegisterToken);
+}
+
+TEST(RegTextTest, DirectDecorator) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::RegText({.regnum = TIC28X::Registers::AR0, .direct = true}, result);
+  EXPECT_EQ(tokens_to_string(result), "@ar0");
+  EXPECT_EQ(result[0].type, OperationToken);  // "@"
+  EXPECT_EQ(result[1].type, RegisterToken);   // "ar0"
+}
+
+TEST(RegTextTest, IndirectPostInc) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::RegText(
+      {.regnum = TIC28X::Registers::XAR0, .indirect = true, .postinc = true},
+      result);
+  EXPECT_EQ(tokens_to_string(result), "*xar0++");
+}
+
+TEST(RegTextTest, IndirectPreDec) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::RegText(
+      {.regnum = TIC28X::Registers::XAR3, .indirect = true, .predec = true},
+      result);
+  EXPECT_EQ(tokens_to_string(result), "*--xar3");
+}
+
+TEST(RegTextTest, IndirectAddWithOffset) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::RegText(
+      {.regnum = TIC28X::Registers::XAR2, .indirect = true, .add = true},
+      result);
+  EXPECT_EQ(tokens_to_string(result), "*+xar2");
+}
+
+TEST(RegTextTest, SubDecorator) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::RegText(
+      {.regnum = TIC28X::Registers::SP, .indirect = true, .sub = true}, result);
+  EXPECT_EQ(tokens_to_string(result), "*-sp");
+}
+
+TEST(RegTextTest, CircularPostInc) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::RegText({.regnum = TIC28X::Registers::AR6,
+                   .indirect = true,
+                   .postinc = true,
+                   .circular = true},
+                  result);
+  EXPECT_EQ(tokens_to_string(result), "*ar6%++");
+}
+
+TEST(RegTextTest, IsOffsetWrapping) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::RegText({.regnum = TIC28X::Registers::AR0, .is_offset = true},
+                  result);
+  EXPECT_EQ(tokens_to_string(result), "[ar0]");
+  EXPECT_EQ(result[0].type, OperationToken);  // "["
+  EXPECT_EQ(result[2].type, OperationToken);  // "]"
+}
+
+// --- CondText Tests ---
+
+TEST(CondTextTest, AllConditions) {
+  for (uint8_t cond = 0; cond <= 0xF; ++cond) {
+    std::vector<BN::InstructionTextToken> result;
+    TIC28X::CondText(cond, result);
+    ASSERT_EQ(result.size(), 1u) << "cond=" << static_cast<int>(cond);
+    EXPECT_EQ(result[0].type, TextToken);
+    EXPECT_EQ(result[0].text, TIC28X::Conditions::NAMES.at(cond));
+  }
+}
+
+TEST(CondTextTest, MasksToLow4Bits) {
+  std::vector<BN::InstructionTextToken> result;
+  // 0x1F & 0xF = 0xF = UNC
+  TIC28X::CondText(0x1F, result);
+  EXPECT_EQ(result[0].text, "unc");
+}
+
+// --- ModeText Tests ---
+
+TEST(ModeTextTest, EmptyMode) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ModeText(0x00, result);
+  EXPECT_TRUE(result.empty());
+}
+
+TEST(ModeTextTest, SingleFlagSXM) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ModeText(0x01, result);
+  EXPECT_EQ(tokens_to_string(result), "sxm");
+}
+
+TEST(ModeTextTest, SingleFlagVMAP) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ModeText(0x80, result);
+  EXPECT_EQ(tokens_to_string(result), "vmap");
+}
+
+TEST(ModeTextTest, TwoFlags) {
+  std::vector<BN::InstructionTextToken> result;
+  // SXM (0x01) | C (0x08) = 0x09
+  TIC28X::ModeText(0x09, result);
+  EXPECT_EQ(tokens_to_string(result), "sxm, c");
+}
+
+TEST(ModeTextTest, AllFlags) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ModeText(0xFF, result);
+  EXPECT_EQ(tokens_to_string(result),
+            "sxm, ovm, tc, c, intm, dbgm, page0, vmap");
+}
+
+// --- ProductShiftModeText Tests ---
+
+TEST(ProductShiftModeTextTest, AllCasesAmode0) {
+  const std::array<std::string, 8> expected = {"+1", "0",  "-1", "-2",
+                                               "-3", "-4", "-5", "-6"};
+  for (uint8_t mode = 0; mode < 8; ++mode) {
+    std::vector<BN::InstructionTextToken> result;
+    TIC28X::ProductShiftModeText(mode, TIC28X::AMODE_0, result);
+    ASSERT_EQ(result.size(), 1u) << "mode=" << static_cast<int>(mode);
+    EXPECT_EQ(result[0].text, expected[mode]);
+  }
+}
+
+TEST(ProductShiftModeTextTest, Mode5Amode1) {
+  std::vector<BN::InstructionTextToken> result;
+  TIC28X::ProductShiftModeText(5, TIC28X::AMODE_1, result);
+  EXPECT_EQ(result[0].text, "+4");
+}
+
+// ============================================================================
+// Addressing Mode Tests (loc_text_helper, Loc16Text, Loc32Text)
+// ============================================================================
+
+// --- Direct Addressing ---
+
+TEST(LocTextHelperTest, DirectAmode0) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x00: AMODE_0, direct @0x0
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x00, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@0x0");
+}
+
+TEST(LocTextHelperTest, DirectAmode0Max) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x3F: AMODE_0, direct @0x3f (6 bits max)
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x3F, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@0x3f");
+}
+
+TEST(LocTextHelperTest, DirectAmode1) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x10: AMODE_1, direct @@0x10 (extra @ prefix)
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x10, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "@@0x10");
+}
+
+// --- Stack Addressing ---
+
+TEST(LocTextHelperTest, StackAmode0) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x40: AMODE_0, *-SP[0x0]
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x40, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*-sp[0x0]");
+}
+
+TEST(LocTextHelperTest, StackAmode0WithOffset) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x55: AMODE_0, *-SP[0x15]
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x55, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*-sp[0x15]");
+}
+
+TEST(LocTextHelperTest, SpPostInc) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xBD: *SP++
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xBD, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*sp++");
+}
+
+TEST(LocTextHelperTest, SpPreDec) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xBE: *--SP
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xBE, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*--sp");
+}
+
+// --- XAR Indirect Addressing ---
+
+TEST(LocTextHelperTest, XarPostInc) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x80: *XAR0++
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x80, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*xar0++");
+}
+
+TEST(LocTextHelperTest, XarPostIncMax) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x87: *XAR7++
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x87, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*xar7++");
+}
+
+TEST(LocTextHelperTest, XarPreDec) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x88: *--XAR0
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x88, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*--xar0");
+}
+
+TEST(LocTextHelperTest, XarAr0Offset) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x90: *+XAR0[AR0]
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x90, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*+xar0[ar0]");
+}
+
+TEST(LocTextHelperTest, XarAr1Offset) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x9A: *+XAR2[AR1]
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x9A, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*+xar2[ar1]");
+}
+
+TEST(LocTextHelperTest, Xar3bitOffsetAmode0) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xC0: AMODE_0, *+XAR0[0x0]
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xC0, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*+xar0[0x0]");
+}
+
+TEST(LocTextHelperTest, Xar3bitOffsetNonZero) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xFD: AMODE_0, *+XAR5[0x7]
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xFD, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*+xar5[0x7]");
+}
+
+// --- C2xLP Addressing ---
+
+TEST(LocTextHelperTest, C2xlpStar) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xB8: *
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xB8, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*");
+}
+
+TEST(LocTextHelperTest, C2xlpStarInc) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xB9: *++
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xB9, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*++");
+}
+
+TEST(LocTextHelperTest, C2xlpStarDec) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xBA: *--
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xBA, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*--");
+}
+
+TEST(LocTextHelperTest, C2xlpStar0Inc) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xBB: *0++
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xBB, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*0++");
+}
+
+TEST(LocTextHelperTest, C2xlpStar0Dec) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xBC: *0--
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xBC, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*0--");
+}
+
+TEST(LocTextHelperTest, Br0PostInc) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xAE: *BR0++
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xAE, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*br0++");
+}
+
+TEST(LocTextHelperTest, Br0PostDec) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xAF: *BR0--
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xAF, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*br0--");
+}
+
+TEST(LocTextHelperTest, StarArpn) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xB3: *,ARP3
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xB3, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*, arp3");
+}
+
+// --- AMODE_1 specific C2xLP modes ---
+
+TEST(LocTextHelperTest, Amode1IncArpn) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xC2: AMODE_1, *++,ARP2
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xC2, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "*++, arp2");
+}
+
+TEST(LocTextHelperTest, Amode1DecArpn) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xC9: AMODE_1, *--,ARP1
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xC9, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "*--, arp1");
+}
+
+TEST(LocTextHelperTest, Amode1Br0IncArpn) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xE0: AMODE_1, *BR0++,ARP0
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xE0, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "*br0++, arp0");
+}
+
+TEST(LocTextHelperTest, Amode1Br0DecArpn) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xEB: AMODE_1, *BR0--,ARP3
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xEB, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "*br0--, arp3");
+}
+
+// --- Circular Addressing ---
+
+TEST(LocTextHelperTest, CircularAr6Amode0) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xBF: AMODE_0, *AR6%++
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xBF, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*ar6%++");
+}
+
+TEST(LocTextHelperTest, CircularAr6Amode1) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xBF: AMODE_1, *+XAR6[AR1%++]
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0xBF, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "*+xar6[ar1%++]");
+}
+
+// --- AMODE_1 Direct Addressing (0x40-0x7F) ---
+
+TEST(LocTextHelperTest, DirectAmode1_0x40) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x40: AMODE_1, direct @@0x40 (7-bit address)
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x40, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "@@0x40");
+}
+
+TEST(LocTextHelperTest, DirectAmode1_0x7F) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x7F: AMODE_1, direct @@0x7f (7-bit max)
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x7F, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "@@0x7f");
+}
+
+TEST(LocTextHelperTest, DirectAmode1_7bitValue) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x10: AMODE_1, @@0x10 — verify 7-bit field yields correct value
+  EXPECT_TRUE(
+      TIC28X::loc_text_helper({.loc = 0x10, .amode = TIC28X::AMODE_1}, result));
+  EXPECT_EQ(tokens_to_string(result), "@@0x10");
+}
+
+// --- Loc16Text 16-bit register modes ---
+
+TEST(Loc16TextTest, ArN) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xA3: @AR3
+  EXPECT_TRUE(
+      TIC28X::Loc16Text({.loc = 0xA3, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@ar3");
+}
+
+TEST(Loc16TextTest, AH) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc16Text({.loc = 0xA8, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@ah");
+}
+
+TEST(Loc16TextTest, AL) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc16Text({.loc = 0xA9, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@al");
+}
+
+TEST(Loc16TextTest, PH) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc16Text({.loc = 0xAA, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@ph");
+}
+
+TEST(Loc16TextTest, PL) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc16Text({.loc = 0xAB, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@pl");
+}
+
+TEST(Loc16TextTest, TH) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc16Text({.loc = 0xAC, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@th");
+}
+
+TEST(Loc16TextTest, SP) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc16Text({.loc = 0xAD, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@sp");
+}
+
+TEST(Loc16TextTest, FallsThruToHelper) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x80: *XAR0++ (handled by loc_text_helper)
+  EXPECT_TRUE(
+      TIC28X::Loc16Text({.loc = 0x80, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*xar0++");
+}
+
+// --- Loc32Text 32-bit register modes ---
+
+TEST(Loc32TextTest, XarN) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0xA5: @XAR5
+  EXPECT_TRUE(
+      TIC28X::Loc32Text({.loc = 0xA5, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@xar5");
+}
+
+TEST(Loc32TextTest, ACC) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc32Text({.loc = 0xA9, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@acc");
+}
+
+TEST(Loc32TextTest, P) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc32Text({.loc = 0xAB, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@p");
+}
+
+TEST(Loc32TextTest, XT) {
+  std::vector<BN::InstructionTextToken> result;
+  EXPECT_TRUE(
+      TIC28X::Loc32Text({.loc = 0xAC, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "@xt");
+}
+
+TEST(Loc32TextTest, FallsThruToHelper) {
+  std::vector<BN::InstructionTextToken> result;
+  // loc=0x88: *--XAR0 (handled by loc_text_helper)
+  EXPECT_TRUE(
+      TIC28X::Loc32Text({.loc = 0x88, .amode = TIC28X::AMODE_0}, result));
+  EXPECT_EQ(tokens_to_string(result), "*--xar0");
+}
+
+// ============================================================================
+// Representative Standard C28x Instruction Text Tests
+// ============================================================================
+
+// ADD ACC, loc16: opcode 0x81xx, OBJMODE_1
+TEST(AddAccLoc16TextTest, DirectAddressing) {
+  // add acc, @0x10
+  const uint32_t opcode = TIC28X::AddAccLoc16::SetLoc16(0x10);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "add"}, {TextToken, " "},
+      {RegisterToken, "acc"},    {OperandSeparatorToken, ", "},
+      {TextToken, "@"},          {PossibleAddressToken, "0x10"},
+  };
+  test_architecture_text(opcode, TIC28X::AddAccLoc16::objmode, 0x0, want);
+}
+
+TEST(AddAccLoc16TextTest, XarIndirect) {
+  // add acc, *XAR2++ (loc16=0x82)
+  const uint32_t opcode = TIC28X::AddAccLoc16::SetLoc16(0x82);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "add"}, {TextToken, " "},
+      {RegisterToken, "acc"},    {OperandSeparatorToken, ", "},
+      {OperationToken, "*"},     {RegisterToken, "xar2"},
+      {OperationToken, "++"},
+  };
+  test_architecture_text(opcode, TIC28X::AddAccLoc16::objmode, 0x0, want);
+}
+
+// SUB AX, loc16: opcode 0x9Exx, OBJMODE_ANY
+TEST(SubAxLoc16TextTest, SubAL) {
+  // sub al, @0x0 (x=0 => AL)
+  const uint32_t opcode =
+      TIC28X::SubAxLoc16::SetRegAx(0) | TIC28X::SubAxLoc16::SetLoc16(0x00);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "sub"}, {TextToken, " "},
+      {RegisterToken, "al"},     {OperandSeparatorToken, ", "},
+      {TextToken, "@"},          {PossibleAddressToken, "0x0"},
+  };
+  test_architecture_text(opcode, TIC28X::SubAxLoc16::objmode, 0x0, want);
+}
+
+TEST(SubAxLoc16TextTest, SubAH) {
+  // sub ah, @al (x=1 => AH, loc16=0xA9 => @AL)
+  const uint32_t opcode =
+      TIC28X::SubAxLoc16::SetRegAx(1) | TIC28X::SubAxLoc16::SetLoc16(0xA9);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "sub"}, {TextToken, " "},
+      {RegisterToken, "ah"},     {OperandSeparatorToken, ", "},
+      {OperationToken, "@"},     {RegisterToken, "al"},
+  };
+  test_architecture_text(opcode, TIC28X::SubAxLoc16::objmode, 0x0, want);
+}
+
+// SB off8, COND: opcode 0x6xxx
+TEST(SbOff8CondTextTest, BranchUNC) {
+  const uint32_t opcode =
+      TIC28X::SbOff8Cond::SetOff8(0x10) | TIC28X::SbOff8Cond::SetCond(0xF);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "sb"}, {TextToken, " "},
+      {OperationToken, "["},    {IntegerToken, "0x10"},
+      {OperationToken, "]"},    {OperandSeparatorToken, ", "},
+      {TextToken, "unc"},
+  };
+  test_architecture_text(opcode, TIC28X::SbOff8Cond::objmode, 0x0, want);
+}
+
+TEST(SbOff8CondTextTest, BranchEQ) {
+  const uint32_t opcode =
+      TIC28X::SbOff8Cond::SetOff8(0x04) | TIC28X::SbOff8Cond::SetCond(0x1);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "sb"}, {TextToken, " "},
+      {OperationToken, "["},    {IntegerToken, "0x4"},
+      {OperationToken, "]"},    {OperandSeparatorToken, ", "},
+      {TextToken, "eq"},
+  };
+  test_architecture_text(opcode, TIC28X::SbOff8Cond::objmode, 0x0, want);
+}
 
 // ============================================================================
 // VCU - Arithmetic Math Instructions

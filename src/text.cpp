@@ -5,6 +5,7 @@
 
 #include <binaryninjaapi.h>
 
+#include <array>
 #include <format>
 
 #include "conditions.h"
@@ -145,7 +146,7 @@ bool loc_text_helper(const LocTextInfo& lti,
                 result);
     } else {  // AMODE1, code == 0 I III III, @@7bit
       result.emplace_back(TextToken, "@");  // AMODE_1 requires extra @
-      ConstText(ConstTextInfo{.value = lti.loc, .nbits = 6, .is_address = true},
+      ConstText(ConstTextInfo{.value = lti.loc, .nbits = 7, .is_address = true},
                 result);
     }
     return true;
@@ -157,6 +158,14 @@ bool loc_text_helper(const LocTextInfo& lti,
     RegText(RegTextInfo{.regnum = Registers::SP, .indirect = true, .sub = true},
             result);
     ConstText(ConstTextInfo{.value = lti.loc, .nbits = 6, .is_offset = true},
+              result);
+    return true;
+  }
+
+  // AMODE1, code == 0 1 III III, @@7bit (0x40-0x7F range)
+  if ((lti.loc & 0xC0) == 0x40 && lti.amode == AMODE_1) {
+    result.emplace_back(TextToken, "@");
+    ConstText(ConstTextInfo{.value = lti.loc, .nbits = 7, .is_address = true},
               result);
     return true;
   }
@@ -342,7 +351,7 @@ bool loc_text_helper(const LocTextInfo& lti,
         RegTextInfo{
             .regnum = Registers::BR0, .indirect = true, .postdec = true},
         result);
-    result.emplace_back(OperandSeparatorToken, ",");
+    OpsepText(result);
     result.emplace_back(TextToken, std::format("arp{}", lti.loc & 0x7));
     return true;
   }
@@ -359,7 +368,7 @@ bool loc_text_helper(const LocTextInfo& lti,
       return true;
     } else {  // *+XAR6[AR1%++]
       RegText(
-          RegTextInfo{.regnum = Registers::AR6, .indirect = true, .add = true},
+          RegTextInfo{.regnum = Registers::XAR6, .indirect = true, .add = true},
           result);
       RegText(RegTextInfo{.regnum = Registers::AR1,
                           .postinc = true,
@@ -470,59 +479,18 @@ void CondText(const uint8_t cond,
 
 void ModeText(const uint8_t mode,
               std::vector<BN::InstructionTextToken>& result) {
-  bool first_flag = true;
+  static constexpr std::array flags = {
+      Flags::SXM,  Flags::OVM,  Flags::TC,    Flags::C,
+      Flags::INTM, Flags::DBGM, Flags::PAGE0, Flags::VMAP,
+  };
 
-  if (mode & 0x1) {
-    result.emplace_back(TextToken, Flags::NAMES.at(Flags::SXM));
-    first_flag = false;
-  }
-  if (mode & 0x2) {
-    if (!first_flag) {
-      OpsepText(result);
+  bool first = true;
+  for (size_t i = 0; i < flags.size(); ++i) {
+    if (mode & (1u << i)) {
+      if (!first) OpsepText(result);
+      result.emplace_back(TextToken, Flags::NAMES.at(flags[i]));
+      first = false;
     }
-    result.emplace_back(TextToken, Flags::NAMES.at(Flags::OVM));
-    first_flag = false;
-  }
-  if (mode & 0x4) {
-    if (!first_flag) {
-      OpsepText(result);
-    }
-    result.emplace_back(TextToken, Flags::NAMES.at(Flags::TC));
-    first_flag = false;
-  }
-  if (mode & 0x8) {
-    if (!first_flag) {
-      OpsepText(result);
-    }
-    result.emplace_back(TextToken, Flags::NAMES.at(Flags::C));
-    first_flag = false;
-  }
-  if (mode & 0x10) {
-    if (!first_flag) {
-      OpsepText(result);
-    }
-    result.emplace_back(TextToken, Flags::NAMES.at(Flags::INTM));
-    first_flag = false;
-  }
-  if (mode & 0x20) {
-    if (!first_flag) {
-      OpsepText(result);
-    }
-    result.emplace_back(TextToken, Flags::NAMES.at(Flags::DBGM));
-    first_flag = false;
-  }
-  if (mode & 0x40) {
-    if (!first_flag) {
-      OpsepText(result);
-    }
-    result.emplace_back(TextToken, Flags::NAMES.at(Flags::PAGE0));
-    first_flag = false;
-  }
-  if (mode & 0x80) {
-    if (!first_flag) {
-      OpsepText(result);
-    }
-    result.emplace_back(TextToken, Flags::NAMES.at(Flags::VMAP));
   }
 }
 
