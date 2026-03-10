@@ -36,10 +36,6 @@ void SetVstatusOvfr(BN::LowLevelILFunction& il);
 // Helper to generate LLIL for clearing the OVFR flag in VSTATUS
 void ClearVstatusOvfr(BN::LowLevelILFunction& il);
 
-// Helper to generate LLIL for signed 32-bit saturation
-// Returns IL expression: clamp(value, SAT_MIN_32, SAT_MAX_32)
-BN::ExprId Saturate32Signed(BN::LowLevelILFunction& il, BN::ExprId value);
-
 // Helper to detect if a left shift will overflow (for 32-bit signed)
 // Returns IL expression that is true if shifting 'value' left by 'shiftAmt'
 // overflows

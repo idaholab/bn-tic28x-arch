@@ -54,6 +54,30 @@ static void OpcodeToData2(uint16_t opcode, uint8_t data[2]) {
   data[1] = (opcode >> 8) & 0xFF;
 }
 
+// Shared test case structs for parameterized tests
+struct RegAImm5TestCase {
+  uint8_t regA;
+  uint8_t imm5;
+  std::string name;
+};
+struct RegATestCase {
+  uint8_t regA;
+  std::string name;
+};
+struct RegAMem32TestCase {
+  uint8_t regA;
+  uint8_t mem32;
+  std::string name;
+};
+
+// Shared name generator for all parameterized test suites
+struct NameFromParam {
+  template <typename T>
+  std::string operator()(const testing::TestParamInfo<T>& info) const {
+    return info.param.name;
+  }
+};
+
 // ============================================================================
 // VrIndexToReg Helper Tests
 // ============================================================================
@@ -175,14 +199,8 @@ TEST(TIC28XIntrinsics, GetAllIntrinsicsIncludesBitReverse) {
 // Vashl32Vra5bit Lift Tests
 // ============================================================================
 
-struct Vashl32LiftTestCase {
-  uint8_t regA;
-  uint8_t imm5;
-  std::string name;
-};
-
 class Vashl32Vra5bitLiftTest
-    : public ::testing::TestWithParam<Vashl32LiftTestCase> {};
+    : public ::testing::TestWithParam<RegAImm5TestCase> {};
 
 TEST_P(Vashl32Vra5bitLiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -201,27 +219,19 @@ TEST_P(Vashl32Vra5bitLiftTest, HelperFunctionsWork) {
 
 INSTANTIATE_TEST_SUITE_P(
     Vashl32Vra5bit, Vashl32Vra5bitLiftTest,
-    ::testing::Values(Vashl32LiftTestCase{0, 0, "VR0_shift0"},
-                      Vashl32LiftTestCase{4, 16, "VR4_shift16"},
-                      Vashl32LiftTestCase{7, 31, "VR7_shift31"},
-                      Vashl32LiftTestCase{2, 1, "VR2_shift1"},
-                      Vashl32LiftTestCase{5, 15, "VR5_shift15"}),
-    [](const testing::TestParamInfo<Vashl32Vra5bitLiftTest::ParamType>& info) {
-      return info.param.name;
-    });
+    ::testing::Values(RegAImm5TestCase{0, 0, "VR0_shift0"},
+                      RegAImm5TestCase{4, 16, "VR4_shift16"},
+                      RegAImm5TestCase{7, 31, "VR7_shift31"},
+                      RegAImm5TestCase{2, 1, "VR2_shift1"},
+                      RegAImm5TestCase{5, 15, "VR5_shift15"}),
+    NameFromParam{});
 
 // ============================================================================
 // Vashr32Vra5bit Lift Tests
 // ============================================================================
 
-struct Vashr32LiftTestCase {
-  uint8_t regA;
-  uint8_t imm5;
-  std::string name;
-};
-
 class Vashr32Vra5bitLiftTest
-    : public ::testing::TestWithParam<Vashr32LiftTestCase> {};
+    : public ::testing::TestWithParam<RegAImm5TestCase> {};
 
 TEST_P(Vashr32Vra5bitLiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -237,14 +247,9 @@ TEST_P(Vashr32Vra5bitLiftTest, HelperFunctionsWork) {
 // Verify the full IL tree: LLIL_SET_REG.d(VRn, LLIL_ASR.d(LLIL_REG.d(VRn),
 // LLIL_CONST.b(0))) We test all 8 VR registers to get broad coverage of the
 // simple path.
-struct Vashr32ShiftZeroTestCase {
-  uint8_t regA;
-  std::string name;
-};
-
 class Vashr32ShiftZeroILTest
     : public ILTestFixture,
-      public ::testing::WithParamInterface<Vashr32ShiftZeroTestCase> {};
+      public ::testing::WithParamInterface<RegATestCase> {};
 
 TEST_P(Vashr32ShiftZeroILTest, GeneratesCorrectIL) {
   const auto& tc = GetParam();
@@ -288,15 +293,12 @@ TEST_P(Vashr32ShiftZeroILTest, GeneratesCorrectIL) {
   EXPECT_EQ(cnst.operands[0], 0u);
 }
 
-INSTANTIATE_TEST_SUITE_P(
-    Vashr32Vra5bit, Vashr32ShiftZeroILTest,
-    ::testing::Values(Vashr32ShiftZeroTestCase{0, "VR0"},
-                      Vashr32ShiftZeroTestCase{3, "VR3"},
-                      Vashr32ShiftZeroTestCase{5, "VR5"},
-                      Vashr32ShiftZeroTestCase{7, "VR7"}),
-    [](const testing::TestParamInfo<Vashr32ShiftZeroILTest::ParamType>& info) {
-      return info.param.name;
-    });
+INSTANTIATE_TEST_SUITE_P(Vashr32Vra5bit, Vashr32ShiftZeroILTest,
+                         ::testing::Values(RegATestCase{0, "VR0"},
+                                           RegATestCase{3, "VR3"},
+                                           RegATestCase{5, "VR5"},
+                                           RegATestCase{7, "VR7"}),
+                         NameFromParam{});
 
 // NOTE: VASHR32 with shift > 0 uses branching (LLIL_IF/LLIL_GOTO/MarkLabel)
 // for RND mode handling. The BN core's label system requires a full Function
@@ -305,14 +307,12 @@ INSTANTIATE_TEST_SUITE_P(
 
 INSTANTIATE_TEST_SUITE_P(
     Vashr32Vra5bit, Vashr32Vra5bitLiftTest,
-    ::testing::Values(Vashr32LiftTestCase{0, 0, "VR0_shift0"},
-                      Vashr32LiftTestCase{4, 16, "VR4_shift16"},
-                      Vashr32LiftTestCase{7, 31, "VR7_shift31"},
-                      Vashr32LiftTestCase{2, 1, "VR2_shift1"},
-                      Vashr32LiftTestCase{5, 15, "VR5_shift15"}),
-    [](const testing::TestParamInfo<Vashr32Vra5bitLiftTest::ParamType>& info) {
-      return info.param.name;
-    });
+    ::testing::Values(RegAImm5TestCase{0, 0, "VR0_shift0"},
+                      RegAImm5TestCase{4, 16, "VR4_shift16"},
+                      RegAImm5TestCase{7, 31, "VR7_shift31"},
+                      RegAImm5TestCase{2, 1, "VR2_shift1"},
+                      RegAImm5TestCase{5, 15, "VR5_shift15"}),
+    NameFromParam{});
 
 // ============================================================================
 // VCU - Bit Manipulation Instructions
@@ -322,13 +322,7 @@ INSTANTIATE_TEST_SUITE_P(
 // VbitflipVra Lift Tests
 // ============================================================================
 
-struct VbitflipVraLiftTestCase {
-  uint8_t regA;
-  std::string name;
-};
-
-class VbitflipVraLiftTest
-    : public ::testing::TestWithParam<VbitflipVraLiftTestCase> {};
+class VbitflipVraLiftTest : public ::testing::TestWithParam<RegATestCase> {};
 
 TEST_P(VbitflipVraLiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -338,9 +332,8 @@ TEST_P(VbitflipVraLiftTest, HelperFunctionsWork) {
   EXPECT_EQ(TIC28X::VbitflipVra::GetRegA(opcode), tc.regA & 0xF);
 }
 
-class VbitflipVraILTest
-    : public ILTestFixture,
-      public ::testing::WithParamInterface<VbitflipVraLiftTestCase> {};
+class VbitflipVraILTest : public ILTestFixture,
+                          public ::testing::WithParamInterface<RegATestCase> {};
 
 // Verify VBITFLIP generates: LLIL_INTRINSIC([VRn], BITREVERSE,
 // [LLIL_REG.d(VRn)])
@@ -370,32 +363,22 @@ TEST_P(VbitflipVraILTest, GeneratesCorrectIL) {
       << "Should use the BITREVERSE intrinsic";
 }
 
-static const auto vbitflip_test_cases = ::testing::Values(
-    VbitflipVraLiftTestCase{0, "VR0"}, VbitflipVraLiftTestCase{1, "VR1"},
-    VbitflipVraLiftTestCase{4, "VR4"}, VbitflipVraLiftTestCase{7, "VR7"});
-
-static auto vbitflip_name_gen = [](const auto& info) {
-  return info.param.name;
-};
+static const auto vbitflip_test_cases =
+    ::testing::Values(RegATestCase{0, "VR0"}, RegATestCase{1, "VR1"},
+                      RegATestCase{4, "VR4"}, RegATestCase{7, "VR7"});
 
 INSTANTIATE_TEST_SUITE_P(VbitflipVra, VbitflipVraLiftTest, vbitflip_test_cases,
-                         vbitflip_name_gen);
+                         NameFromParam{});
 
 INSTANTIATE_TEST_SUITE_P(VbitflipVra, VbitflipVraILTest, vbitflip_test_cases,
-                         vbitflip_name_gen);
+                         NameFromParam{});
 
 // ============================================================================
 // Vlshl32Vra5bit Lift Tests
 // ============================================================================
 
-struct Vlshl32LiftTestCase {
-  uint8_t regA;
-  uint8_t imm5;
-  std::string name;
-};
-
 class Vlshl32Vra5bitLiftTest
-    : public ::testing::TestWithParam<Vlshl32LiftTestCase> {};
+    : public ::testing::TestWithParam<RegAImm5TestCase> {};
 
 TEST_P(Vlshl32Vra5bitLiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -409,7 +392,7 @@ TEST_P(Vlshl32Vra5bitLiftTest, HelperFunctionsWork) {
 
 class Vlshl32Vra5bitILTest
     : public ILTestFixture,
-      public ::testing::WithParamInterface<Vlshl32LiftTestCase> {};
+      public ::testing::WithParamInterface<RegAImm5TestCase> {};
 
 // Verify Lift() produces the correct IL tree:
 //   LLIL_SET_REG.d(VRn,
@@ -465,32 +448,24 @@ TEST_P(Vlshl32Vra5bitILTest, GeneratesCorrectIL) {
 }
 
 static const auto vlshl32_test_cases =
-    ::testing::Values(Vlshl32LiftTestCase{0, 0, "VR0_shift0"},
-                      Vlshl32LiftTestCase{4, 16, "VR4_shift16"},
-                      Vlshl32LiftTestCase{7, 31, "VR7_shift31"},
-                      Vlshl32LiftTestCase{2, 1, "VR2_shift1"},
-                      Vlshl32LiftTestCase{5, 15, "VR5_shift15"});
-
-static auto vlshl32_name_gen = [](const auto& info) { return info.param.name; };
+    ::testing::Values(RegAImm5TestCase{0, 0, "VR0_shift0"},
+                      RegAImm5TestCase{4, 16, "VR4_shift16"},
+                      RegAImm5TestCase{7, 31, "VR7_shift31"},
+                      RegAImm5TestCase{2, 1, "VR2_shift1"},
+                      RegAImm5TestCase{5, 15, "VR5_shift15"});
 
 INSTANTIATE_TEST_SUITE_P(Vlshl32Vra5bit, Vlshl32Vra5bitLiftTest,
-                         vlshl32_test_cases, vlshl32_name_gen);
+                         vlshl32_test_cases, NameFromParam{});
 
 INSTANTIATE_TEST_SUITE_P(Vlshl32Vra5bit, Vlshl32Vra5bitILTest,
-                         vlshl32_test_cases, vlshl32_name_gen);
+                         vlshl32_test_cases, NameFromParam{});
 
 // ============================================================================
 // Vlshr32Vra5bit Lift Tests
 // ============================================================================
 
-struct Vlshr32LiftTestCase {
-  uint8_t regA;
-  uint8_t imm5;
-  std::string name;
-};
-
 class Vlshr32Vra5bitLiftTest
-    : public ::testing::TestWithParam<Vlshr32LiftTestCase> {};
+    : public ::testing::TestWithParam<RegAImm5TestCase> {};
 
 TEST_P(Vlshr32Vra5bitLiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -504,7 +479,7 @@ TEST_P(Vlshr32Vra5bitLiftTest, HelperFunctionsWork) {
 
 class Vlshr32Vra5bitILTest
     : public ILTestFixture,
-      public ::testing::WithParamInterface<Vlshr32LiftTestCase> {};
+      public ::testing::WithParamInterface<RegAImm5TestCase> {};
 
 // Verify Lift() produces the correct IL tree:
 //   LLIL_SET_REG.d(VRn,
@@ -560,19 +535,17 @@ TEST_P(Vlshr32Vra5bitILTest, GeneratesCorrectIL) {
 }
 
 static const auto vlshr32_test_cases =
-    ::testing::Values(Vlshr32LiftTestCase{0, 0, "VR0_shift0"},
-                      Vlshr32LiftTestCase{4, 16, "VR4_shift16"},
-                      Vlshr32LiftTestCase{7, 31, "VR7_shift31"},
-                      Vlshr32LiftTestCase{2, 1, "VR2_shift1"},
-                      Vlshr32LiftTestCase{5, 15, "VR5_shift15"});
-
-static auto vlshr32_name_gen = [](const auto& info) { return info.param.name; };
+    ::testing::Values(RegAImm5TestCase{0, 0, "VR0_shift0"},
+                      RegAImm5TestCase{4, 16, "VR4_shift16"},
+                      RegAImm5TestCase{7, 31, "VR7_shift31"},
+                      RegAImm5TestCase{2, 1, "VR2_shift1"},
+                      RegAImm5TestCase{5, 15, "VR5_shift15"});
 
 INSTANTIATE_TEST_SUITE_P(Vlshr32Vra5bit, Vlshr32Vra5bitLiftTest,
-                         vlshr32_test_cases, vlshr32_name_gen);
+                         vlshr32_test_cases, NameFromParam{});
 
 INSTANTIATE_TEST_SUITE_P(Vlshr32Vra5bit, Vlshr32Vra5bitILTest,
-                         vlshr32_test_cases, vlshr32_name_gen);
+                         vlshr32_test_cases, NameFromParam{});
 
 // ============================================================================
 // VCU - Negate Instructions
@@ -582,12 +555,7 @@ INSTANTIATE_TEST_SUITE_P(Vlshr32Vra5bit, Vlshr32Vra5bitILTest,
 // VnegVra Lift Tests
 // ============================================================================
 
-struct VnegVraLiftTestCase {
-  uint8_t regA;  // VRa register index (0-7)
-  std::string name;
-};
-
-class VnegVraLiftTest : public ::testing::TestWithParam<VnegVraLiftTestCase> {};
+class VnegVraLiftTest : public ::testing::TestWithParam<RegATestCase> {};
 
 TEST_P(VnegVraLiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -607,14 +575,11 @@ TEST_P(VnegVraLiftTest, HelperFunctionsWork) {
 // is not possible. The helper function tests above cover operand encoding.
 
 static const auto vneg_test_cases = ::testing::Values(
-    VnegVraLiftTestCase{0, "VR0"}, VnegVraLiftTestCase{1, "VR1"},
-    VnegVraLiftTestCase{3, "VR3"}, VnegVraLiftTestCase{4, "VR4"},
-    VnegVraLiftTestCase{7, "VR7"});
-
-static auto vneg_name_gen = [](const auto& info) { return info.param.name; };
+    RegATestCase{0, "VR0"}, RegATestCase{1, "VR1"}, RegATestCase{3, "VR3"},
+    RegATestCase{4, "VR4"}, RegATestCase{7, "VR7"});
 
 INSTANTIATE_TEST_SUITE_P(VnegVra, VnegVraLiftTest, vneg_test_cases,
-                         vneg_name_gen);
+                         NameFromParam{});
 
 // ============================================================================
 // VCU - Complex Math Instructions
@@ -805,15 +770,8 @@ TEST_F(VcaddVr7Vr6Vr5Vr4ILTest, GeneratesCorrectIL) {
 // Lifted as two straight-line LLIL_INTRINSIC instructions (no branching),
 // so IL tree verification is safe in unit-test contexts.
 
-struct VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase {
-  uint8_t regA;
-  uint8_t mem32;
-  std::string name;
-};
-
 class VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest
-    : public ::testing::TestWithParam<
-          VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase> {};
+    : public ::testing::TestWithParam<RegAMem32TestCase> {};
 
 TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -834,20 +792,16 @@ TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest, HelperFunctionsWork) {
 }
 
 static const auto vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases =
-    ::testing::Values(
-        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{0, 0x00, "VR0_mem_0"},
-        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{1, 0xAB, "VR1_mem_ab"},
-        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{3, 0xFF, "VR3_mem_ff"},
-        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{6, 0x42, "VR6_mem_42"},
-        VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase{7, 0x01, "VR7_mem_01"});
-
-static auto vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen =
-    [](const auto& info) { return info.param.name; };
+    ::testing::Values(RegAMem32TestCase{0, 0x00, "VR0_mem_0"},
+                      RegAMem32TestCase{1, 0xAB, "VR1_mem_ab"},
+                      RegAMem32TestCase{3, 0xFF, "VR3_mem_ff"},
+                      RegAMem32TestCase{6, 0x42, "VR6_mem_42"},
+                      RegAMem32TestCase{7, 0x01, "VR7_mem_01"});
 
 INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32,
                          VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTest,
                          vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases,
-                         vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen);
+                         NameFromParam{});
 
 // IL verification: two IL instructions (non-branching).
 // Instruction 0: vcadd — TIC28X_INTRIN_VCADD (LLIL_INTRINSIC)
@@ -855,8 +809,7 @@ INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32,
 
 class VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest
     : public ILTestFixture,
-      public ::testing::WithParamInterface<
-          VcaddVr5Vr4Vr3Vr2Vmov32VraMem32LiftTestCase> {};
+      public ::testing::WithParamInterface<RegAMem32TestCase> {};
 
 TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest, GeneratesCorrectIL) {
   const auto& tc = GetParam();
@@ -895,7 +848,7 @@ TEST_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest, GeneratesCorrectIL) {
 INSTANTIATE_TEST_SUITE_P(VcaddVr5Vr4Vr3Vr2Vmov32VraMem32,
                          VcaddVr5Vr4Vr3Vr2Vmov32VraMem32ILTest,
                          vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases,
-                         vcadd_vr5_vr4_vr3_vr2_vmov32_vra_mem32_name_gen);
+                         NameFromParam{});
 
 // ============================================================================
 // VccmacVr5Vr4Vr3Vr2Vr1Vr0 Lift Tests
@@ -1001,15 +954,8 @@ TEST_F(VccmacVr5Vr4Vr3Vr2Vr1Vr0ILTest, GeneratesCorrectIL) {
 //
 // Lifted as: VCCMAC intrinsic + VMOV32 parallel load (2 IL instructions).
 
-struct VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTestCase {
-  uint8_t regA;
-  uint8_t mem32;
-  std::string name;
-};
-
 class VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTest
-    : public ::testing::TestWithParam<
-          VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTestCase> {};
+    : public ::testing::TestWithParam<RegAMem32TestCase> {};
 
 TEST_P(VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -1030,26 +976,17 @@ TEST_P(VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTest, HelperFunctionsWork) {
 }
 
 static const auto vccmac_vr5_vr4_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases =
-    ::testing::Values(
-        VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTestCase{0, 0x00,
-                                                           "VR0_mem_0"},
-        VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTestCase{1, 0xAB,
-                                                           "VR1_mem_ab"},
-        VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTestCase{3, 0xFF,
-                                                           "VR3_mem_ff"},
-        VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTestCase{6, 0x42,
-                                                           "VR6_mem_42"},
-        VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTestCase{7, 0x01,
-                                                           "VR7_mem_01"});
-
-static auto vccmac_vr5_vr4_vr3_vr2_vr1_vr0_vmov32_vra_mem32_name_gen =
-    [](const auto& info) { return info.param.name; };
+    ::testing::Values(RegAMem32TestCase{0, 0x00, "VR0_mem_0"},
+                      RegAMem32TestCase{1, 0xAB, "VR1_mem_ab"},
+                      RegAMem32TestCase{3, 0xFF, "VR3_mem_ff"},
+                      RegAMem32TestCase{6, 0x42, "VR6_mem_42"},
+                      RegAMem32TestCase{7, 0x01, "VR7_mem_01"});
 
 INSTANTIATE_TEST_SUITE_P(
     VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32,
     VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTest,
     vccmac_vr5_vr4_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases,
-    vccmac_vr5_vr4_vr3_vr2_vr1_vr0_vmov32_vra_mem32_name_gen);
+    NameFromParam{});
 
 // IL verification: two IL instructions (non-branching).
 // Instruction 0: vccmac — TIC28X_INTRIN_VCCMAC (LLIL_INTRINSIC)
@@ -1057,8 +994,7 @@ INSTANTIATE_TEST_SUITE_P(
 
 class VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32ILTest
     : public ILTestFixture,
-      public ::testing::WithParamInterface<
-          VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32LiftTestCase> {};
+      public ::testing::WithParamInterface<RegAMem32TestCase> {};
 
 TEST_P(VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32ILTest, GeneratesCorrectIL) {
   const auto& tc = GetParam();
@@ -1115,7 +1051,7 @@ INSTANTIATE_TEST_SUITE_P(
     VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32,
     VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32ILTest,
     vccmac_vr5_vr4_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases,
-    vccmac_vr5_vr4_vr3_vr2_vr1_vr0_vmov32_vra_mem32_name_gen);
+    NameFromParam{});
 
 // ============================================================================
 // VCU - General Move Instructions
@@ -1135,14 +1071,8 @@ INSTANTIATE_TEST_SUITE_P(
 // Lifted as a single straight-line LLIL_INTRINSIC (no branching), so IL tree
 // verification is safe in unit-test contexts.
 
-struct Vmov32VraMem32LiftTestCase {
-  uint8_t regA;
-  uint8_t mem32;
-  std::string name;
-};
-
 class Vmov32VraMem32LiftTest
-    : public ::testing::TestWithParam<Vmov32VraMem32LiftTestCase> {};
+    : public ::testing::TestWithParam<RegAMem32TestCase> {};
 
 TEST_P(Vmov32VraMem32LiftTest, HelperFunctionsWork) {
   const auto& tc = GetParam();
@@ -1160,25 +1090,20 @@ TEST_P(Vmov32VraMem32LiftTest, HelperFunctionsWork) {
 }
 
 static const auto vmov32_vra_mem32_test_cases =
-    ::testing::Values(Vmov32VraMem32LiftTestCase{0, 0x00, "VR0_mem_0"},
-                      Vmov32VraMem32LiftTestCase{1, 0xAB, "VR1_mem_ab"},
-                      Vmov32VraMem32LiftTestCase{3, 0xFF, "VR3_mem_ff"},
-                      Vmov32VraMem32LiftTestCase{6, 0x42, "VR6_mem_42"},
-                      Vmov32VraMem32LiftTestCase{7, 0x01, "VR7_mem_01"});
-
-static auto vmov32_vra_mem32_name_gen = [](const auto& info) {
-  return info.param.name;
-};
+    ::testing::Values(RegAMem32TestCase{0, 0x00, "VR0_mem_0"},
+                      RegAMem32TestCase{1, 0xAB, "VR1_mem_ab"},
+                      RegAMem32TestCase{3, 0xFF, "VR3_mem_ff"},
+                      RegAMem32TestCase{6, 0x42, "VR6_mem_42"},
+                      RegAMem32TestCase{7, 0x01, "VR7_mem_01"});
 
 INSTANTIATE_TEST_SUITE_P(Vmov32VraMem32, Vmov32VraMem32LiftTest,
-                         vmov32_vra_mem32_test_cases,
-                         vmov32_vra_mem32_name_gen);
+                         vmov32_vra_mem32_test_cases, NameFromParam{});
 
 // IL verification: single LLIL_SET_REG(LLIL_LOAD(...)) instruction.
 
 class Vmov32VraMem32ILTest
     : public ILTestFixture,
-      public ::testing::WithParamInterface<Vmov32VraMem32LiftTestCase> {};
+      public ::testing::WithParamInterface<RegAMem32TestCase> {};
 
 TEST_P(Vmov32VraMem32ILTest, GeneratesCorrectIL) {
   const auto& tc = GetParam();
@@ -1208,5 +1133,4 @@ TEST_P(Vmov32VraMem32ILTest, GeneratesCorrectIL) {
 }
 
 INSTANTIATE_TEST_SUITE_P(Vmov32VraMem32, Vmov32VraMem32ILTest,
-                         vmov32_vra_mem32_test_cases,
-                         vmov32_vra_mem32_name_gen);
+                         vmov32_vra_mem32_test_cases, NameFromParam{});

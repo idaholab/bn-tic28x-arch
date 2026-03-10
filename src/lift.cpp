@@ -60,38 +60,6 @@ void ClearVstatusOvfr(BN::LowLevelILFunction& il) {
              il.Const(Sizes::_4_BYTES, ~Flags::VStatusBits::OVFR_MASK))));
 }
 
-// Helper to generate LLIL for signed 32-bit saturation
-// Returns IL expression: clamp(value, SAT_MIN_32, SAT_MAX_32)
-// This generates: (value > MAX) ? MAX : ((value < MIN) ? MIN : value)
-BN::ExprId Saturate32Signed(BN::LowLevelILFunction& il, BN::ExprId value) {
-  // For signed saturation, we need to check:
-  // 1. If value > 0x7FFFFFFF (signed), clamp to 0x7FFFFFFF
-  // 2. If value < 0x80000000 (signed), clamp to 0x80000000
-  //
-  // Since we're working with 32-bit values and the shift result fits in 32
-  // bits, we need to detect overflow differently. For a left shift, overflow
-  // occurs when bits are shifted out that differ from the sign bit.
-  //
-  // We'll use a simpler approach: compute in 64-bit, then saturate to 32-bit
-  // bounds. However, Binary Ninja LLIL doesn't have a native saturate
-  // instruction, so we'll implement conditional clamping.
-
-  // Create the saturation bounds as constants
-  auto maxVal = il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MAX_32));
-  auto minVal = il.Const(Sizes::_4_BYTES, static_cast<uint32_t>(SAT_MIN_32));
-
-  // Check if value > MAX (signed comparison)
-  // If so, return MAX; else check if value < MIN, return MIN; else return value
-  // LLIL doesn't have ternary, so we'll just use the raw shift and let analysis
-  // track the saturation state. For a more precise implementation, we'd need
-  // to emit multiple basic blocks with If/Goto.
-
-  // For now, return the value as-is since LLIL doesn't have native saturation.
-  // The saturation bounds would be applied at runtime based on VSTATUS[SAT].
-  // This is a simplification - full implementation would require control flow.
-  return value;
-}
-
 // Helper to detect if a left shift will overflow (for 32-bit signed)
 // Overflow occurs when any bits shifted out differ from the final sign bit
 // For shift by N: check if the top N+1 bits are all 0s or all 1s
@@ -250,14 +218,11 @@ bool Vashl32Vra5bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   // Set OVFR flag if overflow occurred (regardless of saturation mode)
   // VSTATUS.OVFR |= willOverflow
   // This is a conditional OR: if willOverflow, set OVFR
-  BNLowLevelILLabel setOvfrLabel, skipOvfrLabel, finalLabel;
-  il.AddInstruction(il.If(willOverflow, setOvfrLabel, skipOvfrLabel));
+  BNLowLevelILLabel setOvfrLabel, finalLabel;
+  il.AddInstruction(il.If(willOverflow, setOvfrLabel, finalLabel));
 
   il.MarkLabel(setOvfrLabel);
   SetVstatusOvfr(il);
-  il.AddInstruction(il.Goto(finalLabel));
-
-  il.MarkLabel(skipOvfrLabel);
   il.AddInstruction(il.Goto(finalLabel));
 
   il.MarkLabel(finalLabel);
@@ -510,6 +475,17 @@ bool VnegVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 
 // VCU - Complex Math Instructions
 
+// Helper for Lift methods that emit a single fixed-encoding intrinsic call.
+static bool LiftFixedIntrinsic(size_t& len, BN::LowLevelILFunction& il,
+                               size_t instrLen,
+                               std::vector<BN::RegisterOrFlag> outputs,
+                               uint32_t intrinsicId,
+                               std::vector<BN::ExprId> inputs) {
+  len = instrLen;
+  il.AddInstruction(il.Intrinsic(outputs, intrinsicId, inputs));
+  return true;
+}
+
 // VCADD VR5, VR4, VR3, VR2
 // Complex 32+32=32-bit addition.
 // Inputs:  VR5=Re(X), VR4=Im(X), VR3=Re(Y), VR2=Im(Y)
@@ -527,27 +503,16 @@ bool VnegVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 bool VcaddVr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                              BN::LowLevelILFunction& il,
                              TIC28XArchitecture* arch) {
-  len = GetLength();
-
-  // Opcode is fixed (0xE502) — no variable fields to extract.
-  // The instruction implicitly operates on VR5, VR4, VR3, VR2, and VSTATUS.
-
-  // Build the intrinsic call:
-  //   (VR5, VR4, VSTATUS) = vcadd(VR5, VR4, VR3, VR2, VSTATUS)
-  il.AddInstruction(il.Intrinsic(
-      // Outputs: VR5 (Re(Z)), VR4 (Im(Z)), VSTATUS (OVFR/OVFI flags updated)
-      {BN::RegisterOrFlag::Register(Registers::VR5),
-       BN::RegisterOrFlag::Register(Registers::VR4),
-       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-      TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
-      // Inputs: VR5=Re(X), VR4=Im(X), VR3=Re(Y), VR2=Im(Y), VSTATUS
-      {il.Register(Sizes::_4_BYTES, Registers::VR5),
-       il.Register(Sizes::_4_BYTES, Registers::VR4),
-       il.Register(Sizes::_4_BYTES, Registers::VR3),
-       il.Register(Sizes::_4_BYTES, Registers::VR2),
-       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
-
-  return true;
+  return LiftFixedIntrinsic(len, il, GetLength(),
+                            {BN::RegisterOrFlag::Register(Registers::VR5),
+                             BN::RegisterOrFlag::Register(Registers::VR4),
+                             BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                            TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
+                            {il.Register(Sizes::_4_BYTES, Registers::VR5),
+                             il.Register(Sizes::_4_BYTES, Registers::VR4),
+                             il.Register(Sizes::_4_BYTES, Registers::VR3),
+                             il.Register(Sizes::_4_BYTES, Registers::VR2),
+                             il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
 }
 
 // VCADD VR7, VR6, VR5, VR4
@@ -559,27 +524,16 @@ bool VcaddVr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 bool VcaddVr7Vr6Vr5Vr4::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                              BN::LowLevelILFunction& il,
                              TIC28XArchitecture* arch) {
-  len = GetLength();
-
-  // Opcode is fixed (0xE52A) — no variable fields to extract.
-  // The instruction implicitly operates on VR7, VR6, VR5, VR4, and VSTATUS.
-
-  // Build the intrinsic call:
-  //   (VR7, VR6, VSTATUS) = vcadd(VR7, VR6, VR5, VR4, VSTATUS)
-  il.AddInstruction(il.Intrinsic(
-      // Outputs: VR7 (Re(Z)), VR6 (Im(Z)), VSTATUS (OVFR/OVFI flags updated)
-      {BN::RegisterOrFlag::Register(Registers::VR7),
-       BN::RegisterOrFlag::Register(Registers::VR6),
-       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-      TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4,
-      // Inputs: VR7=Re(X), VR6=Im(X), VR5=Re(Y), VR4=Im(Y), VSTATUS
-      {il.Register(Sizes::_4_BYTES, Registers::VR7),
-       il.Register(Sizes::_4_BYTES, Registers::VR6),
-       il.Register(Sizes::_4_BYTES, Registers::VR5),
-       il.Register(Sizes::_4_BYTES, Registers::VR4),
-       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
-
-  return true;
+  return LiftFixedIntrinsic(len, il, GetLength(),
+                            {BN::RegisterOrFlag::Register(Registers::VR7),
+                             BN::RegisterOrFlag::Register(Registers::VR6),
+                             BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                            TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4,
+                            {il.Register(Sizes::_4_BYTES, Registers::VR7),
+                             il.Register(Sizes::_4_BYTES, Registers::VR6),
+                             il.Register(Sizes::_4_BYTES, Registers::VR5),
+                             il.Register(Sizes::_4_BYTES, Registers::VR4),
+                             il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
 }
 
 // VMOV32 VRa, mem32
@@ -633,8 +587,6 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
   len = GetLength();
 
   // === Instruction 1: VCADD complex addition ===
-  // (VR5, VR4, VSTATUS) = vcadd(VR5, VR4, VR3, VR2, VSTATUS)
-  // Semantics are identical to the standalone VCADD instruction.
   il.AddInstruction(
       il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
                     BN::RegisterOrFlag::Register(Registers::VR4),
@@ -647,7 +599,6 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
                     il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
 
   // === Instruction 2: Parallel VMOV32 VRa, mem32 load ===
-  // VRa/mem32 fields are at the same bit positions — delegate to Vmov32VraMem32
   size_t vmov_len;
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
@@ -680,29 +631,20 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
 bool VccmacVr5Vr4Vr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr,
                                     size_t& len, BN::LowLevelILFunction& il,
                                     TIC28XArchitecture* arch) {
-  len = GetLength();
-
-  // Build the intrinsic call:
-  //   (VR5, VR4, VR3, VR2, VSTATUS) =
-  //       vccmac(VR0, VR1, VR2, VR3, VR4, VR5, VSTATUS)
-  il.AddInstruction(il.Intrinsic(
-      // Outputs
-      {BN::RegisterOrFlag::Register(Registers::VR5),
-       BN::RegisterOrFlag::Register(Registers::VR4),
-       BN::RegisterOrFlag::Register(Registers::VR3),
-       BN::RegisterOrFlag::Register(Registers::VR2),
-       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-      TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
-      // Inputs
-      {il.Register(Sizes::_4_BYTES, Registers::VR0),
-       il.Register(Sizes::_4_BYTES, Registers::VR1),
-       il.Register(Sizes::_4_BYTES, Registers::VR2),
-       il.Register(Sizes::_4_BYTES, Registers::VR3),
-       il.Register(Sizes::_4_BYTES, Registers::VR4),
-       il.Register(Sizes::_4_BYTES, Registers::VR5),
-       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
-
-  return true;
+  return LiftFixedIntrinsic(len, il, GetLength(),
+                            {BN::RegisterOrFlag::Register(Registers::VR5),
+                             BN::RegisterOrFlag::Register(Registers::VR4),
+                             BN::RegisterOrFlag::Register(Registers::VR3),
+                             BN::RegisterOrFlag::Register(Registers::VR2),
+                             BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                            TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
+                            {il.Register(Sizes::_4_BYTES, Registers::VR0),
+                             il.Register(Sizes::_4_BYTES, Registers::VR1),
+                             il.Register(Sizes::_4_BYTES, Registers::VR2),
+                             il.Register(Sizes::_4_BYTES, Registers::VR3),
+                             il.Register(Sizes::_4_BYTES, Registers::VR4),
+                             il.Register(Sizes::_4_BYTES, Registers::VR5),
+                             il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
 }
 
 // VCCMAC VR5, VR4, VR3, VR2, VR1, VR0 || VMOV32 VRa, mem32
@@ -724,28 +666,22 @@ bool VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data,
   len = GetLength();
 
   // === Instruction 1: VCCMAC complex conjugate MAC ===
-  // (VR5, VR4, VR3, VR2, VSTATUS) = vccmac(VR0, VR1, VR2, VR3, VR4, VR5,
-  //                                          VSTATUS)
-  // Semantics are identical to the standalone VCCMAC instruction.
-  il.AddInstruction(il.Intrinsic(
-      // Outputs
-      {BN::RegisterOrFlag::Register(Registers::VR5),
-       BN::RegisterOrFlag::Register(Registers::VR4),
-       BN::RegisterOrFlag::Register(Registers::VR3),
-       BN::RegisterOrFlag::Register(Registers::VR2),
-       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-      TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
-      // Inputs
-      {il.Register(Sizes::_4_BYTES, Registers::VR0),
-       il.Register(Sizes::_4_BYTES, Registers::VR1),
-       il.Register(Sizes::_4_BYTES, Registers::VR2),
-       il.Register(Sizes::_4_BYTES, Registers::VR3),
-       il.Register(Sizes::_4_BYTES, Registers::VR4),
-       il.Register(Sizes::_4_BYTES, Registers::VR5),
-       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
+                    BN::RegisterOrFlag::Register(Registers::VR4),
+                    BN::RegisterOrFlag::Register(Registers::VR3),
+                    BN::RegisterOrFlag::Register(Registers::VR2),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
+                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
+                    il.Register(Sizes::_4_BYTES, Registers::VR1),
+                    il.Register(Sizes::_4_BYTES, Registers::VR2),
+                    il.Register(Sizes::_4_BYTES, Registers::VR3),
+                    il.Register(Sizes::_4_BYTES, Registers::VR4),
+                    il.Register(Sizes::_4_BYTES, Registers::VR5),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
 
   // === Instruction 2: Parallel VMOV32 VRa, mem32 load ===
-  // VRa/mem32 fields are at the same bit positions — delegate to Vmov32VraMem32
   size_t vmov_len;
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
