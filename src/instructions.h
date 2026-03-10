@@ -19276,7 +19276,7 @@ class VcaddVr5Vr4Vr3Vr2Vmov32VraMem32 final : public Instruction4Byte {
 };
 
 class VccmacVr5Vr4Vr3Vr2Vr1Vr0 final : public Instruction2Byte {
-public:
+ public:
   VccmacVr5Vr4Vr3Vr2Vr1Vr0() : Instruction2Byte() {}
 
   /* Instruction Data */
@@ -19288,8 +19288,7 @@ public:
   //                      VR4=Im(accum), VR5=Re(accum)
   // VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
   // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
-  static constexpr uint32_t opcode =
-      Opcodes::VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0;
+  static constexpr uint32_t opcode = Opcodes::VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "VccmacVr5Vr4Vr3Vr2Vr1Vr0";
   static constexpr auto mnemonic = "vccmac";

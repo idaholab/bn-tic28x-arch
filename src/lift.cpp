@@ -657,7 +657,8 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
 //
 // Two-phase operation:
 // Phase 1 (accumulate): Adds previous multiply results (VR3, VR2) into
-//   accumulators (VR5, VR4) with optional shift-right and rounding from VSTATUS.
+//   accumulators (VR5, VR4) with optional shift-right and rounding from
+//   VSTATUS.
 //     VR5 = VR5 + round(VR3 >> SHIFTR)   (real accumulation)
 //     VR4 = VR4 + round(VR2 >> SHIFTR)   (imaginary accumulation)
 //
@@ -677,8 +678,8 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
 // across two multiply channels plus two accumulate channels, making inline
 // expansion impractical.  Lifted as a single opaque intrinsic.
 bool VccmacVr5Vr4Vr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr,
-                                      size_t& len, BN::LowLevelILFunction& il,
-                                      TIC28XArchitecture* arch) {
+                                    size_t& len, BN::LowLevelILFunction& il,
+                                    TIC28XArchitecture* arch) {
   len = GetLength();
 
   // Build the intrinsic call:

@@ -493,6 +493,5 @@ TEST(VccmacVr5Vr4Vr3Vr2Vr1Vr0TextTest, FixedRegisters) {
   };
 
   test_architecture_text(TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0::opcode,
-                         TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0::objmode, 0x0,
-                         want);
+                         TIC28X::VccmacVr5Vr4Vr3Vr2Vr1Vr0::objmode, 0x0, want);
 }
