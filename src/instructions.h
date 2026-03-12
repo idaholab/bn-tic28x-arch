@@ -19282,8 +19282,8 @@ class VccmacVr5Vr4Vr3Vr2Vr1Vr0 final : public Instruction2Byte {
   /* Instruction Data */
   // Encoding: 1110 0101 0000 1111 (all bits fixed, no variable fields)
   // Complex Conjugate Multiply and Accumulate
-  // Inputs (implicit): VR0=(X+jX), VR1=(Y+jY), VR2=Im(prev), VR3=Re(prev),
-  //                     VR4=Im(accum), VR5=Re(accum)
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex operand),
+  //                     VR2=Im(prev), VR3=Re(prev), VR4=Im(accum), VR5=Re(accum)
   // Outputs (implicit): VR2=Im(result), VR3=Re(result),
   //                      VR4=Im(accum), VR5=Re(accum)
   // VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
@@ -19323,8 +19323,8 @@ class VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32 final : public Instruction4Byte {
   //     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
   // VRa cannot be VR5 (5), VR4 (4), or VR8 (8).
   // Complex Conjugate Multiply and Accumulate with parallel load.
-  // Inputs (implicit): VR0=(X+jX), VR1=(Y+jY), VR2=Im(prev), VR3=Re(prev),
-  //                     VR4=Im(accum), VR5=Re(accum)
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex operand),
+  //                     VR2=Im(prev), VR3=Re(prev), VR4=Im(accum), VR5=Re(accum)
   // Outputs (implicit): VR2=Im(result), VR3=Re(result),
   //                      VR4=Im(accum), VR5=Re(accum), VRa=[mem32]
   // VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
@@ -19400,6 +19400,43 @@ class VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc final : public Instruction4Byte {
   // mem32: 8-bit memory addressing mode at bits [7:0]
   static uint8_t GetMem32(uint32_t data);
   static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
+class VccmpyVr3Vr2Vr1Vr0 final : public Instruction2Byte {
+ public:
+  VccmpyVr3Vr2Vr1Vr0() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  // Encoding: 1110 0101 0000 1110 (all bits fixed, no variable fields)
+  // Complex Conjugate 16 x 16 = 32-bit Multiply
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex operand)
+  // Outputs (implicit): VR3=Re(Z), VR2=Im(Z)
+  // if(CPACK==0): VR3=VR0H*VR1H+VR0L*VR1L, VR2=VR0H*VR1L-VR0L*VR1H
+  // if(CPACK==1): VR3=VR0L*VR1L+VR0H*VR1H, VR2=VR0L*VR1H-VR0H*VR1L
+  // VSTATUS fields used: CPACK[14]
+  // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
+  static constexpr uint32_t opcode = Opcodes::VCCMPY_VR3_VR2_VR1_VR0;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "VccmpyVr3Vr2Vr1Vr0";
+  static constexpr auto mnemonic = "vccmpy";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
 
   /* Binary Ninja Function Implementations */
   bool Text(const uint8_t* data, uint64_t addr, size_t& len,

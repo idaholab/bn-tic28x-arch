@@ -1254,3 +1254,19 @@ INSTANTIATE_TEST_SUITE_P(
         TestVccmacVr7Vr6Vr5Vr4Mem32Xar7PostincText::ParamType> &info) {
       return std::format("mem{:02x}", info.param.mem32);
     });
+
+// VccmpyVr3Vr2Vr1Vr0 - VCU Complex Conjugate 16x16=32-bit Multiply
+// Format: vccmpy VR3, VR2, VR1, VR0
+// All operands are fixed implicit registers - opcode is an exact match.
+TEST(VccmpyVr3Vr2Vr1Vr0TextTest, FixedRegisters) {
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vccmpy"}, {TextToken, " "},
+      {RegisterToken, "vr3"},       {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},       {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr1"},       {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr0"},
+  };
+
+  test_architecture_text(TIC28X::VccmpyVr3Vr2Vr1Vr0::opcode,
+                         TIC28X::VccmpyVr3Vr2Vr1Vr0::objmode, 0x0, want);
+}

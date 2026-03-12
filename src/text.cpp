@@ -7188,4 +7188,22 @@ bool VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Text(
   return true;
 }
 
+bool VccmpyVr3Vr2Vr1Vr0::Text(
+    const uint8_t* data, uint64_t addr, size_t& len,
+    std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
+  len = GetLength();
+
+  OpText(mnemonic, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR1)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
+
+  return true;
+}
+
 }  // namespace TIC28X

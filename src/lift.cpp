@@ -759,4 +759,36 @@ bool VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Lift(const uint8_t* data,
   return true;
 }
 
+// VCCMPY VR3, VR2, VR1, VR0
+// Complex Conjugate 16x16=32-bit Multiply.
+// Inputs:  VR0 (first complex operand), VR1 (second complex operand)
+// Outputs: VR3=Re(Z), VR2=Im(Z)
+//
+// if(CPACK==0):
+//   VR3 = VR0H*VR1H + VR0L*VR1L  (Re)
+//   VR2 = VR0H*VR1L - VR0L*VR1H  (Im)
+// if(CPACK==1):
+//   VR3 = VR0L*VR1L + VR0H*VR1H  (Re)
+//   VR2 = VR0L*VR1H - VR0H*VR1L  (Im)
+//
+// Flags modified: OVFR (VSTATUS[12]) if VR3 overflows,
+//                 OVFI (VSTATUS[13]) if VR2 overflows
+//
+// Encoding: 0xE50E (all bits fixed, no variable fields)
+//
+// The CPACK-dependent channel ordering and OVFR/OVFI flag updates make inline
+// LLIL expansion impractical.  Lifted as a single opaque intrinsic.
+bool VccmpyVr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                               BN::LowLevelILFunction& il,
+                               TIC28XArchitecture* arch) {
+  return LiftFixedIntrinsic(len, il, GetLength(),
+                            {BN::RegisterOrFlag::Register(Registers::VR3),
+                             BN::RegisterOrFlag::Register(Registers::VR2),
+                             BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                            TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0,
+                            {il.Register(Sizes::_4_BYTES, Registers::VR0),
+                             il.Register(Sizes::_4_BYTES, Registers::VR1),
+                             il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
+}
+
 }  // namespace TIC28X

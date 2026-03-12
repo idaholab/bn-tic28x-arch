@@ -321,6 +321,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "vccmac";
     case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
       return "vccmac";
+    case TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0:
+      return "vccmpy";
     default:
       return "";
   }
@@ -330,7 +332,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
   return {TIC28X_INTRIN_BITREVERSE, TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
           TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4,
           TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
-          TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4};
+          TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4,
+          TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -360,7 +363,8 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
     case TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0:
-      // Inputs: VR0=(X+jX), VR1=(Y+jY), VR2=Im(prev), VR3=Re(prev),
+      // Inputs: VR0 (first complex operand), VR1 (second complex operand),
+      //         VR2=Im(prev), VR3=Re(prev),
       //         VR4=Im(accum), VR5=Re(accum), VSTATUS
       // VSTATUS carries SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
       return {
@@ -370,6 +374,14 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vr3", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vr4", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vr5", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
+    case TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0:
+      // Inputs: VR0 (first complex operand), VR1 (second complex operand), VSTATUS
+      // VSTATUS carries CPACK[14] to select channel ordering
+      return {
+          BN::NameAndType("vr0", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr1", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
     case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
@@ -416,6 +428,10 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
       //          VSTATUS (OVFR/OVFI flags updated)
       return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0:
+      // Outputs: VR3=Re(Z), VR2=Im(Z), VSTATUS (OVFR/OVFI flags updated)
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, false)};
     case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
       // Outputs: VR7=Re(accum2), VR6=Im(accum2), VR5=Re(accum),

@@ -629,6 +629,7 @@ GenerateInstructionVector() {
       std::make_shared<VccmacVr5Vr4Vr3Vr2Vr1Vr0>(),
       std::make_shared<VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32>(),
       std::make_shared<VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc>(),
+      std::make_shared<VccmpyVr3Vr2Vr1Vr0>(),
 
   };
   return vec;
