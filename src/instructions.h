@@ -19362,6 +19362,54 @@ class VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32 final : public Instruction4Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+class VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc final : public Instruction4Byte {
+ public:
+  VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  // Encoding:
+  //   LSW: 1110 0010 0101 0001 = 0xE251 (bits [31:16])
+  //   MSW: 0010 1111 mmmm mmmm (bits [15:0])
+  //     bits [7:0] = mmmm mmmm -> mem32 addressing mode bits
+  // Complex Conjugate Multiply and Accumulate (repeated form)
+  // Must be used with RPT || (single repeat instruction)
+  // Operands: VR7, VR6, VR5, VR4, mem32, *XAR7++
+  // On odd cycles: uses VR5/VR4/VR1/VR0
+  // On even cycles: uses VR7/VR6/VR3/VR2
+  // VR0-VR3 used as temporary storage
+  // *XAR7++ is implicit (XAR7 post-incremented each cycle)
+  // VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
+  // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
+  static constexpr uint32_t opcode =
+      Opcodes::VCCMAC_VR7_VR6_VR5_VR4_MEM32_XAR7_POSTINC;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
+  static constexpr auto full_name = "VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc";
+  static constexpr auto mnemonic = "vccmac";
+  static constexpr bool repeatable = true;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  // mem32: 8-bit memory addressing mode at bits [7:0]
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

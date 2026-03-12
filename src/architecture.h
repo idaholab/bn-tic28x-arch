@@ -29,6 +29,9 @@ enum TIC28XIntrinsic {
   TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0 =
       3,  // Complex conjugate multiply and accumulate (VCCMAC
           // VR5,VR4,VR3,VR2,VR1,VR0)
+  TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4 =
+      4,  // Complex conjugate multiply and accumulate with mem32 load
+          // (VCCMAC VR7,VR6,VR5,VR4,mem32,*XAR7++)
 };
 
 /**

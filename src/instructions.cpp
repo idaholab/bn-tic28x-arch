@@ -628,6 +628,7 @@ GenerateInstructionVector() {
       std::make_shared<VcaddVr5Vr4Vr3Vr2Vmov32VraMem32>(),
       std::make_shared<VccmacVr5Vr4Vr3Vr2Vr1Vr0>(),
       std::make_shared<VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32>(),
+      std::make_shared<VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc>(),
 
   };
   return vec;
@@ -6925,6 +6926,18 @@ uint8_t VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::GetMem32(const uint32_t data) {
 }
 
 uint32_t VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc - mem32 at bits 7-0
+// Encoding:
+//   LSW: 1110 0010 0101 0001 = 0xE251 (bits [31:16])
+//   MSW: 0010 1111 mmmm mmmm (bits [15:0])
+uint8_t VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::SetMem32(const uint8_t mem) {
   return VcuSetMem(opcode, mem);
 }
 

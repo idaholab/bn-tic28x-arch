@@ -1054,6 +1054,154 @@ INSTANTIATE_TEST_SUITE_P(
     NameFromParam{});
 
 // ============================================================================
+// VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc Lift Tests
+// ============================================================================
+//
+// VCCMAC VR7, VR6, VR5, VR4, mem32, *XAR7++
+// 4-byte instruction.  Encoding:
+//   LSW (bits [31:16]): 0xE251 (fixed)
+//   MSW (bits [15:0]):  0010 1111 mmmm mmmm
+//     bits [7:0] = mem32 addressing mode
+//
+// Lifted as a single LLIL_INTRINSIC (vccmac) with mem32 load and XAR7
+// post-increment folded into the intrinsic inputs/outputs.
+
+// Only variable field is mem32, so use a simple struct for test cases.
+struct Mem32TestCase {
+  uint8_t mem32;
+  std::string name;
+};
+
+class VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincLiftTest
+    : public ::testing::TestWithParam<Mem32TestCase> {};
+
+TEST_P(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::SetMem32(tc.mem32);
+
+  // 4-byte instruction
+  EXPECT_EQ(TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc().GetLength(), 4u);
+
+  // GetMem32 round-trips (8-bit field at bits [7:0])
+  EXPECT_EQ(
+      TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::GetMem32(opcode),
+      tc.mem32 & 0xFF);
+}
+
+static const auto vccmac_vr7_vr6_vr5_vr4_mem32_xar7_postinc_test_cases =
+    ::testing::Values(Mem32TestCase{0x00, "mem_00"},
+                      Mem32TestCase{0xAB, "mem_ab"},
+                      Mem32TestCase{0xFF, "mem_ff"},
+                      Mem32TestCase{0x42, "mem_42"},
+                      Mem32TestCase{0x01, "mem_01"});
+
+INSTANTIATE_TEST_SUITE_P(
+    VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc,
+    VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincLiftTest,
+    vccmac_vr7_vr6_vr5_vr4_mem32_xar7_postinc_test_cases,
+    [](const testing::TestParamInfo<
+        VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincLiftTest::ParamType>& info) {
+      return info.param.name;
+    });
+
+// Test that the intrinsic ID and name are correctly registered.
+TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic, IntrinsicIsDefined) {
+  EXPECT_EQ(TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4, 4u);
+}
+
+TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic, IntrinsicName) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac7654-test");
+  EXPECT_EQ(
+      arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4),
+      "vccmac");
+}
+
+TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic, IntrinsicInputCount) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac7654-test");
+  auto inputs = arch->GetIntrinsicInputs(
+      TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4);
+  // VR0-VR7, mem32, XAR7, VSTATUS = 11 inputs
+  ASSERT_EQ(inputs.size(), 11u) << "vccmac vr7654 should have 11 inputs";
+  EXPECT_EQ(inputs[0].name, "vr0");
+  EXPECT_EQ(inputs[7].name, "vr7");
+  EXPECT_EQ(inputs[8].name, "mem32");
+  EXPECT_EQ(inputs[9].name, "xar7");
+  EXPECT_EQ(inputs[10].name, "vstatus");
+}
+
+TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic, IntrinsicOutputCount) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac7654-test");
+  auto outputs = arch->GetIntrinsicOutputs(
+      TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4);
+  // VR7, VR6, VR5, VR4, VR3, VR2, VR1, VR0, VSTATUS = 9 outputs
+  // (XAR7 post-increment is handled explicitly in the lift, not the intrinsic)
+  ASSERT_EQ(outputs.size(), 9u) << "vccmac vr7654 should have 9 outputs";
+}
+
+TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic,
+     GetAllIntrinsicsIncludesVccmac7654) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac7654-test");
+  auto intrinsics = arch->GetAllIntrinsics();
+  EXPECT_NE(std::find(intrinsics.begin(), intrinsics.end(),
+                      TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4),
+            intrinsics.end())
+      << "GetAllIntrinsics should include VCCMAC_VR7_VR6_VR5_VR4";
+}
+
+// IL verification: single LLIL_INTRINSIC instruction (non-branching).
+class VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<Mem32TestCase> {};
+
+TEST_P(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::SetMem32(tc.mem32);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  // Should produce exactly 2 IL instructions:
+  //   0: VCCMAC intrinsic
+  //   1: XAR7 post-increment (XAR7 = XAR7 + 2)
+  ASSERT_EQ(il->GetInstructionCount(), 2u);
+
+  // === Instruction 0: VCCMAC intrinsic ===
+  const auto intrExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrExpr.operation, LLIL_INTRINSIC)
+      << "Instruction 0 should be LLIL_INTRINSIC";
+  EXPECT_EQ(static_cast<uint32_t>(intrExpr.operands[2]),
+            TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4)
+      << "Should use the vccmac vr7654 intrinsic";
+
+  // === Instruction 1: XAR7 = XAR7 + 2 ===
+  const auto setExpr = il->GetRawExpr(il->GetIndexForInstruction(1));
+  EXPECT_EQ(setExpr.operation, LLIL_SET_REG)
+      << "Instruction 1 should be LLIL_SET_REG for XAR7 post-increment";
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc,
+    VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincILTest,
+    vccmac_vr7_vr6_vr5_vr4_mem32_xar7_postinc_test_cases,
+    [](const testing::TestParamInfo<
+        VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincILTest::ParamType>& info) {
+      return info.param.name;
+    });
+
+// ============================================================================
 // VCU - General Move Instructions
 // ============================================================================
 

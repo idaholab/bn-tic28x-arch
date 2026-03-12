@@ -1201,3 +1201,56 @@ INSTANTIATE_TEST_SUITE_P(
         TestVccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32Text::ParamType> &info) {
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
     });
+
+// VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc - VCU Complex Conjugate Multiply and
+// Accumulate (repeated form)
+// Format: vccmac VR7, VR6, VR5, VR4, mem32, *XAR7++
+struct VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase {
+  uint8_t mem32;  // mem32 addressing mode byte
+};
+
+class TestVccmacVr7Vr6Vr5Vr4Mem32Xar7PostincText
+    : public ::testing::TestWithParam<
+          VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase> {};
+
+TEST_P(TestVccmacVr7Vr6Vr5Vr4Mem32Xar7PostincText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::SetMem32(tc.mem32);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vccmac"},
+      {TextToken, " "},
+      {RegisterToken, "vr7"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr6"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr5"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},
+      {OperandSeparatorToken, ", "},
+      {TextToken, "@"},
+      {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
+      {OperandSeparatorToken, ", "},
+      {OperationToken, "*"},
+      {RegisterToken, "xar7"},
+      {OperationToken, "++"},
+  };
+
+  test_architecture_text(
+      opcode, TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc,
+    TestVccmacVr7Vr6Vr5Vr4Mem32Xar7PostincText,
+    ::testing::Values(
+        // Test minimum mem32
+        VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase{0x00},
+        // Test mid-range mem32
+        VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase{0x42},
+        // Test maximum mem32
+        VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase{0xff}),
+    [](const testing::TestParamInfo<
+        TestVccmacVr7Vr6Vr5Vr4Mem32Xar7PostincText::ParamType> &info) {
+      return std::format("mem{:02x}", info.param.mem32);
+    });

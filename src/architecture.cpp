@@ -319,6 +319,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "vcadd";
     case TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0:
       return "vccmac";
+    case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
+      return "vccmac";
     default:
       return "";
   }
@@ -327,7 +329,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
 [[nodiscard]] std::vector<uint32_t> TIC28XArchitecture::GetAllIntrinsics() {
   return {TIC28X_INTRIN_BITREVERSE, TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
           TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4,
-          TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0};
+          TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
+          TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -369,6 +372,26 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vr5", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
+    case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
+      // Inputs: VR0-VR3 (temps), VR4=Im(accum), VR5=Re(accum),
+      //         VR6=Im(accum2), VR7=Re(accum2), mem32 (data),
+      //         XAR7 (pointer for second operand), VSTATUS
+      // VSTATUS carries SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
+      // Note: XAR7 post-increment is handled explicitly in the lift,
+      //       not inside the intrinsic.
+      return {
+          BN::NameAndType("vr0", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr1", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr2", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr3", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr4", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr5", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr6", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr7", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("mem32", BN::Type::IntegerType(4, false)),
+          BN::NameAndType("xar7", BN::Type::IntegerType(4, false)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     default:
       return {};
   }
@@ -392,6 +415,16 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
       // Outputs: VR5=Re(accum), VR4=Im(accum), VR3=Re(mult), VR2=Im(mult),
       //          VSTATUS (OVFR/OVFI flags updated)
       return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
+      // Outputs: VR7=Re(accum2), VR6=Im(accum2), VR5=Re(accum),
+      //          VR4=Im(accum), VR3=Re(mult), VR2=Im(mult),
+      //          VR1=temp, VR0=temp, VSTATUS (OVFR/OVFI flags updated)
+      // Note: XAR7 post-increment is handled explicitly in the lift.
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, false)};
     default:
