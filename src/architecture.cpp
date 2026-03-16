@@ -325,6 +325,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "vccmpy";
     case TIC28X_INTRIN_VCCON_VRA:
       return "vccon";
+    case TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2:
+      return "vcdadd16";
     default:
       return "";
   }
@@ -336,7 +338,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
           TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
           TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4,
           TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0,
-          TIC28X_INTRIN_VCCON_VRA};
+          TIC28X_INTRIN_VCCON_VRA,
+          TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -413,6 +416,16 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("xar7", BN::Type::IntegerType(4, false)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
+    case TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2:
+      // Inputs: VR4 (packed Re/Im 16-bit), VR3=Re(Y) (32-bit),
+      //         VR2=Im(Y) (32-bit), VSTATUS
+      // VSTATUS carries CPACK[14], SHIFTL[9:5], SHIFTR[4:0], RND[11], SAT[10]
+      return {
+          BN::NameAndType("vr4", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr3", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr2", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     default:
       return {};
   }
@@ -455,6 +468,10 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
               BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2:
+      // Outputs: VR5 (packed Re(Z)/Im(Z) 16-bit), VSTATUS (OVFR/OVFI updated)
+      return {BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, false)};
     default:
       return {};

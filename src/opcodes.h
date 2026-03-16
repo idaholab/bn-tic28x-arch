@@ -642,6 +642,7 @@ constexpr uint16_t VCCMPY_VR3_VR2_VR1_VR0 = 0xE50E;
 constexpr uint32_t VCCMPY_VR3_VR2_VR1_VR0_VMOV32_VRA_MEM32 = 0xE3071000;
 constexpr uint32_t VCCMPY_VR3_VR2_VR1_VR0_VMOV32_VRA_MEM32_LOAD = 0xE3F61000;
 constexpr uint16_t VCCON_VRA = 0xE110;
+constexpr uint16_t VCDADD16_VR5_VR4_VR3_VR2 = 0xE504;
 
 // CRC Instructions (TODO)
 

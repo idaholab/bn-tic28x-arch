@@ -889,4 +889,33 @@ bool VcconVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VCDADD16 VR5, VR4, VR3, VR2
+// Complex 16+32=16-bit addition.
+// VR4 contains two packed 16-bit values (Re(X) and Im(X)), channel order
+// depends on VSTATUS[CPACK].  VR3=Re(Y) (32-bit), VR2=Im(Y) (32-bit).
+// Each channel: sign_extend(16-bit) << SHIFTL + 32-bit, then >> SHIFTR with
+// optional rounding (RND) and saturation (SAT) back to 16-bit.
+// Result packed into VR5 (VR5H=Re(Z), VR5L=Im(Z)).
+//
+// VSTATUS fields used: CPACK[14], SHIFTL[9:5], SHIFTR[4:0], RND[11], SAT[10]
+// Flags modified: OVFR (bit 12) if real overflows, OVFI (bit 13) if imag overflows
+//
+// Encoding: 0xE504 (all bits fixed, no variable fields)
+//
+// The CPACK-dependent channel ordering, SHIFTL/SHIFTR, conditional rounding,
+// conditional saturation, and per-channel overflow flags make inline LLIL
+// expansion impractical.  Lifted as a single opaque intrinsic.
+bool Vcdadd16Vr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr,
+                                  size_t& len, BN::LowLevelILFunction& il,
+                                  TIC28XArchitecture* arch) {
+  return LiftFixedIntrinsic(len, il, GetLength(),
+                            {BN::RegisterOrFlag::Register(Registers::VR5),
+                             BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                            TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2,
+                            {il.Register(Sizes::_4_BYTES, Registers::VR4),
+                             il.Register(Sizes::_4_BYTES, Registers::VR3),
+                             il.Register(Sizes::_4_BYTES, Registers::VR2),
+                             il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
+}
+
 }  // namespace TIC28X

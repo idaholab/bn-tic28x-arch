@@ -19593,6 +19593,44 @@ class VcconVra final : public Instruction2Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+class Vcdadd16Vr5Vr4Vr3Vr2 final : public Instruction2Byte {
+ public:
+  Vcdadd16Vr5Vr4Vr3Vr2() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  // Encoding: 1110 0101 0000 0100 (all bits fixed, no variable fields)
+  // Complex 16 + 32 = 16 Addition
+  // Inputs (implicit):
+  //   VR4H = Re(X) (16-bit), VR4L = Im(X) (16-bit)
+  //   VR3 = Re(Y) (32-bit), VR2 = Im(Y) (32-bit)
+  // Outputs (implicit):
+  //   VR5H = Re(Z) = Re(X) + (Re(Y) >> SHIFTR)
+  //   VR5L = Im(Z) = Im(X) + (Im(Y) >> SHIFTR)
+  // VSTATUS fields used: CPACK[14], SHIFTL[9:5], SHIFTR[4:0], RND[11], SAT[10]
+  // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
+  static constexpr uint32_t opcode = Opcodes::VCDADD16_VR5_VR4_VR3_VR2;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
+  static constexpr auto full_name = "Vcdadd16Vr5Vr4Vr3Vr2";
+  static constexpr auto mnemonic = "vcdadd16";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

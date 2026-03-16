@@ -1443,3 +1443,19 @@ INSTANTIATE_TEST_SUITE_P(
     [](const testing::TestParamInfo<TestVcconVraText::ParamType> &info) {
       return std::format("VR{}", info.param.regA);
     });
+
+// Vcdadd16Vr5Vr4Vr3Vr2 - VCU Complex 16+32=16 Addition
+// Format: vcdadd16 VR5, VR4, VR3, VR2
+// All operands are fixed implicit registers - opcode 0xE504 is an exact match.
+TEST(Vcdadd16Vr5Vr4Vr3Vr2TextTest, FixedRegisters) {
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcdadd16"}, {TextToken, " "},
+      {RegisterToken, "vr5"},         {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},         {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr3"},         {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},
+  };
+
+  test_architecture_text(TIC28X::Vcdadd16Vr5Vr4Vr3Vr2::opcode,
+                         TIC28X::Vcdadd16Vr5Vr4Vr3Vr2::objmode, 0x0, want);
+}
