@@ -19553,6 +19553,46 @@ class VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load final : public Instruction4Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+class VcconVra final : public Instruction2Byte {
+ public:
+  VcconVra() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  // Encoding: 1110 0001 0001 aaaa (bits 15-4 fixed, bits 3-0 = VRa)
+  // Complex Conjugate: negates the imaginary part of the complex number in VRa.
+  // if(VSTATUS[CPACK]==0): VRaL = -VRaL (imaginary part in low half)
+  // if(VSTATUS[CPACK]==1): VRaH = -VRaH (imaginary part in high half)
+  // Saturation applies if VSTATUS[SAT]==1.
+  // VRa cannot be VR8.
+  // Flags modified: OVFI (VSTATUS[13])
+  static constexpr uint32_t opcode = Opcodes::VCCON_VRA;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
+  static constexpr auto full_name = "VcconVra";
+  static constexpr auto mnemonic = "vccon";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint16_t data);
+  static uint16_t SetRegA(uint8_t a);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

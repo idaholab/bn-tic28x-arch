@@ -1413,3 +1413,33 @@ INSTANTIATE_TEST_SUITE_P(
         TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadText::ParamType> &info) {
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
     });
+
+// VcconVra - Complex Conjugate
+// Format: vccon VRa
+
+struct VcconVraTestCase {
+  uint8_t regA;
+  std::string regStr;
+};
+
+class TestVcconVraText : public ::testing::TestWithParam<VcconVraTestCase> {};
+
+TEST_P(TestVcconVraText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode = TIC28X::VcconVra::SetRegA(tc.regA);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vccon"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+  };
+
+  test_architecture_text(opcode, TIC28X::VcconVra::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VcconVra, TestVcconVraText,
+    ::testing::Values(VcconVraTestCase{0, "vr0"}, VcconVraTestCase{1, "vr1"},
+                      VcconVraTestCase{4, "vr4"}, VcconVraTestCase{7, "vr7"}),
+    [](const testing::TestParamInfo<TestVcconVraText::ParamType> &info) {
+      return std::format("VR{}", info.param.regA);
+    });

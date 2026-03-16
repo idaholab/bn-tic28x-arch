@@ -35,6 +35,8 @@ enum TIC28XIntrinsic {
   TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0 =
       5,  // Complex conjugate 16x16=32-bit multiply
           // (VCCMPY VR3,VR2,VR1,VR0)
+  TIC28X_INTRIN_VCCON_VRA =
+      6,  // Complex conjugate — negate imaginary part (VCCON VRa)
 };
 
 /**

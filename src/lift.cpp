@@ -870,4 +870,23 @@ bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::Lift(
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
 
+bool VcconVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                    BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint16_t dataOp =
+      static_cast<uint16_t>(DataToOpcode(data, len) & 0xFFFF);
+
+  const uint8_t regIdx = GetRegA(dataOp);
+  const uint8_t vrReg = VrIndexToReg(regIdx);
+
+  il.AddInstruction(il.Intrinsic(
+      {BN::RegisterOrFlag::Register(vrReg),
+       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+      TIC28X_INTRIN_VCCON_VRA,
+      {il.Register(Sizes::_4_BYTES, vrReg),
+       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  return true;
+}
+
 }  // namespace TIC28X

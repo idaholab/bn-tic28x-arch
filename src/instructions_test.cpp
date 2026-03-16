@@ -1722,6 +1722,8 @@ GenerateTestOpcodes() {
            TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::SetMem32(TEST_DATA),
        TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::full_name,
        TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::objmode},
+          {TIC28X::VcconVra::SetRegA(TEST_DATA), TIC28X::VcconVra::full_name,
+           TIC28X::VcconVra::objmode},
 
       };
 

@@ -632,6 +632,7 @@ GenerateInstructionVector() {
       std::make_shared<VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32>(),
       std::make_shared<VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc>(),
       std::make_shared<VccmpyVr3Vr2Vr1Vr0>(),
+      std::make_shared<VcconVra>(),
 
   };
   return vec;
@@ -6983,5 +6984,11 @@ uint8_t VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::GetMem32(const uint32_t data) {
 uint32_t VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::SetMem32(const uint8_t mem) {
   return VcuSetMem(opcode, mem);
 }
+
+// VcconVra - 4-bit VRa at bits 3-0 (2-byte instruction)
+// Encoding: 1110 0001 0001 aaaa (LSW only)
+uint8_t VcconVra::GetRegA(const uint16_t data) { return VcuGetRegA_IV(data); }
+
+uint16_t VcconVra::SetRegA(const uint8_t a) { return VcuSetRegA_IV(opcode, a); }
 
 }  // namespace TIC28X

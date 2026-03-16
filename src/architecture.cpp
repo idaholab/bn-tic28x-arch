@@ -323,6 +323,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "vccmac";
     case TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0:
       return "vccmpy";
+    case TIC28X_INTRIN_VCCON_VRA:
+      return "vccon";
     default:
       return "";
   }
@@ -333,7 +335,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
           TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4,
           TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
           TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4,
-          TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0};
+          TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0,
+          TIC28X_INTRIN_VCCON_VRA};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -384,6 +387,12 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vr1", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
+    case TIC28X_INTRIN_VCCON_VRA:
+      // Inputs: VRa (complex value), VSTATUS (CPACK, SAT bits)
+      return {
+          BN::NameAndType("vra", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
       // Inputs: VR0-VR3 (temps), VR4=Im(accum), VR5=Re(accum),
       //         VR6=Im(accum2), VR7=Re(accum2), mem32 (data),
@@ -432,6 +441,10 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
     case TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0:
       // Outputs: VR3=Re(Z), VR2=Im(Z), VSTATUS (OVFR/OVFI flags updated)
       return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCCON_VRA:
+      // Outputs: VRa (conjugated), VSTATUS (OVFI flag updated)
+      return {BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, false)};
     case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
       // Outputs: VR7=Re(accum2), VR6=Im(accum2), VR5=Re(accum),

@@ -1633,3 +1633,52 @@ TEST_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadILTest, GeneratesCorrectIL) {
 INSTANTIATE_TEST_SUITE_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load,
                          VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadILTest,
                          vccmpy_load_test_cases, NameFromParam{});
+
+// ============================================================================
+// VcconVra — Complex Conjugate
+// ============================================================================
+
+class VcconVraLiftTest : public ::testing::TestWithParam<RegATestCase> {};
+
+TEST_P(VcconVraLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint16_t opcode = TIC28X::VcconVra::SetRegA(tc.regA);
+
+  EXPECT_EQ(TIC28X::VcconVra().GetLength(), 2u);
+  EXPECT_EQ(TIC28X::VcconVra::GetRegA(opcode), tc.regA & 0xF);
+}
+
+class VcconVraILTest : public ILTestFixture,
+                       public ::testing::WithParamInterface<RegATestCase> {};
+
+TEST_P(VcconVraILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint16_t opcode = TIC28X::VcconVra::SetRegA(tc.regA);
+  uint8_t data[2];
+  OpcodeToData2(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VcconVra instr;
+  size_t len = 2;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 2u);
+
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+  EXPECT_EQ(intrinsicExpr.operands[2], TIC28X::TIC28X_INTRIN_VCCON_VRA)
+      << "Should use the VCCON intrinsic";
+}
+
+static const auto vccon_test_cases =
+    ::testing::Values(RegATestCase{0, "VR0"}, RegATestCase{1, "VR1"},
+                      RegATestCase{4, "VR4"}, RegATestCase{7, "VR7"});
+
+INSTANTIATE_TEST_SUITE_P(VcconVra, VcconVraLiftTest, vccon_test_cases,
+                         NameFromParam{});
+
+INSTANTIATE_TEST_SUITE_P(VcconVra, VcconVraILTest, vccon_test_cases,
+                         NameFromParam{});
