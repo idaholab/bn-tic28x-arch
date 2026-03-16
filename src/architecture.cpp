@@ -333,7 +333,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
 }
 
 [[nodiscard]] std::vector<uint32_t> TIC28XArchitecture::GetAllIntrinsics() {
-  return {TIC28X_INTRIN_BITREVERSE, TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
+  return {TIC28X_INTRIN_BITREVERSE,
+          TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
           TIC28X_INTRIN_VCADD_VR7_VR6_VR5_VR4,
           TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
           TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4,
@@ -383,8 +384,8 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
     case TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0:
-      // Inputs: VR0 (first complex operand), VR1 (second complex operand), VSTATUS
-      // VSTATUS carries CPACK[14] to select channel ordering
+      // Inputs: VR0 (first complex operand), VR1 (second complex operand),
+      // VSTATUS VSTATUS carries CPACK[14] to select channel ordering
       return {
           BN::NameAndType("vr0", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vr1", BN::Type::IntegerType(4, true)),
@@ -457,8 +458,7 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
               BN::Type::IntegerType(4, false)};
     case TIC28X_INTRIN_VCCON_VRA:
       // Outputs: VRa (conjugated), VSTATUS (OVFI flag updated)
-      return {BN::Type::IntegerType(4, true),
-              BN::Type::IntegerType(4, false)};
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, false)};
     case TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4:
       // Outputs: VR7=Re(accum2), VR6=Im(accum2), VR5=Re(accum),
       //          VR4=Im(accum), VR3=Re(mult), VR2=Im(mult),
@@ -471,8 +471,7 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
               BN::Type::IntegerType(4, false)};
     case TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2:
       // Outputs: VR5 (packed Re(Z)/Im(Z) 16-bit), VSTATUS (OVFR/OVFI updated)
-      return {BN::Type::IntegerType(4, true),
-              BN::Type::IntegerType(4, false)};
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, false)};
     default:
       return {};
   }

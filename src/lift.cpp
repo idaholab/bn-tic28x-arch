@@ -737,9 +737,9 @@ bool VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data,
 //   MSW: 0010 1111 mmmm mmmm (bits [15:0])
 //     bits [7:0] = mem32 addressing mode
 bool VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Lift(const uint8_t* data,
-                                               uint64_t addr, size_t& len,
-                                               BN::LowLevelILFunction& il,
-                                               TIC28XArchitecture* arch) {
+                                              uint64_t addr, size_t& len,
+                                              BN::LowLevelILFunction& il,
+                                              TIC28XArchitecture* arch) {
   len = GetLength();
   const uint32_t dataOp = DataToOpcode(data, len);
   const uint8_t mem32 = GetMem32(dataOp);
@@ -801,8 +801,8 @@ bool VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Lift(const uint8_t* data,
 // The CPACK-dependent channel ordering and OVFR/OVFI flag updates make inline
 // LLIL expansion impractical.  Lifted as a single opaque intrinsic.
 bool VccmpyVr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr, size_t& len,
-                               BN::LowLevelILFunction& il,
-                               TIC28XArchitecture* arch) {
+                              BN::LowLevelILFunction& il,
+                              TIC28XArchitecture* arch) {
   return LiftFixedIntrinsic(len, il, GetLength(),
                             {BN::RegisterOrFlag::Register(Registers::VR3),
                              BN::RegisterOrFlag::Register(Registers::VR2),
@@ -830,9 +830,9 @@ bool VccmpyVr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 //     bits [11:8] = aaaa -> VRa index (value to store)
 //     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
 bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
-                                             size_t& len,
-                                             BN::LowLevelILFunction& il,
-                                             TIC28XArchitecture* arch) {
+                                            size_t& len,
+                                            BN::LowLevelILFunction& il,
+                                            TIC28XArchitecture* arch) {
   len = GetLength();
 
   // === Instruction 1: VCCMPY complex conjugate multiply ===
@@ -850,9 +850,10 @@ bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
   return Vmov32Mem32Vra{}.Lift(data, addr, vmov_len, il, arch);
 }
 
-bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::Lift(
-    const uint8_t* data, uint64_t addr, size_t& len,
-    BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::Lift(const uint8_t* data,
+                                                uint64_t addr, size_t& len,
+                                                BN::LowLevelILFunction& il,
+                                                TIC28XArchitecture* arch) {
   len = GetLength();
 
   // === Instruction 1: VCCMPY complex conjugate multiply ===
@@ -879,12 +880,12 @@ bool VcconVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   const uint8_t regIdx = GetRegA(dataOp);
   const uint8_t vrReg = VrIndexToReg(regIdx);
 
-  il.AddInstruction(il.Intrinsic(
-      {BN::RegisterOrFlag::Register(vrReg),
-       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-      TIC28X_INTRIN_VCCON_VRA,
-      {il.Register(Sizes::_4_BYTES, vrReg),
-       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(vrReg),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCCON_VRA,
+                   {il.Register(Sizes::_4_BYTES, vrReg),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
 
   return true;
 }
@@ -898,16 +899,17 @@ bool VcconVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 // Result packed into VR5 (VR5H=Re(Z), VR5L=Im(Z)).
 //
 // VSTATUS fields used: CPACK[14], SHIFTL[9:5], SHIFTR[4:0], RND[11], SAT[10]
-// Flags modified: OVFR (bit 12) if real overflows, OVFI (bit 13) if imag overflows
+// Flags modified: OVFR (bit 12) if real overflows, OVFI (bit 13) if imag
+// overflows
 //
 // Encoding: 0xE504 (all bits fixed, no variable fields)
 //
 // The CPACK-dependent channel ordering, SHIFTL/SHIFTR, conditional rounding,
 // conditional saturation, and per-channel overflow flags make inline LLIL
 // expansion impractical.  Lifted as a single opaque intrinsic.
-bool Vcdadd16Vr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr,
-                                  size_t& len, BN::LowLevelILFunction& il,
-                                  TIC28XArchitecture* arch) {
+bool Vcdadd16Vr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                                BN::LowLevelILFunction& il,
+                                TIC28XArchitecture* arch) {
   return LiftFixedIntrinsic(len, il, GetLength(),
                             {BN::RegisterOrFlag::Register(Registers::VR5),
                              BN::RegisterOrFlag::Register(Registers::VSTATUS)},

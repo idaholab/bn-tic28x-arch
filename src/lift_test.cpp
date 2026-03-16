@@ -1084,17 +1084,15 @@ TEST_P(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincLiftTest, HelperFunctionsWork) {
   EXPECT_EQ(TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc().GetLength(), 4u);
 
   // GetMem32 round-trips (8-bit field at bits [7:0])
-  EXPECT_EQ(
-      TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::GetMem32(opcode),
-      tc.mem32 & 0xFF);
+  EXPECT_EQ(TIC28X::VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::GetMem32(opcode),
+            tc.mem32 & 0xFF);
 }
 
 static const auto vccmac_vr7_vr6_vr5_vr4_mem32_xar7_postinc_test_cases =
-    ::testing::Values(Mem32TestCase{0x00, "mem_00"},
-                      Mem32TestCase{0xAB, "mem_ab"},
-                      Mem32TestCase{0xFF, "mem_ff"},
-                      Mem32TestCase{0x42, "mem_42"},
-                      Mem32TestCase{0x01, "mem_01"});
+    ::testing::Values(
+        Mem32TestCase{0x00, "mem_00"}, Mem32TestCase{0xAB, "mem_ab"},
+        Mem32TestCase{0xFF, "mem_ff"}, Mem32TestCase{0x42, "mem_42"},
+        Mem32TestCase{0x01, "mem_01"});
 
 INSTANTIATE_TEST_SUITE_P(
     VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc,
@@ -1121,8 +1119,8 @@ TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic, IntrinsicName) {
 TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic, IntrinsicInputCount) {
   auto arch =
       std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac7654-test");
-  auto inputs = arch->GetIntrinsicInputs(
-      TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4);
+  auto inputs =
+      arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4);
   // VR0-VR7, mem32, XAR7, VSTATUS = 11 inputs
   ASSERT_EQ(inputs.size(), 11u) << "vccmac vr7654 should have 11 inputs";
   EXPECT_EQ(inputs[0].name, "vr0");
@@ -1135,8 +1133,8 @@ TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic, IntrinsicInputCount) {
 TEST(VccmacVr7Vr6Vr5Vr4Mem32Xar7PostincIntrinsic, IntrinsicOutputCount) {
   auto arch =
       std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmac7654-test");
-  auto outputs = arch->GetIntrinsicOutputs(
-      TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4);
+  auto outputs =
+      arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCCMAC_VR7_VR6_VR5_VR4);
   // VR7, VR6, VR5, VR4, VR3, VR2, VR1, VR0, VSTATUS = 9 outputs
   // (XAR7 post-increment is handled explicitly in the lift, not the intrinsic)
   ASSERT_EQ(outputs.size(), 9u) << "vccmac vr7654 should have 9 outputs";
@@ -1290,10 +1288,10 @@ INSTANTIATE_TEST_SUITE_P(Vmov32VraMem32, Vmov32VraMem32ILTest,
 // VMOV32 mem32, VRa — Store VRa into memory location mem32.
 // 4-byte instruction with RegA (4-bit VRa) and Mem32 (8-bit address).
 
-static const auto vmov32_mem32_vra_test_cases = ::testing::Values(
-    RegAMem32TestCase{0, 0, "VR0_mem0"},
-    RegAMem32TestCase{7, 0xFF, "VR7_mem255"},
-    RegAMem32TestCase{3, 0x42, "VR3_mem66"});
+static const auto vmov32_mem32_vra_test_cases =
+    ::testing::Values(RegAMem32TestCase{0, 0, "VR0_mem0"},
+                      RegAMem32TestCase{7, 0xFF, "VR7_mem255"},
+                      RegAMem32TestCase{3, 0x42, "VR3_mem66"});
 
 class Vmov32Mem32VraLiftTest
     : public ::testing::TestWithParam<RegAMem32TestCase> {};
@@ -1377,16 +1375,16 @@ TEST(VccmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicIsDefined) {
 TEST(VccmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicName) {
   auto arch =
       std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmpy-test");
-  EXPECT_EQ(arch->GetIntrinsicName(
-                TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0),
-            "vccmpy");
+  EXPECT_EQ(
+      arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0),
+      "vccmpy");
 }
 
 TEST(VccmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicInputCount) {
   auto arch =
       std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmpy-test");
-  auto inputs = arch->GetIntrinsicInputs(
-      TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0);
+  auto inputs =
+      arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0);
   // VR0, VR1, VSTATUS
   ASSERT_EQ(inputs.size(), 3u) << "vccmpy should have 3 inputs";
   EXPECT_EQ(inputs[0].name, "vr0");
@@ -1397,8 +1395,8 @@ TEST(VccmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicInputCount) {
 TEST(VccmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicOutputCount) {
   auto arch =
       std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vccmpy-test");
-  auto outputs = arch->GetIntrinsicOutputs(
-      TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0);
+  auto outputs =
+      arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0);
   // VR3 (Re result), VR2 (Im result), VSTATUS (flag updates)
   ASSERT_EQ(outputs.size(), 3u) << "vccmpy should have 3 outputs";
 }
@@ -1701,16 +1699,16 @@ TEST(Vcdadd16Vr5Vr4Vr3Vr2Intrinsic, IntrinsicIsDefined) {
 TEST(Vcdadd16Vr5Vr4Vr3Vr2Intrinsic, IntrinsicName) {
   auto arch =
       std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcdadd16-test");
-  EXPECT_EQ(arch->GetIntrinsicName(
-                TIC28X::TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2),
-            "vcdadd16");
+  EXPECT_EQ(
+      arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2),
+      "vcdadd16");
 }
 
 TEST(Vcdadd16Vr5Vr4Vr3Vr2Intrinsic, IntrinsicInputCount) {
   auto arch =
       std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcdadd16-test");
-  auto inputs = arch->GetIntrinsicInputs(
-      TIC28X::TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2);
+  auto inputs =
+      arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2);
   // VR4, VR3, VR2, VSTATUS
   ASSERT_EQ(inputs.size(), 4u) << "vcdadd16 should have 4 inputs";
   EXPECT_EQ(inputs[0].name, "vr4");
@@ -1722,8 +1720,8 @@ TEST(Vcdadd16Vr5Vr4Vr3Vr2Intrinsic, IntrinsicInputCount) {
 TEST(Vcdadd16Vr5Vr4Vr3Vr2Intrinsic, IntrinsicOutputCount) {
   auto arch =
       std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcdadd16-test");
-  auto outputs = arch->GetIntrinsicOutputs(
-      TIC28X::TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2);
+  auto outputs =
+      arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2);
   // VR5 (packed result), VSTATUS (flag updates)
   ASSERT_EQ(outputs.size(), 2u) << "vcdadd16 should have 2 outputs";
 }

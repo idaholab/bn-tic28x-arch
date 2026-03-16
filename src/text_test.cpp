@@ -1350,8 +1350,7 @@ TEST_P(TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text, TestInstructionText) {
 }
 
 INSTANTIATE_TEST_SUITE_P(
-    VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32,
-    TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text,
+    VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32, TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text,
     ::testing::Values(
         // Test VR0 (minimum register, minimum mem32)
         VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{0, 0x00, "vr0"},
@@ -1398,17 +1397,15 @@ TEST_P(TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadText, TestInstructionText) {
   };
 
   test_architecture_text(
-      opcode, TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::objmode, 0x0,
-      want);
+      opcode, TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::objmode, 0x0, want);
 }
 
 INSTANTIATE_TEST_SUITE_P(
     VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load,
     TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadText,
-    ::testing::Values(
-        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{0, 0x00, "vr0"},
-        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{1, 0x42, "vr1"},
-        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{7, 0xff, "vr7"}),
+    ::testing::Values(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{0, 0x00, "vr0"},
+                      VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{1, 0x42, "vr1"},
+                      VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{7, 0xff, "vr7"}),
     [](const testing::TestParamInfo<
         TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadText::ParamType> &info) {
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);

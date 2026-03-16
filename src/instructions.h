@@ -19284,8 +19284,10 @@ class VccmacVr5Vr4Vr3Vr2Vr1Vr0 final : public Instruction2Byte {
   /* Instruction Data */
   // Encoding: 1110 0101 0000 1111 (all bits fixed, no variable fields)
   // Complex Conjugate Multiply and Accumulate
-  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex operand),
-  //                     VR2=Im(prev), VR3=Re(prev), VR4=Im(accum), VR5=Re(accum)
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex
+  // operand),
+  //                     VR2=Im(prev), VR3=Re(prev), VR4=Im(accum),
+  //                     VR5=Re(accum)
   // Outputs (implicit): VR2=Im(result), VR3=Re(result),
   //                      VR4=Im(accum), VR5=Re(accum)
   // VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
@@ -19325,8 +19327,10 @@ class VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32 final : public Instruction4Byte {
   //     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
   // VRa cannot be VR5 (5), VR4 (4), or VR8 (8).
   // Complex Conjugate Multiply and Accumulate with parallel load.
-  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex operand),
-  //                     VR2=Im(prev), VR3=Re(prev), VR4=Im(accum), VR5=Re(accum)
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex
+  // operand),
+  //                     VR2=Im(prev), VR3=Re(prev), VR4=Im(accum),
+  //                     VR5=Re(accum)
   // Outputs (implicit): VR2=Im(result), VR3=Re(result),
   //                      VR4=Im(accum), VR5=Re(accum), VRa=[mem32]
   // VSTATUS fields used: SHIFTR[4:0], RND[11], SAT[10], CPACK[14]
@@ -19419,12 +19423,11 @@ class VccmpyVr3Vr2Vr1Vr0 final : public Instruction2Byte {
   /* Instruction Data */
   // Encoding: 1110 0101 0000 1110 (all bits fixed, no variable fields)
   // Complex Conjugate 16 x 16 = 32-bit Multiply
-  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex operand)
-  // Outputs (implicit): VR3=Re(Z), VR2=Im(Z)
-  // if(CPACK==0): VR3=VR0H*VR1H+VR0L*VR1L, VR2=VR0H*VR1L-VR0L*VR1H
-  // if(CPACK==1): VR3=VR0L*VR1L+VR0H*VR1H, VR2=VR0L*VR1H-VR0H*VR1L
-  // VSTATUS fields used: CPACK[14]
-  // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex
+  // operand) Outputs (implicit): VR3=Re(Z), VR2=Im(Z) if(CPACK==0):
+  // VR3=VR0H*VR1H+VR0L*VR1L, VR2=VR0H*VR1L-VR0L*VR1H if(CPACK==1):
+  // VR3=VR0L*VR1L+VR0H*VR1H, VR2=VR0L*VR1H-VR0H*VR1L VSTATUS fields used:
+  // CPACK[14] Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
   static constexpr uint32_t opcode = Opcodes::VCCMPY_VR3_VR2_VR1_VR0;
   static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFF;
   static constexpr auto full_name = "VccmpyVr3Vr2Vr1Vr0";
@@ -19461,8 +19464,8 @@ class VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32 final : public Instruction4Byte {
   //     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
   // VRa cannot be VR3 (3), VR2 (2), or VR8 (8).
   // Complex Conjugate 16 x 16 = 32-bit Multiply with parallel 32-bit store.
-  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex operand)
-  // Outputs (implicit): VR3=Re(Z), VR2=Im(Z), [mem32]=VRa
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex
+  // operand) Outputs (implicit): VR3=Re(Z), VR2=Im(Z), [mem32]=VRa
   // if(CPACK==0): VR3=VR0H*VR1H+VR0L*VR1L, VR2=VR0H*VR1L-VR0L*VR1H
   // if(CPACK==1): VR3=VR0L*VR1L+VR0H*VR1H, VR2=VR0L*VR1H-VR0H*VR1L
   // [mem32] = VRa
@@ -19513,8 +19516,8 @@ class VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load final : public Instruction4Byte {
   //     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
   // VRa cannot be VR3 (3), VR2 (2), or VR8 (8).
   // Complex Conjugate 16 x 16 = 32-bit Multiply with parallel 32-bit load.
-  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex operand)
-  // Outputs (implicit): VR3=Re(Z), VR2=Im(Z), VRa=[mem32]
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex
+  // operand) Outputs (implicit): VR3=Re(Z), VR2=Im(Z), VRa=[mem32]
   // if(CPACK==0): VR3=VR0H*VR1H+VR0L*VR1L, VR2=VR0H*VR1L-VR0L*VR1H
   // if(CPACK==1): VR3=VR0L*VR1L+VR0H*VR1H, VR2=VR0L*VR1H-VR0H*VR1L
   // VRa = [mem32]

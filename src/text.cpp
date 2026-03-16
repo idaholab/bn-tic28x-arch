@@ -7207,9 +7207,9 @@ bool VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Text(
   return true;
 }
 
-bool VccmpyVr3Vr2Vr1Vr0::Text(
-    const uint8_t* data, uint64_t addr, size_t& len,
-    std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
+bool VccmpyVr3Vr2Vr1Vr0::Text(const uint8_t* data, uint64_t addr, size_t& len,
+                              std::vector<BN::InstructionTextToken>& result,
+                              const AddressMode amode) {
   len = GetLength();
 
   OpText(mnemonic, result);
@@ -7284,10 +7284,9 @@ bool VcconVra::Text(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
-bool Vcdadd16Vr5Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr,
-                                  size_t& len,
-                                  std::vector<BN::InstructionTextToken>& result,
-                                  const AddressMode amode) {
+bool Vcdadd16Vr5Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
+                                std::vector<BN::InstructionTextToken>& result,
+                                const AddressMode amode) {
   len = GetLength();
 
   OpText(mnemonic, result);
