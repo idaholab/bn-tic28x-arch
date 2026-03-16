@@ -7247,4 +7247,26 @@ bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Text(
   return Vmov32Mem32Vra{}.Text(data, addr, vmov_len, result, amode);
 }
 
+bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::Text(
+    const uint8_t* data, uint64_t addr, size_t& len,
+    std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
+  len = GetLength();
+
+  // "vccmpy VR3, VR2, VR1, VR0"
+  OpText(mnemonic, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR1)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
+
+  // " || vmov32 VRa, mem32" — delegate to standalone load instruction
+  ParallelText(result);
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
+}
+
 }  // namespace TIC28X

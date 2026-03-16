@@ -850,4 +850,24 @@ bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
   return Vmov32Mem32Vra{}.Lift(data, addr, vmov_len, il, arch);
 }
 
+bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::Lift(
+    const uint8_t* data, uint64_t addr, size_t& len,
+    BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // === Instruction 1: VCCMPY complex conjugate multiply ===
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR3),
+                    BN::RegisterOrFlag::Register(Registers::VR2),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0,
+                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
+                    il.Register(Sizes::_4_BYTES, Registers::VR1),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  // === Instruction 2: Parallel VMOV32 VRa = [mem32] (load) ===
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
+}
+
 }  // namespace TIC28X

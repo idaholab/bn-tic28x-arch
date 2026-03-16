@@ -1545,3 +1545,91 @@ INSTANTIATE_TEST_SUITE_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32,
                          VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32ILTest,
                          vccmpy_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases,
                          NameFromParam{});
+
+// ============================================================================
+// VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load — Complex Conjugate Multiply with
+// Parallel Load
+// ============================================================================
+
+class VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadLiftTest
+    : public ::testing::TestWithParam<RegAMem32TestCase> {};
+
+TEST_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::SetRegA(tc.regA) |
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::SetMem32(tc.mem32);
+
+  EXPECT_EQ(TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load().GetLength(), 4u);
+  EXPECT_EQ(TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::GetRegA(opcode),
+            tc.regA & 0xF);
+  EXPECT_EQ(TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::GetMem32(opcode),
+            tc.mem32 & 0xFF);
+}
+
+static const auto vccmpy_load_test_cases =
+    ::testing::Values(RegAMem32TestCase{0, 0x00, "VR0_mem_0"},
+                      RegAMem32TestCase{1, 0xAB, "VR1_mem_ab"},
+                      RegAMem32TestCase{4, 0xFF, "VR4_mem_ff"},
+                      RegAMem32TestCase{6, 0x42, "VR6_mem_42"},
+                      RegAMem32TestCase{7, 0x01, "VR7_mem_01"});
+
+INSTANTIATE_TEST_SUITE_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load,
+                         VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadLiftTest,
+                         vccmpy_load_test_cases, NameFromParam{});
+
+// IL verification: two IL instructions (non-branching).
+// Instruction 0: vccmpy — TIC28X_INTRIN_VCCMPY (LLIL_INTRINSIC)
+// Instruction 1: parallel VMOV32 — LLIL_SET_REG(VRa, Load([mem32]))
+
+class VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<RegAMem32TestCase> {};
+
+TEST_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::SetRegA(tc.regA) |
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::SetMem32(tc.mem32);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  // Should produce exactly 2 IL instructions
+  ASSERT_EQ(il->GetInstructionCount(), 2u);
+
+  // === Instruction 0: VCCMPY intrinsic ===
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+  EXPECT_EQ(intrinsicExpr.operands[2],
+            TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0)
+      << "First instruction should be the vccmpy intrinsic";
+
+  // === Instruction 1: Parallel VMOV32 VRa = [mem32] — SetReg(VRa, Load) ===
+  const auto setRegExpr = il->GetRawExpr(il->GetIndexForInstruction(1));
+  EXPECT_EQ(setRegExpr.operation, LLIL_SET_REG)
+      << "Second instruction should be LLIL_SET_REG";
+
+  // Destination register: VRa
+  const uint8_t expectedVrReg =
+      static_cast<uint8_t>(TIC28X::Registers::VR0 + (tc.regA & 0xF));
+  EXPECT_EQ(setRegExpr.operands[0], expectedVrReg);
+
+  // Source: LLIL_LOAD from LLIL_CONST(mem32)
+  const auto loadExpr = il->GetRawExpr(setRegExpr.operands[1]);
+  EXPECT_EQ(loadExpr.operation, LLIL_LOAD);
+  const auto addrExpr = il->GetRawExpr(loadExpr.operands[0]);
+  EXPECT_EQ(addrExpr.operation, LLIL_CONST);
+  EXPECT_EQ(addrExpr.operands[0], tc.mem32 & 0xFF);
+}
+
+INSTANTIATE_TEST_SUITE_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load,
+                         VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadILTest,
+                         vccmpy_load_test_cases, NameFromParam{});

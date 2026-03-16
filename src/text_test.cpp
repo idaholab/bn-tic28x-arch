@@ -1363,3 +1363,53 @@ INSTANTIATE_TEST_SUITE_P(
         TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text::ParamType> &info) {
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
     });
+
+// VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load - Complex Conjugate Multiply with
+// Parallel Load
+// Format: vccmpy VR3, VR2, VR1, VR0 || vmov32 VRa, mem32
+
+class TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadText
+    : public ::testing::TestWithParam<
+          VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase> {};
+
+TEST_P(TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::SetRegA(tc.regA) |
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::SetMem32(tc.mem32);
+  // Load direction: vmov32 VRa, mem32 (register before mem32)
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vccmpy"},
+      {TextToken, " "},
+      {RegisterToken, "vr3"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr1"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr0"},
+      {TextToken, " || "},
+      {InstructionToken, "vmov32"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+      {OperandSeparatorToken, ", "},
+      {TextToken, "@"},
+      {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
+  };
+
+  test_architecture_text(
+      opcode, TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::objmode, 0x0,
+      want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load,
+    TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadText,
+    ::testing::Values(
+        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{0, 0x00, "vr0"},
+        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{1, 0x42, "vr1"},
+        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{7, 0xff, "vr7"}),
+    [](const testing::TestParamInfo<
+        TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LoadText::ParamType> &info) {
+      return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
+    });
