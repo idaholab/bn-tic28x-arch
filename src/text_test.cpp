@@ -1029,6 +1029,42 @@ INSTANTIATE_TEST_SUITE_P(
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
     });
 
+// Vmov32Mem32Vra - VCU Store 32-bit register to memory
+// Format: vmov32 @mem32, VRa
+struct Vmov32Mem32VraTestCase {
+  uint8_t regA;
+  uint8_t mem32;
+  std::string regStr;
+};
+
+class TestVmov32Mem32VraText
+    : public ::testing::TestWithParam<Vmov32Mem32VraTestCase> {};
+
+TEST_P(TestVmov32Mem32VraText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode = TIC28X::Vmov32Mem32Vra::SetRegA(tc.regA) |
+                          TIC28X::Vmov32Mem32Vra::SetMem32(tc.mem32);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vmov32"},
+      {TextToken, " "},
+      {TextToken, "@"},
+      {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, tc.regStr},
+  };
+  test_architecture_text(opcode, TIC28X::Vmov32Mem32Vra::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    Vmov32Mem32Vra, TestVmov32Mem32VraText,
+    ::testing::Values(Vmov32Mem32VraTestCase{0, 0x00, "vr0"},
+                      Vmov32Mem32VraTestCase{1, 0x42, "vr1"},
+                      Vmov32Mem32VraTestCase{7, 0xff, "vr7"},
+                      Vmov32Mem32VraTestCase{8, 0x10, "vr8"}),
+    [](const testing::TestParamInfo<TestVmov32Mem32VraText::ParamType> &info) {
+      return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
+    });
+
 // ============================================================================
 // VCU - Complex Math Instructions
 // ============================================================================
@@ -1270,3 +1306,60 @@ TEST(VccmpyVr3Vr2Vr1Vr0TextTest, FixedRegisters) {
   test_architecture_text(TIC28X::VccmpyVr3Vr2Vr1Vr0::opcode,
                          TIC28X::VccmpyVr3Vr2Vr1Vr0::objmode, 0x0, want);
 }
+
+// VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32 - VCU Complex Conjugate Multiply with
+// parallel 32-bit store
+// Format: vccmpy VR3, VR2, VR1, VR0 || vmov32 mem32, VRa
+struct VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase {
+  uint8_t regA;        // VRa register index (0-7)
+  uint8_t mem32;       // mem32 addressing mode byte
+  std::string regStr;  // expected register string (e.g. "vr0")
+};
+
+class TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text
+    : public ::testing::TestWithParam<
+          VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase> {};
+
+TEST_P(TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(tc.mem32);
+  // Store direction: vmov32 mem32, VRa (mem32 before register)
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vccmpy"},
+      {TextToken, " "},
+      {RegisterToken, "vr3"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr1"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr0"},
+      {TextToken, " || "},
+      {InstructionToken, "vmov32"},
+      {TextToken, " "},
+      {TextToken, "@"},
+      {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, tc.regStr},
+  };
+
+  test_architecture_text(
+      opcode, TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32,
+    TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text,
+    ::testing::Values(
+        // Test VR0 (minimum register, minimum mem32)
+        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{0, 0x00, "vr0"},
+        // Test VR1 (mid-range mem32)
+        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{1, 0x42, "vr1"},
+        // Test VR7 (maximum register, maximum mem32)
+        VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase{7, 0xff, "vr7"}),
+    [](const testing::TestParamInfo<
+        TestVccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text::ParamType> &info) {
+      return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
+    });

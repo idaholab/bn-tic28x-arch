@@ -1284,6 +1284,82 @@ INSTANTIATE_TEST_SUITE_P(Vmov32VraMem32, Vmov32VraMem32ILTest,
                          vmov32_vra_mem32_test_cases, NameFromParam{});
 
 // ============================================================================
+// Vmov32Mem32Vra Lift Tests
+// ============================================================================
+//
+// VMOV32 mem32, VRa — Store VRa into memory location mem32.
+// 4-byte instruction with RegA (4-bit VRa) and Mem32 (8-bit address).
+
+static const auto vmov32_mem32_vra_test_cases = ::testing::Values(
+    RegAMem32TestCase{0, 0, "VR0_mem0"},
+    RegAMem32TestCase{7, 0xFF, "VR7_mem255"},
+    RegAMem32TestCase{3, 0x42, "VR3_mem66"});
+
+class Vmov32Mem32VraLiftTest
+    : public ::testing::TestWithParam<RegAMem32TestCase> {};
+
+TEST_P(Vmov32Mem32VraLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::Vmov32Mem32Vra::SetRegA(tc.regA) |
+                          TIC28X::Vmov32Mem32Vra::SetMem32(tc.mem32);
+
+  // 4-byte instruction
+  EXPECT_EQ(TIC28X::Vmov32Mem32Vra().GetLength(), 4u);
+
+  // Round-trip: encode then decode
+  EXPECT_EQ(TIC28X::Vmov32Mem32Vra::GetRegA(opcode), tc.regA & 0xF);
+  EXPECT_EQ(TIC28X::Vmov32Mem32Vra::GetMem32(opcode), tc.mem32 & 0xFF);
+}
+
+INSTANTIATE_TEST_SUITE_P(Vmov32Mem32Vra, Vmov32Mem32VraLiftTest,
+                         vmov32_mem32_vra_test_cases, NameFromParam{});
+
+// IL verification: single LLIL_STORE(LLIL_CONST(mem32), LLIL_REG(VRa)).
+
+class Vmov32Mem32VraILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<RegAMem32TestCase> {};
+
+TEST_P(Vmov32Mem32VraILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::Vmov32Mem32Vra::SetRegA(tc.regA) |
+                          TIC28X::Vmov32Mem32Vra::SetMem32(tc.mem32);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::Vmov32Mem32Vra instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  // Should produce exactly 1 IL instruction
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  // === Instruction 0: VMOV32 [mem32] = VRa — Store(Const, Reg) ===
+  const auto storeExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(storeExpr.operation, LLIL_STORE)
+      << "Instruction should be LLIL_STORE";
+
+  // Destination address: LLIL_CONST with mem32 value
+  const auto destExpr = il->GetRawExpr(storeExpr.operands[0]);
+  EXPECT_EQ(destExpr.operation, LLIL_CONST);
+  EXPECT_EQ(destExpr.operands[0], tc.mem32 & 0xFF);
+
+  // Source value: LLIL_REG with VRa
+  const auto srcExpr = il->GetRawExpr(storeExpr.operands[1]);
+  EXPECT_EQ(srcExpr.operation, LLIL_REG);
+  const uint8_t expectedVrReg =
+      static_cast<uint8_t>(TIC28X::Registers::VR0 + (tc.regA & 0xF));
+  EXPECT_EQ(srcExpr.operands[0], expectedVrReg);
+}
+
+INSTANTIATE_TEST_SUITE_P(Vmov32Mem32Vra, Vmov32Mem32VraILTest,
+                         vmov32_mem32_vra_test_cases, NameFromParam{});
+
+// ============================================================================
 // VccmpyVr3Vr2Vr1Vr0 Lift Tests
 // ============================================================================
 //
@@ -1368,3 +1444,104 @@ TEST_F(VccmpyVr3Vr2Vr1Vr0ILTest, GeneratesCorrectIL) {
             TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0)
       << "Should use the vccmpy intrinsic";
 }
+
+// ============================================================================
+// VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32 Lift Tests
+// ============================================================================
+//
+// VCCMPY VR3, VR2, VR1, VR0 || VMOV32 mem32, VRa
+// Complex Conjugate 16x16=32-bit Multiply with parallel 32-bit store.
+// Variable fields: VRa (bits [11:8]), mem32 (bits [7:0]).
+// Lifted as:
+//   Instruction 0: LLIL_INTRINSIC (vccmpy) — same as standalone VCCMPY
+//   Instruction 1: LLIL_STORE([mem32], VRa)
+
+class VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LiftTest
+    : public ::testing::TestWithParam<RegAMem32TestCase> {};
+
+TEST_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(tc.mem32);
+
+  // 4-byte instruction
+  EXPECT_EQ(TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32().GetLength(), 4u);
+
+  // GetRegA round-trips (4-bit field at bits [11:8])
+  EXPECT_EQ(TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::GetRegA(opcode),
+            tc.regA & 0xF);
+
+  // GetMem32 round-trips (8-bit field at bits [7:0])
+  EXPECT_EQ(TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::GetMem32(opcode),
+            tc.mem32 & 0xFF);
+}
+
+static const auto vccmpy_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases =
+    ::testing::Values(RegAMem32TestCase{0, 0x00, "VR0_mem_0"},
+                      RegAMem32TestCase{1, 0xAB, "VR1_mem_ab"},
+                      RegAMem32TestCase{4, 0xFF, "VR4_mem_ff"},
+                      RegAMem32TestCase{6, 0x42, "VR6_mem_42"},
+                      RegAMem32TestCase{7, 0x01, "VR7_mem_01"});
+
+INSTANTIATE_TEST_SUITE_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32,
+                         VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32LiftTest,
+                         vccmpy_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases,
+                         NameFromParam{});
+
+// IL verification: two IL instructions (non-branching).
+// Instruction 0: vccmpy — TIC28X_INTRIN_VCCMPY (LLIL_INTRINSIC)
+// Instruction 1: parallel VMOV32 — LLIL_STORE([mem32], VRa)
+
+class VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32ILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<RegAMem32TestCase> {};
+
+TEST_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32ILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(tc.mem32);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32 instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  // Should produce exactly 2 IL instructions
+  ASSERT_EQ(il->GetInstructionCount(), 2u);
+
+  // === Instruction 0: VCCMPY intrinsic ===
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+  EXPECT_EQ(intrinsicExpr.operands[2],
+            TIC28X::TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0)
+      << "First instruction should be the vccmpy intrinsic";
+
+  // === Instruction 1: Parallel VMOV32 [mem32] = VRa — Store(Const, Reg) ===
+  const auto storeExpr = il->GetRawExpr(il->GetIndexForInstruction(1));
+  EXPECT_EQ(storeExpr.operation, LLIL_STORE)
+      << "Second instruction should be LLIL_STORE";
+
+  // Destination address: LLIL_CONST with mem32 value
+  const auto destExpr = il->GetRawExpr(storeExpr.operands[0]);
+  EXPECT_EQ(destExpr.operation, LLIL_CONST);
+  EXPECT_EQ(destExpr.operands[0], tc.mem32 & 0xFF);
+
+  // Source value: LLIL_REG with VRa
+  const auto srcExpr = il->GetRawExpr(storeExpr.operands[1]);
+  EXPECT_EQ(srcExpr.operation, LLIL_REG);
+  const uint8_t expectedVrReg =
+      static_cast<uint8_t>(TIC28X::Registers::VR0 + (tc.regA & 0xF));
+  EXPECT_EQ(srcExpr.operands[0], expectedVrReg);
+}
+
+INSTANTIATE_TEST_SUITE_P(VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32,
+                         VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32ILTest,
+                         vccmpy_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases,
+                         NameFromParam{});

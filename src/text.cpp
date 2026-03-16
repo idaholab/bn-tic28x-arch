@@ -6945,6 +6945,25 @@ bool Vmov32VraMem32::Text(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+bool Vmov32Mem32Vra::Text(const uint8_t* data, uint64_t addr, size_t& len,
+                          std::vector<BN::InstructionTextToken>& result,
+                          const AddressMode amode) {
+  const auto dataOp = DataToOpcode(data, GetLength());
+  const auto regA = GetRegA(dataOp);
+  const auto mem32 = GetMem32(dataOp);
+  len = GetLength();
+
+  OpText(mnemonic, result);
+  SpaceText(result);
+  ConstText(ConstTextInfo{.value = mem32, .nbits = 8, .is_address = true},
+            result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
+          result);
+
+  return true;
+}
+
 // VCU - Arithmetic Math instructions
 bool Vashl32Vra5bit::Text(const uint8_t* data, uint64_t addr, size_t& len,
                           std::vector<BN::InstructionTextToken>& result,
@@ -7204,6 +7223,28 @@ bool VccmpyVr3Vr2Vr1Vr0::Text(
   RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
 
   return true;
+}
+
+bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Text(
+    const uint8_t* data, uint64_t addr, size_t& len,
+    std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
+  len = GetLength();
+
+  // "vccmpy VR3, VR2, VR1, VR0"
+  OpText(mnemonic, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR1)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
+
+  // " || vmov32 mem32, VRa" — delegate to standalone store instruction
+  ParallelText(result);
+  size_t vmov_len;
+  return Vmov32Mem32Vra{}.Text(data, addr, vmov_len, result, amode);
 }
 
 }  // namespace TIC28X

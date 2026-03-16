@@ -505,6 +505,7 @@ GenerateInstructionVector() {
       std::make_shared<MovizRah16FLoHex>(),
       std::make_shared<Mpyf32RahRbhRch>(),
       std::make_shared<Mpyf32Rah16FHiRbh>(),
+      std::make_shared<VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32>(),
       std::make_shared<Mpyf32RdhRehRfhMov32RahMem32>(),
       std::make_shared<Mpyf32RdhRehRfhMov32Mem32Rah>(),
       std::make_shared<Mpyf32RahRbhRchSubf32RdhRehRfh>(),
@@ -6939,6 +6940,26 @@ uint8_t VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::GetMem32(const uint32_t data) {
 }
 
 uint32_t VccmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
+}
+
+// VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32 - RegA at bits 11-8, mem32 at bits 7-0
+// Encoding:
+//   LSW: 1110 0011 0000 0111 = 0xE307 (bits [31:16])
+//   MSW: 0001 aaaa mmmm mmmm (bits [15:0])
+uint8_t VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(const uint8_t mem) {
   return VcuSetMem(opcode, mem);
 }
 

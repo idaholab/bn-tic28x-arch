@@ -112,6 +112,28 @@ bool Instruction::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   return false;
 }
 
+// VMOV32 mem32, VRa
+// Store the 32-bit contents of VRa into the memory location pointed to by
+// mem32.  No flags are affected.
+//
+// Pseudocode: [mem32] = VRa
+bool Vmov32Mem32Vra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                          BN::LowLevelILFunction& il,
+                          TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint32_t dataOp = DataToOpcode(data, len);
+
+  const uint8_t regA = GetRegA(dataOp);    // 4-bit VRa index (bits [11:8])
+  const uint8_t mem32 = GetMem32(dataOp);  // 8-bit loc32 field (bits [7:0])
+  const uint8_t vrReg = static_cast<uint8_t>(Registers::VR0 + regA);
+
+  // [mem32] = VRa
+  il.AddInstruction(il.Store(Sizes::_4_BYTES, il.Const(Sizes::_4_BYTES, mem32),
+                             il.Register(Sizes::_4_BYTES, vrReg)));
+
+  return true;
+}
+
 // VASHL32 VRa << #5-bit
 // Arithmetic shift left of VRa by immediate amount.
 // If VSTATUS[SAT] == 1, the result is saturated to signed 32-bit bounds.
@@ -789,6 +811,43 @@ bool VccmpyVr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                             {il.Register(Sizes::_4_BYTES, Registers::VR0),
                              il.Register(Sizes::_4_BYTES, Registers::VR1),
                              il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
+}
+
+// VCCMPY VR3, VR2, VR1, VR0 || VMOV32 mem32, VRa
+// Complex Conjugate 16 x 16 = 32-bit Multiply with parallel 32-bit store.
+//
+// The complex multiply depends on VSTATUS[CPACK]:
+//   if(CPACK==0): VR3 = VR0H*VR1H + VR0L*VR1L,  VR2 = VR0H*VR1L - VR0L*VR1H
+//   if(CPACK==1): VR3 = VR0L*VR1L + VR0H*VR1H,  VR2 = VR0L*VR1H - VR0H*VR1L
+//
+// Parallel operation: [mem32] = VRa
+//
+// Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
+//
+// Encoding (4-byte):
+//   LSW: 1110 0011 0000 0111 = 0xE307 (bits [31:16])
+//   MSW: 0001 aaaa mmmm mmmm (bits [15:0])
+//     bits [11:8] = aaaa -> VRa index (value to store)
+//     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
+bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
+                                             size_t& len,
+                                             BN::LowLevelILFunction& il,
+                                             TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // === Instruction 1: VCCMPY complex conjugate multiply ===
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR3),
+                    BN::RegisterOrFlag::Register(Registers::VR2),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0,
+                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
+                    il.Register(Sizes::_4_BYTES, Registers::VR1),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  // === Instruction 2: Parallel VMOV32 [mem32] = VRa (store) ===
+  size_t vmov_len;
+  return Vmov32Mem32Vra{}.Lift(data, addr, vmov_len, il, arch);
 }
 
 }  // namespace TIC28X
