@@ -1739,6 +1739,8 @@ GenerateTestOpcodes() {
           {TIC28X::Vcdsub16Vr6Vr4Vr3Vr2::opcode,
            TIC28X::Vcdsub16Vr6Vr4Vr3Vr2::full_name,
            TIC28X::Vcdsub16Vr6Vr4Vr3Vr2::objmode},
+          {TIC28X::VcflipVra::SetRegA(TEST_DATA), TIC28X::VcflipVra::full_name,
+           TIC28X::VcflipVra::objmode},
       };
 
   return opcodes;

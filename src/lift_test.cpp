@@ -2078,3 +2078,74 @@ INSTANTIATE_TEST_SUITE_P(Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32,
                          Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32ILTest,
                          vcdsub16_vr6_vr4_vr3_vr2_vmov32_vra_mem32_test_cases,
                          NameFromParam{});
+
+// ============================================================================
+// VcflipVra Lift Tests
+// ============================================================================
+
+class VcflipVraLiftTest : public ::testing::TestWithParam<RegATestCase> {};
+
+TEST_P(VcflipVraLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint16_t opcode = TIC28X::VcflipVra::SetRegA(tc.regA);
+
+  EXPECT_EQ(TIC28X::VcflipVra().GetLength(), 2u);
+  EXPECT_EQ(TIC28X::VcflipVra::GetRegA(opcode), tc.regA & 0xF);
+}
+
+class VcflipVraILTest : public ILTestFixture,
+                        public ::testing::WithParamInterface<RegATestCase> {};
+
+// Verify VCFLIP generates: LLIL_SET_REG(VRn, LLIL_ROL(LLIL_REG(VRn),
+// LLIL_CONST(16)))
+TEST_P(VcflipVraILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint16_t opcode = TIC28X::VcflipVra::SetRegA(tc.regA);
+  uint8_t data[2];
+  OpcodeToData2(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VcflipVra instr;
+  size_t len = 2;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 2u);
+
+  // Should produce exactly 1 IL instruction
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  const uint8_t expectedVrReg =
+      static_cast<uint8_t>(TIC28X::Registers::VR0 + (tc.regA & 0xF));
+
+  // Top-level: LLIL_SET_REG
+  const auto setReg = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(setReg.operation, LLIL_SET_REG);
+  EXPECT_EQ(setReg.size, 4u);
+  EXPECT_EQ(setReg.operands[0], expectedVrReg);
+
+  // Value: LLIL_ROL
+  const auto rolExpr = il->GetRawExpr(setReg.operands[1]);
+  EXPECT_EQ(rolExpr.operation, LLIL_ROL);
+  EXPECT_EQ(rolExpr.size, 4u);
+
+  // Left operand: LLIL_REG(VRn)
+  const auto regExpr = il->GetRawExpr(rolExpr.operands[0]);
+  EXPECT_EQ(regExpr.operation, LLIL_REG);
+  EXPECT_EQ(regExpr.operands[0], expectedVrReg);
+
+  // Right operand: LLIL_CONST(16)
+  const auto constExpr = il->GetRawExpr(rolExpr.operands[1]);
+  EXPECT_EQ(constExpr.operation, LLIL_CONST);
+  EXPECT_EQ(constExpr.operands[0], 16);
+}
+
+static const auto vcflip_test_cases =
+    ::testing::Values(RegATestCase{0, "VR0"}, RegATestCase{1, "VR1"},
+                      RegATestCase{4, "VR4"}, RegATestCase{7, "VR7"});
+
+INSTANTIATE_TEST_SUITE_P(VcflipVra, VcflipVraLiftTest, vcflip_test_cases,
+                         NameFromParam{});
+
+INSTANTIATE_TEST_SUITE_P(VcflipVra, VcflipVraILTest, vcflip_test_cases,
+                         NameFromParam{});

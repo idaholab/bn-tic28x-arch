@@ -1587,3 +1587,33 @@ INSTANTIATE_TEST_SUITE_P(
         TestVcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32Text::ParamType> &info) {
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
     });
+
+// VcflipVra - VCU Conjugate Flip
+// Format: vcflip VRa
+
+struct VcflipVraTestCase {
+  uint8_t regA;
+  std::string regStr;
+};
+
+class TestVcflipVraText : public ::testing::TestWithParam<VcflipVraTestCase> {};
+
+TEST_P(TestVcflipVraText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode = TIC28X::VcflipVra::SetRegA(tc.regA);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcflip"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+  };
+
+  test_architecture_text(opcode, TIC28X::VcflipVra::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VcflipVra, TestVcflipVraText,
+    ::testing::Values(VcflipVraTestCase{0, "vr0"}, VcflipVraTestCase{1, "vr1"},
+                      VcflipVraTestCase{4, "vr4"}, VcflipVraTestCase{7, "vr7"}),
+    [](const testing::TestParamInfo<TestVcflipVraText::ParamType> &info) {
+      return std::format("VR{}", info.param.regA);
+    });

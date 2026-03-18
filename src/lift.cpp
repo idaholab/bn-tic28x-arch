@@ -1013,4 +1013,28 @@ bool Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data,
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
 
+// VCFLIP VRa
+// Swap the upper 16 bits (VRaH) and lower 16 bits (VRaL) of VRa.
+// VRa = [VRaL : VRaH]  (equivalent to rotating VRa left by 16 bits)
+//
+// This instruction does NOT affect any flags in VSTATUS.
+bool VcflipVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                     BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint16_t dataOp =
+      static_cast<uint16_t>(DataToOpcode(data, len) & 0xFFFF);
+
+  // Extract the register operand
+  const uint8_t regIdx = GetRegA(dataOp);
+  const uint8_t vrReg = VrIndexToReg(regIdx);
+
+  // Swap upper and lower 16-bit halves = rotate left by 16 bits
+  il.AddInstruction(il.SetRegister(
+      Sizes::_4_BYTES, vrReg,
+      il.RotateLeft(Sizes::_4_BYTES, il.Register(Sizes::_4_BYTES, vrReg),
+                    il.Const(Sizes::_1_BYTE, 16))));
+
+  return true;
+}
+
 }  // namespace TIC28X

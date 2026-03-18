@@ -19780,6 +19780,43 @@ class Vcdsub16Vr6Vr4Vr3Vr2 final : public Instruction2Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+class VcflipVra final : public Instruction2Byte {
+ public:
+  VcflipVra() : Instruction2Byte() {}
+
+  /* Instruction Data */
+  // Encoding: 1010 0001 0000 aaaa (bits 15-4 fixed, bits 3-0 = VRa)
+  // Swap VRaL and VRaH (swap upper and lower half of VCU register).
+  // VRa cannot be VR8.
+  // Flags modified: None
+  static constexpr uint32_t opcode = Opcodes::VCFLIP_VRA;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFF0;
+  static constexpr auto full_name = "VcflipVra";
+  static constexpr auto mnemonic = "vcflip";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  static uint8_t GetRegA(uint16_t data);
+  static uint16_t SetRegA(uint8_t a);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H
