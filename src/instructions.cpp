@@ -635,6 +635,7 @@ GenerateInstructionVector() {
       std::make_shared<VcconVra>(),
       std::make_shared<Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32>(),
       std::make_shared<Vcdadd16Vr5Vr4Vr3Vr2>(),
+      std::make_shared<Vcdsub16Vr6Vr4Vr3Vr2>(),
 
   };
   return vec;

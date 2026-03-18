@@ -1879,3 +1879,90 @@ INSTANTIATE_TEST_SUITE_P(Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32,
                          Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32ILTest,
                          vcdadd16_vr5_vr4_vr3_vr2_vmov32_vra_mem32_test_cases,
                          NameFromParam{});
+
+// ============================================================================
+// Vcdsub16Vr6Vr4Vr3Vr2 Lift Tests
+// ============================================================================
+//
+// VCDSUB16 VR6, VR4, VR3, VR2 (opcode 0xE505, exact 2-byte match, no variable
+// fields).  Complex 16-32=16-bit subtraction.
+// Lifted as a single LLIL_INTRINSIC named "vcdsub16" with:
+//   inputs:  VR4, VR3, VR2, VSTATUS
+//   outputs: VR6, VSTATUS
+
+// Test that the intrinsic ID and name are correctly registered.
+TEST(Vcdsub16Vr6Vr4Vr3Vr2Intrinsic, IntrinsicIsDefined) {
+  EXPECT_EQ(TIC28X::TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2, 8u);
+}
+
+TEST(Vcdsub16Vr6Vr4Vr3Vr2Intrinsic, IntrinsicName) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcdsub16-test");
+  EXPECT_EQ(
+      arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2),
+      "vcdsub16");
+}
+
+TEST(Vcdsub16Vr6Vr4Vr3Vr2Intrinsic, IntrinsicInputCount) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcdsub16-test");
+  auto inputs =
+      arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2);
+  // VR4, VR3, VR2, VSTATUS
+  ASSERT_EQ(inputs.size(), 4u) << "vcdsub16 should have 4 inputs";
+  EXPECT_EQ(inputs[0].name, "vr4");
+  EXPECT_EQ(inputs[1].name, "vr3");
+  EXPECT_EQ(inputs[2].name, "vr2");
+  EXPECT_EQ(inputs[3].name, "vstatus");
+}
+
+TEST(Vcdsub16Vr6Vr4Vr3Vr2Intrinsic, IntrinsicOutputCount) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcdsub16-test");
+  auto outputs =
+      arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2);
+  // VR6 (packed result), VSTATUS (flag updates)
+  ASSERT_EQ(outputs.size(), 2u) << "vcdsub16 should have 2 outputs";
+}
+
+TEST(Vcdsub16Vr6Vr4Vr3Vr2Intrinsic, GetAllIntrinsicsIncludesVcdsub16) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcdsub16-test");
+  auto intrinsics = arch->GetAllIntrinsics();
+  EXPECT_NE(std::find(intrinsics.begin(), intrinsics.end(),
+                      TIC28X::TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2),
+            intrinsics.end())
+      << "vcdsub16 should be in the intrinsics list";
+}
+
+// IL verification test: VCDSUB16 produces a single LLIL_INTRINSIC with the
+// correct intrinsic ID.  Lift is straight-line (no branching), so IL tests
+// are safe in unit-test contexts.
+class Vcdsub16Vr6Vr4Vr3Vr2ILTest : public ILTestFixture {};
+
+TEST_F(Vcdsub16Vr6Vr4Vr3Vr2ILTest, GeneratesCorrectIL) {
+  // Encode opcode 0xE505 as a 2-byte little-endian byte array.
+  uint8_t data[2];
+  OpcodeToData2(
+      static_cast<uint16_t>(TIC28X::Opcodes::VCDSUB16_VR6_VR4_VR3_VR2), data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::Vcdsub16Vr6Vr4Vr3Vr2 instr;
+  size_t len = 2;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 2u);
+
+  // Should produce exactly 1 IL instruction
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  // Top-level: LLIL_INTRINSIC
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+
+  // operands[2] is the intrinsic ID
+  EXPECT_EQ(intrinsicExpr.operands[2],
+            TIC28X::TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2)
+      << "Should use the vcdsub16 intrinsic";
+}

@@ -1514,3 +1514,19 @@ INSTANTIATE_TEST_SUITE_P(
         TestVcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32Text::ParamType> &info) {
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
     });
+
+// Vcdsub16Vr6Vr4Vr3Vr2 - VCU Complex 16-32=16 Subtraction
+// Format: vcdsub16 VR6, VR4, VR3, VR2
+// All operands are fixed implicit registers - opcode 0xE505 is an exact match.
+TEST(Vcdsub16Vr6Vr4Vr3Vr2TextTest, FixedRegisters) {
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcdsub16"}, {TextToken, " "},
+      {RegisterToken, "vr6"},         {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},         {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr3"},         {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},
+  };
+
+  test_architecture_text(TIC28X::Vcdsub16Vr6Vr4Vr3Vr2::opcode,
+                         TIC28X::Vcdsub16Vr6Vr4Vr3Vr2::objmode, 0x0, want);
+}

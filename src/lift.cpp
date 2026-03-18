@@ -938,9 +938,9 @@ bool Vcdadd16Vr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
 //     bits [11:8] = aaaa -> VRa destination index
 //     bits [7:0]  = mem32 addressing mode code
 bool Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data,
-                                               uint64_t addr, size_t& len,
-                                               BN::LowLevelILFunction& il,
-                                               TIC28XArchitecture* arch) {
+                                              uint64_t addr, size_t& len,
+                                              BN::LowLevelILFunction& il,
+                                              TIC28XArchitecture* arch) {
   len = GetLength();
 
   // === Instruction 1: VCDADD16 complex 16+32=16-bit addition ===
@@ -956,6 +956,36 @@ bool Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data,
   // === Instruction 2: Parallel VMOV32 VRa = [mem32] (load) ===
   size_t vmov_len;
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
+}
+
+// VCDSUB16 VR6, VR4, VR3, VR2
+// Complex 16-32=16-bit subtraction.
+// VR4 contains two packed 16-bit values (Re(X) and Im(X)), channel order
+// depends on VSTATUS[CPACK].  VR3=Re(Y) (32-bit), VR2=Im(Y) (32-bit).
+// Each channel: sign_extend(16-bit) << SHIFTL - 32-bit, then >> SHIFTR with
+// optional rounding (RND) and saturation (SAT) back to 16-bit.
+// Result packed into VR6 (VR6H=Re(Z), VR6L=Im(Z)).
+//
+// VSTATUS fields used: CPACK[14], SHIFTL[9:5], SHIFTR[4:0], RND[11], SAT[10]
+// Flags modified: OVFR (bit 12) if real overflows, OVFI (bit 13) if imag
+// overflows
+//
+// Encoding: 0xE505 (all bits fixed, no variable fields)
+//
+// The CPACK-dependent channel ordering, SHIFTL/SHIFTR, conditional rounding,
+// conditional saturation, and per-channel overflow flags make inline LLIL
+// expansion impractical.  Lifted as a single opaque intrinsic.
+bool Vcdsub16Vr6Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                                BN::LowLevelILFunction& il,
+                                TIC28XArchitecture* arch) {
+  return LiftFixedIntrinsic(len, il, GetLength(),
+                            {BN::RegisterOrFlag::Register(Registers::VR6),
+                             BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                            TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2,
+                            {il.Register(Sizes::_4_BYTES, Registers::VR4),
+                             il.Register(Sizes::_4_BYTES, Registers::VR3),
+                             il.Register(Sizes::_4_BYTES, Registers::VR2),
+                             il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
 }
 
 }  // namespace TIC28X

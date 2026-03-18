@@ -39,6 +39,8 @@ enum TIC28XIntrinsic {
       6,  // Complex conjugate — negate imaginary part (VCCON VRa)
   TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2 =
       7,  // Complex 16+32=16-bit addition (VCDADD16 VR5,VR4,VR3,VR2)
+  TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2 =
+      8,  // Complex 16-32=16-bit subtraction (VCDSUB16 VR6,VR4,VR3,VR2)
 };
 
 /**
