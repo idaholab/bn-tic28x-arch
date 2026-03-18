@@ -920,4 +920,42 @@ bool Vcdadd16Vr5Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                              il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
 }
 
+// VCDADD16 VR5, VR4, VR3, VR2 || VMOV32 VRa, mem32
+// Complex 16+32=16-bit addition with parallel 32-bit load.
+//
+// The complex add depends on VSTATUS[CPACK, SHIFTL, SHIFTR, RND, SAT]:
+//   temp1 = sign_extend(VR4H) << SHIFTL + VR3
+//   temp2 = sign_extend(VR4L) << SHIFTL + VR2
+//   Optionally round/truncate by SHIFTR, then saturate to 16 bits.
+//   VR5H = result(temp1), VR5L = result(temp2)
+// Flags: OVFR on VR5H overflow, OVFI on VR5L overflow.
+//
+// Parallel: VRa = [mem32] (32-bit load into VRa register)
+//
+// Encoding:
+//   LSW: 1110 0011 1111 0100 = 0xE3F4 (bits [31:16])
+//   MSW: 0000 aaaa mmmm mmmm (bits [15:0])
+//     bits [11:8] = aaaa -> VRa destination index
+//     bits [7:0]  = mem32 addressing mode code
+bool Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data,
+                                               uint64_t addr, size_t& len,
+                                               BN::LowLevelILFunction& il,
+                                               TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // === Instruction 1: VCDADD16 complex 16+32=16-bit addition ===
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2,
+                   {il.Register(Sizes::_4_BYTES, Registers::VR4),
+                    il.Register(Sizes::_4_BYTES, Registers::VR3),
+                    il.Register(Sizes::_4_BYTES, Registers::VR2),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  // === Instruction 2: Parallel VMOV32 VRa = [mem32] (load) ===
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
+}
+
 }  // namespace TIC28X
