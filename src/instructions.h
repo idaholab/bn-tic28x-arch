@@ -19688,6 +19688,60 @@ class Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32 final : public Instruction4Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+class Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32 final : public Instruction4Byte {
+ public:
+  Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  // Encoding:
+  //   LSW: 1110 0011 1111 1011 = 0xE3FB (bits [31:16])
+  //   MSW: 0000 aaaa mmmm mmmm (bits [15:0])
+  //     bits [11:8] = aaaa -> VRa index (destination for parallel load)
+  //     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
+  // VRa cannot be VR6 (6) or VR8 (8).
+  // Complex 16 - 32 = 16 Subtraction with parallel load.
+  // Inputs (implicit):
+  //   VR4H = Re(X) (16-bit), VR4L = Im(X) (16-bit)
+  //   VR3 = Re(Y) (32-bit), VR2 = Im(Y) (32-bit)
+  // Outputs (implicit):
+  //   VR6H = Re(Z) = Re(X) - (Re(Y) >> SHIFTR)
+  //   VR6L = Im(Z) = Im(X) - (Im(Y) >> SHIFTR)
+  // Parallel: VRa = [mem32]
+  // VSTATUS fields used: CPACK[14], SHIFTL[9:5], SHIFTR[4:0], RND[11], SAT[10]
+  // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
+  static constexpr uint32_t opcode =
+      Opcodes::VCDSUB16_VR6_VR4_VR3_VR2_VMOV32_VRA_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32";
+  static constexpr auto mnemonic = "vcdsub16";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  // VRa: 4-bit register index at bits [11:8]
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  // mem32: 8-bit memory addressing mode at bits [7:0]
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 class Vcdsub16Vr6Vr4Vr3Vr2 final : public Instruction2Byte {
  public:
   Vcdsub16Vr6Vr4Vr3Vr2() : Instruction2Byte() {}

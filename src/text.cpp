@@ -7341,4 +7341,26 @@ bool Vcdsub16Vr6Vr4Vr3Vr2::Text(const uint8_t* data, uint64_t addr, size_t& len,
 
   return true;
 }
+
+bool Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32::Text(
+    const uint8_t* data, uint64_t addr, size_t& len,
+    std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
+  len = GetLength();
+
+  // "vcdsub16 VR6, VR4, VR3, VR2"
+  OpText(mnemonic, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR6)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+
+  // " || vmov32 VRa, mem32" — VRa/mem32 fields are at the same bit positions
+  ParallelText(result);
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
+}
 }  // namespace TIC28X

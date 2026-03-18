@@ -988,4 +988,29 @@ bool Vcdsub16Vr6Vr4Vr3Vr2::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                              il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
 }
 
+// VCDSUB16 VR6, VR4, VR3, VR2 || VMOV32 VRa, mem32
+// Complex 16-32=16-bit subtraction with parallel 32-bit register load.
+// Instruction 1: VCDSUB16 — lifted as opaque intrinsic (same as standalone).
+// Instruction 2: Parallel VMOV32 VRa = [mem32] — delegated to Vmov32VraMem32.
+bool Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data,
+                                              uint64_t addr, size_t& len,
+                                              BN::LowLevelILFunction& il,
+                                              TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // === Instruction 1: VCDSUB16 complex 16-32=16-bit subtraction ===
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR6),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2,
+                   {il.Register(Sizes::_4_BYTES, Registers::VR4),
+                    il.Register(Sizes::_4_BYTES, Registers::VR3),
+                    il.Register(Sizes::_4_BYTES, Registers::VR2),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  // === Instruction 2: Parallel VMOV32 VRa = [mem32] (load) ===
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
+}
+
 }  // namespace TIC28X
