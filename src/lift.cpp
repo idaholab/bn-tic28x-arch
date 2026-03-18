@@ -1037,4 +1037,47 @@ bool VcflipVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
   return true;
 }
 
+// VCMAC VR5, VR4, VR3, VR2, VR1, VR0
+// Complex Multiply and Accumulate.
+//
+// First performs accumulate:
+//   VR5 = VR5 + round(VR3 >> SHIFTR)  (if RND==1)
+//   VR4 = VR4 + round(VR2 >> SHIFTR)  (if RND==1)
+//   VR5 = VR5 + (VR3 >> SHIFTR)       (if RND==0)
+//   VR4 = VR4 + (VR2 >> SHIFTR)       (if RND==0)
+//
+// Then performs complex multiply (X + jX) * (Y + jY):
+//   if(CPACK==0): VR3 = Re(X)*Re(Y) - Im(X)*Im(Y)
+//                 VR2 = Re(X)*Im(Y) + Im(X)*Re(Y)
+//   if(CPACK==1): VR3 = Re(X)*Re(Y) - Im(X)*Im(Y)  (swapped half-words)
+//                 VR2 = Re(X)*Im(Y) + Im(X)*Re(Y)
+//
+// Inputs:  VR0, VR1, VR2, VR3, VR4, VR5, VSTATUS
+// Outputs: VR5=Re(accum), VR4=Im(accum), VR3=Re(mult), VR2=Im(mult), VSTATUS
+// Flags:   OVFR set on VR3 overflow, OVFI set on VR2 overflow
+//
+// Encoding: 0xE501 (all bits fixed, no variable fields)
+//
+// The control flow depends on run-time VSTATUS fields (SHIFTR, RND, SAT, CPACK)
+// across two multiply channels plus two accumulate channels, making inline
+// expansion impractical.  Lifted as a single opaque intrinsic.
+bool VcmacVr5Vr4Vr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr,
+                                   size_t& len, BN::LowLevelILFunction& il,
+                                   TIC28XArchitecture* arch) {
+  return LiftFixedIntrinsic(len, il, GetLength(),
+                            {BN::RegisterOrFlag::Register(Registers::VR5),
+                             BN::RegisterOrFlag::Register(Registers::VR4),
+                             BN::RegisterOrFlag::Register(Registers::VR3),
+                             BN::RegisterOrFlag::Register(Registers::VR2),
+                             BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                            TIC28X_INTRIN_VCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
+                            {il.Register(Sizes::_4_BYTES, Registers::VR0),
+                             il.Register(Sizes::_4_BYTES, Registers::VR1),
+                             il.Register(Sizes::_4_BYTES, Registers::VR2),
+                             il.Register(Sizes::_4_BYTES, Registers::VR3),
+                             il.Register(Sizes::_4_BYTES, Registers::VR4),
+                             il.Register(Sizes::_4_BYTES, Registers::VR5),
+                             il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
+}
+
 }  // namespace TIC28X
