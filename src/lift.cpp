@@ -1080,4 +1080,66 @@ bool VcmacVr5Vr4Vr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr,
                              il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
 }
 
+// VCMAC VR7, VR6, VR5, VR4, mem32, *XAR7++
+// Complex Multiply and Accumulate (repeated form).
+// Must be used with RPT || (single repeat instruction).
+// On each cycle, X comes from mem32, Y comes from *XAR7.
+// Accumulate destination alternates between VR7/VR6 and VR5/VR4
+// on even/odd cycles.  VR0-VR3 are used as temporary multiply results.
+//
+// Inputs:  VR0-VR7, Load(mem32), XAR7, VSTATUS
+// Outputs: VR7-VR0, VSTATUS (OVFR/OVFI flags updated)
+// XAR7 post-increment by 2 is emitted as a separate IL instruction.
+//
+// Encoding: 0xE2510000 with bits [7:0] = mem32 addressing mode
+//
+// The control flow depends on run-time VSTATUS fields (SHIFTR, RND, SAT, CPACK)
+// across two multiply channels plus two alternating accumulate channels, making
+// inline expansion impractical.  Lifted as a single opaque intrinsic plus
+// an explicit XAR7 post-increment.
+bool VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Lift(const uint8_t* data, uint64_t addr,
+                                             size_t& len,
+                                             BN::LowLevelILFunction& il,
+                                             TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint32_t dataOp = DataToOpcode(data, len);
+  const uint8_t mem32 = GetMem32(dataOp);
+
+  // === Instruction 1: VCMAC intrinsic ===
+  // All VR0-VR7, mem32 value, and VSTATUS are inputs.
+  // All VR0-VR7 and VSTATUS are outputs (VR0-VR3 are temps,
+  // VR4-VR7 are accumulators).
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR7),
+                    BN::RegisterOrFlag::Register(Registers::VR6),
+                    BN::RegisterOrFlag::Register(Registers::VR5),
+                    BN::RegisterOrFlag::Register(Registers::VR4),
+                    BN::RegisterOrFlag::Register(Registers::VR3),
+                    BN::RegisterOrFlag::Register(Registers::VR2),
+                    BN::RegisterOrFlag::Register(Registers::VR1),
+                    BN::RegisterOrFlag::Register(Registers::VR0),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCMAC_VR7_VR6_VR5_VR4,
+                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
+                    il.Register(Sizes::_4_BYTES, Registers::VR1),
+                    il.Register(Sizes::_4_BYTES, Registers::VR2),
+                    il.Register(Sizes::_4_BYTES, Registers::VR3),
+                    il.Register(Sizes::_4_BYTES, Registers::VR4),
+                    il.Register(Sizes::_4_BYTES, Registers::VR5),
+                    il.Register(Sizes::_4_BYTES, Registers::VR6),
+                    il.Register(Sizes::_4_BYTES, Registers::VR7),
+                    il.Load(Sizes::_4_BYTES, il.Const(Sizes::_4_BYTES, mem32)),
+                    il.Register(Sizes::_4_BYTES, Registers::XAR7),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  // === Instruction 2: XAR7 post-increment ===
+  // XAR7 += 2 (32-bit / mem32 load = 2 x 16-bit words)
+  il.AddInstruction(il.SetRegister(
+      Sizes::_4_BYTES, Registers::XAR7,
+      il.Add(Sizes::_4_BYTES, il.Register(Sizes::_4_BYTES, Registers::XAR7),
+             il.Const(Sizes::_4_BYTES, 2))));
+
+  return true;
+}
+
 }  // namespace TIC28X

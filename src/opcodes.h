@@ -648,6 +648,7 @@ constexpr uint16_t VCDSUB16_VR6_VR4_VR3_VR2 = 0xE505;
 constexpr uint32_t VCDSUB16_VR6_VR4_VR3_VR2_VMOV32_VRA_MEM32 = 0xE3FB0000;
 constexpr uint16_t VCFLIP_VRA = 0xA100;
 constexpr uint16_t VCMAC_VR5_VR4_VR3_VR2_VR1_VR0 = 0xE501;
+constexpr uint32_t VCMAC_VR7_VR6_VR5_VR4_MEM32_XAR7_POSTINC = 0xE2510000;
 
 // CRC Instructions (TODO)
 

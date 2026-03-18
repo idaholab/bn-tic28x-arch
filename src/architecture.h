@@ -43,6 +43,9 @@ enum TIC28XIntrinsic {
       8,  // Complex 16-32=16-bit subtraction (VCDSUB16 VR6,VR4,VR3,VR2)
   TIC28X_INTRIN_VCMAC_VR5_VR4_VR3_VR2_VR1_VR0 =
       9,  // Complex multiply and accumulate (VCMAC VR5,VR4,VR3,VR2,VR1,VR0)
+  TIC28X_INTRIN_VCMAC_VR7_VR6_VR5_VR4 =
+      10,  // Complex multiply and accumulate, repeated form
+           // (VCMAC VR7,VR6,VR5,VR4,mem32,*XAR7++)
 };
 
 /**

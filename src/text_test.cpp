@@ -1635,3 +1635,56 @@ TEST(VcmacVr5Vr4Vr3Vr2Vr1Vr0TextTest, FixedRegisters) {
   test_architecture_text(TIC28X::VcmacVr5Vr4Vr3Vr2Vr1Vr0::opcode,
                          TIC28X::VcmacVr5Vr4Vr3Vr2Vr1Vr0::objmode, 0x0, want);
 }
+
+// VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc - VCU Complex Multiply and Accumulate
+// (repeated form)
+// Format: vcmac VR7, VR6, VR5, VR4, mem32, *XAR7++
+struct VcmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase {
+  uint8_t mem32;
+};
+
+class TestVcmacVr7Vr6Vr5Vr4Mem32Xar7PostincText
+    : public ::testing::TestWithParam<
+          VcmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase> {};
+
+TEST_P(TestVcmacVr7Vr6Vr5Vr4Mem32Xar7PostincText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::SetMem32(tc.mem32);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcmac"},
+      {TextToken, " "},
+      {RegisterToken, "vr7"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr6"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr5"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr4"},
+      {OperandSeparatorToken, ", "},
+      {TextToken, "@"},
+      {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
+      {OperandSeparatorToken, ", "},
+      {OperationToken, "*"},
+      {RegisterToken, "xar7"},
+      {OperationToken, "++"},
+  };
+
+  test_architecture_text(
+      opcode, TIC28X::VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc,
+    TestVcmacVr7Vr6Vr5Vr4Mem32Xar7PostincText,
+    ::testing::Values(
+        // Test minimum mem32
+        VcmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase{0x00},
+        // Test mid-range mem32
+        VcmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase{0x42},
+        // Test maximum mem32
+        VcmacVr7Vr6Vr5Vr4Mem32Xar7PostincTestCase{0xff}),
+    [](const testing::TestParamInfo<
+        TestVcmacVr7Vr6Vr5Vr4Mem32Xar7PostincText::ParamType> &info) {
+      return std::format("mem{:02x}", info.param.mem32);
+    });

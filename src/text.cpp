@@ -7401,4 +7401,32 @@ bool VcmacVr5Vr4Vr3Vr2Vr1Vr0::Text(
   return true;
 }
 
+bool VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Text(
+    const uint8_t* data, uint64_t addr, size_t& len,
+    std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
+  const auto dataOp = DataToOpcode(data, GetLength());
+  const auto mem32 = GetMem32(dataOp);
+  len = GetLength();
+
+  // "vcmac VR7, VR6, VR5, VR4, mem32, *XAR7++"
+  OpText(mnemonic, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR7)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR6)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
+  OpsepText(result);
+  ConstText(ConstTextInfo{.value = mem32, .nbits = 8, .is_address = true},
+            result);
+  OpsepText(result);
+  RegText(
+      RegTextInfo{.regnum = Registers::XAR7, .indirect = true, .postinc = true},
+      result);
+
+  return true;
+}
+
 }  // namespace TIC28X

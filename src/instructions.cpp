@@ -639,6 +639,7 @@ GenerateInstructionVector() {
       std::make_shared<Vcdsub16Vr6Vr4Vr3Vr2>(),
       std::make_shared<VcflipVra>(),
       std::make_shared<VcmacVr5Vr4Vr3Vr2Vr1Vr0>(),
+      std::make_shared<VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc>(),
 
   };
   return vec;
@@ -7043,6 +7044,18 @@ uint8_t VcflipVra::GetRegA(const uint16_t data) { return VcuGetRegA_IV(data); }
 
 uint16_t VcflipVra::SetRegA(const uint8_t a) {
   return VcuSetRegA_IV(opcode, a);
+}
+
+// VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc - mem32 at bits 7-0
+// Encoding:
+//   LSW: 1110 0010 0101 0001 = 0xE251 (bits [31:16])
+//   MSW: 0000 0000 mmmm mmmm (bits [15:0])
+uint8_t VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
 }
 
 }  // namespace TIC28X
