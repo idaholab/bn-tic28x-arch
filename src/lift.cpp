@@ -1181,4 +1181,36 @@ bool VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data,
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
 
+// VCMAG VRb, VRa
+// Compute the magnitude of the complex value in VRa:
+//   result = VRaH*VRaH + VRaL*VRaL
+//   result >>= VSTATUS[SHIFTR]
+//   If SAT: saturate result
+//   If RND: round result
+//   VRb = result
+// Sets VSTATUS[OVFR] if overflow detected.
+// Lifted as a single intrinsic since it involves multiply-accumulate,
+// saturation, rounding, and variable shift from VSTATUS — all VSTATUS-dependent
+// behavior that cannot be cleanly expressed in basic LLIL.
+bool VcmagVrbVra::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                       BN::LowLevelILFunction& il, TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint32_t dataOp = DataToOpcode(data, len);
+
+  const uint8_t regA = GetRegA(dataOp);
+  const uint8_t vrRegA = static_cast<uint8_t>(Registers::VR0 + regA);
+
+  const uint8_t regB = GetRegB(dataOp);
+  const uint8_t vrRegB = static_cast<uint8_t>(Registers::VR0 + regB);
+
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(vrRegB),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCMAG_VRB_VRA,
+                   {il.Register(Sizes::_4_BYTES, vrRegA),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  return true;
+}
+
 }  // namespace TIC28X

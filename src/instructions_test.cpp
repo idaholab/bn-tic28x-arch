@@ -1752,6 +1752,9 @@ GenerateTestOpcodes() {
                    TEST_DATA),
            TIC28X::VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::full_name,
            TIC28X::VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::objmode},
+          {TIC28X::VcmagVrbVra::SetRegA(TEST_DATA) |
+               TIC28X::VcmagVrbVra::SetRegB(TEST_DATA),
+           TIC28X::VcmagVrbVra::full_name, TIC28X::VcmagVrbVra::objmode},
       };
 
   return opcodes;

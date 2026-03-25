@@ -7455,4 +7455,23 @@ bool VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Text(
   return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
 }
 
+bool VcmagVrbVra::Text(const uint8_t* data, uint64_t addr, size_t& len,
+                       std::vector<BN::InstructionTextToken>& result,
+                       const AddressMode amode) {
+  const auto dataOp = DataToOpcode(data, GetLength());
+  const auto regA = GetRegA(dataOp);
+  const auto regB = GetRegB(dataOp);
+  len = GetLength();
+
+  OpText(mnemonic, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regB)},
+          result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0 + regA)},
+          result);
+
+  return true;
+}
+
 }  // namespace TIC28X

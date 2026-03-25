@@ -46,6 +46,8 @@ enum TIC28XIntrinsic {
   TIC28X_INTRIN_VCMAC_VR7_VR6_VR5_VR4 =
       10,  // Complex multiply and accumulate, repeated form
            // (VCMAC VR7,VR6,VR5,VR4,mem32,*XAR7++)
+  TIC28X_INTRIN_VCMAG_VRB_VRA = 11,  // Complex magnitude: VRb = mag(VRa) with
+                                     // SAT/RND/SHIFTR (VCMAG VRb, VRa)
 };
 
 /**

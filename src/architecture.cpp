@@ -333,6 +333,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "vcmac";
     case TIC28X_INTRIN_VCMAC_VR7_VR6_VR5_VR4:
       return "vcmac";
+    case TIC28X_INTRIN_VCMAG_VRB_VRA:
+      return "vcmag";
     default:
       return "";
   }
@@ -349,7 +351,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
           TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2,
           TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2,
           TIC28X_INTRIN_VCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
-          TIC28X_INTRIN_VCMAC_VR7_VR6_VR5_VR4};
+          TIC28X_INTRIN_VCMAC_VR7_VR6_VR5_VR4,
+          TIC28X_INTRIN_VCMAG_VRB_VRA};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -480,6 +483,13 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("xar7", BN::Type::IntegerType(4, false)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
+    case TIC28X_INTRIN_VCMAG_VRB_VRA:
+      // Inputs: VRa (complex value: VRaH=Re, VRaL=Im), VSTATUS
+      // VSTATUS carries SHIFTR[4:0], RND[11], SAT[10]
+      return {
+          BN::NameAndType("vra", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     default:
       return {};
   }
@@ -544,6 +554,9 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
               BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCMAG_VRB_VRA:
+      // Outputs: VRb (magnitude result), VSTATUS (OVFR flag updated)
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, false)};
     default:
       return {};
   }

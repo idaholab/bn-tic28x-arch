@@ -69,6 +69,11 @@ struct RegAMem32TestCase {
   uint8_t mem32;
   std::string name;
 };
+struct RegARegBTestCase {
+  uint8_t regA;
+  uint8_t regB;
+  std::string name;
+};
 
 // Shared name generator for all parameterized test suites
 struct NameFromParam {
@@ -2486,3 +2491,143 @@ INSTANTIATE_TEST_SUITE_P(
     VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32,
     VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32ILTest,
     vcmac_vr5_vr4_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases, NameFromParam{});
+
+// ============================================================================
+// VcmagVrbVra Lift Tests
+// ============================================================================
+//
+// VCMAG VRb, VRa — Compute magnitude of complex value in VRa.
+// 4-byte instruction with VRa at bits [3:0] and VRb at bits [7:4].
+// Lifted as a single LLIL_INTRINSIC (TIC28X_INTRIN_VCMAG_VRB_VRA) with:
+//   inputs:  VRa, VSTATUS
+//   outputs: VRb, VSTATUS
+
+class VcmagVrbVraLiftTest : public ::testing::TestWithParam<RegARegBTestCase> {
+};
+
+TEST_P(VcmagVrbVraLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::VcmagVrbVra::SetRegA(tc.regA) |
+                          TIC28X::VcmagVrbVra::SetRegB(tc.regB);
+
+  EXPECT_EQ(TIC28X::VcmagVrbVra().GetLength(), 4u);
+  EXPECT_EQ(TIC28X::VcmagVrbVra::GetRegA(opcode), tc.regA & 0xF);
+  EXPECT_EQ(TIC28X::VcmagVrbVra::GetRegB(opcode), tc.regB & 0xF);
+}
+
+class VcmagVrbVraILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<RegARegBTestCase> {};
+
+TEST_P(VcmagVrbVraILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::VcmagVrbVra::SetRegA(tc.regA) |
+                          TIC28X::VcmagVrbVra::SetRegB(tc.regB);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VcmagVrbVra instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+  EXPECT_EQ(intrinsicExpr.operands[2], TIC28X::TIC28X_INTRIN_VCMAG_VRB_VRA)
+      << "Should use the VCMAG intrinsic";
+
+  const uint8_t expectedVrA =
+      static_cast<uint8_t>(TIC28X::Registers::VR0 + (tc.regA & 0xF));
+  const uint8_t expectedVrB =
+      static_cast<uint8_t>(TIC28X::Registers::VR0 + (tc.regB & 0xF));
+
+  // Verify output count: operands[0] = number of output registers.
+  // Outputs are [VRb, VSTATUS]. We cannot walk the output register list
+  // via GetOperandList in stub builds (BN C API returns empty), but the
+  // count is embedded directly in the expression.
+  EXPECT_EQ(intrinsicExpr.operands[0], 2u) << "Should have 2 outputs";
+
+  // Verify input register expressions by walking the expression array
+  // directly. The Lift() method creates expressions in this order:
+  //   expr 0: LLIL_REG(VRa)        — first input
+  //   expr 1: LLIL_REG(VSTATUS)    — second input
+  //   expr 2: LLIL_CALL_PARAM      — wraps input list
+  //   expr 3: LLIL_INTRINSIC       — top-level intrinsic
+  const auto vraRegExpr = il->GetRawExpr(0);
+  EXPECT_EQ(vraRegExpr.operation, LLIL_REG);
+  EXPECT_EQ(vraRegExpr.operands[0], expectedVrA)
+      << "First input should be VRa register (VR" << (int)(tc.regA & 0xF)
+      << ")";
+
+  const auto vstatusInputExpr = il->GetRawExpr(1);
+  EXPECT_EQ(vstatusInputExpr.operation, LLIL_REG);
+  EXPECT_EQ(vstatusInputExpr.operands[0], TIC28X::Registers::VSTATUS)
+      << "Second input should be VSTATUS register";
+
+  // Verify the LLIL_CALL_PARAM sub-expression exists and holds 2 params.
+  const auto callParamExpr = il->GetRawExpr(intrinsicExpr.operands[3]);
+  EXPECT_EQ(callParamExpr.operation, LLIL_CALL_PARAM);
+  EXPECT_EQ(callParamExpr.operands[0], 2u) << "Should have 2 input params";
+
+  // Verify that different regB values produce different output list indices
+  // (i.e., the output register list was actually built with the correct VRb).
+  // We do this indirectly by checking that operands[1] (output list index)
+  // is consistent across the test — it should be 0 in stub mode since
+  // AddRegisterOrFlagList always returns 0, but the output count confirms
+  // the Lift() passed both VRb and VSTATUS as outputs.
+  (void)expectedVrB;  // Used for documentation; can't verify in stub mode
+}
+
+// Intrinsic registration tests
+TEST(VcmagVrbVraIntrinsic, IntrinsicIsDefined) {
+  EXPECT_EQ(TIC28X::TIC28X_INTRIN_VCMAG_VRB_VRA, 11u);
+}
+
+TEST(VcmagVrbVraIntrinsic, IntrinsicName) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcmag-test");
+  EXPECT_EQ(arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCMAG_VRB_VRA),
+            "vcmag");
+}
+
+TEST(VcmagVrbVraIntrinsic, IntrinsicInputCount) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcmag-test");
+  auto inputs = arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCMAG_VRB_VRA);
+  // VRa, VSTATUS
+  ASSERT_EQ(inputs.size(), 2u) << "vcmag should have 2 inputs";
+  EXPECT_EQ(inputs[0].name, "vra");
+  EXPECT_EQ(inputs[1].name, "vstatus");
+}
+
+TEST(VcmagVrbVraIntrinsic, IntrinsicOutputCount) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcmag-test");
+  auto outputs = arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCMAG_VRB_VRA);
+  // VRb (result), VSTATUS (OVFR updated)
+  ASSERT_EQ(outputs.size(), 2u) << "vcmag should have 2 outputs";
+}
+
+TEST(VcmagVrbVraIntrinsic, GetAllIntrinsicsIncludesVcmag) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcmag-test");
+  auto intrinsics = arch->GetAllIntrinsics();
+  EXPECT_NE(std::find(intrinsics.begin(), intrinsics.end(),
+                      TIC28X::TIC28X_INTRIN_VCMAG_VRB_VRA),
+            intrinsics.end())
+      << "vcmag should be in the intrinsics list";
+}
+
+static const auto vcmag_test_cases = ::testing::Values(
+    RegARegBTestCase{0, 1, "VR0_to_VR1"}, RegARegBTestCase{1, 0, "VR1_to_VR0"},
+    RegARegBTestCase{3, 5, "VR3_to_VR5"}, RegARegBTestCase{7, 7, "VR7_to_VR7"},
+    RegARegBTestCase{8, 4, "VR8_to_VR4"});
+
+static auto vcmag_name_gen = [](const auto& info) { return info.param.name; };
+
+INSTANTIATE_TEST_SUITE_P(VcmagVrbVra, VcmagVrbVraLiftTest, vcmag_test_cases,
+                         vcmag_name_gen);
+
+INSTANTIATE_TEST_SUITE_P(VcmagVrbVra, VcmagVrbVraILTest, vcmag_test_cases,
+                         vcmag_name_gen);

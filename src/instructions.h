@@ -19957,6 +19957,47 @@ class VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32 final : public Instruction4Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+// VCMAG VRb, VRa — Magnitude of a Complex Number
+// Encoding:
+//   LSW: 1110 0110 1111 0010 = 0xE6F2 (bits [31:16])
+//   MSW: 0000 0100 bbbb aaaa (bits [15:0])
+class VcmagVrbVra final : public Instruction4Byte {
+ public:
+  VcmagVrbVra() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VCMAG_VRB_VRA;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
+  static constexpr auto full_name = "VcmagVrbVra";
+  static constexpr auto mnemonic = "vcmag";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  // VRa: 4-bit register index at bits [3:0]
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  // VRb: 4-bit register index at bits [7:4]
+  static uint8_t GetRegB(uint32_t data);
+  static uint32_t SetRegB(uint8_t b);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

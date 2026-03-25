@@ -1749,3 +1749,40 @@ INSTANTIATE_TEST_SUITE_P(
         TestVcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32Text::ParamType> &info) {
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
     });
+
+// VcmagVrbVra - Complex Magnitude
+// Format: vcmag VRb, VRa
+
+struct VcmagVrbVraTestCase {
+  uint8_t regA;
+  uint8_t regB;
+  std::string regAStr;
+  std::string regBStr;
+};
+
+class TestVcmagVrbVraText
+    : public ::testing::TestWithParam<VcmagVrbVraTestCase> {};
+
+TEST_P(TestVcmagVrbVraText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode = TIC28X::VcmagVrbVra::SetRegA(tc.regA) |
+                          TIC28X::VcmagVrbVra::SetRegB(tc.regB);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcmag"}, {TextToken, " "},
+      {RegisterToken, tc.regBStr}, {OperandSeparatorToken, ", "},
+      {RegisterToken, tc.regAStr},
+  };
+
+  test_architecture_text(opcode, TIC28X::VcmagVrbVra::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VcmagVrbVra, TestVcmagVrbVraText,
+    ::testing::Values(VcmagVrbVraTestCase{0, 0, "vr0", "vr0"},
+                      VcmagVrbVraTestCase{7, 0, "vr7", "vr0"},
+                      VcmagVrbVraTestCase{0, 7, "vr0", "vr7"},
+                      VcmagVrbVraTestCase{3, 5, "vr3", "vr5"},
+                      VcmagVrbVraTestCase{7, 7, "vr7", "vr7"}),
+    [](const testing::TestParamInfo<TestVcmagVrbVraText::ParamType> &info) {
+      return std::format("VRb{}_VRa{}", info.param.regB, info.param.regA);
+    });
