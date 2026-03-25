@@ -1141,5 +1141,44 @@ bool VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Lift(const uint8_t* data, uint64_t addr,
 
   return true;
 }
+// VCMAC VR5, VR4, VR3, VR2, VR1, VR0 || VMOV32 VRa, mem32
+// Complex Multiply and Accumulate with parallel load.
+//
+// Encoding (4-byte):
+//   LSW: 0xE3F7 (bits [31:16], fixed)
+//   MSW: 0000 aaaa mmmm mmmm (bits [15:0])
+//     bits [11:8] = aaaa -> VRa destination register index
+//     bits [7:0]  = mem32 addressing mode
+//
+// The VCMAC operation is identical to standalone VcmacVr5Vr4Vr3Vr2Vr1Vr0
+// (non-conjugate complex multiply-accumulate).  Lifted as:
+//   1) An opaque intrinsic covering the VCMAC multiply/accumulate operation
+//   2) A parallel VMOV32 VRa = [mem32] load (delegated to Vmov32VraMem32)
+bool VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data,
+                                                 uint64_t addr, size_t& len,
+                                                 BN::LowLevelILFunction& il,
+                                                 TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // === Instruction 1: VCMAC complex MAC ===
+  il.AddInstruction(
+      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
+                    BN::RegisterOrFlag::Register(Registers::VR4),
+                    BN::RegisterOrFlag::Register(Registers::VR3),
+                    BN::RegisterOrFlag::Register(Registers::VR2),
+                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+                   TIC28X_INTRIN_VCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
+                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
+                    il.Register(Sizes::_4_BYTES, Registers::VR1),
+                    il.Register(Sizes::_4_BYTES, Registers::VR2),
+                    il.Register(Sizes::_4_BYTES, Registers::VR3),
+                    il.Register(Sizes::_4_BYTES, Registers::VR4),
+                    il.Register(Sizes::_4_BYTES, Registers::VR5),
+                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  // === Instruction 2: Parallel VMOV32 VRa, mem32 load ===
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
+}
 
 }  // namespace TIC28X

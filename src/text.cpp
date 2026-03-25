@@ -7429,4 +7429,30 @@ bool VcmacVr7Vr6Vr5Vr4Mem32Xar7Postinc::Text(
   return true;
 }
 
+bool VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Text(
+    const uint8_t* data, uint64_t addr, size_t& len,
+    std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
+  len = GetLength();
+
+  // "vcmac VR5, VR4, VR3, VR2, VR1, VR0"
+  OpText(mnemonic, result);
+  SpaceText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR1)}, result);
+  OpsepText(result);
+  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
+
+  // " || vmov32 VRa, mem32" — VRa/mem32 fields are at the same bit positions
+  ParallelText(result);
+  size_t vmov_len;
+  return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
+}
+
 }  // namespace TIC28X
