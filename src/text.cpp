@@ -7114,18 +7114,11 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Text(
     std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
   len = GetLength();
 
-  // "vcadd VR5, VR4, VR3, VR2"
-  OpText(mnemonic, result);
-  SpaceText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+  // "vcadd VR5, VR4, VR3, VR2" — delegate to standalone instruction
+  size_t vcadd_len;
+  VcaddVr5Vr4Vr3Vr2{}.Text(data, addr, vcadd_len, result, amode);
 
-  // " || vmov32 VRa, mem32" — VRa/mem32 fields are at the same bit positions
+  // " || vmov32 VRa, mem32"
   ParallelText(result);
   size_t vmov_len;
   return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
@@ -7158,22 +7151,11 @@ bool VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Text(
     std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
   len = GetLength();
 
-  // "vccmac VR5, VR4, VR3, VR2, VR1, VR0"
-  OpText(mnemonic, result);
-  SpaceText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR1)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
+  // "vccmac VR5, VR4, VR3, VR2, VR1, VR0" — delegate to standalone instruction
+  size_t vccmac_len;
+  VccmacVr5Vr4Vr3Vr2Vr1Vr0{}.Text(data, addr, vccmac_len, result, amode);
 
-  // " || vmov32 VRa, mem32" — VRa/mem32 fields are at the same bit positions
+  // " || vmov32 VRa, mem32"
   ParallelText(result);
   size_t vmov_len;
   return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
@@ -7230,18 +7212,11 @@ bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Text(
     std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
   len = GetLength();
 
-  // "vccmpy VR3, VR2, VR1, VR0"
-  OpText(mnemonic, result);
-  SpaceText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR1)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
+  // "vccmpy VR3, VR2, VR1, VR0" — delegate to standalone instruction
+  size_t vccmpy_len;
+  VccmpyVr3Vr2Vr1Vr0{}.Text(data, addr, vccmpy_len, result, amode);
 
-  // " || vmov32 mem32, VRa" — delegate to standalone store instruction
+  // " || vmov32 mem32, VRa"
   ParallelText(result);
   size_t vmov_len;
   return Vmov32Mem32Vra{}.Text(data, addr, vmov_len, result, amode);
@@ -7252,18 +7227,11 @@ bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::Text(
     std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
   len = GetLength();
 
-  // "vccmpy VR3, VR2, VR1, VR0"
-  OpText(mnemonic, result);
-  SpaceText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR1)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
+  // "vccmpy VR3, VR2, VR1, VR0" — delegate to standalone instruction
+  size_t vccmpy_len;
+  VccmpyVr3Vr2Vr1Vr0{}.Text(data, addr, vccmpy_len, result, amode);
 
-  // " || vmov32 VRa, mem32" — delegate to standalone load instruction
+  // " || vmov32 VRa, mem32"
   ParallelText(result);
   size_t vmov_len;
   return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
@@ -7307,18 +7275,11 @@ bool Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32::Text(
     std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
   len = GetLength();
 
-  // "vcdadd16 VR5, VR4, VR3, VR2"
-  OpText(mnemonic, result);
-  SpaceText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+  // "vcdadd16 VR5, VR4, VR3, VR2" — delegate to standalone instruction
+  size_t vcdadd_len;
+  Vcdadd16Vr5Vr4Vr3Vr2{}.Text(data, addr, vcdadd_len, result, amode);
 
-  // " || vmov32 VRa, mem32" — VRa/mem32 fields are at the same bit positions
+  // " || vmov32 VRa, mem32"
   ParallelText(result);
   size_t vmov_len;
   return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
@@ -7347,18 +7308,11 @@ bool Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32::Text(
     std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
   len = GetLength();
 
-  // "vcdsub16 VR6, VR4, VR3, VR2"
-  OpText(mnemonic, result);
-  SpaceText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR6)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
+  // "vcdsub16 VR6, VR4, VR3, VR2" — delegate to standalone instruction
+  size_t vcdsub_len;
+  Vcdsub16Vr6Vr4Vr3Vr2{}.Text(data, addr, vcdsub_len, result, amode);
 
-  // " || vmov32 VRa, mem32" — VRa/mem32 fields are at the same bit positions
+  // " || vmov32 VRa, mem32"
   ParallelText(result);
   size_t vmov_len;
   return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);
@@ -7434,22 +7388,11 @@ bool VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Text(
     std::vector<BN::InstructionTextToken>& result, const AddressMode amode) {
   len = GetLength();
 
-  // "vcmac VR5, VR4, VR3, VR2, VR1, VR0"
-  OpText(mnemonic, result);
-  SpaceText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR5)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR4)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR3)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR2)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR1)}, result);
-  OpsepText(result);
-  RegText(RegTextInfo{.regnum = static_cast<uint8_t>(Registers::VR0)}, result);
+  // "vcmac VR5, VR4, VR3, VR2, VR1, VR0" — delegate to standalone instruction
+  size_t vcmac_len;
+  VcmacVr5Vr4Vr3Vr2Vr1Vr0{}.Text(data, addr, vcmac_len, result, amode);
 
-  // " || vmov32 VRa, mem32" — VRa/mem32 fields are at the same bit positions
+  // " || vmov32 VRa, mem32"
   ParallelText(result);
   size_t vmov_len;
   return Vmov32VraMem32{}.Text(data, addr, vmov_len, result, amode);

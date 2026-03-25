@@ -608,19 +608,11 @@ bool VcaddVr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
                                            TIC28XArchitecture* arch) {
   len = GetLength();
 
-  // === Instruction 1: VCADD complex addition ===
-  il.AddInstruction(
-      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
-                    BN::RegisterOrFlag::Register(Registers::VR4),
-                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-                   TIC28X_INTRIN_VCADD_VR5_VR4_VR3_VR2,
-                   {il.Register(Sizes::_4_BYTES, Registers::VR5),
-                    il.Register(Sizes::_4_BYTES, Registers::VR4),
-                    il.Register(Sizes::_4_BYTES, Registers::VR3),
-                    il.Register(Sizes::_4_BYTES, Registers::VR2),
-                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  // VCADD VR5, VR4, VR3, VR2 — delegate to standalone instruction
+  size_t vcadd_len;
+  VcaddVr5Vr4Vr3Vr2{}.Lift(data, addr, vcadd_len, il, arch);
 
-  // === Instruction 2: Parallel VMOV32 VRa, mem32 load ===
+  // Parallel VMOV32 VRa, mem32 load
   size_t vmov_len;
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
@@ -687,23 +679,11 @@ bool VccmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data,
                                                   TIC28XArchitecture* arch) {
   len = GetLength();
 
-  // === Instruction 1: VCCMAC complex conjugate MAC ===
-  il.AddInstruction(
-      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
-                    BN::RegisterOrFlag::Register(Registers::VR4),
-                    BN::RegisterOrFlag::Register(Registers::VR3),
-                    BN::RegisterOrFlag::Register(Registers::VR2),
-                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-                   TIC28X_INTRIN_VCCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
-                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
-                    il.Register(Sizes::_4_BYTES, Registers::VR1),
-                    il.Register(Sizes::_4_BYTES, Registers::VR2),
-                    il.Register(Sizes::_4_BYTES, Registers::VR3),
-                    il.Register(Sizes::_4_BYTES, Registers::VR4),
-                    il.Register(Sizes::_4_BYTES, Registers::VR5),
-                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  // VCCMAC VR5, VR4, VR3, VR2, VR1, VR0 — delegate to standalone instruction
+  size_t vccmac_len;
+  VccmacVr5Vr4Vr3Vr2Vr1Vr0{}.Lift(data, addr, vccmac_len, il, arch);
 
-  // === Instruction 2: Parallel VMOV32 VRa, mem32 load ===
+  // Parallel VMOV32 VRa, mem32 load
   size_t vmov_len;
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
@@ -835,17 +815,11 @@ bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
                                             TIC28XArchitecture* arch) {
   len = GetLength();
 
-  // === Instruction 1: VCCMPY complex conjugate multiply ===
-  il.AddInstruction(
-      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR3),
-                    BN::RegisterOrFlag::Register(Registers::VR2),
-                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-                   TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0,
-                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
-                    il.Register(Sizes::_4_BYTES, Registers::VR1),
-                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  // VCCMPY VR3, VR2, VR1, VR0 — delegate to standalone instruction
+  size_t vccmpy_len;
+  VccmpyVr3Vr2Vr1Vr0{}.Lift(data, addr, vccmpy_len, il, arch);
 
-  // === Instruction 2: Parallel VMOV32 [mem32] = VRa (store) ===
+  // Parallel VMOV32 [mem32] = VRa (store)
   size_t vmov_len;
   return Vmov32Mem32Vra{}.Lift(data, addr, vmov_len, il, arch);
 }
@@ -856,17 +830,11 @@ bool VccmpyVr3Vr2Vr1Vr0Vmov32VraMem32Load::Lift(const uint8_t* data,
                                                 TIC28XArchitecture* arch) {
   len = GetLength();
 
-  // === Instruction 1: VCCMPY complex conjugate multiply ===
-  il.AddInstruction(
-      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR3),
-                    BN::RegisterOrFlag::Register(Registers::VR2),
-                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-                   TIC28X_INTRIN_VCCMPY_VR3_VR2_VR1_VR0,
-                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
-                    il.Register(Sizes::_4_BYTES, Registers::VR1),
-                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  // VCCMPY VR3, VR2, VR1, VR0 — delegate to standalone instruction
+  size_t vccmpy_len;
+  VccmpyVr3Vr2Vr1Vr0{}.Lift(data, addr, vccmpy_len, il, arch);
 
-  // === Instruction 2: Parallel VMOV32 VRa = [mem32] (load) ===
+  // Parallel VMOV32 VRa = [mem32] (load)
   size_t vmov_len;
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
@@ -943,17 +911,11 @@ bool Vcdadd16Vr5Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data,
                                               TIC28XArchitecture* arch) {
   len = GetLength();
 
-  // === Instruction 1: VCDADD16 complex 16+32=16-bit addition ===
-  il.AddInstruction(
-      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
-                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-                   TIC28X_INTRIN_VCDADD16_VR5_VR4_VR3_VR2,
-                   {il.Register(Sizes::_4_BYTES, Registers::VR4),
-                    il.Register(Sizes::_4_BYTES, Registers::VR3),
-                    il.Register(Sizes::_4_BYTES, Registers::VR2),
-                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  // VCDADD16 VR5, VR4, VR3, VR2 — delegate to standalone instruction
+  size_t vcdadd_len;
+  Vcdadd16Vr5Vr4Vr3Vr2{}.Lift(data, addr, vcdadd_len, il, arch);
 
-  // === Instruction 2: Parallel VMOV32 VRa = [mem32] (load) ===
+  // Parallel VMOV32 VRa = [mem32] (load)
   size_t vmov_len;
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
@@ -998,15 +960,9 @@ bool Vcdsub16Vr6Vr4Vr3Vr2Vmov32VraMem32::Lift(const uint8_t* data,
                                               TIC28XArchitecture* arch) {
   len = GetLength();
 
-  // === Instruction 1: VCDSUB16 complex 16-32=16-bit subtraction ===
-  il.AddInstruction(
-      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR6),
-                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-                   TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2,
-                   {il.Register(Sizes::_4_BYTES, Registers::VR4),
-                    il.Register(Sizes::_4_BYTES, Registers::VR3),
-                    il.Register(Sizes::_4_BYTES, Registers::VR2),
-                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  // VCDSUB16 VR6, VR4, VR3, VR2 — delegate to standalone instruction
+  size_t vcdsub_len;
+  Vcdsub16Vr6Vr4Vr3Vr2{}.Lift(data, addr, vcdsub_len, il, arch);
 
   // === Instruction 2: Parallel VMOV32 VRa = [mem32] (load) ===
   size_t vmov_len;
@@ -1160,23 +1116,11 @@ bool VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data,
                                                  TIC28XArchitecture* arch) {
   len = GetLength();
 
-  // === Instruction 1: VCMAC complex MAC ===
-  il.AddInstruction(
-      il.Intrinsic({BN::RegisterOrFlag::Register(Registers::VR5),
-                    BN::RegisterOrFlag::Register(Registers::VR4),
-                    BN::RegisterOrFlag::Register(Registers::VR3),
-                    BN::RegisterOrFlag::Register(Registers::VR2),
-                    BN::RegisterOrFlag::Register(Registers::VSTATUS)},
-                   TIC28X_INTRIN_VCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
-                   {il.Register(Sizes::_4_BYTES, Registers::VR0),
-                    il.Register(Sizes::_4_BYTES, Registers::VR1),
-                    il.Register(Sizes::_4_BYTES, Registers::VR2),
-                    il.Register(Sizes::_4_BYTES, Registers::VR3),
-                    il.Register(Sizes::_4_BYTES, Registers::VR4),
-                    il.Register(Sizes::_4_BYTES, Registers::VR5),
-                    il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+  // VCMAC VR5, VR4, VR3, VR2, VR1, VR0 — delegate to standalone instruction
+  size_t vcmac_len;
+  VcmacVr5Vr4Vr3Vr2Vr1Vr0{}.Lift(data, addr, vcmac_len, il, arch);
 
-  // === Instruction 2: Parallel VMOV32 VRa, mem32 load ===
+  // Parallel VMOV32 VRa, mem32 load
   size_t vmov_len;
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
