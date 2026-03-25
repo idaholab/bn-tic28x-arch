@@ -643,6 +643,7 @@ GenerateInstructionVector() {
       std::make_shared<VcmacVr5Vr4Vr3Vr2Vr1Vr0Vmov32VraMem32>(),
       std::make_shared<VcmagVrbVra>(),
       std::make_shared<VcmpyVr3Vr2Vr1Vr0>(),
+      std::make_shared<VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32>(),
 
   };
   return vec;
@@ -7096,6 +7097,26 @@ uint8_t VcmagVrbVra::GetRegB(const uint32_t data) { return VcuGetRegB_I(data); }
 
 uint32_t VcmagVrbVra::SetRegB(const uint8_t b) {
   return VcuSetRegB_I(opcode, b);
+}
+
+// VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32 - RegA at bits 11-8, mem32 at bits 7-0
+// Encoding:
+//   LSW: 1110 0010 1100 1010 = 0xE2CA (bits [31:16])
+//   MSW: 0000 aaaa mmmm mmmm (bits [15:0])
+uint8_t VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::GetRegA(const uint32_t data) {
+  return VcuGetRegA_II(data);
+}
+
+uint32_t VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(const uint8_t a) {
+  return VcuSetRegA_II(opcode, a);
+}
+
+uint8_t VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::GetMem32(const uint32_t data) {
+  return VcuGetMem(data);
+}
+
+uint32_t VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(const uint8_t mem) {
+  return VcuSetMem(opcode, mem);
 }
 
 }  // namespace TIC28X

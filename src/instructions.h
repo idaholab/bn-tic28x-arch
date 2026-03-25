@@ -20034,6 +20034,58 @@ class VcmpyVr3Vr2Vr1Vr0 final : public Instruction2Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+class VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32 final : public Instruction4Byte {
+ public:
+  VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  // Encoding:
+  //   LSW: 1110 0010 1100 1010 = 0xE2CA (bits [31:16])
+  //   MSW: 0000 aaaa mmmm mmmm (bits [15:0])
+  //     bits [11:8] = aaaa -> VRa index (value to store)
+  //     bits [7:0]  = mmmm mmmm -> mem32 addressing mode bits
+  // VRa cannot be VR3 (3), VR2 (2), or VR8 (8).
+  // Complex 16 x 16 = 32-bit Multiply with parallel 32-bit store.
+  // Inputs (implicit): VR0 (first complex operand), VR1 (second complex
+  // operand) Outputs (implicit): VR3=Re(Z), VR2=Im(Z), [mem32]=VRa
+  // if(CPACK==0): VR3=VR0H*VR1H-VR0L*VR1L, VR2=VR0H*VR1L+VR0L*VR1H
+  // if(CPACK==1): VR3=VR0L*VR1L-VR0H*VR1H, VR2=VR0L*VR1H+VR0H*VR1L
+  // [mem32] = VRa
+  // VSTATUS fields used: CPACK[14]
+  // Flags modified: OVFR (VSTATUS[12]), OVFI (VSTATUS[13])
+  static constexpr uint32_t opcode =
+      Opcodes::VCMPY_VR3_VR2_VR1_VR0_VMOV32_VRA_MEM32;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFF000;
+  static constexpr auto full_name = "VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32";
+  static constexpr auto mnemonic = "vcmpy";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  // VRa: 4-bit register index at bits [11:8]
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  // mem32: 8-bit memory addressing mode at bits [7:0]
+  static uint8_t GetMem32(uint32_t data);
+  static uint32_t SetMem32(uint8_t mem);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

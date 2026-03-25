@@ -1241,4 +1241,19 @@ bool VcmpyVr3Vr2Vr1Vr0::Lift(const uint8_t* data, uint64_t addr, size_t& len,
                              il.Register(Sizes::_4_BYTES, Registers::VSTATUS)});
 }
 
+bool VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
+                                           size_t& len,
+                                           BN::LowLevelILFunction& il,
+                                           TIC28XArchitecture* arch) {
+  len = GetLength();
+
+  // VCMPY VR3, VR2, VR1, VR0 — delegate to standalone instruction
+  size_t vcmpy_len;
+  VcmpyVr3Vr2Vr1Vr0{}.Lift(data, addr, vcmpy_len, il, arch);
+
+  // Parallel VMOV32 [mem32] = VRa (store) — delegate to standalone instruction
+  size_t vmov_len;
+  return Vmov32Mem32Vra{}.Lift(data, addr, vmov_len, il, arch);
+}
+
 }  // namespace TIC28X
