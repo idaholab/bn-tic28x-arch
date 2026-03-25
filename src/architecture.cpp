@@ -335,6 +335,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "vcmac";
     case TIC28X_INTRIN_VCMAG_VRB_VRA:
       return "vcmag";
+    case TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0:
+      return "vcmpy";
     default:
       return "";
   }
@@ -352,7 +354,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
           TIC28X_INTRIN_VCDSUB16_VR6_VR4_VR3_VR2,
           TIC28X_INTRIN_VCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
           TIC28X_INTRIN_VCMAC_VR7_VR6_VR5_VR4,
-          TIC28X_INTRIN_VCMAG_VRB_VRA};
+          TIC28X_INTRIN_VCMAG_VRB_VRA,
+          TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -490,6 +493,14 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vra", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
+    case TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0:
+      // Inputs: VR0 (first complex operand), VR1 (second complex operand),
+      // VSTATUS carries CPACK[14] to select channel ordering and SAT[10]
+      return {
+          BN::NameAndType("vr0", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vr1", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     default:
       return {};
   }
@@ -557,6 +568,10 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
     case TIC28X_INTRIN_VCMAG_VRB_VRA:
       // Outputs: VRb (magnitude result), VSTATUS (OVFR flag updated)
       return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0:
+      // Outputs: VR3=Re(Z), VR2=Im(Z), VSTATUS (OVFR/OVFI flags updated)
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
+              BN::Type::IntegerType(4, false)};
     default:
       return {};
   }

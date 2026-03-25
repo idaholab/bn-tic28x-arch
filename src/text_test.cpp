@@ -1786,3 +1786,19 @@ INSTANTIATE_TEST_SUITE_P(
     [](const testing::TestParamInfo<TestVcmagVrbVraText::ParamType> &info) {
       return std::format("VRb{}_VRa{}", info.param.regB, info.param.regA);
     });
+
+// VcmpyVr3Vr2Vr1Vr0 - VCU Complex 16x16=32-bit Multiply
+// Format: vcmpy VR3, VR2, VR1, VR0
+// All operands are fixed implicit registers - opcode is an exact match.
+TEST(VcmpyVr3Vr2Vr1Vr0TextTest, FixedRegisters) {
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcmpy"}, {TextToken, " "},
+      {RegisterToken, "vr3"},      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr1"},      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr0"},
+  };
+
+  test_architecture_text(TIC28X::VcmpyVr3Vr2Vr1Vr0::opcode,
+                         TIC28X::VcmpyVr3Vr2Vr1Vr0::objmode, 0x0, want);
+}

@@ -2631,3 +2631,84 @@ INSTANTIATE_TEST_SUITE_P(VcmagVrbVra, VcmagVrbVraLiftTest, vcmag_test_cases,
 
 INSTANTIATE_TEST_SUITE_P(VcmagVrbVra, VcmagVrbVraILTest, vcmag_test_cases,
                          vcmag_name_gen);
+
+// ============================================================================
+// VcmpyVr3Vr2Vr1Vr0 Lift Tests
+// ============================================================================
+//
+// VCMPY VR3, VR2, VR1, VR0 (opcode 0xE500, exact 2-byte match, no variable
+// fields). Complex 16x16=32-bit Multiply.
+// Lifted as a single LLIL_INTRINSIC named "vcmpy" with:
+//   inputs:  VR0, VR1, VSTATUS
+//   outputs: VR3, VR2, VSTATUS
+
+// Test that the intrinsic ID and name are correctly registered.
+TEST(VcmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicIsDefined) {
+  EXPECT_EQ(TIC28X::TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0, 12u);
+}
+
+TEST(VcmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicName) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcmpy-test");
+  EXPECT_EQ(arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0),
+            "vcmpy");
+}
+
+TEST(VcmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicInputCount) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcmpy-test");
+  auto inputs =
+      arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0);
+  // VR0, VR1, VSTATUS
+  ASSERT_EQ(inputs.size(), 3u) << "vcmpy should have 3 inputs";
+  EXPECT_EQ(inputs[0].name, "vr0");
+  EXPECT_EQ(inputs[1].name, "vr1");
+  EXPECT_EQ(inputs[2].name, "vstatus");
+}
+
+TEST(VcmpyVr3Vr2Vr1Vr0Intrinsic, IntrinsicOutputCount) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcmpy-test");
+  auto outputs =
+      arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0);
+  // VR3 (Re result), VR2 (Im result), VSTATUS (flag updates)
+  ASSERT_EQ(outputs.size(), 3u) << "vcmpy should have 3 outputs";
+}
+
+TEST(VcmpyVr3Vr2Vr1Vr0Intrinsic, GetAllIntrinsicsIncludesVcmpy) {
+  auto arch = std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcmpy-test");
+  auto intrinsics = arch->GetAllIntrinsics();
+  EXPECT_NE(std::find(intrinsics.begin(), intrinsics.end(),
+                      TIC28X::TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0),
+            intrinsics.end())
+      << "vcmpy should be in the intrinsics list";
+}
+
+// IL verification test: VCMPY produces a single LLIL_INTRINSIC with the
+// correct intrinsic ID.  Lift is straight-line (no branching), so IL tests
+// are safe in unit-test contexts.
+class VcmpyVr3Vr2Vr1Vr0ILTest : public ILTestFixture {};
+
+TEST_F(VcmpyVr3Vr2Vr1Vr0ILTest, GeneratesCorrectIL) {
+  // Encode opcode 0xE500 as a 2-byte little-endian byte array.
+  uint8_t data[2];
+  OpcodeToData2(static_cast<uint16_t>(TIC28X::Opcodes::VCMPY_VR3_VR2_VR1_VR0),
+                data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::VcmpyVr3Vr2Vr1Vr0 instr;
+  size_t len = 2;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 2u);
+
+  // Should produce exactly 1 IL instruction
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  // Top-level: LLIL_INTRINSIC
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+
+  // operands[2] is the intrinsic ID
+  EXPECT_EQ(intrinsicExpr.operands[2],
+            TIC28X::TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0)
+      << "Should use the vcmpy intrinsic";
+}
