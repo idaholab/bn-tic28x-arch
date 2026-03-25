@@ -1758,6 +1758,10 @@ GenerateTestOpcodes() {
           {TIC28X::VcmpyVr3Vr2Vr1Vr0::opcode,
            TIC28X::VcmpyVr3Vr2Vr1Vr0::full_name,
            TIC28X::VcmpyVr3Vr2Vr1Vr0::objmode},
+          {TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra::SetRegA(TEST_DATA) |
+               TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra::SetMem32(TEST_DATA),
+           TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra::full_name,
+           TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra::objmode},
           {TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(TEST_DATA) |
                TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(TEST_DATA),
            TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::full_name,

@@ -1803,24 +1803,24 @@ TEST(VcmpyVr3Vr2Vr1Vr0TextTest, FixedRegisters) {
                          TIC28X::VcmpyVr3Vr2Vr1Vr0::objmode, 0x0, want);
 }
 
-// VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32 - VCU Complex Multiply with parallel
+// VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra - VCU Complex Multiply with parallel
 // 32-bit store
 // Format: vcmpy VR3, VR2, VR1, VR0 || vmov32 mem32, VRa
-struct VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase {
+struct VcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraTestCase {
   uint8_t regA;        // VRa register index (0-7)
   uint8_t mem32;       // mem32 addressing mode byte
   std::string regStr;  // expected register string (e.g. "vr0")
 };
 
-class TestVcmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text
-    : public ::testing::TestWithParam<VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase> {
+class TestVcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraText
+    : public ::testing::TestWithParam<VcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraTestCase> {
 };
 
-TEST_P(TestVcmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text, TestInstructionText) {
+TEST_P(TestVcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraText, TestInstructionText) {
   const auto &tc = GetParam();
   const uint32_t opcode =
-      TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(tc.regA) |
-      TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(tc.mem32);
+      TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra::SetRegA(tc.regA) |
+      TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra::SetMem32(tc.mem32);
   // Store direction: vmov32 mem32, VRa (mem32 before register)
   const std::vector<BN::InstructionTextToken> want = {
       {InstructionToken, "vcmpy"},
@@ -1839,6 +1839,63 @@ TEST_P(TestVcmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text, TestInstructionText) {
       {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
       {OperandSeparatorToken, ", "},
       {RegisterToken, tc.regStr},
+  };
+
+  test_architecture_text(
+      opcode, TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    VcmpyVr3Vr2Vr1Vr0Vmov32Mem32Vra, TestVcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraText,
+    ::testing::Values(
+        // Test VR0 (minimum register, minimum mem32)
+        VcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraTestCase{0, 0x00, "vr0"},
+        // Test VR1 (mid-range mem32)
+        VcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraTestCase{1, 0x42, "vr1"},
+        // Test VR7 (maximum register, maximum mem32)
+        VcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraTestCase{7, 0xff, "vr7"}),
+    [](const testing::TestParamInfo<
+        TestVcmpyVr3Vr2Vr1Vr0Vmov32Mem32VraText::ParamType> &info) {
+      return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
+    });
+
+// ============================================================================
+// VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32 - VCU Complex Multiply with parallel
+// 32-bit load
+// Format: vcmpy VR3, VR2, VR1, VR0 || vmov32 VRa, mem32
+struct VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase {
+  uint8_t regA;        // VRa register index (0-7)
+  uint8_t mem32;       // mem32 addressing mode byte
+  std::string regStr;  // expected register string (e.g. "vr0")
+};
+
+class TestVcmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text
+    : public ::testing::TestWithParam<VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32TestCase> {
+};
+
+TEST_P(TestVcmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode =
+      TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetRegA(tc.regA) |
+      TIC28X::VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::SetMem32(tc.mem32);
+  // Load direction: vmov32 VRa, mem32 (register before mem32)
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcmpy"},
+      {TextToken, " "},
+      {RegisterToken, "vr3"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr2"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr1"},
+      {OperandSeparatorToken, ", "},
+      {RegisterToken, "vr0"},
+      {TextToken, " || "},
+      {InstructionToken, "vmov32"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+      {OperandSeparatorToken, ", "},
+      {TextToken, "@"},
+      {PossibleAddressToken, std::format("0x{:x}", tc.mem32)},
   };
 
   test_architecture_text(
