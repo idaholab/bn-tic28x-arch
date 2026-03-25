@@ -50,6 +50,8 @@ enum TIC28XIntrinsic {
                                      // SAT/RND/SHIFTR (VCMAG VRb, VRa)
   TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0 =
       12,  // Complex 16x16=32-bit multiply (VCMPY VR3,VR2,VR1,VR0)
+  TIC28X_INTRIN_VCSHL16_VRA = 13,  // Complex shift left 16-bit: VRaH/VRaL <<=
+                                   // imm with CPACK/SAT (VCSHL16 VRa, #4-bit)
 };
 
 /**

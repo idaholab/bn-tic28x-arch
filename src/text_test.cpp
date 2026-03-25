@@ -1915,3 +1915,52 @@ INSTANTIATE_TEST_SUITE_P(
         TestVcmpyVr3Vr2Vr1Vr0Vmov32VraMem32Text::ParamType> &info) {
       return std::format("VR{}_mem{:02x}", info.param.regA, info.param.mem32);
     });
+
+// ============================================================================
+// VCU - Complex Shift Instructions
+// ============================================================================
+
+// Vcshl16Vra4bit - VCU Complex Shift Left 16-bit
+// Format: vcshl16 VRa << #4-bit
+struct Vcshl16Vra4bitTestCase {
+  uint8_t regA;        // VRa register (0-8)
+  uint8_t imm4;        // 4-bit immediate (0-15)
+  std::string regStr;  // expected register string
+  std::string immStr;  // expected immediate string
+};
+
+class TestVcshl16Vra4bitText
+    : public ::testing::TestWithParam<Vcshl16Vra4bitTestCase> {};
+
+TEST_P(TestVcshl16Vra4bitText, TestInstructionText) {
+  const auto &tc = GetParam();
+  const uint32_t opcode = TIC28X::Vcshl16Vra4bit::SetRegA(tc.regA) |
+                          TIC28X::Vcshl16Vra4bit::SetImm4(tc.imm4);
+  const std::vector<BN::InstructionTextToken> want = {
+      {InstructionToken, "vcshl16"},
+      {TextToken, " "},
+      {RegisterToken, tc.regStr},
+      {TextToken, " "},
+      {OperationToken, "<<"},
+      {TextToken, " "},
+      {TextToken, "#"},
+      {IntegerToken, tc.immStr},
+  };
+
+  test_architecture_text(opcode, TIC28X::Vcshl16Vra4bit::objmode, 0x0, want);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    Vcshl16Vra4bit, TestVcshl16Vra4bitText,
+    ::testing::Values(
+        // Test VR0 with shift 0 (minimum values)
+        Vcshl16Vra4bitTestCase{0, 0, "vr0", "0x0"},
+        // Test VR5 with shift 8 (example from documentation)
+        Vcshl16Vra4bitTestCase{5, 8, "vr5", "0x8"},
+        // Test VR8 with max shift 15 (maximum values)
+        Vcshl16Vra4bitTestCase{8, 15, "vr8", "0xf"},
+        // Test VR3 with shift 4 (mid-range values)
+        Vcshl16Vra4bitTestCase{3, 4, "vr3", "0x4"}),
+    [](const testing::TestParamInfo<TestVcshl16Vra4bitText::ParamType> &info) {
+      return std::format("VR{}_shift{}", info.param.regA, info.param.imm4);
+    });

@@ -20138,6 +20138,49 @@ class VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32 final : public Instruction4Byte {
             BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
 };
 
+// VCSHL16 VRa << #4-bit — Complex Shift Left 16-bit
+// Encoding:
+//   LSW: 1110 0110 1111 0010 = 0xE6F2 (bits [31:16])
+//   MSW: 0000 0000 IIII aaaa (bits [15:0])
+//     bits [7:4] = IIII -> 4-bit unsigned immediate shift amount
+//     bits [3:0] = aaaa -> VRa register number
+class Vcshl16Vra4bit final : public Instruction4Byte {
+ public:
+  Vcshl16Vra4bit() : Instruction4Byte() {}
+
+  /* Instruction Data */
+  static constexpr uint32_t opcode = Opcodes::VCSHL16_VRA_4BIT;
+  static constexpr uint32_t opcode_mask = OpcodeMasks::MASK_FFFFFF00;
+  static constexpr auto full_name = "Vcshl16Vra4bit";
+  static constexpr auto mnemonic = "vcshl16";
+  static constexpr bool repeatable = false;
+  static constexpr ObjectMode objmode = OBJMODE_1;
+
+  /* Overrides for abstract instruction getters */
+  uint32_t GetOpcode() override { return opcode; }
+  uint32_t GetOpcodeMask() override { return opcode_mask; }
+  const char* GetFullName() override { return full_name; }
+  const char* GetMnemonic() override { return mnemonic; }
+  bool IsRepeatable() override { return repeatable; }
+  ObjectMode GetObjmode() override { return objmode; }
+
+  /* Helper Functions */
+  // VRa: 4-bit register index at bits [3:0]
+  static uint8_t GetRegA(uint32_t data);
+  static uint32_t SetRegA(uint8_t a);
+  // #4-bit: 4-bit unsigned immediate at bits [7:4]
+  static uint8_t GetImm4(uint32_t data);
+  static uint32_t SetImm4(uint8_t imm);
+
+  /* Binary Ninja Function Implementations */
+  bool Text(const uint8_t* data, uint64_t addr, size_t& len,
+            std::vector<BN::InstructionTextToken>& result,
+            AddressMode amode) override;
+
+  bool Lift(const uint8_t* data, uint64_t addr, size_t& len,
+            BN::LowLevelILFunction& il, TIC28XArchitecture* arch) override;
+};
+
 }  // namespace TIC28X
 
 #endif  // TIC28X_INSTRUCTIONS_H

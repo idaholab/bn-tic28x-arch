@@ -654,6 +654,7 @@ constexpr uint32_t VCMAG_VRB_VRA = 0xE6F20400;
 constexpr uint16_t VCMPY_VR3_VR2_VR1_VR0 = 0xE500;
 constexpr uint32_t VCMPY_VR3_VR2_VR1_VR0_VMOV32_MEM32_VRA = 0xE2CA0000;
 constexpr uint32_t VCMPY_VR3_VR2_VR1_VR0_VMOV32_VRA_MEM32 = 0xE3F60000;
+constexpr uint32_t VCSHL16_VRA_4BIT = 0xE6F20000;
 
 // CRC Instructions (TODO)
 

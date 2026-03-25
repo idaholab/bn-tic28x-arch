@@ -74,6 +74,11 @@ struct RegARegBTestCase {
   uint8_t regB;
   std::string name;
 };
+struct RegAImm4TestCase {
+  uint8_t regA;
+  uint8_t imm4;
+  std::string name;
+};
 
 // Shared name generator for all parameterized test suites
 struct NameFromParam {
@@ -2917,3 +2922,145 @@ INSTANTIATE_TEST_SUITE_P(VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32,
                          VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32ILTest,
                          vcmpy_vr3_vr2_vr1_vr0_vmov32_vra_mem32_test_cases,
                          NameFromParam{});
+
+// ============================================================================
+// Vcshl16Vra4bit Lift Tests
+// ============================================================================
+//
+// VCSHL16 VRa, #4-bit (opcode 0xE6F20000, mask 0xFFFFFF00, 4-byte).
+// Complex shift left 16-bit: shifts both 16-bit halves of VRa left by a 4-bit
+// unsigned immediate.  Depends on VSTATUS[CPACK] and VSTATUS[SAT].
+// Lifted as a single LLIL_INTRINSIC named "vcshl16" with:
+//   inputs:  VRa, shift amount (1-byte const), VSTATUS
+//   outputs: VRa, VSTATUS
+
+class Vcshl16Vra4bitLiftTest
+    : public ::testing::TestWithParam<RegAImm4TestCase> {};
+
+TEST_P(Vcshl16Vra4bitLiftTest, HelperFunctionsWork) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::Vcshl16Vra4bit::SetRegA(tc.regA) |
+                          TIC28X::Vcshl16Vra4bit::SetImm4(tc.imm4);
+
+  EXPECT_EQ(TIC28X::Vcshl16Vra4bit().GetLength(), 4u);
+  EXPECT_EQ(TIC28X::Vcshl16Vra4bit::GetRegA(opcode), tc.regA & 0xF);
+  EXPECT_EQ(TIC28X::Vcshl16Vra4bit::GetImm4(opcode), tc.imm4 & 0xF);
+}
+
+class Vcshl16Vra4bitILTest
+    : public ILTestFixture,
+      public ::testing::WithParamInterface<RegAImm4TestCase> {};
+
+TEST_P(Vcshl16Vra4bitILTest, GeneratesCorrectIL) {
+  const auto& tc = GetParam();
+  const uint32_t opcode = TIC28X::Vcshl16Vra4bit::SetRegA(tc.regA) |
+                          TIC28X::Vcshl16Vra4bit::SetImm4(tc.imm4);
+  uint8_t data[4];
+  OpcodeToData4(opcode, data);
+
+  auto il = CreateIL();
+  if (!il || !il->GetObject()) GTEST_SKIP() << "BN LLIL unavailable (CI mode)";
+
+  TIC28X::Vcshl16Vra4bit instr;
+  size_t len = 4;
+  ASSERT_TRUE(instr.Lift(data, 0x1000, len, *il, GetArch()));
+  EXPECT_EQ(len, 4u);
+
+  ASSERT_EQ(il->GetInstructionCount(), 1u);
+
+  const auto intrinsicExpr = il->GetRawExpr(il->GetIndexForInstruction(0));
+  EXPECT_EQ(intrinsicExpr.operation, LLIL_INTRINSIC);
+  EXPECT_EQ(intrinsicExpr.operands[2], TIC28X::TIC28X_INTRIN_VCSHL16_VRA)
+      << "Should use the VCSHL16 intrinsic";
+
+  // Verify output count: operands[0] = number of output registers.
+  // Outputs are [VRa, VSTATUS].
+  EXPECT_EQ(intrinsicExpr.operands[0], 2u) << "Should have 2 outputs";
+
+  const uint8_t expectedVrA =
+      static_cast<uint8_t>(TIC28X::Registers::VR0 + (tc.regA & 0xF));
+
+  // Verify input expressions by walking the raw expression array.
+  // The Lift() method creates expressions in this order:
+  //   expr 0: LLIL_REG(VRa)        — first input
+  //   expr 1: LLIL_CONST(shiftAmt) — second input
+  //   expr 2: LLIL_REG(VSTATUS)    — third input
+  //   expr 3: LLIL_CALL_PARAM      — wraps input list
+  //   expr 4: LLIL_INTRINSIC       — top-level intrinsic
+  const auto vraRegExpr = il->GetRawExpr(0);
+  EXPECT_EQ(vraRegExpr.operation, LLIL_REG);
+  EXPECT_EQ(vraRegExpr.size, 4u);
+  EXPECT_EQ(vraRegExpr.operands[0], expectedVrA)
+      << "First input should be VR" << static_cast<int>(tc.regA & 0xF);
+
+  const auto constExpr = il->GetRawExpr(1);
+  EXPECT_EQ(constExpr.operation, LLIL_CONST);
+  EXPECT_EQ(constExpr.size, 1u);
+  EXPECT_EQ(constExpr.operands[0], tc.imm4 & 0xF)
+      << "Second input should be shift amount "
+      << static_cast<int>(tc.imm4 & 0xF);
+
+  const auto vstatusExpr = il->GetRawExpr(2);
+  EXPECT_EQ(vstatusExpr.operation, LLIL_REG);
+  EXPECT_EQ(vstatusExpr.size, 4u);
+  EXPECT_EQ(vstatusExpr.operands[0], TIC28X::Registers::VSTATUS)
+      << "Third input should be VSTATUS register";
+
+  // Verify the LLIL_CALL_PARAM sub-expression wraps 3 input params.
+  const auto callParamExpr = il->GetRawExpr(intrinsicExpr.operands[3]);
+  EXPECT_EQ(callParamExpr.operation, LLIL_CALL_PARAM);
+  EXPECT_EQ(callParamExpr.operands[0], 3u) << "Should have 3 input params";
+}
+
+// Intrinsic registration tests
+TEST(Vcshl16Vra4bitIntrinsic, IntrinsicIsDefined) {
+  EXPECT_EQ(TIC28X::TIC28X_INTRIN_VCSHL16_VRA, 13u);
+}
+
+TEST(Vcshl16Vra4bitIntrinsic, IntrinsicName) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcshl16-test");
+  EXPECT_EQ(arch->GetIntrinsicName(TIC28X::TIC28X_INTRIN_VCSHL16_VRA),
+            "vcshl16");
+}
+
+TEST(Vcshl16Vra4bitIntrinsic, IntrinsicInputCount) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcshl16-test");
+  auto inputs = arch->GetIntrinsicInputs(TIC28X::TIC28X_INTRIN_VCSHL16_VRA);
+  // VRa, shift amount, VSTATUS
+  ASSERT_EQ(inputs.size(), 3u) << "vcshl16 should have 3 inputs";
+  EXPECT_EQ(inputs[0].name, "vra");
+  EXPECT_EQ(inputs[1].name, "shift");
+  EXPECT_EQ(inputs[2].name, "vstatus");
+}
+
+TEST(Vcshl16Vra4bitIntrinsic, IntrinsicOutputCount) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcshl16-test");
+  auto outputs = arch->GetIntrinsicOutputs(TIC28X::TIC28X_INTRIN_VCSHL16_VRA);
+  // VRa (shifted result), VSTATUS (flag updates)
+  ASSERT_EQ(outputs.size(), 2u) << "vcshl16 should have 2 outputs";
+}
+
+TEST(Vcshl16Vra4bitIntrinsic, GetAllIntrinsicsIncludesVcshl16) {
+  auto arch =
+      std::make_unique<TIC28X::TIC28XArchitecture>("tic28x-vcshl16-test");
+  auto all = arch->GetAllIntrinsics();
+  EXPECT_NE(
+      std::find(all.begin(), all.end(), TIC28X::TIC28X_INTRIN_VCSHL16_VRA),
+      all.end())
+      << "GetAllIntrinsics should include VCSHL16";
+}
+
+static const auto vcshl16_test_cases = ::testing::Values(
+    RegAImm4TestCase{0, 0, "VR0_shift0"}, RegAImm4TestCase{1, 8, "VR1_shift8"},
+    RegAImm4TestCase{4, 15, "VR4_shift15"},
+    RegAImm4TestCase{7, 1, "VR7_shift1"},
+    RegAImm4TestCase{8, 12, "VR8_shift12"});
+
+INSTANTIATE_TEST_SUITE_P(Vcshl16Vra4bit, Vcshl16Vra4bitLiftTest,
+                         vcshl16_test_cases, NameFromParam{});
+
+INSTANTIATE_TEST_SUITE_P(Vcshl16Vra4bit, Vcshl16Vra4bitILTest,
+                         vcshl16_test_cases, NameFromParam{});

@@ -337,6 +337,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
       return "vcmag";
     case TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0:
       return "vcmpy";
+    case TIC28X_INTRIN_VCSHL16_VRA:
+      return "vcshl16";
     default:
       return "";
   }
@@ -355,7 +357,8 @@ TIC28XArchitecture::GetFlagsRequiredForFlagCondition(
           TIC28X_INTRIN_VCMAC_VR5_VR4_VR3_VR2_VR1_VR0,
           TIC28X_INTRIN_VCMAC_VR7_VR6_VR5_VR4,
           TIC28X_INTRIN_VCMAG_VRB_VRA,
-          TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0};
+          TIC28X_INTRIN_VCMPY_VR3_VR2_VR1_VR0,
+          TIC28X_INTRIN_VCSHL16_VRA};
 }
 
 [[nodiscard]] std::vector<BN::NameAndType>
@@ -501,6 +504,15 @@ TIC28XArchitecture::GetIntrinsicInputs(uint32_t intrinsic) {
           BN::NameAndType("vr1", BN::Type::IntegerType(4, true)),
           BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
       };
+    case TIC28X_INTRIN_VCSHL16_VRA:
+      // Inputs: VRa (complex value: VRaH=16-bit, VRaL=16-bit),
+      //         shift amount (4-bit unsigned immediate), VSTATUS
+      // VSTATUS carries CPACK[14] to select real/imag mapping, SAT[10]
+      return {
+          BN::NameAndType("vra", BN::Type::IntegerType(4, true)),
+          BN::NameAndType("shift", BN::Type::IntegerType(1, false)),
+          BN::NameAndType("vstatus", BN::Type::IntegerType(4, false)),
+      };
     default:
       return {};
   }
@@ -572,6 +584,10 @@ TIC28XArchitecture::GetIntrinsicOutputs(uint32_t intrinsic) {
       // Outputs: VR3=Re(Z), VR2=Im(Z), VSTATUS (OVFR/OVFI flags updated)
       return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, true),
               BN::Type::IntegerType(4, false)};
+    case TIC28X_INTRIN_VCSHL16_VRA:
+      // Outputs: VRa (shifted result: VRaH and VRaL both shifted),
+      //          VSTATUS (OVFR/OVFI flags updated)
+      return {BN::Type::IntegerType(4, true), BN::Type::IntegerType(4, false)};
     default:
       return {};
   }

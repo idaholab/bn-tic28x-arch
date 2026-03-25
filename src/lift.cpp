@@ -1215,4 +1215,30 @@ bool VcmpyVr3Vr2Vr1Vr0Vmov32VraMem32::Lift(const uint8_t* data, uint64_t addr,
   return Vmov32VraMem32{}.Lift(data, addr, vmov_len, il, arch);
 }
 
+// VCSHL16 VRa, #4-bit
+// Complex shift left 16-bit: shifts both 16-bit halves (VRaH, VRaL) of VRa
+// left by a 4-bit unsigned immediate.
+// Behavior depends on VSTATUS[CPACK] (real/imag mapping) and VSTATUS[SAT]
+// (saturation mode).  Sets OVFR if real overflows, OVFI if imaginary overflows.
+// Lifted as intrinsic because runtime CPACK/SAT flags control the operation.
+bool Vcshl16Vra4bit::Lift(const uint8_t* data, uint64_t addr, size_t& len,
+                          BN::LowLevelILFunction& il,
+                          TIC28XArchitecture* arch) {
+  len = GetLength();
+  const uint32_t dataOp = DataToOpcode(data, len);
+
+  const uint8_t regIdx = GetRegA(dataOp);
+  const uint8_t vrReg = static_cast<uint8_t>(Registers::VR0 + regIdx);
+  const uint8_t shiftAmt = GetImm4(dataOp);
+
+  il.AddInstruction(il.Intrinsic(
+      {BN::RegisterOrFlag::Register(vrReg),
+       BN::RegisterOrFlag::Register(Registers::VSTATUS)},
+      TIC28X_INTRIN_VCSHL16_VRA,
+      {il.Register(Sizes::_4_BYTES, vrReg), il.Const(Sizes::_1_BYTE, shiftAmt),
+       il.Register(Sizes::_4_BYTES, Registers::VSTATUS)}));
+
+  return true;
+}
+
 }  // namespace TIC28X
